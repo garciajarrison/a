@@ -32,7 +32,10 @@
 		</p:dataTable>
 		<p:commandButton value="Add" type="button" onclick="PF('dlg1').show();" />
 		<p:commandButton value="Update" type="button" onclick="PF('dlg1').show();" />
-		<p:commandButton value="Delete" type="button"  />
+		<p:commandButton value="Delete" type="button">
+		<p:ajax event="click" listener="#{marketBB.deleteEntity}" process="@all" update="formulario"/>
+		</p:commandButton>
+		
 		<p:dialog header="Add Market Categories" widgetVar="dlg1" minHeight="40">
 		    <h:outputLabel id="lName" value="Name:" for="txtName"></h:outputLabel>
    		<p:inputText id="txtName" value="#{marketBB.market.name}" ></p:inputText>
@@ -45,11 +48,11 @@
 
 		<p:dialog header="Update Market Categories" widgetVar="dlg1" minHeight="40">
 		    <h:outputLabel id="lNameU" value="Name:" for="txtName"></h:outputLabel>
-   		<p:inputText id="txtNameU" value="#{marketBB.market.name}" ></p:inputText>
+   		<p:inputText id="txtNameU" value="#{marketBB.selectedMarket.name}" ></p:inputText>
    		<h:outputLabel id="lValueU" value="Value:" for="txtValue"></h:outputLabel>
-   		<p:inputText id="txtValueU" value="#{marketBB.market.valor}"></p:inputText>
+   		<p:inputText id="txtValueU" value="#{marketBB.selectedMarket.valor}"></p:inputText>
    		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{marketBB.addEntity}" process="@all" update="formulario"/>   		
+			<p:ajax event="click" listener="#{marketBB.updateEntity}" process="@all" update="formulario"/>   		
    		</p:commandButton>
 		</p:dialog>		
 		

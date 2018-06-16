@@ -14,6 +14,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 
@@ -30,7 +32,7 @@ public class MarketBB implements Serializable {
 	private IMarketService marketService;
 	
 	private MarketCategories market = new MarketCategories();
-	private MarketCategories selectedMarket;
+	private MarketCategories selectedMarket = new MarketCategories();
 	private List<MarketCategories> entityList;
 	
 	
@@ -51,7 +53,38 @@ public class MarketBB implements Serializable {
 		} 	
 		
 	}
+
+	public void updateEntity() {
+		try {
+			/*MarketCategories entity = new MarketCategories();
+			//entity.setId(market.getId());
+			entity.setName(market.getName());
+			entity.setValor(market.getValor());*/
+			getMarketService().updateEntity(selectedMarket);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update!", "Message: "));  
+			
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
+		} 	
+		
+	}
 	
+	public void deleteEntity() {
+		try {
+			/*MarketCategories entity = new MarketCategories();
+			//entity.setId(market.getId());
+			entity.setName(market.getName());
+			entity.setValor(market.getValor());*/
+			getMarketService().deleteEntity(selectedMarket);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete!", "Message: "));  
+			
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
+		} 	
+		
+	}
 
 	public MarketCategories getMarket() {
 		return market;
@@ -92,4 +125,15 @@ public class MarketBB implements Serializable {
 	public void setSelectedMarket(MarketCategories selectedMarket) {
 		this.selectedMarket = selectedMarket;
 	}
+	
+	public void onRowSelect(SelectEvent event) {
+		
+        /*FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+        /*FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+    }	
  }
