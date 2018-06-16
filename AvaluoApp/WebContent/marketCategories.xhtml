@@ -32,6 +32,7 @@
 		</p:dataTable>
 		<p:commandButton value="Add" type="button" onclick="PF('dlg1').show();" />
 		<p:commandButton value="Update" type="button" onclick="PF('dlg1').show();" />
+		<p:commandButton value="Delete" type="button"  />
 		<p:dialog header="Add Market Categories" widgetVar="dlg1" minHeight="40">
 		    <h:outputLabel id="lName" value="Name:" for="txtName"></h:outputLabel>
    		<p:inputText id="txtName" value="#{marketBB.market.name}" ></p:inputText>
