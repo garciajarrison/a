@@ -49,23 +49,23 @@
 		<p:ajax event="click" listener="#{propertyBB.deleteEntity}" process="@all" update="formulario"/>
 		</p:commandButton>
 		
-		<p:dialog header="Add Market Categories" widgetVar="dlg1" minHeight="40">
+		<p:dialog header="Add Property Type" widgetVar="dlg1" minHeight="40">
 		    <h:outputLabel id="lName" value="Name:" for="txtName"></h:outputLabel>
    		<p:inputText id="txtName" value="#{marketBB.market.name}" ></p:inputText>
-   		<h:outputLabel id="lValue" value="Value:" for="txtValue"></h:outputLabel>
-   		<p:inputText id="txtValue" value="#{marketBB.market.valor}"></p:inputText>
+   		<h:outputLabel id="lTax" value="Tax:" for="txtTax"></h:outputLabel>
+   		<p:inputText id="txtTax" value="#{marketBB.property.tax}"></p:inputText>
    		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{marketBB.addEntity}" process="@all" update="formulario"/>   		
+			<p:ajax event="click" listener="#{propertyBB.addEntity}" process="@all" update="formulario"/>   		
    		</p:commandButton>
 		</p:dialog>		
 
-		<p:dialog header="Update Market Categories" widgetVar="dlg1" minHeight="40">
+		<p:dialog header="Update Property Type" widgetVar="dlg1" minHeight="40">
 		    <h:outputLabel id="lNameU" value="Name:" for="txtName"></h:outputLabel>
-   		<p:inputText id="txtNameU" value="#{marketBB.selectedMarket.name}" ></p:inputText>
-   		<h:outputLabel id="lValueU" value="Value:" for="txtValue"></h:outputLabel>
-   		<p:inputText id="txtValueU" value="#{marketBB.selectedMarket.valor}"></p:inputText>
+   		<p:inputText id="txtNameU" value="#{propertyBB.selectedProperty.name}" ></p:inputText>
+   		<h:outputLabel id="lTaxU" value="Tax:" for="txtTax"></h:outputLabel>
+   		<p:inputText id="txtTaxU" value="#{propertyBB.selectedProperty.tax}"></p:inputText>
    		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{marketBB.updateEntity}" process="@all" update="formulario"/>   		
+			<p:ajax event="click" listener="#{propertyBB.updateEntity}" process="@all" update="formulario"/>   		
    		</p:commandButton>
 		</p:dialog>		
 		
