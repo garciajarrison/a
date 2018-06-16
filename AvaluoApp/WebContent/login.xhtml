@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+   <h:form id="formulario">
+   	<p:growl id="growl" showDetail="true" />	
+   	
+   			Correo Electronico: <p:inputText value="#{loginBB.users.email}" required="true" title="Correo electronico"/>
+   			Contrasena: <p:password value="#{loginBB.users.password}" required="true" title="Contrasena"/>
+   			<p:commandButton value="Ingresar" actionListener="#{loginBB.login}" />
+   			
+ 	
+		
+		
+   </h:form>
+</h:body>
+</html>

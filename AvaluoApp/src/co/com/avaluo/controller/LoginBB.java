@@ -1,43 +1,41 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.springframework.dao.DataAccessException;
+import org.springframework.context.annotation.Scope;
 
-import co.com.avaluo.model.entity.Usuario;
-import co.com.avaluo.service.IUsuarioService;
+import co.com.avaluo.model.entity.Users;
+import co.com.avaluo.service.IUsersService;
 
-@ManagedBean
-@ViewScoped
+@Named("loginBB")
+@Scope("session")
 public class LoginBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IUsuarioService usuarioService;
+	private IUsersService usersService;
 	
-	private int id;
-	private String attribute;
-	private List<Usuario> entityList;
+	private Users users;
+	
+	public LoginBB() {
+		users = new Users();
+	}
 	
 
-	public void addEntity() {
+	public void login() {
 		try {
-			Usuario entity = new Usuario();
-			entity.setId(getId());
-			entity.setAttribute(getAttribute());
-			getUsuarioService().addEntity(entity);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
+			users = this.getUsersService().login(users);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", users.getName()));  
 			
-		} catch (DataAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
 		} 	
@@ -45,42 +43,27 @@ public class LoginBB implements Serializable {
 	}
 	
 
-	public void reset() {
-		this.setId(0);
-		this.setAttribute("");
+
+
+	public IUsersService getUsersService() {
+		return usersService;
 	}
 
-	public List<Usuario> getEntityList() {
-		entityList = new ArrayList<Usuario>();
-		entityList.addAll(getUsuarioService().getEntitys());
-		return entityList;
+
+	public void setUsersService(IUsersService usersService) {
+		this.usersService = usersService;
 	}
 
-	public IUsuarioService getUsuarioService() {
-		return usuarioService;
+
+	public Users getUsers() {
+		return users;
 	}
 
-	public void setUsuarioService(IUsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
 
-	public void setEntityList(List<Usuario> entityList) {
-		this.entityList = entityList;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getAttribute() {
-		return attribute;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 	
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
+	
+
  }
