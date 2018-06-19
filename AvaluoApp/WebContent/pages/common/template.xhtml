@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <!-- Meta, title, CSS, favicons, etc. -->
+	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	
+	    <title>Gentelella Alela! | </title>
+	
+	    <!-- Bootstrap -->
+	    <h:outputStylesheet library="resources" name="gentelella/bootstrap/dist/css/bootstrap.min.css" />
+	    <!-- Font Awesome -->
+	    <h:outputStylesheet library="resources" name="gentelella/font-awesome/css/font-awesome.min.css" />
+	    <!-- NProgress -->
+	    <h:outputStylesheet library="resources" name="gentelella/nprogress/nprogress.css" />
+	    <!-- iCheck -->
+	    <h:outputStylesheet library="resources" name="gentelella/iCheck/skins/flat/green.css" />
+		
+	    <!-- bootstrap-progressbar -->
+	    <h:outputStylesheet library="resources" name="gentelella/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />
+	    <!-- JQVMap -->
+	    <h:outputStylesheet library="resources" name="gentelella/jqvmap/dist/jqvmap.min.css" />
+	    <!-- bootstrap-daterangepicker -->
+	    <h:outputStylesheet library="resources" name="gentelella/bootstrap-daterangepicker/daterangepicker.css" />
+	
+	    <!-- Custom Theme Style -->
+	    <h:outputStylesheet library="resources" name="gentelella/css/custom.min.css" />
+    </h:head>
+
+    <h:body styleClass="nav-md">
+        
+       <div class="container body">
+      <div class="main_container">
+        
+        <ui:include src="menu.xhtml"/>
+        
+        <!-- page content -->
+        <div class="right_col" role="main">
+	        <h:form id="formulario">
+		   		<p:growl id="growl" showDetail="true" />
+		        <ui:insert name="content"/>
+		    </h:form>
+	    </div>
+        <!-- /page content -->
+
+     </div>
+     </div>
+     
+     
+     <ui:include src="footer.xhtml"/>
+
+    </h:body>
+
+</html>
+
+
+
+
+
+
+
+    
+	
