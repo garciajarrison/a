@@ -20,20 +20,22 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 
 import co.com.avaluo.model.entity.MarketCategories;
+import co.com.avaluo.model.entity.PropertyType;
 import co.com.avaluo.service.IMarketService;
+import co.com.avaluo.service.IPropertyService;
 
-@Named("marketBB")
+@Named("propertyBB")
 @Scope("session")
 public class PropertyBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IMarketService marketService;
+	private IPropertyService propertyService;
 	
-	private MarketCategories market = new MarketCategories();
-	private MarketCategories selectedMarket = new MarketCategories();
-	private List<MarketCategories> entityList;
+	private PropertyType property = new PropertyType();
+	private PropertyType selectedProperty = new PropertyType();
+	private List<PropertyType> entityList;
 	
 	
 	
@@ -44,7 +46,7 @@ public class PropertyBB implements Serializable {
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getMarketService().addEntity(market);
+			getPropertyService().addEntity(property);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -60,7 +62,7 @@ public class PropertyBB implements Serializable {
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getMarketService().updateEntity(selectedMarket);
+			getPropertyService().updateEntity(selectedProperty);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -76,7 +78,7 @@ public class PropertyBB implements Serializable {
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getMarketService().deleteEntity(selectedMarket);
+			getPropertyService().deleteEntity(selectedProperty);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -86,44 +88,44 @@ public class PropertyBB implements Serializable {
 		
 	}
 
-	public MarketCategories getMarket() {
-		return market;
+	public PropertyType getProperty() {
+		return property;
 	}
 
-	public void setMarket(MarketCategories market) {
-		this.market = market;
+	public void setProperty(PropertyType property) {
+		this.property = property;
 	}
 
 	public void reset() {
-		this.market = new MarketCategories();
+		this.property = new PropertyType();
 	}
 
-	public List<MarketCategories> getEntityList() {
-		entityList = new ArrayList<MarketCategories>();
-		entityList.addAll(getMarketService().getEntitys());
+	public List<PropertyType> getEntityList() {
+		entityList = new ArrayList<PropertyType>();
+		entityList.addAll(getPropertyService().getEntitys());
 		return entityList;
 	}
 
-	public IMarketService getMarketService() {
-		return marketService;
+	public IPropertyService getPropertyService() {
+		return propertyService;
 	}
 
-	public void setMarketService(IMarketService marketService) {
-		this.marketService = marketService;
+	public void setPropertyService(IPropertyService propertyService) {
+		this.propertyService = propertyService;
 	}
 
-	public void setEntityList(List<MarketCategories> entityList) {
+	public void setEntityList(List<PropertyType> entityList) {
 		this.entityList = entityList;
 	}
 
 
-	public MarketCategories getSelectedMarket() {
-		return selectedMarket;
+	public PropertyType getSelectedProperty() {
+		return selectedProperty;
 	}
 
 
-	public void setSelectedMarket(MarketCategories selectedMarket) {
-		this.selectedMarket = selectedMarket;
+	public void setSelectedProperty(PropertyType selectedProperty) {
+		this.selectedProperty = selectedProperty;
 	}
 	
 	public void onRowSelect(SelectEvent event) {
