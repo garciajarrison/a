@@ -61,7 +61,7 @@ public class SoftwareAccount implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Version
+	
 	@Column(name = "version", length = 50)
 	public String getVersion() {
 		return this.version;

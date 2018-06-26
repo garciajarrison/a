@@ -16,5 +16,5 @@ public interface IPropertyService {
 	
 	public PropertyType getEntityById(int id);
 	
-	public List<PropertyType> getEntitys();
+	public List<PropertyType> getEntitys( String propertyType);
 }

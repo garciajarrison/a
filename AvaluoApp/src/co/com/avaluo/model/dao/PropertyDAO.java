@@ -65,12 +65,12 @@ public class PropertyDAO implements IPropertyDAO {
 		return (PropertyType) list.get(0);
 	}
 
-	public List<PropertyType> getEntities() {
+	public List<PropertyType> getEntities( String propertyType) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		
 		@SuppressWarnings("unchecked")
-		List<PropertyType> list = (List<PropertyType>) session.createQuery("from PropertyType").list();
+		List<PropertyType> list = (List<PropertyType>) session.createQuery("from PropertyType where zone = ?").setParameter(0, propertyType).list();
 		
 		trans.commit();
 		return list;

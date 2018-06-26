@@ -7,47 +7,49 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.avaluo.model.dao.IProfileDAO;
 import co.com.avaluo.model.dao.IPropertyDAO;
 import co.com.avaluo.model.dao.IUsuarioDAO;
+import co.com.avaluo.model.entity.ProfileAccount;
 import co.com.avaluo.model.entity.PropertyType;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class ProfileService implements IPropertyService {
+public class ProfileService implements IProfileService {
 
 	@Inject
-	IPropertyDAO entityDAO;
+	IProfileDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(PropertyType entity) {
+	public void addEntity(ProfileAccount entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(PropertyType entity) {
+	public void deleteEntity(ProfileAccount entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(PropertyType entity) {
+	public void updateEntity(ProfileAccount entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public PropertyType getEntityById(int id) {
+	public ProfileAccount getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<PropertyType> getEntitys() {	
+	public List<ProfileAccount> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
 
-	public IPropertyDAO getEntityDAO() {
+	public IProfileDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IPropertyDAO entityDAO) {
+	public void setEntityDAO(IProfileDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

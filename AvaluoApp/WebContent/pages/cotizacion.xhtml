@@ -1,10 +1,73 @@
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui">
-<h:head>
-</h:head>
-<h:body>
-   <h:form id="formulario">
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+	
+		<p:accordionPanel style="margin-top:10px">
+	        <p:tab title="Customer information">
+	          	<h:panelGrid columns="4">
+			   		<h:outputLabel id="personType" value="Person Type:" for="selPersonTtpe"></h:outputLabel>
+			   		<p:selectOneMenu id="selPersonTtpe" value="#{cotizacionBB.customer.personType}" style="width:125px">
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
+			            <f:selectItem itemLabel="Juridica" itemValue="PJURID" />
+		
+		        	</p:selectOneMenu>
+			 		<h:outputLabel id="lIdentificacion" value="Identificacion:" for="txtIdentificacion"></h:outputLabel>
+			   		<p:inputText id="txtIdentificacion" value="#{cotizacionBB.customer.customerIdentification}"></p:inputText>
+			   		<h:outputLabel id="lName" value="Names:" for="txtName"></h:outputLabel>
+			   		<p:inputText id="txtName" value="#{cotizacionBB.customer.name}"></p:inputText>  		
+			   		<h:outputLabel id="lLastName1" value="First Last Name:" for="txtLastName1"></h:outputLabel>
+			   		<p:inputText id="txtLastName1" value="#{cotizacionBB.customer.firstLastName}"></p:inputText>  		
+			   		<h:outputLabel id="lLastName2" value="Second Last Name:" for="txtLastName2"></h:outputLabel>
+			   		<p:inputText id="txtLastName2" value="#{cotizacionBB.customer.secondLastName}"></p:inputText>  		
+		 	   		<h:outputLabel id="lRazon" value="Business Name:" for="txtRazon"></h:outputLabel>
+			   		<p:inputText id="txtRazon" value="#{cotizacionBB.customer.name}"></p:inputText>  		
+			   		
+		 	   		<h:outputLabel id="lPhone" value="Phone:" for="txtPhone"></h:outputLabel>
+			   		<p:inputText id="txtPhone" value="#{cotizacionBB.customer.phone}"></p:inputText>  		
+		 	   		<h:outputLabel id="lAddress" value="Address:" for="txtAddress"></h:outputLabel>
+			   		<p:inputText id="txtAddress" value="#{cotizacionBB.customer.address}"></p:inputText>  		
+		 	   		<h:outputLabel id="lEmail" value="Email:" for="txtEmail"></h:outputLabel>
+			   		<p:inputText id="txtEmail" value="#{cotizacionBB.customer.email}"></p:inputText>  		
+		   		
+   				</h:panelGrid>
+	        </p:tab><font></font>
+	        <p:tab title="Property information"><font></font>
+	          	<h:panelGrid columns="4">
+			   		<h:outputLabel id="lTable" value="Tabla:" for="selPersonTtpe"></h:outputLabel>
+			   		<p:selectOneMenu id="selTables" value="#{cotizacionBB.table}" style="width:125px">
+			   			<p:ajax listener="#{cotizacionBB.onTableChange}" update="selProperty" />
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionBB.listaTables}" />
+			        </p:selectOneMenu>
+		
+			   		<h:outputLabel id="lProperty" value="Property:" for="selProperty"></h:outputLabel>
+			   		<p:selectOneMenu id="selProperty" value="#{cotizacionBB.property}" style="width:125px">
+			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionBB.propertyList}" />
+			        </p:selectOneMenu>		        	
+			 				   		
+   				</h:panelGrid>
+	        </p:tab>
+	        <p:tab title="Area Information"><font></font>
+	          		        </p:tab><font></font>
+	        <p:tab title="Sender information"><font></font>
+	          	
+	        </p:tab><font></font>	  
+	        <p:tab title="Additional information"><font></font>
+	          	
+	        </p:tab><font></font>		              
+    	</p:accordionPanel>   
+
+
+
    		<h:outputLabel id="lUserName" value="User name:" for="txtUserName"></h:outputLabel>
    		<p:inputText id="txtUserName"></p:inputText>
    		<h:outputLabel id="lIdCart" value="Id cart:" for="txtIdCart"></h:outputLabel>
@@ -27,6 +90,6 @@
    		<p:inputText id="txtEmail"></p:inputText>
    		<h:outputLabel id="lContact" value="Contact:" for="txtContact"></h:outputLabel>
    		<p:inputText id="txtContact"></p:inputText>
-   </h:form>
-</h:body>
-</html>
+		
+   </ui:define>
+</ui:composition>

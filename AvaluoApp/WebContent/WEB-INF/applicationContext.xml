@@ -23,7 +23,7 @@
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/avalsoft" />
 		<property name="username" value="postgres" />
-		<property name="password" value="12345678" />
+		<property name="password" value="avaluos" />
 	</bean>
 
 	<!-- Session Factory Declaration -->
@@ -33,6 +33,17 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>co.com.avaluo.model.entity.MarketCategories</value>
+				<value>co.com.avaluo.model.entity.Tables</value>
+				<value>co.com.avaluo.model.entity.DetailTable</value>
+				<value>co.com.avaluo.model.entity.Customer</value>
+				<value>co.com.avaluo.model.entity.Properties</value>
+				<value>co.com.avaluo.model.entity.Registry</value>
+				<value>co.com.avaluo.model.entity.ProfileAccount</value>
+				<value>co.com.avaluo.model.entity.PropertyType</value>
+				
+				<value>co.com.avaluo.model.entity.Services</value>
+				<value>co.com.avaluo.model.entity.SoftwareAccount</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">
