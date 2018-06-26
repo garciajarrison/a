@@ -14,5 +14,5 @@ public interface IPropertyDAO {
 	
 	public PropertyType getEntity(int id);
 
-	public List<PropertyType> getEntities();
+	public List<PropertyType> getEntities( String propertyType);
 }

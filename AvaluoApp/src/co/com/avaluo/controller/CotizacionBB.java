@@ -2,7 +2,9 @@ package co.com.avaluo.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -22,6 +24,7 @@ import org.springframework.dao.DataAccessException;
 import co.com.avaluo.model.entity.Customer;
 import co.com.avaluo.model.entity.MarketCategories;
 import co.com.avaluo.model.entity.PropertyType;
+import co.com.avaluo.model.entity.Tables;
 import co.com.avaluo.service.ICustomerService;
 import co.com.avaluo.service.IMarketService;
 import co.com.avaluo.service.IPropertyService;
@@ -35,21 +38,27 @@ public class CotizacionBB implements Serializable {
 
 	@Inject
 	private IMarketService marketService;
+	@Inject
 	private ICustomerService customerService;
+	@Inject
 	private IPropertyService propertyService;
+	@Inject
 	private ITablesService tablesService;
 	
 	
 	private MarketCategories market = new MarketCategories();
 	private MarketCategories selectedMarket = new MarketCategories();
 	private List<MarketCategories> marketList;
+	private List<Tables> tables;
+	private String table;
+	private String property;
+	private Map<String,String> listaTables = new HashMap<String, String>();
 	private List<Customer> customerList;
 	private List<PropertyType> propertyList;
 	private Customer customer = new Customer();
 	private PropertyType propertyType = new PropertyType();
 	
-	
-	
+
 	
 	public void addEntity() {
 		try {
@@ -116,6 +125,16 @@ public class CotizacionBB implements Serializable {
 		marketList.addAll(getMarketService().getEntitys());
 		return marketList;
 	}
+	
+	public Map<String, String> getLzistaTable() {
+		tables = new ArrayList<Tables>();
+		tables.addAll(getTablesService().getEntitys());
+		for (Tables table : tables) {
+			listaTables.put(table.getName(), table.getTableType());
+		}
+		return listaTables;
+	}
+	
 
 	public List<MarketCategories> getMarketList() {
 		return marketList;
@@ -155,6 +174,56 @@ public class CotizacionBB implements Serializable {
 
 	public void setPropertyType(PropertyType propertyType) {
 		this.propertyType = propertyType;
+	}
+
+	public List<Tables> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<Tables> tables) {
+		this.tables = tables;
+	}
+
+	public Map<String,String> getListaTables() {
+		tables = new ArrayList<Tables>();
+		tables.addAll(getTablesService().getEntitys());
+		for (Tables table : tables) {
+			listaTables.put(table.getName(),table.getTableType());
+		}
+		return listaTables;
+	}
+	
+	public void onTableChange() {
+        if(table !=null && !table.equals("")) {
+        	propertyList = new ArrayList<PropertyType>();
+			propertyList.addAll(getPropertyService().getEntitys(table));
+	    }
+        else
+        	propertyList =  new ArrayList<PropertyType>();
+    }
+
+	/*public void setListaTables(Map<String, String> listaTables) {
+		this.listaTables = listaTables;
+	}*/
+
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
+	}
+
+	public void setListaTables(Map<String, String> listaTables) {
+		this.listaTables = listaTables;
 	}
 
 	public IMarketService getMarketService() {

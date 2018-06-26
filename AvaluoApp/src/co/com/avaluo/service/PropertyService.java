@@ -39,8 +39,8 @@ public class PropertyService implements IPropertyService {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<PropertyType> getEntitys() {	
-		return getEntityDAO().getEntities();
+	public List<PropertyType> getEntitys(String propertyType) {	
+		return getEntityDAO().getEntities(propertyType);
 	}
 
 	public IPropertyDAO getEntityDAO() {

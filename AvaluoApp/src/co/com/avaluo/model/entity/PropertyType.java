@@ -16,6 +16,7 @@ public class PropertyType implements java.io.Serializable {
 	private int id;
 	private String nameType;
 	private Double tax;
+	private String zone;
 
 	public PropertyType() {
 	}
@@ -24,10 +25,11 @@ public class PropertyType implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public PropertyType(int id, String nameType, Double tax) {
+	public PropertyType(int id, String nameType, Double tax, String zone) {
 		this.id = id;
 		this.nameType = nameType;
 		this.tax = tax;
+		this.zone = zone;
 	}
 
 	@Id
@@ -57,6 +59,14 @@ public class PropertyType implements java.io.Serializable {
 
 	public void setTax(Double tax) {
 		this.tax = tax;
+	}
+
+	public String getZone() {
+		return zone;
+	}
+
+	public void setZone(String zone) {
+		this.zone = zone;
 	}
 
 }
