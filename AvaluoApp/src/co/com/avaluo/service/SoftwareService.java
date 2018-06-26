@@ -8,46 +8,48 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IPropertyDAO;
+import co.com.avaluo.model.dao.ISoftwareDAO;
 import co.com.avaluo.model.dao.IUsuarioDAO;
 import co.com.avaluo.model.entity.PropertyType;
+import co.com.avaluo.model.entity.SoftwareAccount;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class SoftwareService implements IPropertyService {
+public class SoftwareService implements ISoftwareService {
 
 	@Inject
-	IPropertyDAO entityDAO;
+	ISoftwareDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(PropertyType entity) {
+	public void addEntity(SoftwareAccount entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(PropertyType entity) {
+	public void deleteEntity(SoftwareAccount entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(PropertyType entity) {
+	public void updateEntity(SoftwareAccount entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public PropertyType getEntityById(int id) {
+	public SoftwareAccount getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<PropertyType> getEntitys() {	
+	public List<SoftwareAccount> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
 
-	public IPropertyDAO getEntityDAO() {
+	public ISoftwareDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IPropertyDAO entityDAO) {
+	public void setEntityDAO(ISoftwareDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }
