@@ -8,46 +8,48 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IPropertyDAO;
+import co.com.avaluo.model.dao.IServicesDAO;
 import co.com.avaluo.model.dao.IUsuarioDAO;
 import co.com.avaluo.model.entity.PropertyType;
+import co.com.avaluo.model.entity.Services;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class ServicesService implements IPropertyService {
+public class ServicesService implements IServicesService {
 
 	@Inject
-	IPropertyDAO entityDAO;
+	IServicesDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(PropertyType entity) {
+	public void addEntity(Services entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(PropertyType entity) {
+	public void deleteEntity(Services entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(PropertyType entity) {
+	public void updateEntity(Services entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public PropertyType getEntityById(int id) {
+	public Services getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<PropertyType> getEntitys() {	
+	public List<Services> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
 
-	public IPropertyDAO getEntityDAO() {
+	public IServicesDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IPropertyDAO entityDAO) {
+	public void setEntityDAO(IServicesDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

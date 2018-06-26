@@ -102,7 +102,7 @@ public class PropertyBB implements Serializable {
 
 	public List<PropertyType> getEntityList() {
 		entityList = new ArrayList<PropertyType>();
-		entityList.addAll(getPropertyService().getEntitys());
+		entityList.addAll(getPropertyService().getEntitys(""));
 		return entityList;
 	}
 
