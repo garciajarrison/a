@@ -1,0 +1,23 @@
+-- Table: avalsoft.registry
+
+-- DROP TABLE avalsoft.registry;
+
+CREATE TABLE avalsoft.registry
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.registry_id_seq'::regclass),
+    id_client character(20) COLLATE pg_catalog."default",
+    name character varying(300) COLLATE pg_catalog."default",
+    address character varying(200) COLLATE pg_catalog."default",
+    phone character varying(20) COLLATE pg_catalog."default",
+    name_contact character varying(300) COLLATE pg_catalog."default",
+    phone_contact character varying(20) COLLATE pg_catalog."default",
+    email_contact character varying(200) COLLATE pg_catalog."default",
+    CONSTRAINT registry_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.registry
+    OWNER to postgres;
