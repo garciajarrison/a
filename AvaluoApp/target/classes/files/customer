@@ -1,0 +1,24 @@
+-- Table: avalsoft.customer
+
+-- DROP TABLE avalsoft.customer;
+
+CREATE TABLE avalsoft.customer
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.customer_id_seq'::regclass),
+    customer_identification character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(200) COLLATE pg_catalog."default",
+    first_last_name character varying(200) COLLATE pg_catalog."default",
+    second_last_name character varying(200) COLLATE pg_catalog."default",
+    phone character varying(20) COLLATE pg_catalog."default",
+    address character varying(300) COLLATE pg_catalog."default",
+    email character varying(300) COLLATE pg_catalog."default",
+    person_type character varying(20)[] COLLATE pg_catalog."default",
+    CONSTRAINT customer_pkey PRIMARY KEY (customer_identification)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.customer
+    OWNER to postgres;
