@@ -1,0 +1,28 @@
+-- Table: avalsoft.users
+
+-- DROP TABLE avalsoft.users;
+
+CREATE TABLE avalsoft.users
+(
+    id integer NOT NULL,
+    name character varying(150) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    address character varying(150) COLLATE pg_catalog."default",
+    phone character varying(20) COLLATE pg_catalog."default",
+    celphone character varying(20) COLLATE pg_catalog."default",
+    password character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    state boolean NOT NULL,
+    id_rol integer NOT NULL,
+    CONSTRAINT users_pkey PRIMARY KEY (id),
+    CONSTRAINT "FK_USERS_ROL" FOREIGN KEY (id_rol)
+        REFERENCES avalsoft.rol (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.users
+    OWNER to postgres;

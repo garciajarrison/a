@@ -46,7 +46,6 @@ public class Customer implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "customer_identification", unique = true, nullable = false, length = 20)
 	public String getCustomerIdentification() {
 		return this.customerIdentification;
