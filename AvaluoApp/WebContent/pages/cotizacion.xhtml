@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<ui:composition template="common/template.xhtml"
-   xmlns="http://www.w3c.org/1999/xhtml"
+<html xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui"
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+   <h:form id="formulario">
 
-	<ui:define name="content">
+
 	
 		<p:accordionPanel style="margin-top:10px">
 	        <p:tab title="Customer information">
@@ -42,7 +43,7 @@
 	          	<h:panelGrid columns="4">
 			   		<h:outputLabel id="lTable" value="Tabla:" for="selPersonTtpe"></h:outputLabel>
 			   		<p:selectOneMenu id="selTables" value="#{cotizacionBB.table}" style="width:125px">
-			   			<p:ajax listener="#{cotizacionBB.onTableChange}" update="selProperty" />
+			   			<p:ajax listener="#{cotizacionBB.onTableChange(cotizacionBB.table)}" process="selTables,selProperty" update="selProperty" />
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionBB.listaTables}" />
 			        </p:selectOneMenu>
@@ -71,7 +72,7 @@
    		<h:outputLabel id="lUserName" value="User name:" for="txtUserName"></h:outputLabel>
    		<p:inputText id="txtUserName"></p:inputText>
    		<h:outputLabel id="lIdCart" value="Id cart:" for="txtIdCart"></h:outputLabel>
-   		<p:inputText id="txIdCart"></p:inputText>
+   		<p:inputText id="txtIdCart"></p:inputText>
    		<h:outputLabel id="lProfesion" value="Profesion:" for="txtProfesion"></h:outputLabel>
    		<p:inputText id="txtProfesion"></p:inputText>
    		<h:outputLabel id="lIdProf" value="Id Prof:" for="txtIdProf"></h:outputLabel>
@@ -90,6 +91,6 @@
    		<p:inputText id="txtEmail"></p:inputText>
    		<h:outputLabel id="lContact" value="Contact:" for="txtContact"></h:outputLabel>
    		<p:inputText id="txtContact"></p:inputText>
-		
-   </ui:define>
-</ui:composition>
+   </h:form>
+</h:body>
+</html>
