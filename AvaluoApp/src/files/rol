@@ -1,0 +1,19 @@
+-- Table: avalsoft.rol
+
+-- DROP TABLE avalsoft.rol;
+
+CREATE TABLE avalsoft.rol
+(
+    id integer NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default",
+    state boolean NOT NULL,
+    CONSTRAINT rol_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.rol
+    OWNER to postgres;

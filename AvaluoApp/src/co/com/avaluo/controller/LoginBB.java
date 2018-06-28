@@ -3,14 +3,14 @@ package co.com.avaluo.controller;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
+import co.com.avaluo.common.EnumSessionAttributes;
+import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Users;
 import co.com.avaluo.service.IUsersService;
 
@@ -33,13 +33,16 @@ public class LoginBB implements Serializable {
 	public void login() {
 		try {
 			users = this.getUsersService().login(users);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", users.getName()));  
-			
+			if(users != null) {
+				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USER, users);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", users.getName()));  
+			} else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
 		} 	
-		
 	}
 	
 

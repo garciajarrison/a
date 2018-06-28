@@ -1,0 +1,31 @@
+-- Table: avalsoft.tables
+
+-- DROP TABLE avalsoft.tables;
+
+CREATE TABLE avalsoft.tables
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.tables_id_seq'::regclass),
+    table_type character varying(200) COLLATE pg_catalog."default",
+    name character varying(200) COLLATE pg_catalog."default",
+    id_services numeric(20,0),
+    uom character varying(50) COLLATE pg_catalog."default",
+    uom_alt character varying(50) COLLATE pg_catalog."default",
+    conver numeric(50,0),
+    base numeric(50,0),
+    expenses double precision,
+    day_of_job numeric(5,0),
+    minimum numeric(20,0),
+    law character varying(200) COLLATE pg_catalog."default",
+    entity character varying(200) COLLATE pg_catalog."default",
+    note character varying(200) COLLATE pg_catalog."default",
+    state boolean,
+    year numeric(5,0),
+    CONSTRAINT tables_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.tables
+    OWNER to postgres;

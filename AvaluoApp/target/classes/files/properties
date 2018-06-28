@@ -1,0 +1,22 @@
+-- Table: avalsoft.properties
+
+-- DROP TABLE avalsoft.properties;
+
+CREATE TABLE avalsoft.properties
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.properties_id_seq'::regclass),
+    property_type numeric(20,0),
+    zone character varying(50) COLLATE pg_catalog."default",
+    real_estate_registration character varying(100) COLLATE pg_catalog."default",
+    stratum numeric(20,0),
+    department character varying(200) COLLATE pg_catalog."default",
+    municipality character varying(200) COLLATE pg_catalog."default",
+    CONSTRAINT properties_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.properties
+    OWNER to postgres;
