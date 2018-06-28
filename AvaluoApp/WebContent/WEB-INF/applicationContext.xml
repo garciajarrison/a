@@ -44,8 +44,8 @@
 				<value>co.com.avaluo.model.entity.Services</value>
 				<value>co.com.avaluo.model.entity.SoftwareAccount</value>
 				
-				<!-- value>co.com.avaluo.model.entity.Users</value>
-				<value>co.com.avaluo.model.entity.Rol</value -->
+				<value>co.com.avaluo.model.entity.Users</value>
+				<value>co.com.avaluo.model.entity.Rol</value>
 				
 			</list>
 		</property>
