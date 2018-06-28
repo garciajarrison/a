@@ -3,6 +3,8 @@ package co.com.avaluo.controller;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,12 +25,7 @@ public class LoginBB implements Serializable {
 	@Inject
 	private IUsersService usersService;
 	
-	private Users users;
-	
-	public LoginBB() {
-		users = new Users();
-	}
-	
+	private Users users = new Users();
 
 	public void login() {
 		try {
@@ -36,7 +33,9 @@ public class LoginBB implements Serializable {
 			if(users != null) {
 				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USER, users);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", users.getName()));  
+				Util.getInstance().redirect("home.xhtml");
 			} else{
+				users = new Users();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  
 			}
 		} catch (Exception e) {
