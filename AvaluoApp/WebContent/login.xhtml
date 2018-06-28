@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/fonts/css/font-awesome.min.css"/>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="custom.css" />
-	<h:outputStylesheet library="css" name="icheck/green.css" />
+	<h:outputStylesheet library="css" name="icheck/flat/green.css" />
 	<h:outputStylesheet library="css" name="animate.min.css" />
 	
     
@@ -27,7 +27,8 @@
         <div id="wrapper">
             <div id="login" class="animate form">
                 <section class="login_content">
-                    <form>
+                    <h:form>
+                    	<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" /> 
                         <h1>Login Form</h1>
                         <div>
 		              	 <p:inputText value="#{loginBB.users.email}" required="true" 
@@ -39,7 +40,7 @@
 		              </div>
 		              <div>
 		              	<p:commandButton value="Ingresar" actionListener="#{loginBB.login}" 
-		              			styleClass="btn btn-default submit"/>
+		              			styleClass="btn btn-default submit" update="@form"/>
                             <a class="reset_pass" href="#">Lost your password?</a>
                         </div>
                         <div class="clearfix"></div>
@@ -57,7 +58,7 @@
                             </div>
                         </div>
                         
-                    </form>
+                    </h:form>
                     <!-- form -->
                 </section>
                 <!-- content -->

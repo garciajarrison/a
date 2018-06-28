@@ -1,14 +1,13 @@
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui">
-<h:head>
-    
-</h:head>
-<h:body>
-   <h:form id="formulario">
-   
-   	<p:growl id="growl" showDetail="true" />	
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+		
 		<p:dataTable var="tables" value="#{tablesBB.entityList}" selectionMode="single" selection="#{tablesBB.selectedTables}" rowKey="#{tables.id}">
 		    <f:facet name="header">
 		        List of Tables Base of Calculation
@@ -148,7 +147,5 @@
    		</p:commandButton>
 		</p:dialog>		
 		
-		
-   </h:form>
-</h:body>
-</html>
+   </ui:define>
+</ui:composition>
