@@ -53,6 +53,7 @@ public class CotizacionBB implements Serializable {
 	private String table;
 	private String property;
 	private Map<String,String> listaTables = new HashMap<String, String>();
+	private Map<String,String> listaProperty = new HashMap<String, String>();
 	private List<Customer> customerList;
 	private List<PropertyType> propertyList;
 	private Customer customer = new Customer();
@@ -193,14 +194,19 @@ public class CotizacionBB implements Serializable {
 		return listaTables;
 	}
 	
-	public void onTableChange() {
-        if(table !=null && !table.equals("")) {
+	public void onTableChange(String tabla) {
+        if(tabla !=null && !tabla.equals("")) {
         	propertyList = new ArrayList<PropertyType>();
-			propertyList.addAll(getPropertyService().getEntitys(table));
+			propertyList.addAll(getPropertyService().getEntitys(tabla));
+			for (PropertyType property : propertyList) {
+				listaProperty.put(property.getNameType(),property.getNameType());
+			}
 	    }
         else
-        	propertyList =  new ArrayList<PropertyType>();
-    }
+        	listaProperty =  new HashMap<String,String>();
+        
+	}
+	
 
 	/*public void setListaTables(Map<String, String> listaTables) {
 		this.listaTables = listaTables;
@@ -224,6 +230,14 @@ public class CotizacionBB implements Serializable {
 
 	public void setListaTables(Map<String, String> listaTables) {
 		this.listaTables = listaTables;
+	}
+
+	public Map<String, String> getListaProperty() {
+		return listaProperty;
+	}
+
+	public void setListaProperty(Map<String, String> listaProperty) {
+		this.listaProperty = listaProperty;
 	}
 
 	public IMarketService getMarketService() {
