@@ -3,6 +3,8 @@ package co.com.avaluo.service;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IUsersDAO;

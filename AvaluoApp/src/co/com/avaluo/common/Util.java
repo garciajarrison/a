@@ -6,6 +6,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import co.com.avaluo.model.entity.Users;
+
 public class Util {
 	
 	private static Util instance;
@@ -24,6 +26,12 @@ public class Util {
 		session.setAttribute(property.toString(), value);
 	}
 	
+	public Object getSessionAttribute(EnumSessionAttributes property) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+		return session.getAttribute(property.toString());
+	}
+	
 	public void redirect(String page) {
 		ExternalContext ec = FacesContext.getCurrentInstance()
 		        .getExternalContext();
@@ -34,4 +42,5 @@ public class Util {
 		    e.printStackTrace();
 		}
 	}
+
 }

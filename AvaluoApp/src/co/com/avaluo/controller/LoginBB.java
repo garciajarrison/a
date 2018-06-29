@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import co.com.avaluo.common.EnumSessionAttributes;
@@ -51,7 +52,7 @@ public class LoginBB implements Serializable {
 		return usersService;
 	}
 
-
+	
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
 	}

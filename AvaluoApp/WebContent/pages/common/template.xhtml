@@ -13,7 +13,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="icon" href="images/favicon.ico" type="image/ico" />
 	
-	    <title>Gentelella Alela! | </title>
+	    <title>Avalsoft</title>
 	
 	    <link rel="stylesheet" type="text/css"
 			href="#{request.contextPath}/resources/css/bootstrap.min.css" />
@@ -33,16 +33,16 @@
         
        <div class="container body">
       <div class="main_container">
-        
-        <ui:include src="menu.xhtml"/>
-        
-        <!-- page content -->
-        <div class="right_col" role="main">
-	        <h:form id="formulario">
-		   		<p:growl id="growl" showDetail="true" />
-		        <ui:insert name="content"/>
-		    </h:form>
-	    </div>
+      
+        <h:form id="formulario">
+	        <ui:include src="menu.xhtml"/>
+	        
+	        <!-- page content -->
+	        <div class="right_col" role="main">
+			   	<p:growl id="growl" showDetail="true" />
+			    <ui:insert name="content"/>
+		    </div>
+	    </h:form>
         <!-- /page content -->
 
      </div>

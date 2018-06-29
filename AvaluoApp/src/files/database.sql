@@ -156,6 +156,26 @@ TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.property_type
     OWNER to postgres;	
+    
+-- Table: avalsoft.market_categories
+-- DROP TABLE avalsoft.market_categories;
+CREATE TABLE avalsoft.market_categories(
+    id integer NOT NULL DEFAULT nextval('avalsoft.market_categories_id_seq'::regclass),
+    name character varying(50) COLLATE pg_catalog."default",
+    valor double precision,
+    minimum double precision,
+	id_users integer NOT NULL,
+    CONSTRAINT market_categories_pkey PRIMARY KEY (id),
+	CONSTRAINT "FK_property_type_USERS" FOREIGN KEY (id_users)
+        REFERENCES avalsoft.users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+WITH ( OIDS = FALSE)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.market_categories
+    OWNER to postgres;
 	
 -- Table: avalsoft.registry
 -- DROP TABLE avalsoft.registry;
