@@ -8,7 +8,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
-
+        
+	<context:annotation-config/>
 
 	<!-- <bean id="DataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
