@@ -95,31 +95,8 @@ ALTER SEQUENCE avalsoft.property_type_id_seq
 -----------------------------------------------------
 --------------------- TABLAS ------------------------
 -----------------------------------------------------
-    
--- Table: avalsoft.profile_account
--- DROP TABLE avalsoft.profile_account;
-CREATE TABLE avalsoft.profile_account(
-    id integer NOT NULL DEFAULT nextval('avalsoft.profile_account_id_seq'::regclass),
-    user_name character varying(200) COLLATE pg_catalog."default",
-    id_cart character varying(50) COLLATE pg_catalog."default",
-    profession character varying(200) COLLATE pg_catalog."default",
-    id_prof character varying(50) COLLATE pg_catalog."default",
-    "profession_II" character varying(200) COLLATE pg_catalog."default",
-    "id_prof_II" character varying(50) COLLATE pg_catalog."default",
-    expiration_date date,
-    company character varying(200) COLLATE pg_catalog."default",
-    id_company character varying(50) COLLATE pg_catalog."default",
-    email character varying(200) COLLATE pg_catalog."default",
-    contact character varying(200) COLLATE pg_catalog."default",
-    CONSTRAINT profile_account_pkey PRIMARY KEY (id)
-)
-WITH (OIDS = FALSE)
-TABLESPACE pg_default;
 
-ALTER TABLE avalsoft.profile_account
-    OWNER to postgres;
-	
--- Table: avalsoft.properties
+-- Table: avalsoft.properties: tabla de propiedades de registradas para realizar avaluos
 -- DROP TABLE avalsoft.properties;
 CREATE TABLE avalsoft.properties(
     id integer NOT NULL DEFAULT nextval('avalsoft.properties_id_seq'::regclass),
@@ -354,7 +331,7 @@ INSERT INTO avalsoft.rol(id, name, description, state)
 	(3, 'Cliente', 'Cliente', true);
 
 -- TABLA USERS
-INSERT INTO avalsoft.users(id, name, email, address, phone, celphone, password, state, id_rol)
+INSERT INTO avalsoft.usuario(id, nombre, email, address, phone, celphone, password, state, id_rol)
 	VALUES (1, 'Jarrison Garcia', 'aaa', 'Calle falsa 123', '3214534', '3112345464', 'aaa', TRUE, 1),
 	(2, 'Hernan Ossa', 'bbb', 'Calle falsa 321', '5656765', '34554565', 'bbb', TRUE, 1),
 	(3, 'Cliente 1', 'ccc', 'Calle falsa 456', '3243344', '31245645', 'ccc', TRUE, 1);
