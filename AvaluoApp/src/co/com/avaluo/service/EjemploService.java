@@ -7,16 +7,16 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IUsuarioDAO;
+import co.com.avaluo.model.dao.IEjemploDAO;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class EjemploService implements IUsuarioService {
+public class EjemploService  {
 
 	@Inject
-	IUsuarioDAO entityDAO;
+	IEjemploDAO entityDAO;
 
 	@Transactional(readOnly = false)
 	public void addEntity(Usuario entity) {
@@ -41,11 +41,11 @@ public class EjemploService implements IUsuarioService {
 		return getEntityDAO().getEntities();
 	}
 
-	public IUsuarioDAO getEntityDAO() {
+	public IEjemploDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IUsuarioDAO entityDAO) {
+	public void setEntityDAO(IEjemploDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }
