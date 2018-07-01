@@ -11,14 +11,6 @@ import org.hibernate.Transaction;
 
 import co.com.avaluo.model.entity.Usuario;
 
-/**
- * 
- * Entity DAO
- * 
- * @author Miquel Millan
- * @version 1.0.0
- * 
- */
 @Named
 public class UsuarioDAO implements IUsuarioDAO {
 	@Inject
@@ -32,6 +24,16 @@ public class UsuarioDAO implements IUsuarioDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	public Usuario login(Usuario users) {
+		Session session = getSessionFactory().getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		
+		return (Usuario)session.createQuery("from Usuario where correo=? and contrasena = ?")
+				.setParameter(0, users.getCorreo())
+				.setParameter(1, users.getContrasena())
+				.uniqueResult();
+	}
+	
 	public void addEntity(Usuario entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
@@ -53,12 +55,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 		trans.commit();
 	}
 
-	public Usuario getEntity(int id) {
+	public Usuario getEntityById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		
 		List<?> list = session
-				.createQuery("from Entity where id=?").setParameter(0, id)
+				.createQuery("from Usuario where id=?").setParameter(0, id)
 				.list();
 		
 		trans.commit();
@@ -70,10 +72,11 @@ public class UsuarioDAO implements IUsuarioDAO {
 		Transaction trans = session.beginTransaction();
 		
 		@SuppressWarnings("unchecked")
-		List<Usuario> list = (List<Usuario>) session.createQuery("from Entity").list();
+		List<Usuario> list = (List<Usuario>) session.createQuery("from Usuario").list();
 		
 		trans.commit();
 		return list;
 	}
+
 
 }

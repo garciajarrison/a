@@ -6,13 +6,17 @@ import co.com.avaluo.model.entity.Usuario;
 
 
 public interface IUsuarioDAO {
-	public void addEntity(Usuario entity);
-
-	public void updateEntity(Usuario entity);
 	
-	public void deleteEntity(Usuario entity);
+	Usuario login(Usuario users);
 	
-	public Usuario getEntity(int id);
+	void addEntity(Usuario entity);
 
-	public List<Usuario> getEntities();
+	void deleteEntity(Usuario entity);
+
+	void updateEntity(Usuario entity);
+
+	Usuario getEntityById(int id);
+
+	List<Usuario> getEntities();
+
 }

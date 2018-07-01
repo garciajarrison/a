@@ -2,20 +2,17 @@ package co.com.avaluo.model.dao;
 
 import java.util.List;
 
-import co.com.avaluo.model.entity.Customer;
-import co.com.avaluo.model.entity.MarketCategories;
+import co.com.avaluo.model.entity.Cotizacion;
 
 
 public interface ICotizacionDAO {
-	public void addEntity(MarketCategories entity);
+	public void addEntity(Cotizacion entity);
 
-	public void updateEntity(MarketCategories entity);
+	public void updateEntity(Cotizacion entity);
 	
-	public void deleteEntity(MarketCategories entity);
+	public void deleteEntity(Cotizacion entity);
 	
-	public MarketCategories getEntity(int id);
+	public Cotizacion getEntity(int id);
 
-	public List<MarketCategories> getEntities();
-	
-	public Customer getCustomer(String idCustomer);
+	public List<Cotizacion> getEntities();
 }

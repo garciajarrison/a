@@ -15,5 +15,9 @@ public interface IUsuarioService {
 	
 	public Usuario getEntityById(int id);
 	
-	public List<Usuario> getEntitys();
+	public List<Usuario> getEntities();
+
+	public Usuario login(Usuario usuario);
+	
+	
 }

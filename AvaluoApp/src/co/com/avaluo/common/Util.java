@@ -1,12 +1,14 @@
 package co.com.avaluo.common;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
-import co.com.avaluo.model.entity.Users;
 
 public class Util {
 	
@@ -42,5 +44,35 @@ public class Util {
 		    e.printStackTrace();
 		}
 	}
+	
+	public String getMessage(String key, Object... arguments) {
+		 
+        Locale locale = new Locale("es", "ES", ""); //ControllerUtil.getController().getUsuario().getLocale();
+        FacesContext context = FacesContext.getCurrentInstance();
+ 
+        if (locale == null || context == null) {
+            locale = Locale.getDefault();
+        } else {
+            if (context.getViewRoot() != null) {
+                locale = context.getViewRoot().getLocale();
+            }
+        }
+ 
+        String resourceString;
+        String messagesBaseName = "messages_" + this.getSessionAttribute(EnumSessionAttributes.LENGUAJE).toString();
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle(messagesBaseName,locale);
+            resourceString = bundle.getString(key);
+        } catch(MissingResourceException e) {
+            return key;
+        }
+ 
+        if(arguments == null) {
+            return resourceString;
+        }
+ 
+        MessageFormat format = new MessageFormat(resourceString, locale);
+        return format.format(arguments);
+    }
 
 }

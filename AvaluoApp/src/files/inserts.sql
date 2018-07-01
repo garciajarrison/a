@@ -1398,16 +1398,27 @@ VALUES
 (32, 'CUMARIBO', TRUE),
 (11, 'BOGOTA, D.C.', TRUE);
 
-
 INSERT INTO avalsoft.empresa(
 	tipo_identificacion, identificacion, nombre, description, estado, ciudad_id)
 	VALUES ('NIT', '190988809-5', 'AVALUADORES SAS', 'MERA CALIDAD', true, 55),
 	('CC', '1026147293', 'Jarrison Garcia', 'PARTICULAR', true, 13),
-	('CC', '12345678', 'Hernan Hossa', 'PARTICULAR', true, 47);
+	('CC', '12345678', 'Hernan Hossa', 'PARTICULAR', true, 47),
+	('NIT', '121212', 'Hernan Hossa', 'AVALSOFT', true, 12);
 
-
-
-
+INSERT INTO avalsoft.rol( nombre, descripcion, estado)
+VALUES ('Administrador', 'Administrador del sistema', true),
+		('Empleado', 'Empleado de empresas de avaluos', true),
+		('Cliente', 'Cliente de los empleados de los avaluadores', true);
+		
+INSERT INTO avalsoft.usuario(
+	tipo_documento, indetificacion, nombre, correo, direccion, telefono, 
+	celular, contrasena, estado, lenguaje, profesion, rol_id, empresa_id)
+VALUES ('CC', '77777777', 'Empleado 1', 'empleado1@gmail.com', 'direccion 1', 
+		'5555555', '3114445555', '123', true, 'ES', 'Ingenebrio', 2, 1),
+		('CC', '1026147293', 'Jarrison Garcia Particular', 'jarrison@gmail.com', 'direccion 2', 
+		'1111111', '3117775555', '123', true,  'ES', 'Ingenebrio', 2, 2),
+		('CC', '131313', 'avalsoft1', 'avalsoft1@gmail.com', 'direccion 1', 
+		'4444444', '3125456677', '123', true, 'ES', 'Ingenebrio', 1, 4);
 
 
 

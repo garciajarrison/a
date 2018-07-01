@@ -2,19 +2,13 @@ package co.com.avaluo.controller;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.model.entity.Users;
-import co.com.avaluo.service.IUsersService;
+import co.com.avaluo.model.entity.Usuario;
 
 @Named("globalBB")
 @Scope("session")
@@ -22,21 +16,24 @@ public class GlobalBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Users user;
+	private Usuario usuario;
 	
 	public GlobalBB() {
-		user = (Users) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USER);
+		usuario = (Usuario) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USUARIO);
 	}
 
-	public Users getUser() {
-		return user;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-
-	public void setUser(Users user) {
-		this.user = user;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
-	
+	public String getMessageResources() {
+		return Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE).toString();
+	}
+
+
 
  }

@@ -33,20 +33,17 @@
 		<property name="dataSource" ref="DataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>co.com.avaluo.model.entity.MarketCategories</value>
-				<value>co.com.avaluo.model.entity.Tables</value>
-				<value>co.com.avaluo.model.entity.DetailTable</value>
-				<value>co.com.avaluo.model.entity.Customer</value>
-				<value>co.com.avaluo.model.entity.Properties</value>
-				<value>co.com.avaluo.model.entity.Registry</value>
-				<value>co.com.avaluo.model.entity.ProfileAccount</value>
-				<value>co.com.avaluo.model.entity.PropertyType</value>
-				
-				<value>co.com.avaluo.model.entity.Services</value>
-				<value>co.com.avaluo.model.entity.SoftwareAccount</value>
-				
-				<value>co.com.avaluo.model.entity.Users</value>
+				<value>co.com.avaluo.model.entity.Ciudad</value>
+				<value>co.com.avaluo.model.entity.Contacto</value>
+				<value>co.com.avaluo.model.entity.Cotizacion</value>
+				<value>co.com.avaluo.model.entity.Departamento</value>
+				<value>co.com.avaluo.model.entity.Empresa</value>
+				<value>co.com.avaluo.model.entity.Estrato</value>
+				<value>co.com.avaluo.model.entity.Licencia</value>
+				<value>co.com.avaluo.model.entity.Pais</value>
+				<value>co.com.avaluo.model.entity.Propiedad</value>
 				<value>co.com.avaluo.model.entity.Rol</value>
+				<value>co.com.avaluo.model.entity.Usuario</value>
 				
 			</list>
 		</property>

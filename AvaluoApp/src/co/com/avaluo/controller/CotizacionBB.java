@@ -1,72 +1,44 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 import org.springframework.context.annotation.Scope;
-import org.springframework.dao.DataAccessException;
-
-import co.com.avaluo.model.entity.Customer;
-import co.com.avaluo.model.entity.MarketCategories;
-import co.com.avaluo.model.entity.PropertyType;
-import co.com.avaluo.model.entity.Tables;
-import co.com.avaluo.service.ICustomerService;
-import co.com.avaluo.service.IMarketService;
-import co.com.avaluo.service.IPropertyService;
-import co.com.avaluo.service.ITablesService;
 
 @Named("cotizacionBB")
 @Scope("session")
 public class CotizacionBB implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+/*	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IMarketService marketService;
+	private IEstratoService marketService;
 	@Inject
-	private ICustomerService customerService;
+	private IUsuarioService usuariorService;
 	@Inject
-	private IPropertyService propertyService;
+	private IPropiedadService propertyService;
 	@Inject
-	private ITablesService tablesService;
+	private ICotizacionService tablesService;
 	
 	
-	private MarketCategories market = new MarketCategories();
-	private MarketCategories selectedMarket = new MarketCategories();
-	private List<MarketCategories> marketList;
-	private List<Tables> tables;
+	private Estrato market = new Estrato();
+	private Estrato selectedMarket = new Estrato();
+	private List<Estrato> marketList;
+	private List<Cotizacion> tables;
 	private String table;
 	private String property;
 	private Map<String,String> listaTables = new HashMap<String, String>();
 	private Map<String,String> listaProperty = new HashMap<String, String>();
-	private List<Customer> customerList;
-	private List<PropertyType> propertyList;
-	private Customer customer = new Customer();
+	private List<Usuario> customerList;
+	private List<Propiedad> propertyList;
+	private Usuario customer = new Usuario();
 	private PropertyType propertyType = new PropertyType();
 	
 
 	
 	public void addEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getMarketService().addEntity(market);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
 			
@@ -79,10 +51,6 @@ public class CotizacionBB implements Serializable {
 
 	public void updateEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getMarketService().updateEntity(selectedMarket);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update!", "Message: "));  
 			
@@ -95,10 +63,6 @@ public class CotizacionBB implements Serializable {
 	
 	public void deleteEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getMarketService().deleteEntity(selectedMarket);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete!", "Message: "));  
 			
@@ -206,11 +170,6 @@ public class CotizacionBB implements Serializable {
         	listaProperty =  new HashMap<String,String>();
         
 	}
-	
-
-	/*public void setListaTables(Map<String, String> listaTables) {
-		this.listaTables = listaTables;
-	}*/
 
 	public String getTable() {
 		return table;
@@ -240,11 +199,11 @@ public class CotizacionBB implements Serializable {
 		this.listaProperty = listaProperty;
 	}
 
-	public IMarketService getMarketService() {
+	public IEstratoService getMarketService() {
 		return marketService;
 	}
 
-	public void setMarketService(IMarketService marketService) {
+	public void setMarketService(IEstratoService marketService) {
 		this.marketService = marketService;
 	}
 
@@ -256,19 +215,19 @@ public class CotizacionBB implements Serializable {
 		this.customerService = customerService;
 	}
 
-	public IPropertyService getPropertyService() {
+	public IPropiedadService getPropertyService() {
 		return propertyService;
 	}
 
-	public void setPropertyService(IPropertyService propertyService) {
+	public void setPropertyService(IPropiedadService propertyService) {
 		this.propertyService = propertyService;
 	}
 
-	public ITablesService getTablesService() {
+	public ICotizacionService getTablesService() {
 		return tablesService;
 	}
 
-	public void setTablesService(ITablesService tablesService) {
+	public void setTablesService(ICotizacionService tablesService) {
 		this.tablesService = tablesService;
 	}
 
@@ -288,12 +247,10 @@ public class CotizacionBB implements Serializable {
 	
 	public void onRowSelect(SelectEvent event) {
 		
-        /*FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+   
     }
  
     public void onRowUnselect(UnselectEvent event) {
-        /*FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
-    }	
+   
+    }	*/
  }

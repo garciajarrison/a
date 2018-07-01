@@ -16,8 +16,13 @@ import co.com.avaluo.model.entity.Usuario;
 public class UsuarioService implements IUsuarioService {
 
 	@Inject
-	IUsuarioDAO entityDAO;
+	IUsuarioDAO usersDAO;
 
+	@Transactional(readOnly = false)
+	public Usuario login(Usuario users) {
+		return usersDAO.login(users);
+	}
+	
 	@Transactional(readOnly = false)
 	public void addEntity(Usuario entity) {
 		getEntityDAO().addEntity(entity);
@@ -34,18 +39,20 @@ public class UsuarioService implements IUsuarioService {
 	}
 
 	public Usuario getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
+		return getEntityDAO().getEntityById(id);
 	}
 
-	public List<Usuario> getEntitys() {	
+	public List<Usuario> getEntities() {	
 		return getEntityDAO().getEntities();
 	}
 
 	public IUsuarioDAO getEntityDAO() {
-		return entityDAO;
+		return usersDAO;
 	}
 
-	public void setEntityDAO(IUsuarioDAO entityDAO) {
-		this.entityDAO = entityDAO;
+	public void setEntityDAO(IUsuarioDAO usersDAO) {
+		this.usersDAO = usersDAO;
 	}
+
+
 }

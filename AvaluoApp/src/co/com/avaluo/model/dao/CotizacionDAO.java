@@ -9,18 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import co.com.avaluo.model.entity.Customer;
-import co.com.avaluo.model.entity.MarketCategories;
+import co.com.avaluo.model.entity.Cotizacion;
 
-
-/**
- * 
- * Entity DAO
- * 
- * @author Miquel Millan
- * @version 1.0.0
- * 
- */
 @Named
 public class CotizacionDAO implements ICotizacionDAO {
 	@Inject
@@ -34,41 +24,41 @@ public class CotizacionDAO implements ICotizacionDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(MarketCategories entity) {
+	public void addEntity(Cotizacion entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		session.save(entity);
 		trans.commit();
 	}
 
-	public void deleteEntity(MarketCategories entity) {
+	public void deleteEntity(Cotizacion entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		session.delete(entity);
 		trans.commit();
 	}
 
-	public void updateEntity(MarketCategories entity) {
+	public void updateEntity(Cotizacion entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		session.update(entity);
 		trans.commit();
 	}
 
-	public MarketCategories getEntity(int id) {
+	public Cotizacion getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		
 		List<?> list = session
-				.createQuery("from MarketCategories where id=?").setParameter(0, id)
+				.createQuery("from Cotizacion where id=?").setParameter(0, id)
 				.list();
 		
 		trans.commit();
-		return (MarketCategories) list.get(0);
+		return (Cotizacion) list.get(0);
 	}
 	
 	
-	public Customer getCustomer(String idCustomer) {
+	public Cotizacion getCustomer(String idCustomer) {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		
@@ -77,21 +67,22 @@ public class CotizacionDAO implements ICotizacionDAO {
 				.list();
 		
 		trans.commit();
-		return (Customer) list.get(0);
+		return (Cotizacion) list.get(0);
+	}
+
+	public List<Cotizacion> getEntities() {
+		Session session = getSessionFactory().getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		
+		List<?> list = session
+				.createQuery("from Cotizacion")
+				.list();
+		return (List<Cotizacion>) list;
 	}	
 
 	
 	
 	
-	public List<MarketCategories > getEntities() {
-		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
-		
-		@SuppressWarnings("unchecked")
-		List<MarketCategories> list = (List<MarketCategories>) session.createQuery("from MarketCategories").list();
-		
-		trans.commit();
-		return list;
-	}
+	
 
 }
