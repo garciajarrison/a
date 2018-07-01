@@ -1,51 +1,31 @@
 package co.com.avaluo.service;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IUsuarioDAO;
+import co.com.avaluo.model.dao.IUsersDAO;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class UsuarioService implements IUsuarioService {
+public class UsuarioService implements IUsersService {
 
 	@Inject
-	IUsuarioDAO entityDAO;
+	IUsersDAO usersDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Usuario entity) {
-		getEntityDAO().addEntity(entity);
+	public Usuario login(Usuario users) {
+		return usersDAO.login(users);
 	}
 
-	@Transactional(readOnly = false)
-	public void deleteEntity(Usuario entity) {
-		getEntityDAO().deleteEntity(entity);
+	public IUsersDAO getUsersDAO() {
+		return usersDAO;
 	}
 
-	@Transactional(readOnly = false)
-	public void updateEntity(Usuario entity) {
-		getEntityDAO().updateEntity(entity);
-	}
-
-	public Usuario getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
-	}
-
-	public List<Usuario> getEntitys() {	
-		return getEntityDAO().getEntities();
-	}
-
-	public IUsuarioDAO getEntityDAO() {
-		return entityDAO;
-	}
-
-	public void setEntityDAO(IUsuarioDAO entityDAO) {
-		this.entityDAO = entityDAO;
+	public void setUsersAO(IUsersDAO usersDAO) {
+		this.usersDAO = usersDAO;
 	}
 }

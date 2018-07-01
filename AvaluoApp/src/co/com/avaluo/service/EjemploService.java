@@ -7,49 +7,45 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IPropertyDAO;
-import co.com.avaluo.model.dao.ITablesDAO;
 import co.com.avaluo.model.dao.IUsuarioDAO;
-import co.com.avaluo.model.entity.PropertyType;
-import co.com.avaluo.model.entity.Tables;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class TablesService implements ITablesService {
+public class EjemploService implements IUsuarioService {
 
 	@Inject
-	ITablesDAO entityDAO;
+	IUsuarioDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Tables entity) {
+	public void addEntity(Usuario entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Tables entity) {
+	public void deleteEntity(Usuario entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Tables entity) {
+	public void updateEntity(Usuario entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public Tables getEntityById(int id) {
+	public Usuario getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Tables> getEntitys() {	
+	public List<Usuario> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
 
-	public ITablesDAO getEntityDAO() {
+	public IUsuarioDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(ITablesDAO entityDAO) {
+	public void setEntityDAO(IUsuarioDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

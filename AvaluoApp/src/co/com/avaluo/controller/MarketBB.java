@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 
 import co.com.avaluo.model.entity.MarketCategories;
-import co.com.avaluo.service.IMarketService;
+import co.com.avaluo.service.IEstratoService;
 
 @Named("marketBB")
 @Scope("session")
@@ -29,7 +29,7 @@ public class MarketBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IMarketService marketService;
+	private IEstratoService marketService;
 	
 	private MarketCategories market = new MarketCategories();
 	private MarketCategories selectedMarket = new MarketCategories();
@@ -104,11 +104,11 @@ public class MarketBB implements Serializable {
 		return entityList;
 	}
 
-	public IMarketService getMarketService() {
+	public IEstratoService getMarketService() {
 		return marketService;
 	}
 
-	public void setMarketService(IMarketService marketService) {
+	public void setMarketService(IEstratoService marketService) {
 		this.marketService = marketService;
 	}
 

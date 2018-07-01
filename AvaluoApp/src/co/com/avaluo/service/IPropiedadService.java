@@ -6,7 +6,7 @@ import co.com.avaluo.model.entity.PropertyType;
 import co.com.avaluo.model.entity.Usuario;
 
 
-public interface IPropertyService {
+public interface IPropiedadService {
 	
 	public void addEntity(PropertyType entity);
 	

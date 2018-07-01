@@ -6,28 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.hibernate.annotations.Tables;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 
+import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Customer;
+import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.MarketCategories;
 import co.com.avaluo.model.entity.PropertyType;
-import co.com.avaluo.model.entity.Tables;
+import co.com.avaluo.model.entity.Propiedad;
 import co.com.avaluo.service.ICustomerService;
-import co.com.avaluo.service.IMarketService;
-import co.com.avaluo.service.IPropertyService;
+import co.com.avaluo.service.IEstratoService;
+import co.com.avaluo.service.IPropiedadService;
 import co.com.avaluo.service.ITablesService;
 
 @Named("cotizacionBB")
@@ -37,25 +35,25 @@ public class CotizacionBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IMarketService marketService;
+	private IEstratoService marketService;
 	@Inject
 	private ICustomerService customerService;
 	@Inject
-	private IPropertyService propertyService;
+	private IPropiedadService propertyService;
 	@Inject
 	private ITablesService tablesService;
 	
 	
-	private MarketCategories market = new MarketCategories();
-	private MarketCategories selectedMarket = new MarketCategories();
-	private List<MarketCategories> marketList;
-	private List<Tables> tables;
+	private Estrato market = new Estrato();
+	private Estrato selectedMarket = new Estrato();
+	private List<Estrato> marketList;
+	private List<Cotizacion> tables;
 	private String table;
 	private String property;
 	private Map<String,String> listaTables = new HashMap<String, String>();
 	private Map<String,String> listaProperty = new HashMap<String, String>();
 	private List<Customer> customerList;
-	private List<PropertyType> propertyList;
+	private List<Propiedad> propertyList;
 	private Customer customer = new Customer();
 	private PropertyType propertyType = new PropertyType();
 	
@@ -240,11 +238,11 @@ public class CotizacionBB implements Serializable {
 		this.listaProperty = listaProperty;
 	}
 
-	public IMarketService getMarketService() {
+	public IEstratoService getMarketService() {
 		return marketService;
 	}
 
-	public void setMarketService(IMarketService marketService) {
+	public void setMarketService(IEstratoService marketService) {
 		this.marketService = marketService;
 	}
 
@@ -256,11 +254,11 @@ public class CotizacionBB implements Serializable {
 		this.customerService = customerService;
 	}
 
-	public IPropertyService getPropertyService() {
+	public IPropiedadService getPropertyService() {
 		return propertyService;
 	}
 
-	public void setPropertyService(IPropertyService propertyService) {
+	public void setPropertyService(IPropiedadService propertyService) {
 		this.propertyService = propertyService;
 	}
 

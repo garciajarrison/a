@@ -21,7 +21,7 @@ import org.springframework.dao.DataAccessException;
 
 import co.com.avaluo.model.entity.MarketCategories;
 import co.com.avaluo.model.entity.Tables;
-import co.com.avaluo.service.IMarketService;
+import co.com.avaluo.service.IEstratoService;
 import co.com.avaluo.service.ITablesService;
 
 @Named("tablesBB")

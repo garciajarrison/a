@@ -21,8 +21,8 @@ import org.springframework.dao.DataAccessException;
 
 import co.com.avaluo.model.entity.MarketCategories;
 import co.com.avaluo.model.entity.PropertyType;
-import co.com.avaluo.service.IMarketService;
-import co.com.avaluo.service.IPropertyService;
+import co.com.avaluo.service.IEstratoService;
+import co.com.avaluo.service.IPropiedadService;
 
 @Named("propertyBB")
 @Scope("session")
@@ -31,7 +31,7 @@ public class PropertyBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IPropertyService propertyService;
+	private IPropiedadService propertyService;
 	
 	private PropertyType property = new PropertyType();
 	private PropertyType selectedProperty = new PropertyType();
@@ -106,11 +106,11 @@ public class PropertyBB implements Serializable {
 		return entityList;
 	}
 
-	public IPropertyService getPropertyService() {
+	public IPropiedadService getPropertyService() {
 		return propertyService;
 	}
 
-	public void setPropertyService(IPropertyService propertyService) {
+	public void setPropertyService(IPropiedadService propertyService) {
 		this.propertyService = propertyService;
 	}
 

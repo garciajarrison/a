@@ -8,46 +8,48 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IPropertyDAO;
+import co.com.avaluo.model.dao.ITablesDAO;
 import co.com.avaluo.model.dao.IUsuarioDAO;
 import co.com.avaluo.model.entity.PropertyType;
+import co.com.avaluo.model.entity.Tables;
 import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class PropertyService implements IPropiedadService {
+public class CotizacionService implements ITablesService {
 
 	@Inject
-	IPropertyDAO entityDAO;
+	ITablesDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(PropertyType entity) {
+	public void addEntity(Tables entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(PropertyType entity) {
+	public void deleteEntity(Tables entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(PropertyType entity) {
+	public void updateEntity(Tables entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public PropertyType getEntityById(int id) {
+	public Tables getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<PropertyType> getEntitys(String propertyType) {	
-		return getEntityDAO().getEntities(propertyType);
+	public List<Tables> getEntitys() {	
+		return getEntityDAO().getEntities();
 	}
 
-	public IPropertyDAO getEntityDAO() {
+	public ITablesDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IPropertyDAO entityDAO) {
+	public void setEntityDAO(ITablesDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

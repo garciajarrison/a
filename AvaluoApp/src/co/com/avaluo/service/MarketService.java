@@ -13,7 +13,7 @@ import co.com.avaluo.model.entity.MarketCategories;
 
 @Named
 @Transactional(readOnly = true)
-public class MarketService implements IMarketService {
+public class MarketService implements IEstratoService {
 
 	@Inject
 	IMarketDAO entityDAO;
