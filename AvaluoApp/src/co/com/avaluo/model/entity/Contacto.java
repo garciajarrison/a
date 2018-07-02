@@ -1,5 +1,5 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 10:51:15 AM by Hibernate Tools 4.0.1.Final
+// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

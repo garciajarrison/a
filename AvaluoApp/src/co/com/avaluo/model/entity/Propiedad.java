@@ -1,5 +1,5 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 10:51:15 AM by Hibernate Tools 4.0.1.Final
+// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -21,7 +21,6 @@ import javax.persistence.Table;
 public class Propiedad implements java.io.Serializable {
 
 	private int id;
-	private Estrato estrato;
 	private Usuario usuario;
 	private Ciudad ciudad;
 	private String tipo;
@@ -29,22 +28,22 @@ public class Propiedad implements java.io.Serializable {
 	private String direccion;
 	private String unidadMedida;
 	private BigDecimal valorMedida;
+	private int estratoId;
 	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
 
 	public Propiedad() {
 	}
 
-	public Propiedad(int id, Estrato estrato, Usuario usuario, Ciudad ciudad) {
+	public Propiedad(int id, Usuario usuario, Ciudad ciudad, int estratoId) {
 		this.id = id;
-		this.estrato = estrato;
 		this.usuario = usuario;
 		this.ciudad = ciudad;
+		this.estratoId = estratoId;
 	}
 
-	public Propiedad(int id, Estrato estrato, Usuario usuario, Ciudad ciudad, String tipo, String registro,
-			String direccion, String unidadMedida, BigDecimal valorMedida, Set<Cotizacion> cotizacions) {
+	public Propiedad(int id, Usuario usuario, Ciudad ciudad, String tipo, String registro, String direccion,
+			String unidadMedida, BigDecimal valorMedida, int estratoId, Set<Cotizacion> cotizacions) {
 		this.id = id;
-		this.estrato = estrato;
 		this.usuario = usuario;
 		this.ciudad = ciudad;
 		this.tipo = tipo;
@@ -52,6 +51,7 @@ public class Propiedad implements java.io.Serializable {
 		this.direccion = direccion;
 		this.unidadMedida = unidadMedida;
 		this.valorMedida = valorMedida;
+		this.estratoId = estratoId;
 		this.cotizacions = cotizacions;
 	}
 
@@ -64,16 +64,6 @@ public class Propiedad implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "estrato_id", nullable = false)
-	public Estrato getEstrato() {
-		return this.estrato;
-	}
-
-	public void setEstrato(Estrato estrato) {
-		this.estrato = estrato;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -139,6 +129,15 @@ public class Propiedad implements java.io.Serializable {
 
 	public void setValorMedida(BigDecimal valorMedida) {
 		this.valorMedida = valorMedida;
+	}
+
+	@Column(name = "estrato_id", nullable = false)
+	public int getEstratoId() {
+		return this.estratoId;
+	}
+
+	public void setEstratoId(int estratoId) {
+		this.estratoId = estratoId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
