@@ -2,21 +2,20 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ICotizacionDAO;
 import co.com.avaluo.model.entity.Cotizacion;
 
 
-@Named
+@Service
 @Transactional(readOnly = true)
 public class CotizacionService implements ICotizacionService {
 
-	@Inject
-	ICotizacionDAO entityDAO;
+	@Autowired
+	private ICotizacionDAO entityDAO;
 
 	@Transactional(readOnly = false)
 	public void addEntity(Cotizacion entity) {

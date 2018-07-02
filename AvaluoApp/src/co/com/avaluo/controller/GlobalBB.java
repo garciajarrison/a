@@ -2,16 +2,15 @@ package co.com.avaluo.controller;
 
 import java.io.Serializable;
 
-import javax.inject.Named;
-
-import org.springframework.context.annotation.Scope;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Usuario;
 
-@Named("globalBB")
-@Scope("session")
+@ManagedBean(name = "globalBB")
+@SessionScoped
 public class GlobalBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

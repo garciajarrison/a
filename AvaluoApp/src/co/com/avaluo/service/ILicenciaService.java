@@ -7,13 +7,13 @@ import co.com.avaluo.model.entity.Licencia;
 
 public interface ILicenciaService {
 	
-	public void addEntity(Licencia entity);
+	void addEntity(Licencia entity);
 	
-	public void updateEntity(Licencia entity);
+	void updateEntity(Licencia entity);
 
-	public void deleteEntity(Licencia entity);
+	void deleteEntity(Licencia entity);
 	
-	public Licencia getEntityById(int id);
+	Licencia getEntityById(int id);
 	
-	public List<Licencia> getEntitys();
+	List<Licencia> getEntitys();
 }

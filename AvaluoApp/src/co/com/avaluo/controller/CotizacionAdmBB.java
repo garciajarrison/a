@@ -1,30 +1,30 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.hibernate.annotations.Tables;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.service.ICotizacionService;
 
-@Named("cotizacionAdmBB")
-@Scope("session")
-public class CotizacionAdmBB implements Serializable {
+
+@ManagedBean(name = "cotizacionAdmBB")
+@ViewScoped
+public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Inject
+	@Autowired
 	private ICotizacionService cotizacionService;
 	
 	private Cotizacion cotizacion = new Cotizacion();

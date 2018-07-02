@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+
+		<p:dataTable var="estrato" value="#{estratoBB.entityList}" selectionMode="single" 
+				selection="#{estrato.selectedEstrato}" rowKey="#{estrato.id}"
+				emptyMessage="No se encontraron registros.">
+		    <f:facet name="header">
+		        Lista de estratos
+		    </f:facet>
+		 
+		    <p:column headerText="Estrato">
+		        <h:outputText value="#{estrato.nombre}" />
+		    </p:column>
+		    
+		    <p:column headerText="Porcentaje">
+		        <h:outputText value="#{estrato.porcentaje}" />
+		    </p:column>
+		 
+		    <p:column headerText="Valor minimo cotizacion">
+		        <h:outputText value="#{estrato.valor}" />
+		    </p:column>
+		 
+		    
+		</p:dataTable>
+		<p:commandButton value="Agregar" type="button" onclick="PF('dlgAgregar').show();" />
+		<p:commandButton value="Actualizar" type="button" onclick="PF('dlgActualizar').show();" />
+		<p:commandButton value="Borrar" type="button">
+			<p:ajax event="click" listener="#{estratoBB.deleteEntity}" process="@all" update="formulario"/>
+		</p:commandButton>
+		
+		<p:dialog header="Agregar estrato" id="dlgAgregar" widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+				<h:outputLabel id="lName" value="Estrato:" for="txtName"/>
+		   		<p:selectOneMenu id="txtName" value="#{estratoBB.estrato.nombre}" title="Estrato" 
+		   			label="Estrato" required="true" >
+		   			<f:selectItem itemLabel="Seleccione" itemValue="" />
+		   			<f:selectItems value="#{estratoBB.listaEstratos}"  />
+		   		</p:selectOneMenu>	
+		   		<br />
+		   		<h:outputLabel id="lPorcentaje" value="Porcentaje:" for="txtPorcentaje"/>
+		   		<p:inputNumber id="txtPorcentaje" value="#{estratoBB.estrato.porcentaje}" 
+		   				decimalPlaces="2" title="Porcentaje" label="Porcentaje" minValue="0"
+		   				maxValue="100" symbol="%" symbolPosition="s" />  
+		   		<br />
+		   		<h:outputLabel id="lValue" value="Valor minimo cotizacion:" for="txtValue"/>
+		   		<p:inputNumber id="txtValue" value="#{estratoBB.estrato.valor}" 
+		   				decimalPlaces="2" title="Valor minimo cotizacion" 
+		   				label="Valor minimo cotizacion" minValue="0"/>  
+		   		<br /><br />
+		   		<p:commandButton value="Agregar" actionListener="#{estratoBB.addEntity}"
+		   					process="dlgAgregar">
+				  		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+
+		<p:dialog header="Actualizar estrato" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+			<h:outputLabel id="lNameU" value="Nombre:" for="txtName"/>
+			<p:selectOneMenu id="txtNameU" value="#{estratoBB.selectedEstrato.nombre}" title="Estrato" 
+		   			label="Estrato" required="true" >
+		   			<f:selectItem itemLabel="Seleccione" itemValue="" />
+		   			<f:selectItems value="#{estratoBB.listaEstratos}"  />
+		   		</p:selectOneMenu>
+	   		<h:outputLabel id="lPorcentajeU" value="Porcentaje:" for="txtPorcentajeU"/>
+	   		<p:inputText id="txtPorcentajeU" value="#{estratoBB.selectedEstrato.porcentaje}"/>
+	   		<h:outputLabel id="lValueU" value="Valor minimo cotizacion:" for="txtValue"/>
+	   		<p:inputText id="txtValueU" value="#{estratoBB.selectedEstrato.valor}"/>
+	   		<p:commandButton value="Add" type="button"  update="growl">
+				<p:ajax event="click" listener="#{estratoBB.updateEntity}" process="@all" update="formulario"/>   		
+	   		</p:commandButton>
+		</p:dialog>		
+		
+		
+   </ui:define>
+</ui:composition>
