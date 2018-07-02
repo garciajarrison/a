@@ -4,6 +4,8 @@ package co.com.avaluo.model.entity;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -36,8 +38,9 @@ public class DetalleCotizacion implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}

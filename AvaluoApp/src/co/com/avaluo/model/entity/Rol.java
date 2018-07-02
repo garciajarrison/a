@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,8 +43,9 @@ public class Rol implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
