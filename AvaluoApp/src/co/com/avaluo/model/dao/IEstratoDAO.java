@@ -6,13 +6,13 @@ import co.com.avaluo.model.entity.Estrato;
 
 
 public interface IEstratoDAO {
-	public void addEntity(Estrato entity);
+	void addEntity(Estrato entity);
 
-	public void updateEntity(Estrato entity);
+	void updateEntity(Estrato entity);
 	
-	public void deleteEntity(Estrato entity);
+	void deleteEntity(Estrato entity);
 	
-	public Estrato getEntity(int id);
+	Estrato getEntity(int id);
 
-	public List<Estrato> getEntities(int idEmpresa);
+	List<Estrato> getEntities(int idEmpresa);
 }

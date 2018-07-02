@@ -4,25 +4,26 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.model.entity.Propiedad;
 import co.com.avaluo.service.IPropiedadService;
 
-@Named("propiedadBB")
-@Scope("session")
-public class PropiedadBB implements Serializable {
+@ManagedBean(name = "propiedadBB")
+@ViewScoped
+public class PropiedadBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Inject
+	@Autowired
 	private IPropiedadService propiedadService;
 	
 	private Propiedad propiedad = new Propiedad();

@@ -2,18 +2,16 @@ package co.com.avaluo.model.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import co.com.avaluo.model.entity.Estrato;
 
-@Named
+@Repository
 public class EstratoDAO implements IEstratoDAO {
-	@Inject
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() {
@@ -26,44 +24,34 @@ public class EstratoDAO implements IEstratoDAO {
 
 	public void addEntity(Estrato entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
 		session.save(entity);
-		trans.commit();
 	}
 
 	public void deleteEntity(Estrato entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
 		session.delete(entity);
-		trans.commit();
 	}
 
 	public void updateEntity(Estrato entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
 		session.update(entity);
-		trans.commit();
 	}
 
 	public Estrato getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
 		
 		List<?> list = session
 				.createQuery("from Estrato where id=?").setParameter(0, id)
 				.list();
 		
-		trans.commit();
 		return (Estrato) list.get(0);
 	}
 
 	public List<Estrato > getEntities(int idEmpresa) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction trans = session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Estrato> list = (List<Estrato>) session.createQuery("from Estrato where empresa.id = :idEmpresa")
 				.setParameter("idEmpresa", idEmpresa).list();
-		trans.commit();
 		return list;
 	}
 

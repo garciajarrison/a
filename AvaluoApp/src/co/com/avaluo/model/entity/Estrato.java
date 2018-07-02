@@ -4,6 +4,7 @@ package co.com.avaluo.model.entity;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,8 +49,7 @@ public class Estrato implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id", unique = true, insertable = false, updatable = false)
 	public int getId() {
 		return this.id;
 	}

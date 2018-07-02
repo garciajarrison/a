@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
@@ -20,13 +21,13 @@ import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.IEstratoService;
 
-@Named("estratoBB")
-@Scope("session")
-public class EstratoBB implements Serializable {
+@ManagedBean(name = "estratoBB")
+@ViewScoped
+public class EstratoBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Inject
+	@Autowired
 	private IEstratoService estratoService;
 	
 	private Estrato estrato = new Estrato();
@@ -35,13 +36,16 @@ public class EstratoBB implements Serializable {
 	private Usuario usuario;
 	private Util util;
 	
-	private void cargarListaEstratos() {
+	public EstratoBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		entityList = getEstratoService().getEntitys(usuario.getEmpresa().getId());
+		cargarListaEstratos();
+	}
+	
+	private void cargarListaEstratos() {
+		entityList = estratoService.getEntitys(usuario.getEmpresa().getId());
 		if(entityList == null)
 			entityList = new ArrayList<>();
-		
 	}
 	
 	public void addEntity() {
@@ -105,8 +109,6 @@ public class EstratoBB implements Serializable {
 	}
 
 	public List<Estrato> getEntityList() {
-		if(entityList == null)
-			cargarListaEstratos();
 		return entityList;
 	}
 

@@ -2,23 +2,19 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IEmpresaDAO;
-import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
-import co.com.avaluo.model.entity.Usuario;
 
-
-@Named
+@Service
 @Transactional(readOnly = true)
 public class EmpresaService implements IEmpresaService {
 
-	@Inject
-	IEmpresaDAO entityDAO;
+	@Autowired
+	private IEmpresaDAO entityDAO;
 
 	@Transactional(readOnly = false)
 	public void addEntity(Estrato entity) {
@@ -41,10 +37,6 @@ public class EmpresaService implements IEmpresaService {
 
 	public List<Estrato> getEntitys() {	
 		return getEntityDAO().getEntities();
-	}
-
-	public Empresa getEmpresaPorUsuario(Usuario usuario) {
-		return getEntityDAO().getEmpresaPorUsuario(usuario);
 	}
 	
 	public IEmpresaDAO getEntityDAO() {

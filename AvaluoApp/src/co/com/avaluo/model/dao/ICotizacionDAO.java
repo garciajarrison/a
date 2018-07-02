@@ -6,13 +6,13 @@ import co.com.avaluo.model.entity.Cotizacion;
 
 
 public interface ICotizacionDAO {
-	public void addEntity(Cotizacion entity);
+	void addEntity(Cotizacion entity);
 
-	public void updateEntity(Cotizacion entity);
+	void updateEntity(Cotizacion entity);
 	
-	public void deleteEntity(Cotizacion entity);
+	void deleteEntity(Cotizacion entity);
 	
-	public Cotizacion getEntity(int id);
+	Cotizacion getEntity(int id);
 
-	public List<Cotizacion> getEntities();
+	List<Cotizacion> getEntities();
 }
