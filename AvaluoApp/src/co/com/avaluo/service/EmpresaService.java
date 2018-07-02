@@ -7,16 +7,18 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IEstratoDAO;
+import co.com.avaluo.model.dao.IEmpresaDAO;
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Usuario;
 
 
 @Named
 @Transactional(readOnly = true)
-public class EstratoService implements IEstratoService {
+public class EmpresaService implements IEmpresaService {
 
 	@Inject
-	IEstratoDAO entityDAO;
+	IEmpresaDAO entityDAO;
 
 	@Transactional(readOnly = false)
 	public void addEntity(Estrato entity) {
@@ -37,15 +39,19 @@ public class EstratoService implements IEstratoService {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Estrato> getEntitys(int idEmpresa) {	
-		return getEntityDAO().getEntities(idEmpresa);
+	public List<Estrato> getEntitys() {	
+		return getEntityDAO().getEntities();
 	}
 
-	public IEstratoDAO getEntityDAO() {
+	public Empresa getEmpresaPorUsuario(Usuario usuario) {
+		return getEntityDAO().getEmpresaPorUsuario(usuario);
+	}
+	
+	public IEmpresaDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(IEstratoDAO entityDAO) {
+	public void setEmpresaDAO(IEmpresaDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

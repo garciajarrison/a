@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.IUsuarioService;
 
 @Named("loginBB")
@@ -22,6 +23,8 @@ public class LoginBB implements Serializable {
 
 	@Inject
 	private IUsuarioService usuarioService;
+	@Inject
+	private IEmpresaService empresaService;
 	
 	private Usuario usuario = new Usuario();
 
@@ -30,7 +33,7 @@ public class LoginBB implements Serializable {
 			usuario = this.getUsuarioService().login(usuario);
 			if(usuario != null) {
 				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
-				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, "ES");
+				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, usuario.getLenguaje());
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
 				Util.getInstance().redirect("home.xhtml");
 			} else{
@@ -49,6 +52,14 @@ public class LoginBB implements Serializable {
 
 	public void setUsuarioService(IUsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
+	}
+	
+	public IEmpresaService getEmpresaService() {
+		return empresaService;
+	}
+
+	public void setEmpresaService(IEmpresaService empresaService) {
+		this.empresaService = empresaService;
 	}
 
 	public Usuario getUsuario() {

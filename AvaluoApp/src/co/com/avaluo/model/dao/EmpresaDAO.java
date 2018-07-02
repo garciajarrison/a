@@ -9,10 +9,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Usuario;
 
 @Named
-public class EstratoDAO implements IEstratoDAO {
+public class EmpresaDAO implements IEmpresaDAO {
 	@Inject
 	private SessionFactory sessionFactory;
 
@@ -50,21 +52,28 @@ public class EstratoDAO implements IEstratoDAO {
 		Transaction trans = session.beginTransaction();
 		
 		List<?> list = session
-				.createQuery("from Estrato where id=?").setParameter(0, id)
+				.createQuery("from MarketCategories where id=?").setParameter(0, id)
 				.list();
 		
 		trans.commit();
 		return (Estrato) list.get(0);
 	}
 
-	public List<Estrato > getEntities(int idEmpresa) {
+	public List<Estrato > getEntities() {
 		Session session = getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
+		
 		@SuppressWarnings("unchecked")
-		List<Estrato> list = (List<Estrato>) session.createQuery("from Estrato where empresa.id = :idEmpresa")
-				.setParameter("idEmpresa", idEmpresa).list();
+		List<Estrato> list = (List<Estrato>) session.createQuery("from MarketCategories").list();
+		
 		trans.commit();
 		return list;
+	}
+
+	@Override
+	public Empresa getEmpresaPorUsuario(Usuario usuario) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (Empresa) session.createQuery("from Empresa where").uniqueResult();
 	}
 
 }

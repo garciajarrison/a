@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -74,5 +75,18 @@ public class Util {
         MessageFormat format = new MessageFormat(resourceString, locale);
         return format.format(arguments);
     }
+
+	public void mostrarError(String mensaje) {
+		this.mostrarMsgGeneral(mensaje, FacesMessage.SEVERITY_ERROR);
+	}
+	
+	public void mostrarMensaje(String mensaje) {
+		this.mostrarMsgGeneral(mensaje, FacesMessage.SEVERITY_INFO);
+	}
+	
+	private void mostrarMsgGeneral(String mensaje, FacesMessage.Severity severidad) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, mensaje, ""));  
+	}
+	
 
 }
