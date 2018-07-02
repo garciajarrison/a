@@ -2,12 +2,9 @@ package co.com.avaluo.model.entity;
 // Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
-<<<<<<< HEAD
-=======
 import java.util.HashSet;
 import java.util.Set;
 
->>>>>>> c9c1584793b9fbbe188438722af6172e3e4cbf57
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
