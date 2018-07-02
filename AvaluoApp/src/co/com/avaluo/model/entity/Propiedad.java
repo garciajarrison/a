@@ -1,10 +1,9 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
+// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +21,7 @@ import javax.persistence.Table;
 public class Propiedad implements java.io.Serializable {
 
 	private int id;
+	private Empresa empresa;
 	private Usuario usuario;
 	private Ciudad ciudad;
 	private String tipo;
@@ -29,22 +29,22 @@ public class Propiedad implements java.io.Serializable {
 	private String direccion;
 	private String unidadMedida;
 	private BigDecimal valorMedida;
-	private int estratoId;
-	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
+	private Set<Tablas> tablases = new HashSet<Tablas>(0);
 
 	public Propiedad() {
 	}
 
-	public Propiedad(int id, Usuario usuario, Ciudad ciudad, int estratoId) {
+	public Propiedad(int id, Empresa empresa, Usuario usuario, Ciudad ciudad) {
 		this.id = id;
+		this.empresa = empresa;
 		this.usuario = usuario;
 		this.ciudad = ciudad;
-		this.estratoId = estratoId;
 	}
 
-	public Propiedad(int id, Usuario usuario, Ciudad ciudad, String tipo, String registro, String direccion,
-			String unidadMedida, BigDecimal valorMedida, int estratoId, Set<Cotizacion> cotizacions) {
+	public Propiedad(int id, Empresa empresa, Usuario usuario, Ciudad ciudad, String tipo, String registro,
+			String direccion, String unidadMedida, BigDecimal valorMedida, Set<Tablas> tablases) {
 		this.id = id;
+		this.empresa = empresa;
 		this.usuario = usuario;
 		this.ciudad = ciudad;
 		this.tipo = tipo;
@@ -52,8 +52,7 @@ public class Propiedad implements java.io.Serializable {
 		this.direccion = direccion;
 		this.unidadMedida = unidadMedida;
 		this.valorMedida = valorMedida;
-		this.estratoId = estratoId;
-		this.cotizacions = cotizacions;
+		this.tablases = tablases;
 	}
 
 	@Id
@@ -65,6 +64,16 @@ public class Propiedad implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "estrato_id", nullable = false)
+	public Empresa getEmpresa() {
+		return this.empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -132,22 +141,13 @@ public class Propiedad implements java.io.Serializable {
 		this.valorMedida = valorMedida;
 	}
 
-	@Column(name = "estrato_id", nullable = false)
-	public int getEstratoId() {
-		return this.estratoId;
-	}
-
-	public void setEstratoId(int estratoId) {
-		this.estratoId = estratoId;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
-	public Set<Cotizacion> getCotizacions() {
-		return this.cotizacions;
+	public Set<Tablas> getTablases() {
+		return this.tablases;
 	}
 
-	public void setCotizacions(Set<Cotizacion> cotizacions) {
-		this.cotizacions = cotizacions;
+	public void setTablases(Set<Tablas> tablases) {
+		this.tablases = tablases;
 	}
 
 }
