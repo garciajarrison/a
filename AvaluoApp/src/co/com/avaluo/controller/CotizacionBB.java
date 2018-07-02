@@ -2,13 +2,14 @@ package co.com.avaluo.controller;
 
 import java.io.Serializable;
 
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
-import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-@Named("cotizacionBB")
-@Scope("session")
-public class CotizacionBB implements Serializable {
+@ManagedBean(name = "cotizacionBB")
+@ViewScoped
+public class CotizacionBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 /*	private static final long serialVersionUID = 1L;
 

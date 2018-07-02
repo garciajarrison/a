@@ -2,21 +2,19 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ILicenciaDAO;
 import co.com.avaluo.model.entity.Licencia;
 
-
-@Named
+@Service
 @Transactional(readOnly = true)
 public class LicenciaService implements ILicenciaService {
 
-	@Inject
-	ILicenciaDAO entityDAO;
+	@Autowired
+	private ILicenciaDAO entityDAO;
 
 	@Transactional(readOnly = false)
 	public void addEntity(Licencia entity) {

@@ -13,6 +13,7 @@ public class ListasGenericas {
 	private List<SelectItem> listaIdiomas;
 	private List<SelectItem> listaTipoPropiedadUrbano;
 	private List<SelectItem> listaTipoPropiedadRural;
+	private List<SelectItem> listaEstratos;
 	
 	public static ListasGenericas getInstance() {
 		if(instance == null)
@@ -28,6 +29,7 @@ public class ListasGenericas {
 		listaIdiomas = this.consultarListas(EnumListas.LISTA_IDIOMAS);
 		listaTipoPropiedadUrbano = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_URBANO);
 		listaTipoPropiedadRural = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_RURAL);
+		listaEstratos = this.consultarListas(EnumListas.LISTA_ESTRATOS);
 	}
 
 	public List<SelectItem> consultarListas(EnumListas lista){
@@ -43,6 +45,31 @@ public class ListasGenericas {
 		}catch(Exception e) {}
 		return retorno;
 	}
-	
+
+
+	public List<SelectItem> getListaTiposDocumento() {
+		return listaTiposDocumento;
+	}
+
+
+	public List<SelectItem> getListaLicencias() {
+		return listaLicencias;
+	}
+
+	public List<SelectItem> getListaIdiomas() {
+		return listaIdiomas;
+	}
+
+	public List<SelectItem> getListaTipoPropiedadUrbano() {
+		return listaTipoPropiedadUrbano;
+	}
+
+	public List<SelectItem> getListaTipoPropiedadRural() {
+		return listaTipoPropiedadRural;
+	}
+
+	public List<SelectItem> getListaEstratos() {
+		return listaEstratos;
+	}
 
 }

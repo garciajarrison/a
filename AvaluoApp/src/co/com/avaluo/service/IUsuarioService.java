@@ -7,17 +7,17 @@ import co.com.avaluo.model.entity.Usuario;
 
 public interface IUsuarioService {
 	
-	public void addEntity(Usuario entity);
+	void addEntity(Usuario entity);
 	
-	public void updateEntity(Usuario entity);
+	void updateEntity(Usuario entity);
 
-	public void deleteEntity(Usuario entity);
+	void deleteEntity(Usuario entity);
 	
-	public Usuario getEntityById(int id);
+	Usuario getEntityById(int id);
 	
-	public List<Usuario> getEntities();
+	List<Usuario> getEntities();
 
-	public Usuario login(Usuario usuario);
+	Usuario login(Usuario usuario);
 	
 	
 }

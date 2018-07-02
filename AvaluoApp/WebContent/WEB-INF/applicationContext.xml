@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
-        
-	<context:annotation-config/>
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd     
+                    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+                    
+    <context:component-scan base-package="co.com.avaluo.controller" />
+	<context:component-scan base-package="co.com.avaluo.service" />
+	<context:component-scan base-package="co.com.avaluo.model.dao" />
+	
+	<mvc:annotation-driven />
+	
+	<!-- support spring annotation -->
+	<context:annotation-config />
+	<!-- support annotation transaction -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 
-	<!-- <bean id="DataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/AvaluoDB" />
-		<property name="username" value="root" />
-		<property name="password" value="" />
-	</bean>
-	 -->
-	<bean id="DataSource"
+	<!-- declare datasource -->
+	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/avalsoft" />
@@ -27,47 +30,32 @@
 		<property name="password" value="12345678" />
 	</bean>
 
-	<!-- Session Factory Declaration -->
-	<bean id="SessionFactory"
+	<!--Hibernate session factory configuration -->
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="DataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>co.com.avaluo.model.entity.Ciudad</value>
-				<value>co.com.avaluo.model.entity.Contacto</value>
-				<value>co.com.avaluo.model.entity.Cotizacion</value>
-				<value>co.com.avaluo.model.entity.Departamento</value>
-				<value>co.com.avaluo.model.entity.Empresa</value>
-				<value>co.com.avaluo.model.entity.Estrato</value>
-				<value>co.com.avaluo.model.entity.Licencia</value>
-				<value>co.com.avaluo.model.entity.Pais</value>
-				<value>co.com.avaluo.model.entity.Propiedad</value>
-				<value>co.com.avaluo.model.entity.Rol</value>
-				<value>co.com.avaluo.model.entity.Usuario</value>
-				
-			</list>
-		</property>
+		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.connection.pool_size">10</prop>
 				<prop key="show_sql">true</prop>
-				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.c3p0.min_size">5</prop> 
+				<prop key="hibernate.c3p0.max_size">20</prop> 
+				<prop key="hibernate.c3p0.timeout">300</prop> 
+				<prop key="hibernate.c3p0.max_statements">50</prop> 
+				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
 			</props>
 		</property>
+		<!-- where to find the ORM classes -->
+		<property name="packagesToScan" value="co.com.avaluo.model.entity" />
 	</bean>
 
-	<!-- Enable the configuration of transactional behavior based on annotations -->
-	<tx:annotation-driven transaction-manager="txManager" />
-
-	<!-- Transaction Manager is defined -->
-	<bean id="txManager"
+	<!-- Transaction manager -->
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="SessionFactory" />
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
-	<context:component-scan base-package="co.com.avaluo" />
 
 
 </beans>
