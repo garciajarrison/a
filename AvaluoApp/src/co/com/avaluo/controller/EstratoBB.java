@@ -35,10 +35,13 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	private List<Estrato> entityList;
 	private Usuario usuario;
 	private Util util;
+	private List<SelectItem> propiedad;
 	
 	public EstratoBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
+		propiedad=ListasGenericas.getInstance().getListaTipoPropiedad();
+		getListaEstratos();
 		cargarListaEstratos();
 	}
 	
@@ -146,4 +149,12 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
     public List<SelectItem> getListaEstratos(){
     	return ListasGenericas.getInstance().getListaEstratos();
     }
+
+	public List<SelectItem> getPropiedad() {
+		return propiedad;
+	}
+
+	public void setPropiedad(List<SelectItem> propiedad) {
+		this.propiedad = propiedad;
+	}
  }

@@ -13,6 +13,7 @@ public class ListasGenericas {
 	private List<SelectItem> listaIdiomas;
 	private List<SelectItem> listaTipoPropiedadUrbano;
 	private List<SelectItem> listaTipoPropiedadRural;
+	private List<SelectItem> listaTipoPropiedad;
 	private List<SelectItem> listaEstratos;
 	
 	public static ListasGenericas getInstance() {
@@ -30,6 +31,7 @@ public class ListasGenericas {
 		listaTipoPropiedadUrbano = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_URBANO);
 		listaTipoPropiedadRural = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_RURAL);
 		listaEstratos = this.consultarListas(EnumListas.LISTA_ESTRATOS);
+		listaTipoPropiedad = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD);
 	}
 
 	public List<SelectItem> consultarListas(EnumListas lista){
@@ -70,6 +72,16 @@ public class ListasGenericas {
 
 	public List<SelectItem> getListaEstratos() {
 		return listaEstratos;
+	}
+
+
+	public List<SelectItem> getListaTipoPropiedad() {
+		return listaTipoPropiedad;
+	}
+
+
+	public void setListaTipoPropiedad(List<SelectItem> listaTipoPropiedad) {
+		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
 }

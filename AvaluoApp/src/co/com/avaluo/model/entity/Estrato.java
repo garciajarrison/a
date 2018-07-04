@@ -1,5 +1,5 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 10:51:15 AM by Hibernate Tools 4.0.1.Final
+// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -8,10 +8,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +27,6 @@ public class Estrato implements java.io.Serializable {
 	private String nombre;
 	private BigDecimal valor;
 	private BigDecimal porcentaje;
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
 
 	public Estrato() {
 	}
@@ -38,18 +38,18 @@ public class Estrato implements java.io.Serializable {
 		this.porcentaje = porcentaje;
 	}
 
-	public Estrato(int id, Empresa empresa, String nombre, BigDecimal valor, BigDecimal porcentaje,
-			Set<Propiedad> propiedads) {
+	public Estrato(int id, Empresa empresa, String nombre, BigDecimal valor, BigDecimal porcentaje) {
 		this.id = id;
 		this.empresa = empresa;
 		this.nombre = nombre;
 		this.valor = valor;
 		this.porcentaje = porcentaje;
-		this.propiedads = propiedads;
 	}
 
 	@Id
-	@Column(name = "id", unique = true, insertable = false, updatable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -93,15 +93,6 @@ public class Estrato implements java.io.Serializable {
 
 	public void setPorcentaje(BigDecimal porcentaje) {
 		this.porcentaje = porcentaje;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estrato")
-	public Set<Propiedad> getPropiedads() {
-		return this.propiedads;
-	}
-
-	public void setPropiedads(Set<Propiedad> propiedads) {
-		this.propiedads = propiedads;
 	}
 
 }

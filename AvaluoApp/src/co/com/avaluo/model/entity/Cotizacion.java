@@ -1,11 +1,11 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 10:51:15 AM by Hibernate Tools 4.0.1.Final
-
-import java.math.BigDecimal;
+// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,54 +19,28 @@ import javax.persistence.Table;
 public class Cotizacion implements java.io.Serializable {
 
 	private int id;
-	private Empresa empresa;
-	private Propiedad propiedad;
-	private String tipo;
-	private String nombre;
-	private BigDecimal desde;
-	private BigDecimal hasta;
-	private BigDecimal delta;
-	private BigDecimal factor;
-	private BigDecimal base;
-	private BigDecimal valor;
-	private BigDecimal areaRango;
-	private BigDecimal valorAreaRango;
-	private BigDecimal residuo;
-	private boolean estado;
+	private Empresa empresaByClienteId;
+	private Empresa empresaByEmpresaId;
+	private Double valor;
 
 	public Cotizacion() {
 	}
 
-	public Cotizacion(int id, Empresa empresa, Propiedad propiedad, boolean estado) {
+	public Cotizacion(int id) {
 		this.id = id;
-		this.empresa = empresa;
-		this.propiedad = propiedad;
-		this.estado = estado;
 	}
 
-	public Cotizacion(int id, Empresa empresa, Propiedad propiedad, String tipo, String nombre, BigDecimal desde,
-			BigDecimal hasta, BigDecimal delta, BigDecimal factor, BigDecimal base, BigDecimal valor,
-			BigDecimal areaRango, BigDecimal valorAreaRango, BigDecimal residuo, boolean estado) {
+	public Cotizacion(int id, Empresa empresaByClienteId, Empresa empresaByEmpresaId, Double valor) {
 		this.id = id;
-		this.empresa = empresa;
-		this.propiedad = propiedad;
-		this.tipo = tipo;
-		this.nombre = nombre;
-		this.desde = desde;
-		this.hasta = hasta;
-		this.delta = delta;
-		this.factor = factor;
-		this.base = base;
+		this.empresaByClienteId = empresaByClienteId;
+		this.empresaByEmpresaId = empresaByEmpresaId;
 		this.valor = valor;
-		this.areaRango = areaRango;
-		this.valorAreaRango = valorAreaRango;
-		this.residuo = residuo;
-		this.estado = estado;
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -76,131 +50,32 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa_id", nullable = false)
-	public Empresa getEmpresa() {
-		return this.empresa;
+	@JoinColumn(name = "cliente_id")
+	public Empresa getEmpresaByClienteId() {
+		return this.empresaByClienteId;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setEmpresaByClienteId(Empresa empresaByClienteId) {
+		this.empresaByClienteId = empresaByClienteId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "propiedad_id", nullable = false)
-	public Propiedad getPropiedad() {
-		return this.propiedad;
+	@JoinColumn(name = "empresa_id")
+	public Empresa getEmpresaByEmpresaId() {
+		return this.empresaByEmpresaId;
 	}
 
-	public void setPropiedad(Propiedad propiedad) {
-		this.propiedad = propiedad;
+	public void setEmpresaByEmpresaId(Empresa empresaByEmpresaId) {
+		this.empresaByEmpresaId = empresaByEmpresaId;
 	}
 
-	@Column(name = "tipo", length = 25)
-	public String getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	@Column(name = "nombre", length = 100)
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	@Column(name = "desde", precision = 131089, scale = 0)
-	public BigDecimal getDesde() {
-		return this.desde;
-	}
-
-	public void setDesde(BigDecimal desde) {
-		this.desde = desde;
-	}
-
-	@Column(name = "hasta", precision = 131089, scale = 0)
-	public BigDecimal getHasta() {
-		return this.hasta;
-	}
-
-	public void setHasta(BigDecimal hasta) {
-		this.hasta = hasta;
-	}
-
-	@Column(name = "delta", precision = 131089, scale = 0)
-	public BigDecimal getDelta() {
-		return this.delta;
-	}
-
-	public void setDelta(BigDecimal delta) {
-		this.delta = delta;
-	}
-
-	@Column(name = "factor", precision = 131089, scale = 0)
-	public BigDecimal getFactor() {
-		return this.factor;
-	}
-
-	public void setFactor(BigDecimal factor) {
-		this.factor = factor;
-	}
-
-	@Column(name = "base", precision = 131089, scale = 0)
-	public BigDecimal getBase() {
-		return this.base;
-	}
-
-	public void setBase(BigDecimal base) {
-		this.base = base;
-	}
-
-	@Column(name = "valor", precision = 131089, scale = 0)
-	public BigDecimal getValor() {
+	@Column(name = "valor", precision = 17, scale = 17)
+	public Double getValor() {
 		return this.valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
-	}
-
-	@Column(name = "area_rango", precision = 131089, scale = 0)
-	public BigDecimal getAreaRango() {
-		return this.areaRango;
-	}
-
-	public void setAreaRango(BigDecimal areaRango) {
-		this.areaRango = areaRango;
-	}
-
-	@Column(name = "valor_area_rango", precision = 131089, scale = 0)
-	public BigDecimal getValorAreaRango() {
-		return this.valorAreaRango;
-	}
-
-	public void setValorAreaRango(BigDecimal valorAreaRango) {
-		this.valorAreaRango = valorAreaRango;
-	}
-
-	@Column(name = "residuo", precision = 131089, scale = 0)
-	public BigDecimal getResiduo() {
-		return this.residuo;
-	}
-
-	public void setResiduo(BigDecimal residuo) {
-		this.residuo = residuo;
-	}
-
-	@Column(name = "estado", nullable = false)
-	public boolean isEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
 	}
 
 }

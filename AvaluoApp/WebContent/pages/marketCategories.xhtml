@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+
+   	
+		<p:dataTable var="estrato" value="#{estratoBB.entityList}" selectionMode="single" selection="#{estratoBB.selectedEstrato}" rowKey="#{estrato.id}">
+		    <f:facet name="header">
+		        Lista de Estratos
+		    </f:facet>
+		 
+		    <p:column headerText="Id">
+		        <h:outputText value="#{estrato.id}" />
+		    </p:column>
+		 
+		    <p:column headerText="Nombre">
+		        <h:outputText value="#{estrato.nombre}" />
+		    </p:column>
+		 
+		    <p:column headerText="Valor">
+		        <h:outputText value="#{estrato.valor}" />
+		    </p:column>
+
+		    <p:column headerText="Porcentaje">
+		        <h:outputText value="#{estrato.porcentaje}" />
+		    </p:column>	    
+		 		    
+		</p:dataTable>
+		<p:commandButton value="Add" type="button" onclick="PF('dlg1').show();" />
+		<p:commandButton value="Update" type="button" onclick="PF('dlg1').show();" />
+		<p:commandButton value="Delete" type="button">
+		<p:ajax event="click" listener="#{estratoBB.deleteEntity}" process="@all" update="formulario"/>
+		</p:commandButton>
+		
+		<p:dialog header="Agregar estrato" widgetVar="dlg1" minHeight="40">
+		    <h:outputLabel id="lName" value="Nombre:" for="txtName"></h:outputLabel>
+	   		<p:inputText id="txtName" value="#{estratoBB.estrato.nombre}" ></p:inputText>
+	   		<h:outputLabel id="lValue" value="Valor:" for="txtValue"></h:outputLabel>
+	   		<p:inputText id="txtValue" value="#{estratoBB.estrato.valor}"></p:inputText>
+	   		<p:commandButton value="Add" type="button"  update="growl">
+				<p:ajax event="click" listener="#{estratoBB.addEntity}" process="@all" update="formulario"/>   		
+	   		</p:commandButton>
+		</p:dialog>		
+
+		<p:dialog header="Update estrato Categories" widgetVar="dlg1" minHeight="40">
+		    <h:outputLabel id="lNameU" value="Name:" for="txtName"></h:outputLabel>
+   		<p:inputText id="txtNameU" value="#{estratoBB.selectedestrato.name}" ></p:inputText>
+   		<h:outputLabel id="lValueU" value="Value:" for="txtValue"></h:outputLabel>
+   		<p:inputText id="txtValueU" value="#{estratoBB.selectedestrato.valor}"></p:inputText>
+   		<p:commandButton value="Add" type="button"  update="growl">
+			<p:ajax event="click" listener="#{estratoBB.updateEntity}" process="@all" update="formulario"/>   		
+   		</p:commandButton>
+		</p:dialog>		
+		
+		
+   </ui:define>
+</ui:composition>
