@@ -20,11 +20,15 @@
 		    </p:column>
 		    
 		    <p:column headerText="Porcentaje">
-		        <h:outputText value="#{estrato.porcentaje}" />
+		        <h:outputText value="#{estrato.porcentaje}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
+		   		</h:outputText>
 		    </p:column>
 		 
 		    <p:column headerText="Valor minimo cotizacion">
-		        <h:outputText value="#{estrato.valor}" />
+		        <h:outputText value="#{estrato.valor}" >
+		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
+		   		</h:outputText>
 		    </p:column>
 		 
 		    
