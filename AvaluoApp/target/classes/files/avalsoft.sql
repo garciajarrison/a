@@ -27,13 +27,13 @@ CREATE SCHEMA avalsoft
 -- -----------------------------------------------------
 -- Table avalsoft.rol
 -- -----------------------------------------------------
-DROP TABLE avalsoft.rol ;
 
-DROP SEQUENCE avalsoft.rol_seq;
+-- DROP SEQUENCE avalsoft.rol_seq;
 CREATE SEQUENCE avalsoft.rol_seq;
 ALTER SEQUENCE avalsoft.rol_seq
     OWNER TO postgres; 
 
+-- DROP TABLE avalsoft.rol ;
 CREATE TABLE avalsoft.rol (
   id integer NOT NULL DEFAULT nextval('avalsoft.rol_seq'::regclass),
   nombre VARCHAR(50) NULL,
@@ -47,13 +47,13 @@ ALTER TABLE avalsoft.rol
 -- -----------------------------------------------------
 -- Table avalsoft.empresa
 -- -----------------------------------------------------
-DROP TABLE avalsoft.empresa ;
 
-DROP SEQUENCE avalsoft.empresa_seq;
+-- DROP SEQUENCE avalsoft.empresa_seq;
 CREATE SEQUENCE avalsoft.empresa_seq;
 ALTER SEQUENCE avalsoft.empresa_seq
     OWNER TO postgres; 
 
+-- DROP TABLE avalsoft.empresa ;
 CREATE TABLE avalsoft.empresa (
   id integer NOT NULL DEFAULT nextval('avalsoft.empresa_seq'::regclass),
   tipo_identificacion VARCHAR(10) NULL,
@@ -74,13 +74,13 @@ ALTER TABLE avalsoft.empresa
 -- -----------------------------------------------------
 -- Table avalsoft.usuario
 -- -----------------------------------------------------
-DROP TABLE avalsoft.usuario ;
 
-DROP SEQUENCE avalsoft.usuario_seq;
+-- DROP SEQUENCE avalsoft.usuario_seq;
 CREATE SEQUENCE avalsoft.usuario_seq;
 ALTER SEQUENCE avalsoft.usuario_seq
-    OWNER TO postgres; 
-
+    OWNER TO postgres;
+    
+-- DROP TABLE avalsoft.usuario ;
 CREATE TABLE avalsoft.usuario (
   id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
   tipo_documento VARCHAR(10) NULL,
@@ -113,13 +113,13 @@ ALTER TABLE avalsoft.usuario
 -- -----------------------------------------------------
 -- Table avalsoft.pais
 -- -----------------------------------------------------
-DROP TABLE avalsoft.pais ;
 
-DROP SEQUENCE avalsoft.pais_seq;
+-- DROP SEQUENCE avalsoft.pais_seq;
 CREATE SEQUENCE avalsoft.pais_seq;
 ALTER SEQUENCE avalsoft.pais_seq
     OWNER TO postgres; 
     
+-- DROP TABLE avalsoft.pais ;
 CREATE TABLE avalsoft.pais (
   id integer NOT NULL DEFAULT nextval('avalsoft.pais_seq'::regclass),
   nombre VARCHAR(100) NULL,
@@ -133,13 +133,13 @@ ALTER TABLE avalsoft.pais
 -- -----------------------------------------------------
 -- Table avalsoft.departamento
 -- -----------------------------------------------------
-DROP TABLE avalsoft.departamento ;
 
-DROP SEQUENCE avalsoft.departamento_seq;
+-- DROP SEQUENCE avalsoft.departamento_seq;
 CREATE SEQUENCE avalsoft.departamento_seq;
 ALTER SEQUENCE avalsoft.departamento_seq
-    OWNER TO postgres; 
-
+    OWNER TO postgres;
+    
+-- DROP TABLE avalsoft.departamento ;
 CREATE TABLE avalsoft.departamento (
   id integer NOT NULL DEFAULT nextval('avalsoft.departamento_seq'::regclass),
   nombre VARCHAR(100) NULL,
@@ -158,13 +158,13 @@ ALTER TABLE avalsoft.departamento
 -- -----------------------------------------------------
 -- Table avalsoft.ciudad
 -- -----------------------------------------------------
-DROP TABLE avalsoft.ciudad ;
 
-DROP SEQUENCE avalsoft.ciudad_seq;
+-- DROP SEQUENCE avalsoft.ciudad_seq;
 CREATE SEQUENCE avalsoft.ciudad_seq;
 ALTER SEQUENCE avalsoft.ciudad_seq
     OWNER TO postgres; 
 
+-- DROP TABLE avalsoft.ciudad ;
 CREATE TABLE avalsoft.ciudad (
   id integer NOT NULL DEFAULT nextval('avalsoft.ciudad_seq'::regclass),
   nombre VARCHAR(100) NULL,
@@ -183,13 +183,13 @@ ALTER TABLE avalsoft.ciudad
 -- -----------------------------------------------------
 -- Table avalsoft.estrato
 -- -----------------------------------------------------
-DROP TABLE avalsoft.estrato ;
 
-DROP SEQUENCE avalsoft.estrato_seq;
+-- DROP SEQUENCE avalsoft.estrato_seq;
 CREATE SEQUENCE avalsoft.estrato_seq;
 ALTER SEQUENCE avalsoft.estrato_seq
-    OWNER TO postgres; 
-
+    OWNER TO postgres;
+    
+-- DROP TABLE avalsoft.estrato ;
 CREATE TABLE avalsoft.estrato (
   id integer NOT NULL DEFAULT nextval('avalsoft.estrato_seq'::regclass),
   nombre VARCHAR(50) NULL,
@@ -208,11 +208,14 @@ ALTER TABLE avalsoft.estrato
 -- -----------------------------------------------------
 -- Table avalsoft.propiedad
 -- -----------------------------------------------------
-DROP TABLE avalsoft.propiedad ;
 
-DROP SEQUENCE avalsoft.propiedad_seq;
-CREATE TABLE avalsoft.propiedad
-(
+-- DROP SEQUENCE avalsoft.propiedad_seq;
+CREATE SEQUENCE avalsoft.propiedad_seq;
+ALTER SEQUENCE avalsoft.propiedad_seq
+    OWNER TO postgres; 
+    
+-- DROP TABLE avalsoft.propiedad ;   
+CREATE TABLE avalsoft.propiedad(
     id integer NOT NULL DEFAULT nextval('avalsoft.propiedad_seq'::regclass),
     tipo character varying(25) COLLATE pg_catalog."default",
     registro character varying(100) COLLATE pg_catalog."default",
@@ -247,11 +250,13 @@ ALTER TABLE avalsoft.propiedad
 -- -----------------------------------------------------
 -- Table avalsoft.cotizacion
 -- -----------------------------------------------------
+-- DROP SEQUENCE avalsoft.cotizacion_id_seq;
+CREATE SEQUENCE avalsoft.cotizacion_id_seq;
+ALTER SEQUENCE avalsoft.cotizacion_id_seq
+    OWNER TO postgres; 
 
 -- DROP TABLE avalsoft.cotizacion;
-
-CREATE TABLE avalsoft.cotizacion
-(
+CREATE TABLE avalsoft.cotizacion(
     id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_id_seq'::regclass),
     empresa_id integer,
     cliente_id integer,
@@ -277,11 +282,13 @@ ALTER TABLE avalsoft.cotizacion
 -- -----------------------------------------------------    
 -- Table: avalsoft.detalle_cotizacion
 -- -----------------------------------------------------
-
+-- DROP SEQUENCE avalsoft.detalle_cotizacion_id_seq;
+CREATE SEQUENCE avalsoft.detalle_cotizacion_id_seq;
+ALTER SEQUENCE avalsoft.detalle_cotizacion_id_seq
+    OWNER TO postgres; 
+    
 -- DROP TABLE avalsoft.detalle_cotizacion;
-
-CREATE TABLE avalsoft.detalle_cotizacion
-(
+CREATE TABLE avalsoft.detalle_cotizacion(
     id integer NOT NULL DEFAULT nextval('avalsoft.detalle_cotizacion_id_seq'::regclass),
     cotizacion_id integer NOT NULL,
     propiedad_id integer NOT NULL,
@@ -300,11 +307,13 @@ ALTER TABLE avalsoft.detalle_cotizacion
 -- -----------------------------------------------------
 -- Table: avalsoft.tablas
 -- -----------------------------------------------------
-
+-- DROP SEQUENCE avalsoft.cotizacion_seq;
+CREATE SEQUENCE avalsoft.cotizacion_seq;
+ALTER SEQUENCE avalsoft.cotizacion_seq
+    OWNER TO postgres; 
+    
 -- DROP TABLE avalsoft.tablas;
-
-CREATE TABLE avalsoft.tablas
-(
+CREATE TABLE avalsoft.tablas(
     id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_seq'::regclass),
     tipo character varying(25) COLLATE pg_catalog."default",
     nombre character varying(100) COLLATE pg_catalog."default",
@@ -339,11 +348,13 @@ ALTER TABLE avalsoft.tablas
 -- -----------------------------------------------------    
 -- Table: avalsoft.detalle_tabla
 -- -----------------------------------------------------
-
+-- DROP SEQUENCE avalsoft.detalle_tabla_id_seq;
+CREATE SEQUENCE avalsoft.detalle_tabla_id_seq;
+ALTER SEQUENCE avalsoft.detalle_tabla_id_seq
+    OWNER TO postgres; 
+    
 -- DROP TABLE avalsoft.detalle_tabla;
-
-CREATE TABLE avalsoft.detalle_tabla
-(
+CREATE TABLE avalsoft.detalle_tabla(
     id integer NOT NULL DEFAULT nextval('avalsoft.detalle_tabla_id_seq'::regclass),
     tabla_id integer,
     desde numeric(10,0),
@@ -363,11 +374,13 @@ ALTER TABLE avalsoft.detalle_tabla
 -- -----------------------------------------------------    
 -- Table: avalsoft.tipo_propiedad
 -- -----------------------------------------------------
+-- DROP SEQUENCE avalsoft.tipo_propiedad_id_seq;
+CREATE SEQUENCE avalsoft.tipo_propiedad_id_seq;
+ALTER SEQUENCE avalsoft.tipo_propiedad_id_seq
+    OWNER TO postgres; 
 
 -- DROP TABLE avalsoft.tipo_propiedad;
-
-CREATE TABLE avalsoft.tipo_propiedad
-(
+CREATE TABLE avalsoft.tipo_propiedad(
     id integer NOT NULL DEFAULT nextval('avalsoft.tipo_propiedad_id_seq'::regclass),
     tipo_propiedad character varying(50) COLLATE pg_catalog."default",
     tipo_vivienda character varying(100) COLLATE pg_catalog."default",
@@ -390,13 +403,12 @@ ALTER TABLE avalsoft.tipo_propiedad
 -- -----------------------------------------------------
 -- Table avalsoft.contacto
 -- -----------------------------------------------------
-DROP TABLE avalsoft.contacto ;
-
-DROP SEQUENCE avalsoft.contacto_seq;
+--DROP SEQUENCE avalsoft.contacto_seq;
 CREATE SEQUENCE avalsoft.contacto_seq;
 ALTER SEQUENCE avalsoft.contacto_seq
     OWNER TO postgres; 
-
+    
+-- DROP TABLE avalsoft.contacto ;
 CREATE TABLE avalsoft.contacto (
   id integer NOT NULL DEFAULT nextval('avalsoft.contacto_seq'::regclass),
   usuario_id integer NOT NULL,
@@ -411,13 +423,13 @@ ALTER TABLE avalsoft.contacto
 -- -----------------------------------------------------
 -- Table Avalsoft.licencia
 -- -----------------------------------------------------
-DROP TABLE Avalsoft.licencia ;
 
-DROP SEQUENCE avalsoft.licencia_seq;
+-- DROP SEQUENCE avalsoft.licencia_seq;
 CREATE SEQUENCE avalsoft.licencia_seq;
 ALTER SEQUENCE avalsoft.licencia_seq
     OWNER TO postgres; 
 
+-- DROP TABLE Avalsoft.licencia ;
 CREATE TABLE avalsoft.licencia (
   id integer NOT NULL DEFAULT nextval('avalsoft.licencia_seq'::regclass),
   nombre VARCHAR(100) NULL,
