@@ -29,7 +29,7 @@ public class Usuario implements java.io.Serializable {
 	private Rol rol;
 	private Empresa empresa;
 	private String tipoDocumento;
-	private String indetificacion;
+	private String identificacion;
 	private String nombre;
 	private String correo;
 	private Date fechaNacimiento;
@@ -53,14 +53,14 @@ public class Usuario implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String indetificacion, String nombre,
+	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
 			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
 		this.tipoDocumento = tipoDocumento;
-		this.indetificacion = indetificacion;
+		this.identificacion = identificacion;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.fechaNacimiento = fechaNacimiento;
@@ -116,13 +116,13 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	@Column(name = "indetificacion", length = 20)
-	public String getIndetificacion() {
-		return this.indetificacion;
+	@Column(name = "identificacion", length = 20)
+	public String getIdentificacion() {
+		return this.identificacion;
 	}
 
-	public void setIndetificacion(String indetificacion) {
-		this.indetificacion = indetificacion;
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
 	}
 
 	@Column(name = "nombre", length = 50)

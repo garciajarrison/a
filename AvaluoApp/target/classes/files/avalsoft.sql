@@ -286,7 +286,15 @@ CREATE TABLE avalsoft.detalle_cotizacion
     cotizacion_id integer NOT NULL,
     propiedad_id integer NOT NULL,
     valor numeric(20,0),
-    CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id)
+    CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_detalle_cotizacion FOREIGN KEY (cotizacion_id)
+        REFERENCES avalsoft.cotizacion (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_detalle_cotizacion_propiedad FOREIGN KEY (propiedad_id)
+        REFERENCES avalsoft.propiedad (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE
@@ -295,7 +303,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.detalle_cotizacion
     OWNER to postgres;
-    
 
 -- -----------------------------------------------------
 -- Table: avalsoft.tablas
@@ -350,7 +357,15 @@ CREATE TABLE avalsoft.detalle_tabla
     hasta numeric(10,0),
     porcentaje_aplicar double precision,
     empresa_id integer,
-    CONSTRAINT detalle_tabla_pkey PRIMARY KEY (id)
+    CONSTRAINT detalle_tabla_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_detalle_tabla_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_detalle_tabla_tablas FOREIGN KEY (tabla_id)
+        REFERENCES avalsoft.tablas (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE
@@ -359,7 +374,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.detalle_tabla
     OWNER to postgres;
-
 -- -----------------------------------------------------    
 -- Table: avalsoft.tipo_propiedad
 -- -----------------------------------------------------
