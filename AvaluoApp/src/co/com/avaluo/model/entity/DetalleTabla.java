@@ -1,11 +1,12 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,11 +17,11 @@ import javax.persistence.Table;
 public class DetalleTabla implements java.io.Serializable {
 
 	private int id;
-	private Integer tablaId;
+	private Tablas tablas;
+	private Empresa empresa;
 	private Long desde;
 	private Long hasta;
 	private Double porcentajeAplicar;
-	private Integer empresaId;
 
 	public DetalleTabla() {
 	}
@@ -29,19 +30,18 @@ public class DetalleTabla implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public DetalleTabla(int id, Integer tablaId, Long desde, Long hasta, Double porcentajeAplicar, Integer empresaId) {
+	public DetalleTabla(int id, Tablas tablas, Empresa empresa, Long desde, Long hasta, Double porcentajeAplicar) {
 		this.id = id;
-		this.tablaId = tablaId;
+		this.tablas = tablas;
+		this.empresa = empresa;
 		this.desde = desde;
 		this.hasta = hasta;
 		this.porcentajeAplicar = porcentajeAplicar;
-		this.empresaId = empresaId;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -50,13 +50,24 @@ public class DetalleTabla implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "tabla_id")
-	public Integer getTablaId() {
-		return this.tablaId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tabla_id")
+	public Tablas getTablas() {
+		return this.tablas;
 	}
 
-	public void setTablaId(Integer tablaId) {
-		this.tablaId = tablaId;
+	public void setTablas(Tablas tablas) {
+		this.tablas = tablas;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "empresa_id")
+	public Empresa getEmpresa() {
+		return this.empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Column(name = "desde", precision = 10, scale = 0)
@@ -84,15 +95,6 @@ public class DetalleTabla implements java.io.Serializable {
 
 	public void setPorcentajeAplicar(Double porcentajeAplicar) {
 		this.porcentajeAplicar = porcentajeAplicar;
-	}
-
-	@Column(name = "empresa_id")
-	public Integer getEmpresaId() {
-		return this.empresaId;
-	}
-
-	public void setEmpresaId(Integer empresaId) {
-		this.empresaId = empresaId;
 	}
 
 }
