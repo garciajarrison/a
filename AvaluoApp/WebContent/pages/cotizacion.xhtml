@@ -10,14 +10,14 @@
 
 	
 		<p:accordionPanel style="margin-top:10px">
-	        <p:tab title="Customer information">
+	        <p:tab title="Información del cliente">
 	          	<h:panelGrid columns="4">
 			   		<h:outputLabel id="tipoIden" value="Tipo identificación:" for="selTipoIdent"></h:outputLabel>
 			   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.usuario.tipoDocumento}" style="width:125px">
 			            <f:selectItem itemLabel="Seleccione" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />
 		
-		        	</p:selectOneMenu>
+		        	</p:selectOneMenu> 
 			 		<h:outputLabel id="lIdentificacion" value="Identificación:" for="txtIdentificacion"></h:outputLabel>
 			   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.usuario.identificacion}"></p:inputText>
 			   		<h:outputLabel id="lName" value="Names:" for="txtName"></h:outputLabel>
@@ -33,8 +33,8 @@
 			   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.usuario.correo}"></p:inputText>  		
 		   		
    				</h:panelGrid>
-	        </p:tab><font></font>
-	        <p:tab title="Property information"><font></font>
+	        </p:tab>
+	        <p:tab title="Información de la propiedad">
 	          	<h:panelGrid columns="4">
 			   		<h:outputLabel id="lTable" value="Tabla:" for="selPersonTtpe"></h:outputLabel>
 			   		<p:selectOneMenu id="selTables" value="#{cotizacionBB.table}" style="width:125px">
@@ -52,40 +52,19 @@
 			 				   		
    				</h:panelGrid>
 	        </p:tab>
-	        <p:tab title="Area Information"><font></font>
-	          		        </p:tab><font></font>
-	        <p:tab title="Sender information"><font></font>
+	        <p:tab title="Información de área">
+	          		        </p:tab>
+	        <p:tab title="Información del remitente">
 	          	
-	        </p:tab><font></font>	  
-	        <p:tab title="Additional information"><font></font>
+	        </p:tab>
+	        <p:tab title="Información adicional">
 	          	
-	        </p:tab><font></font>		              
+	        </p:tab>	              
     	</p:accordionPanel>   
 
 
 
-   		<h:outputLabel id="lUserName" value="User name:" for="txtUserName"></h:outputLabel>
-   		<p:inputText id="txtUserName"></p:inputText>
-   		<h:outputLabel id="lIdCart" value="Id cart:" for="txtIdCart"></h:outputLabel>
-   		<p:inputText id="txtIdCart"></p:inputText>
-   		<h:outputLabel id="lProfesion" value="Profesion:" for="txtProfesion"></h:outputLabel>
-   		<p:inputText id="txtProfesion"></p:inputText>
-   		<h:outputLabel id="lIdProf" value="Id Prof:" for="txtIdProf"></h:outputLabel>
-   		<p:inputText id="txtIdProf"></p:inputText>
-   		<h:outputLabel id="lProfesionII" value="Profesion II:" for="txtProfesionII"></h:outputLabel>
-   		<p:inputText id="txtProfesionII"></p:inputText>
-   		<h:outputLabel id="lIdProfII" value="Id prof II:" for="txtIdProfII"></h:outputLabel>
-   		<p:inputText id="txtIdProfII"></p:inputText>
-   		<h:outputLabel id="lExpirationDate" value="Expiration Date:" for="txtExpirationDate"></h:outputLabel>
-   		<p:inputText id="txtExpirationDate"></p:inputText>
-   		<h:outputLabel id="lCompany" value="Company:" for="txtCompany"></h:outputLabel>
-   		<p:inputText id="txtCompany"></p:inputText>
-   		<h:outputLabel id="lIdCompany" value="Id Company:" for="txtIdCompany"></h:outputLabel>
-   		<p:inputText id="txtIdCompany"></p:inputText>
-   		<h:outputLabel id="lEmail" value="Email:" for="txtEmail"></h:outputLabel>
-   		<p:inputText id="txtEmail"></p:inputText>
-   		<h:outputLabel id="lContact" value="Contact:" for="txtContact"></h:outputLabel>
-   		<p:inputText id="txtContact"></p:inputText>
+   		
    </h:form>
 </h:body>
 </html>

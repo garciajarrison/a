@@ -1,15 +1,16 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +33,7 @@ public class Tablas implements java.io.Serializable {
 	private String uomAlt;
 	private Long diasDeTrabajo;
 	private Long minimo;
+	private Set<DetalleTabla> detalleTablas = new HashSet<DetalleTabla>(0);
 
 	public Tablas() {
 	}
@@ -45,7 +47,7 @@ public class Tablas implements java.io.Serializable {
 
 	public Tablas(int id, Empresa empresa, Propiedad propiedad, String tipo, String nombre, BigDecimal conversion,
 			BigDecimal base, BigDecimal gastos, boolean estado, String uom, String uomAlt, Long diasDeTrabajo,
-			Long minimo) {
+			Long minimo, Set<DetalleTabla> detalleTablas) {
 		this.id = id;
 		this.empresa = empresa;
 		this.propiedad = propiedad;
@@ -59,12 +61,12 @@ public class Tablas implements java.io.Serializable {
 		this.uomAlt = uomAlt;
 		this.diasDeTrabajo = diasDeTrabajo;
 		this.minimo = minimo;
+		this.detalleTablas = detalleTablas;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -181,6 +183,15 @@ public class Tablas implements java.io.Serializable {
 
 	public void setMinimo(Long minimo) {
 		this.minimo = minimo;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablas")
+	public Set<DetalleTabla> getDetalleTablas() {
+		return this.detalleTablas;
+	}
+
+	public void setDetalleTablas(Set<DetalleTabla> detalleTablas) {
+		this.detalleTablas = detalleTablas;
 	}
 
 }
