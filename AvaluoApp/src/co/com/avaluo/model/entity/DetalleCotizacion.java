@@ -1,12 +1,13 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,30 +18,29 @@ import javax.persistence.Table;
 public class DetalleCotizacion implements java.io.Serializable {
 
 	private int id;
-	private int cotizacionId;
-	private int propiedadId;
+	private Cotizacion cotizacion;
+	private Propiedad propiedad;
 	private BigDecimal valor;
 
 	public DetalleCotizacion() {
 	}
 
-	public DetalleCotizacion(int id, int cotizacionId, int propiedadId) {
+	public DetalleCotizacion(int id, Cotizacion cotizacion, Propiedad propiedad) {
 		this.id = id;
-		this.cotizacionId = cotizacionId;
-		this.propiedadId = propiedadId;
+		this.cotizacion = cotizacion;
+		this.propiedad = propiedad;
 	}
 
-	public DetalleCotizacion(int id, int cotizacionId, int propiedadId, BigDecimal valor) {
+	public DetalleCotizacion(int id, Cotizacion cotizacion, Propiedad propiedad, BigDecimal valor) {
 		this.id = id;
-		this.cotizacionId = cotizacionId;
-		this.propiedadId = propiedadId;
+		this.cotizacion = cotizacion;
+		this.propiedad = propiedad;
 		this.valor = valor;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -49,22 +49,24 @@ public class DetalleCotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "cotizacion_id", nullable = false)
-	public int getCotizacionId() {
-		return this.cotizacionId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cotizacion_id", nullable = false)
+	public Cotizacion getCotizacion() {
+		return this.cotizacion;
 	}
 
-	public void setCotizacionId(int cotizacionId) {
-		this.cotizacionId = cotizacionId;
+	public void setCotizacion(Cotizacion cotizacion) {
+		this.cotizacion = cotizacion;
 	}
 
-	@Column(name = "propiedad_id", nullable = false)
-	public int getPropiedadId() {
-		return this.propiedadId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "propiedad_id", nullable = false)
+	public Propiedad getPropiedad() {
+		return this.propiedad;
 	}
 
-	public void setPropiedadId(int propiedadId) {
-		this.propiedadId = propiedadId;
+	public void setPropiedad(Propiedad propiedad) {
+		this.propiedad = propiedad;
 	}
 
 	@Column(name = "valor", precision = 20, scale = 0)

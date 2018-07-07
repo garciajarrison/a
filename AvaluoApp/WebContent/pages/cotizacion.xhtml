@@ -12,30 +12,25 @@
 		<p:accordionPanel style="margin-top:10px">
 	        <p:tab title="Customer information">
 	          	<h:panelGrid columns="4">
-			   		<h:outputLabel id="personType" value="Person Type:" for="selPersonTtpe"></h:outputLabel>
-			   		<p:selectOneMenu id="selPersonTtpe" value="#{cotizacionBB.customer.personType}" style="width:125px">
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
-			            <f:selectItem itemLabel="Juridica" itemValue="PJURID" />
+			   		<h:outputLabel id="tipoIden" value="Tipo identificación:" for="selTipoIdent"></h:outputLabel>
+			   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.usuario.tipoDocumento}" style="width:125px">
+			            <f:selectItem itemLabel="Seleccione" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />
 		
 		        	</p:selectOneMenu>
-			 		<h:outputLabel id="lIdentificacion" value="Identificacion:" for="txtIdentificacion"></h:outputLabel>
-			   		<p:inputText id="txtIdentificacion" value="#{cotizacionBB.customer.customerIdentification}"></p:inputText>
+			 		<h:outputLabel id="lIdentificacion" value="Identificación:" for="txtIdentificacion"></h:outputLabel>
+			   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.usuario.identificacion}"></p:inputText>
 			   		<h:outputLabel id="lName" value="Names:" for="txtName"></h:outputLabel>
-			   		<p:inputText id="txtName" value="#{cotizacionBB.customer.name}"></p:inputText>  		
-			   		<h:outputLabel id="lLastName1" value="First Last Name:" for="txtLastName1"></h:outputLabel>
-			   		<p:inputText id="txtLastName1" value="#{cotizacionBB.customer.firstLastName}"></p:inputText>  		
-			   		<h:outputLabel id="lLastName2" value="Second Last Name:" for="txtLastName2"></h:outputLabel>
-			   		<p:inputText id="txtLastName2" value="#{cotizacionBB.customer.secondLastName}"></p:inputText>  		
-		 	   		<h:outputLabel id="lRazon" value="Business Name:" for="txtRazon"></h:outputLabel>
-			   		<p:inputText id="txtRazon" value="#{cotizacionBB.customer.name}"></p:inputText>  		
-			   		
-		 	   		<h:outputLabel id="lPhone" value="Phone:" for="txtPhone"></h:outputLabel>
-			   		<p:inputText id="txtPhone" value="#{cotizacionBB.customer.phone}"></p:inputText>  		
-		 	   		<h:outputLabel id="lAddress" value="Address:" for="txtAddress"></h:outputLabel>
-			   		<p:inputText id="txtAddress" value="#{cotizacionBB.customer.address}"></p:inputText>  		
+			   		<p:inputText id="txtName" value="#{cotizacionAdmBB.usuario.nombre}"></p:inputText>  		
+			   		 
+		 	   		<h:outputLabel id="lPhone" value="Teléfono:" for="txtPhone"></h:outputLabel>
+			   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.usuario.telefono}"></p:inputText>  		
+		 	   		<h:outputLabel id="lCelular" value="Celular:" for="txtCelular"></h:outputLabel>
+			   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.usuario.celular}"></p:inputText>  		
+		 	   		<h:outputLabel id="lAddress" value="Dirección:" for="txtAddress"></h:outputLabel>
+			   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.usuario.direccion}"></p:inputText>  		
 		 	   		<h:outputLabel id="lEmail" value="Email:" for="txtEmail"></h:outputLabel>
-			   		<p:inputText id="txtEmail" value="#{cotizacionBB.customer.email}"></p:inputText>  		
+			   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.usuario.correo}"></p:inputText>  		
 		   		
    				</h:panelGrid>
 	        </p:tab><font></font>

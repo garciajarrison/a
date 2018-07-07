@@ -15,6 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.ICotizacionService;
 
 
@@ -30,13 +31,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Cotizacion cotizacion = new Cotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
 	private List<Cotizacion> entityList;
+	private Usuario usuario;
 	
 	public void addEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getCotizacionService().addEntity(cotizacion);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
 			
@@ -49,10 +47,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void updateEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getCotizacionService().updateEntity(selectedCotizacion);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update!", "Message: "));  
 			
@@ -65,10 +59,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	
 	public void deleteEntity() {
 		try {
-			/*MarketCategories entity = new MarketCategories();
-			//entity.setId(market.getId());
-			entity.setName(market.getName());
-			entity.setValor(market.getValor());*/
 			getCotizacionService().deleteEntity(selectedCotizacion);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete!", "Message: "));  
 			
@@ -104,14 +94,17 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.entityList = entityList;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public void onRowSelect(SelectEvent event) {
-		
-        /*FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
     }
  
     public void onRowUnselect(UnselectEvent event) {
-        /*FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
     }	
  }
