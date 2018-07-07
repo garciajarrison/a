@@ -89,5 +89,10 @@ public class Util {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, mensaje, ""));  
 	}
 	
+	/* RequestContext context = RequestContext.getCurrentInstance();
+  
+  FacesContext jsfCtx= FacesContext.getCurrentInstance();
+  ResourceBundle bundle = jsfCtx.getApplication().getResourceBundle(jsfCtx, "msg");
+  */
 
 }

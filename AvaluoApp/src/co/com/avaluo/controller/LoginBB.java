@@ -27,6 +27,10 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 	private IEmpresaService empresaService;
 	
 	private Usuario usuario = new Usuario();
+	
+	public LoginBB() {
+		cerrarSession();
+	}
 
 	public void login() {
 		try {
@@ -44,6 +48,13 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", "")); 
 		} 	
+	}
+	
+	public void cerrarSession() {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		}catch(Exception e) {
+		}
 	}
 	
 	private void cambiarIdioma(String sigla) {
