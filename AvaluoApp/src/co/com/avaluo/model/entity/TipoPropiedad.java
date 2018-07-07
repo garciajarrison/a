@@ -1,11 +1,9 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,9 +39,8 @@ public class TipoPropiedad implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}

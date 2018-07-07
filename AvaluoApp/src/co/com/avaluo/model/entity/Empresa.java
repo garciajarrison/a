@@ -1,14 +1,11 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,9 +26,14 @@ public class Empresa implements java.io.Serializable {
 	private String nombre;
 	private String description;
 	private boolean estado;
-	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
+	private Set<TipoPropiedad> tipoPropiedads = new HashSet<TipoPropiedad>(0);
+	private Set<Cotizacion> cotizacionsForEmpresaId = new HashSet<Cotizacion>(0);
+	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	private Set<Tablas> tablases = new HashSet<Tablas>(0);
+	private Set<DetalleTabla> detalleTablas = new HashSet<DetalleTabla>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<Licencia> licencias = new HashSet<Licencia>(0);
+	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
 	private Set<Estrato> estratos = new HashSet<Estrato>(0);
 
 	public Empresa() {
@@ -44,8 +46,10 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
-			String description, boolean estado, Set<Cotizacion> cotizacions, Set<Usuario> usuarios,
-			Set<Licencia> licencias, Set<Estrato> estratos) {
+			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads,
+			Set<Cotizacion> cotizacionsForEmpresaId, Set<Propiedad> propiedads, Set<Tablas> tablases,
+			Set<DetalleTabla> detalleTablas, Set<Usuario> usuarios, Set<Licencia> licencias,
+			Set<Cotizacion> cotizacionsForClienteId, Set<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -53,16 +57,20 @@ public class Empresa implements java.io.Serializable {
 		this.nombre = nombre;
 		this.description = description;
 		this.estado = estado;
-		this.cotizacions = cotizacions;
+		this.tipoPropiedads = tipoPropiedads;
+		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
+		this.propiedads = propiedads;
+		this.tablases = tablases;
+		this.detalleTablas = detalleTablas;
 		this.usuarios = usuarios;
 		this.licencias = licencias;
+		this.cotizacionsForClienteId = cotizacionsForClienteId;
 		this.estratos = estratos;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -127,12 +135,48 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Cotizacion> getCotizacions() {
-		return this.cotizacions;
+	public Set<TipoPropiedad> getTipoPropiedads() {
+		return this.tipoPropiedads;
 	}
 
-	public void setCotizacions(Set<Cotizacion> cotizacions) {
-		this.cotizacions = cotizacions;
+	public void setTipoPropiedads(Set<TipoPropiedad> tipoPropiedads) {
+		this.tipoPropiedads = tipoPropiedads;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByEmpresaId")
+	public Set<Cotizacion> getCotizacionsForEmpresaId() {
+		return this.cotizacionsForEmpresaId;
+	}
+
+	public void setCotizacionsForEmpresaId(Set<Cotizacion> cotizacionsForEmpresaId) {
+		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	public Set<Propiedad> getPropiedads() {
+		return this.propiedads;
+	}
+
+	public void setPropiedads(Set<Propiedad> propiedads) {
+		this.propiedads = propiedads;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	public Set<Tablas> getTablases() {
+		return this.tablases;
+	}
+
+	public void setTablases(Set<Tablas> tablases) {
+		this.tablases = tablases;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	public Set<DetalleTabla> getDetalleTablas() {
+		return this.detalleTablas;
+	}
+
+	public void setDetalleTablas(Set<DetalleTabla> detalleTablas) {
+		this.detalleTablas = detalleTablas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
@@ -151,6 +195,15 @@ public class Empresa implements java.io.Serializable {
 
 	public void setLicencias(Set<Licencia> licencias) {
 		this.licencias = licencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByClienteId")
+	public Set<Cotizacion> getCotizacionsForClienteId() {
+		return this.cotizacionsForClienteId;
+	}
+
+	public void setCotizacionsForClienteId(Set<Cotizacion> cotizacionsForClienteId) {
+		this.cotizacionsForClienteId = cotizacionsForClienteId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")

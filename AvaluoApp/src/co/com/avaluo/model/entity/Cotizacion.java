@@ -1,14 +1,15 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +23,7 @@ public class Cotizacion implements java.io.Serializable {
 	private Empresa empresaByClienteId;
 	private Empresa empresaByEmpresaId;
 	private Double valor;
+	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
 
 	public Cotizacion() {
 	}
@@ -30,17 +32,18 @@ public class Cotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Cotizacion(int id, Empresa empresaByClienteId, Empresa empresaByEmpresaId, Double valor) {
+	public Cotizacion(int id, Empresa empresaByClienteId, Empresa empresaByEmpresaId, Double valor,
+			Set<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
 		this.empresaByClienteId = empresaByClienteId;
 		this.empresaByEmpresaId = empresaByEmpresaId;
 		this.valor = valor;
+		this.detalleCotizacions = detalleCotizacions;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -76,6 +79,15 @@ public class Cotizacion implements java.io.Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cotizacion")
+	public Set<DetalleCotizacion> getDetalleCotizacions() {
+		return this.detalleCotizacions;
+	}
+
+	public void setDetalleCotizacions(Set<DetalleCotizacion> detalleCotizacions) {
+		this.detalleCotizacions = detalleCotizacions;
 	}
 
 }

@@ -1,5 +1,5 @@
 package co.com.avaluo.model.entity;
-// Generated 2/07/2018 06:16:36 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -7,8 +7,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,6 +29,7 @@ public class Propiedad implements java.io.Serializable {
 	private String direccion;
 	private String unidadMedida;
 	private BigDecimal valorMedida;
+	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
 	private Set<Tablas> tablases = new HashSet<Tablas>(0);
 
 	public Propiedad() {
@@ -44,7 +43,8 @@ public class Propiedad implements java.io.Serializable {
 	}
 
 	public Propiedad(int id, Empresa empresa, Usuario usuario, Ciudad ciudad, String tipo, String registro,
-			String direccion, String unidadMedida, BigDecimal valorMedida, Set<Tablas> tablases) {
+			String direccion, String unidadMedida, BigDecimal valorMedida, Set<DetalleCotizacion> detalleCotizacions,
+			Set<Tablas> tablases) {
 		this.id = id;
 		this.empresa = empresa;
 		this.usuario = usuario;
@@ -54,13 +54,13 @@ public class Propiedad implements java.io.Serializable {
 		this.direccion = direccion;
 		this.unidadMedida = unidadMedida;
 		this.valorMedida = valorMedida;
+		this.detalleCotizacions = detalleCotizacions;
 		this.tablases = tablases;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -142,6 +142,15 @@ public class Propiedad implements java.io.Serializable {
 
 	public void setValorMedida(BigDecimal valorMedida) {
 		this.valorMedida = valorMedida;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
+	public Set<DetalleCotizacion> getDetalleCotizacions() {
+		return this.detalleCotizacions;
+	}
+
+	public void setDetalleCotizacions(Set<DetalleCotizacion> detalleCotizacions) {
+		this.detalleCotizacions = detalleCotizacions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
