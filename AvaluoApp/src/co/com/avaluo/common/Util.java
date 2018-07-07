@@ -60,7 +60,8 @@ public class Util {
         }
  
         String resourceString;
-        String messagesBaseName = "messages_" + this.getSessionAttribute(EnumSessionAttributes.LENGUAJE).toString();
+        EnumLenguajes lenguaje = (EnumLenguajes)this.getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+        String messagesBaseName = "messages_" + lenguaje.getLocale().getLanguage() + "_" + lenguaje.getLocale().getCountry();
         try {
             ResourceBundle bundle = ResourceBundle.getBundle(messagesBaseName,locale);
             resourceString = bundle.getString(key);

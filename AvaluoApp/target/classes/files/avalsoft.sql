@@ -84,7 +84,7 @@ ALTER SEQUENCE avalsoft.usuario_seq
 CREATE TABLE avalsoft.usuario (
   id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
   tipo_documento VARCHAR(10) NULL,
-  indetificacion VARCHAR(20) NULL,
+  identificacion VARCHAR(20) NULL,
   nombre VARCHAR(50) NULL,
   correo VARCHAR(80) NULL,
   fecha_nacimiento date NULL,

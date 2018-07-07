@@ -28,11 +28,5 @@ public class GlobalBB implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	public String getMessageResources() {
-		return Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE).toString();
-	}
-
-
 
  }

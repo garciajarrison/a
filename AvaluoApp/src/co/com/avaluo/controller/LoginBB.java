@@ -1,6 +1,7 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import co.com.avaluo.common.EnumLenguajes;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Usuario;
@@ -31,7 +33,7 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			usuario = this.getUsuarioService().login(usuario);
 			if(usuario != null) {
 				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
-				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, usuario.getLenguaje());
+				this.cambiarIdioma(usuario.getLenguaje());
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
 				Util.getInstance().redirect("home.xhtml");
 			} else{
@@ -40,8 +42,18 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", "")); 
 		} 	
+	}
+	
+	private void cambiarIdioma(String sigla) {
+		for(EnumLenguajes lenguaje : EnumLenguajes.values()) {
+			if(lenguaje.getSigla().equals(sigla)){
+				FacesContext.getCurrentInstance().getViewRoot().setLocale(lenguaje.getLocale());
+				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, lenguaje);
+				break;
+			}
+		}
 	}
 
 	public IUsuarioService getUsuarioService() {
