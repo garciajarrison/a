@@ -1,7 +1,6 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
