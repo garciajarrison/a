@@ -3,17 +3,26 @@ package co.com.avaluo.service;
 import java.util.List;
 
 import co.com.avaluo.model.entity.Propiedad;
+import co.com.avaluo.model.entity.TipoPropiedad;
 
 
 public interface IPropiedadService {
 	
-	void addEntity(Propiedad entity);
-	
-	void updateEntity(Propiedad entity);
+	void addPropiedad(Propiedad entity);
 
-	void deleteEntity(Propiedad entity);
+	void updatePropiedad(Propiedad entity);
 	
-	Propiedad getEntityById(int id);
+	void deletePropiedad(Propiedad entity);
 	
-	List<Propiedad> getEntitys( String propertyType);
+	Propiedad getPropiedadById(int id);
+	
+	List<TipoPropiedad> getListaTipoPropiedad(int idEmpresa);
+	
+	void addTipoPropiedad(TipoPropiedad entity);
+
+	void updateTipoPropiedad(TipoPropiedad entity);
+	
+	void deleteTipoPropiedad(TipoPropiedad entity);
+	
+	TipoPropiedad getTipoPropiedad(int id);
 }

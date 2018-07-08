@@ -8,8 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -94,7 +92,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	
 	public void deleteEntity() {
 		try {
-			getEstratoService().deleteEntity(estrato);
+			getEstratoService().deleteEntity(selectedEstrato);
 			util.mostrarMensajeKey("exito.eliminar");
 			cargarListaEstratos();
 			util.actualizarPF("formulario");

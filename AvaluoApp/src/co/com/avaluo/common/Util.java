@@ -12,7 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
 
 public class Util {
 	

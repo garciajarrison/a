@@ -36,7 +36,7 @@ public class PropiedadBB extends SpringBeanAutowiringSupport implements Serializ
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getPropiedadService().addEntity(propiedad);
+			getPropiedadService().addPropiedad(propiedad);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -52,7 +52,7 @@ public class PropiedadBB extends SpringBeanAutowiringSupport implements Serializ
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getPropiedadService().updateEntity(selectedPropiedad);
+			getPropiedadService().updatePropiedad(selectedPropiedad);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -68,7 +68,7 @@ public class PropiedadBB extends SpringBeanAutowiringSupport implements Serializ
 			//entity.setId(market.getId());
 			entity.setName(market.getName());
 			entity.setValor(market.getValor());*/
-			getPropiedadService().deleteEntity(selectedPropiedad);
+			getPropiedadService().deletePropiedad(selectedPropiedad);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete!", "Message: "));  
 			
 		} catch (DataAccessException e) {
@@ -79,7 +79,7 @@ public class PropiedadBB extends SpringBeanAutowiringSupport implements Serializ
 	}
 
 	public List<Propiedad> getEntityList() {
-		entityList = getPropiedadService().getEntitys("");
+		//entityList = getPropiedadService().getEntitys("");
 		return entityList;
 	}
 	
