@@ -22,7 +22,6 @@ public class Tablas implements java.io.Serializable {
 
 	private int id;
 	private Empresa empresa;
-	private Propiedad propiedad;
 	private String tipo;
 	private String nombre;
 	private BigDecimal conversion;
@@ -38,19 +37,17 @@ public class Tablas implements java.io.Serializable {
 	public Tablas() {
 	}
 
-	public Tablas(int id, Empresa empresa, Propiedad propiedad, boolean estado) {
+	public Tablas(int id, Empresa empresa,  boolean estado) {
 		this.id = id;
 		this.empresa = empresa;
-		this.propiedad = propiedad;
 		this.estado = estado;
 	}
 
-	public Tablas(int id, Empresa empresa, Propiedad propiedad, String tipo, String nombre, BigDecimal conversion,
+	public Tablas(int id, Empresa empresa, String tipo, String nombre, BigDecimal conversion,
 			BigDecimal base, BigDecimal gastos, boolean estado, String uom, String uomAlt, Long diasDeTrabajo,
 			Long minimo, Set<DetalleTabla> detalleTablas) {
 		this.id = id;
 		this.empresa = empresa;
-		this.propiedad = propiedad;
 		this.tipo = tipo;
 		this.nombre = nombre;
 		this.conversion = conversion;
@@ -85,15 +82,7 @@ public class Tablas implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "propiedad_id", nullable = false)
-	public Propiedad getPropiedad() {
-		return this.propiedad;
-	}
 
-	public void setPropiedad(Propiedad propiedad) {
-		this.propiedad = propiedad;
-	}
 
 	@Column(name = "tipo", length = 25)
 	public String getTipo() {

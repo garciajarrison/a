@@ -1,70 +1,68 @@
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui">
-<h:head>
-</h:head>
-<h:body>
-   <h:form id="formulario">
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
 
-
+	<ui:define name="content">
 	
-		<p:accordionPanel style="margin-top:10px">
-	        <p:tab title="Información del cliente">
-	          	<h:panelGrid columns="4">
-			   		<h:outputLabel id="tipoIden" value="Tipo identificación:" for="selTipoIdent"></h:outputLabel>
-			   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.usuario.tipoDocumento}" style="width:125px">
-			            <f:selectItem itemLabel="Seleccione" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />
-		
-		        	</p:selectOneMenu> 
-			 		<h:outputLabel id="lIdentificacion" value="Identificación:" for="txtIdentificacion"></h:outputLabel>
-			   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.usuario.identificacion}"></p:inputText>
-			   		<h:outputLabel id="lName" value="Names:" for="txtName"></h:outputLabel>
-			   		<p:inputText id="txtName" value="#{cotizacionAdmBB.usuario.nombre}"></p:inputText>  		
-			   		 
-		 	   		<h:outputLabel id="lPhone" value="Teléfono:" for="txtPhone"></h:outputLabel>
-			   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.usuario.telefono}"></p:inputText>  		
-		 	   		<h:outputLabel id="lCelular" value="Celular:" for="txtCelular"></h:outputLabel>
-			   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.usuario.celular}"></p:inputText>  		
-		 	   		<h:outputLabel id="lAddress" value="Dirección:" for="txtAddress"></h:outputLabel>
-			   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.usuario.direccion}"></p:inputText>  		
-		 	   		<h:outputLabel id="lEmail" value="Email:" for="txtEmail"></h:outputLabel>
-			   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.usuario.correo}"></p:inputText>  		
-		   		
-   				</h:panelGrid>
+		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}">
+	        <p:tab title="Informacin del cliente">
+	          	<p:panel >
+	          		<h:panelGrid columns="2" columnClasses="label, value">
+				   		<h:outputLabel id="tipoIden" value="Tipo identificacin:" for="selTipoIdent"></h:outputLabel>
+				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cliente.tipoDocumento}" style="width:125px">
+				            <f:selectItem itemLabel="Seleccione" itemValue="" />
+				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />
+			
+			        	</p:selectOneMenu> 
+				 		<h:outputLabel id="lIdentificacion" value="Identificacin:" for="txtIdentificacion"></h:outputLabel>
+				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cliente.identificacion}"></p:inputText>
+				   		<h:outputLabel id="lName" value="Names:" for="txtName"></h:outputLabel>
+				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cliente.nombre}"></p:inputText>  		
+				   		 
+			 	   		<h:outputLabel id="lPhone" value="Telfono:" for="txtPhone"></h:outputLabel>
+				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cliente.telefono}"></p:inputText>  		
+			 	   		<h:outputLabel id="lCelular" value="Celular:" for="txtCelular"></h:outputLabel>
+				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cliente.celular}"></p:inputText>  		
+			 	   		<h:outputLabel id="lAddress" value="Direccin:" for="txtAddress"></h:outputLabel>
+				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cliente.direccion}"></p:inputText>  		
+			 	   		<h:outputLabel id="lEmail" value="Email:" for="txtEmail"></h:outputLabel>
+				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cliente.correo}"></p:inputText>  		
+		   			</h:panelGrid>
+   				</p:panel>
 	        </p:tab>
-	        <p:tab title="Información de la propiedad">
+	        <p:tab title="Informacin de la propiedad">
 	          	<h:panelGrid columns="4">
-			   		<h:outputLabel id="lTable" value="Tabla:" for="selPersonTtpe"></h:outputLabel>
-			   		<p:selectOneMenu id="selTables" value="#{cotizacionBB.table}" style="width:125px">
-			   			<p:ajax listener="#{cotizacionBB.onTableChange(cotizacionBB.table)}" process="selTables,selProperty" update="selProperty" />
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionBB.listaTables}" />
+			   		<h:outputLabel id="lTable" value="Tabla:" for="selTables"></h:outputLabel>
+			   		<p:selectOneMenu id="selTables" value="#{cotizacionAdmBB.tabla}" style="width:125px">
+			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.tabla)}" process="selTables,selProperty" update="selProperty" />
+			            <f:selectItem itemLabel="Select One" itemValue="" />  
+			            <f:selectItems value="#{cotizacionAdmBB.listaTablas}" />
 			        </p:selectOneMenu>
 		
-			   		<h:outputLabel id="lProperty" value="Property:" for="selProperty"></h:outputLabel>
-			   		<p:selectOneMenu id="selProperty" value="#{cotizacionBB.property}" style="width:125px">
+			   		<h:outputLabel id="lProperty" value="Propiedad:" for="selProperty"></h:outputLabel>
+			   		<p:selectOneMenu id="selProperty" value="#{cotizacionAdmBB.propiedad}" style="width:125px">
 			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionBB.propertyList}" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
 			        </p:selectOneMenu>		        	
 			 				   		
    				</h:panelGrid>
 	        </p:tab>
-	        <p:tab title="Información de área">
+	        <p:tab title="Informacin de rea">
 	          		        </p:tab>
-	        <p:tab title="Información del remitente">
+	        <p:tab title="Informacin del remitente">
 	          	
 	        </p:tab>
-	        <p:tab title="Información adicional">
+	        <p:tab title="Informacin adicional">
 	          	
 	        </p:tab>	              
-    	</p:accordionPanel>   
+    	</p:wizard>  
 
 
 
-   		
-   </h:form>
-</h:body>
-</html>
+   </ui:define>
+</ui:composition>

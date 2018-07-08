@@ -30,7 +30,7 @@ public class Propiedad implements java.io.Serializable {
 	private String unidadMedida;
 	private BigDecimal valorMedida;
 	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
-	private Set<Tablas> tablases = new HashSet<Tablas>(0);
+
 
 	public Propiedad() {
 	}
@@ -43,8 +43,8 @@ public class Propiedad implements java.io.Serializable {
 	}
 
 	public Propiedad(int id, Empresa empresa, Usuario usuario, Ciudad ciudad, String tipo, String registro,
-			String direccion, String unidadMedida, BigDecimal valorMedida, Set<DetalleCotizacion> detalleCotizacions,
-			Set<Tablas> tablases) {
+			String direccion, String unidadMedida, BigDecimal valorMedida, Set<DetalleCotizacion> detalleCotizacions
+			) {
 		this.id = id;
 		this.empresa = empresa;
 		this.usuario = usuario;
@@ -55,7 +55,6 @@ public class Propiedad implements java.io.Serializable {
 		this.unidadMedida = unidadMedida;
 		this.valorMedida = valorMedida;
 		this.detalleCotizacions = detalleCotizacions;
-		this.tablases = tablases;
 	}
 
 	@Id
@@ -153,13 +152,5 @@ public class Propiedad implements java.io.Serializable {
 		this.detalleCotizacions = detalleCotizacions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
-	public Set<Tablas> getTablases() {
-		return this.tablases;
-	}
-
-	public void setTablases(Set<Tablas> tablases) {
-		this.tablases = tablases;
-	}
 
 }
