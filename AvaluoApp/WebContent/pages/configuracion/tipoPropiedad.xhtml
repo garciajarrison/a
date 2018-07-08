@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<ui:composition template="common/template.xhtml"
+<ui:composition template="../common/template.xhtml"
    xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
@@ -11,33 +11,33 @@
 		<h1>#{msg['tipo.propiedad.lista']}</h1>
 		<br /><br /><br />
 		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
-		<p:dataTable var="estrato" value="#{tipoPropiedadBB.entityList}" 
-						emptyMessage="No se encontraron registros.">
+		<p:dataTable var="tp" value="#{tipoPropiedadBB.entityList}" 
+						emptyMessage="#{msg['no.registros']}">
 		 
-		    <p:column headerText="#{msg['estrato.estrato']}">
-		        <h:outputText value="#{estrato.nombre}" />
+		    <p:column headerText="#{msg['tipo.propiedad']}" sortBy="#{tp.tipoPropiedad}">
+		        <h:outputText value="#{tp.tipoPropiedad}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['estrato.porcentaje']}">
-		        <h:outputText value="#{estrato.porcentaje}" >
+		    <p:column headerText="#{msg['tipo.propiedad.tipo.vivienda']}" sortBy="#{tp.tipoVivienda}">
+		        <h:outputText value="#{tp.tipoVivienda}" >
 		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
 		   		</h:outputText>
 		    </p:column>
 		 
-		    <p:column headerText="#{msg['estrato.valor.minimo.cotizacion']}">
-		        <h:outputText value="#{estrato.valor}" >
-		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
+		    <p:column headerText="#{msg['tipo.propiedad.incremento']}" sortBy="#{tp.incremento}">
+		        <h:outputText value="#{tp.incremento}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />
 		   		</h:outputText>
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['acciones']}">
 		    	<center>
 			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-			       		<p:ajax event="click" listener="#{estratoBB.setSelectedEstrato(estrato)}" 
+			       		<p:ajax event="click" listener="#{tipoPropiedadBB.setSelectedTipoPropiedad(tp)}" 
 			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
 			       </p:commandButton>
 			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
-						<p:ajax event="click" listener="#{estratoBB.setSelectedEstrato(estrato)}"
+						<p:ajax event="click" listener="#{tipoPropiedadBB.setSelectedTipoPropiedad(tp)}"
 								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
 					</p:commandButton>
 				</center>
@@ -46,53 +46,58 @@
 		</p:dataTable>
 		
 		
-		<p:dialog header="#{msg['estrato.agregar.estrato']}" id="dlgAgregar" 
+		<p:dialog header="#{msg['tipo.propiedad.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
 			<div align="center">
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-					<h:outputLabel id="lName" value="#{msg['estrato.estrato']}:" for="txtName"/>
-			   		<p:selectOneMenu id="txtName" value="#{estratoBB.estrato.nombre}" title="#{msg['estrato.estrato']}" 
-			   			label="#{msg['estrato.estrato']}" required="true" >
-			   			<f:selectItem itemLabel="Seleccione" itemValue="" />
-			   			<f:selectItems value="#{estratoBB.listaEstratos}"  />
-			   		</p:selectOneMenu>	
+					<h:outputLabel id="lName" value="#{msg['tipo.propiedad']}:" for="txtName"/>
+			   		<p:selectOneMenu id="txtName" value="#{tipoPropiedadBB.tipoPropiedad.tipoPropiedad}" title="#{msg['tipo.propiedad']}" 
+			   			label="#{msg['tipo.propiedad']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedad}"  />
+			   			<p:ajax event="change" update=":#{p:component('selTipoVivienda')}"/>
+			   		</p:selectOneMenu>
 			   		
-			   		<h:outputLabel id="lPorcentaje" value="#{msg['estrato.porcentaje']}:" for="txtPorcentaje"/>
-			   		<p:inputNumber id="txtPorcentaje" value="#{estratoBB.estrato.porcentaje}" 
-			   				decimalPlaces="2" title="#{msg['estrato.porcentaje']}" label="#{msg['estrato.porcentaje']}" minValue="0"
+			   		<h:outputLabel id="lName2" value="#{msg['tipo.propiedad.tipo.vivienda']}:" for="selTipoVivienda"/>
+			   		<p:selectOneMenu id="selTipoVivienda" value="#{tipoPropiedadBB.tipoPropiedad.tipoVivienda}" 
+			   			title="#{msg['tipo.propiedad.tipo.vivienda']}" 
+			   			label="#{msg['tipo.propiedad.tipo.vivienda']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedadUrbanoRural}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel id="lPorcentaje" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentaje"/>
+			   		<p:inputNumber id="txtPorcentaje" value="#{tipoPropiedadBB.tipoPropiedad.incremento}" 
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
+			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
-			   		
-			   		<h:outputLabel id="lValue" value="#{msg['estrato.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputNumber id="txtValue" value="#{estratoBB.estrato.valor}" 
-			   				decimalPlaces="2" title="#{msg['estrato.valor.minimo.cotizacion']}" 
-			   				label="#{msg['estrato.valor.minimo.cotizacion']}" minValue="0"/>  
 			   		
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{estratoBB.addEntity}"/>
+		   				<p:ajax process="dlgAgregar" listener="#{tipoPropiedadBB.addEntity}"/>
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>		
 
-		<p:dialog header="#{msg['estrato.actualizar.estrato']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+		<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
 			<div align="center">
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-					<h:outputLabel id="lNameU" value="#{msg['estrato.estrato']}:" for="txtName"/>
-					<h:outputLabel id="txtNameU" value="#{estratoBB.selectedEstrato.nombre}" for="txtName"/>
+					<h:outputLabel id="lNameU" value="#{msg['tipo.propiedad']}:" for="txtName"/>
+					<h:outputLabel id="txtNameU" value="#{tipoPropiedadBB.selectedTipoPropiedad.tipoPropiedad}"/>
+					
+					<h:outputLabel id="lNameU2" value="#{msg['tipo.propiedad.tipo.vivienda']}:"/>
+					<h:outputLabel id="txtNameU2" value="#{tipoPropiedadBB.selectedTipoPropiedad.tipoVivienda}"/>
 		
-			   		<h:outputLabel id="lporcentajeU" value="#{msg['estrato.porcentaje']}:" for="txtPorcentajeU"/>
-			   		<p:inputNumber id="txtPorcentajeU" value="#{estratoBB.selectedEstrato.porcentaje}" 
-			   				decimalPlaces="2" title="#{msg['estrato.porcentaje']}" label="#{msg['estrato.porcentaje']}" minValue="0"
+			   		<h:outputLabel id="lporcentajeU" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentajeU"/>
+			   		<p:inputNumber id="txtPorcentajeU" value="#{tipoPropiedadBB.selectedTipoPropiedad.incremento}" 
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" label="#{msg['tipo.propiedad.incremento']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 
-			   		<h:outputLabel id="lValueU" value="#{msg['estrato.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputText id="txtValueU" value="#{estratoBB.selectedEstrato.valor}"
-			   				label="#{msg['estrato.valor.minimo.cotizacion']}" title="#{msg['estrato.valor.minimo.cotizacion']}"/>
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton id="btnActualizarEstrato" value="#{msg['btn.actualizar']}" type="button">
-					<p:ajax event="click" listener="#{estratoBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+					<p:ajax event="click" listener="#{tipoPropiedadBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>		
@@ -104,7 +109,7 @@
 			
 				<br /><br />
 		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
-					<p:ajax event="click" listener="#{estratoBB.deleteEntity}" 
+					<p:ajax event="click" listener="#{tipoPropiedadBB.deleteEntity}" 
 							update="formulario"/>   		
 		   		</p:commandButton>
 	   		</div>

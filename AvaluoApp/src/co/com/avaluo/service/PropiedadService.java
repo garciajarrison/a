@@ -44,14 +44,17 @@ public class PropiedadService implements IPropiedadService {
 		return getEntityDAO().getListaTipoPropiedad(idEmpresa);
 	}
 	
+	@Transactional(readOnly = false)
 	public void addTipoPropiedad(TipoPropiedad entity) {
 		getEntityDAO().addTipoPropiedad(entity);
 	}
 
+	@Transactional(readOnly = false)
 	public void updateTipoPropiedad(TipoPropiedad entity) {
 		getEntityDAO().updateTipoPropiedad(entity);
 	}
 
+	@Transactional(readOnly = false)
 	public void deleteTipoPropiedad(TipoPropiedad entity) {
 		getEntityDAO().deleteTipoPropiedad(entity);
 	}
