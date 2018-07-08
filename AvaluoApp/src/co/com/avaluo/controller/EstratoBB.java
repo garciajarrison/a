@@ -31,7 +31,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	private IEstratoService estratoService;
 	
 	private Estrato estrato = new Estrato();
-	private Estrato selectedEstrato= new Estrato();
+	private Estrato selectedEstrato;
 	private List<Estrato> entityList;
 	private Usuario usuario;
 	private Util util;
@@ -40,7 +40,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	public EstratoBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		propiedad=ListasGenericas.getInstance().getListaTipoPropiedad();
+		propiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
 		getListaEstratos();
 		cargarListaEstratos();
 	}
@@ -58,7 +58,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 			for(Estrato estr : entityList) {
 				if(estr.getNombre().equals(estrato.getNombre())) {
 					guardar = false;
-					util.mostrarError("Ya existe una configuracion para este estrato.");
+					util.mostrarErrorKey("estrato.ya.existe");
 				}
 			}
 			
@@ -66,11 +66,16 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 				estrato.setEmpresa(usuario.getEmpresa());
 				getEstratoService().addEntity(estrato);
 				this.cargarListaEstratos();
-				util.mostrarMensaje("Registro agregado con éxito.");  
+				util.mostrarMensajeKey("exito.guardar"); 
+				cargarListaEstratos();
+				estrato = new Estrato();
+				util.actualizarPF("formulario");
+			}else {
+				util.actualizarPF("growl");
 			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarError("Error registrando."); 
+			util.mostrarErrorKey("error.guardar"); 
 		} 	
 		
 	}
@@ -78,22 +83,24 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	public void updateEntity() {
 		try {
 			getEstratoService().updateEntity(selectedEstrato);
-			util.mostrarMensaje("Registro actualizado.");  
-			
+			util.mostrarMensajeKey("exito.actualizar");  
+			cargarListaEstratos();
+			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarError("Error registrando."); 
+			util.mostrarErrorKey("error.actualizar"); 
 		} 	
 	}
 	
 	public void deleteEntity() {
 		try {
 			getEstratoService().deleteEntity(estrato);
-			util.mostrarMensaje("Registro Eliminado.");  
-			
+			util.mostrarMensajeKey("exito.eliminar");
+			cargarListaEstratos();
+			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarError("Error eliminando.");
+			util.mostrarErrorKey("error.eliminando");
 		} 	
 		
 	}
@@ -133,17 +140,6 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	public void setEntityList(List<Estrato> entityList) {
 		this.entityList = entityList;
 	}
-
-	public void onRowSelect(SelectEvent event) {
-		
-        /*FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
-    }
- 
-    public void onRowUnselect(UnselectEvent event) {
-        /*FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
-    }	
     
     public List<SelectItem> getListaEstratos(){
     	return ListasGenericas.getInstance().getListaEstratos();
