@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IPropiedadDAO;
 import co.com.avaluo.model.entity.Propiedad;
+import co.com.avaluo.model.entity.TipoPropiedad;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,26 +18,49 @@ public class PropiedadService implements IPropiedadService {
 	private IPropiedadDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Propiedad entity) {
-		getEntityDAO().addEntity(entity);
+	public void addPropiedad(Propiedad entity) {
+		getEntityDAO().addPropiedad(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Propiedad entity) {
-		getEntityDAO().deleteEntity(entity);
+	public void deletePropiedad(Propiedad entity) {
+		getEntityDAO().deletePropiedad(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Propiedad entity) {
-		getEntityDAO().updateEntity(entity);
+	public void updatePropiedad(Propiedad entity) {
+		getEntityDAO().updatePropiedad(entity);
 	}
 
-	public Propiedad getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
+	public Propiedad getPropiedadById(int id) {
+		return getEntityDAO().getPropiedadById(id);
 	}
 
-	public List<Propiedad> getEntitys(String propertyType) {	
-		return getEntityDAO().getEntities(propertyType);
+	public List<Propiedad> getPropiedades(String propertyType) {	
+		return getEntityDAO().getPropiedades(propertyType);
+	}
+	
+	public List<TipoPropiedad> getListaTipoPropiedad(int idEmpresa){
+		return getEntityDAO().getListaTipoPropiedad(idEmpresa);
+	}
+	
+	@Transactional(readOnly = false)
+	public void addTipoPropiedad(TipoPropiedad entity) {
+		getEntityDAO().addTipoPropiedad(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void updateTipoPropiedad(TipoPropiedad entity) {
+		getEntityDAO().updateTipoPropiedad(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void deleteTipoPropiedad(TipoPropiedad entity) {
+		getEntityDAO().deleteTipoPropiedad(entity);
+	}
+	
+	public TipoPropiedad getTipoPropiedad(int id) {
+		return getEntityDAO().getTipoPropiedad(id);
 	}
 
 	public IPropiedadDAO getEntityDAO() {
@@ -46,4 +70,5 @@ public class PropiedadService implements IPropiedadService {
 	public void setEntityDAO(IPropiedadDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
+
 }

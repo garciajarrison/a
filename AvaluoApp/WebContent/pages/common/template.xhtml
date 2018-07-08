@@ -5,7 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
+      
+<f:view locale="#{globalBB.locale}">
     <h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <!-- Meta, title, CSS, favicons, etc. -->
@@ -36,14 +37,32 @@
       <div class="main_container">
       
         <h:form id="formulario">
-        	<f:loadBundle basename="messages_#{globalBB.messageResources}" var="msg" />
+
 	        <ui:include src="menu.xhtml"/>
 	        
 	        <!-- page content -->
 	        <div class="right_col" role="main">
-			   	<p:growl id="growl" showDetail="true" />
+	        	<p:fragment>
+        		<p:autoUpdate />
+			   		<p:growl id="growl" showDetail="true" />
+			   	</p:fragment>
 			    <ui:insert name="content"/>
 		    </div>
+		    
+		    
+		    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
+		    		
+			<p:dialog modal="true" widgetVar="statusDialog" header="#{msg['procesando']}"  
+			    resizable="false" draggable="false" closable="false" width="20%">    
+			    <div align="center">
+			        <h:graphicImage library="images" name="loading.gif" width="100%"
+			        		alt="#{msg['cargando']}" title="#{msg['cargando']}"/>
+			        <br /><br />
+			       <strong>#{msg['cargando']}</strong> 
+			    </div>
+			</p:dialog> 
+		    
+		    
 	    </h:form>
         <!-- /page content -->
 
@@ -54,7 +73,7 @@
      <ui:include src="footer.xhtml"/>
 
     </h:body>
-
+</f:view>
 </html>
 
 

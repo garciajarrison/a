@@ -20,7 +20,7 @@
                 <h:graphicImage library="images" name="img.jpg" styleClass="img-circle profile_img"/>
               </div>
               <div class="profile_info">
-                <span>Bienvenido,</span>
+                <span>#{msg['bienvenido']}</span>
                 <h2>#{globalBB.usuario.nombre}</h2>
               </div>
             </div>
@@ -31,16 +31,15 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Configuración <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> #{msg['menu.configuracion']} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="estratos.xhtml">Estratos</a></li>
-                      <li><a href="propiedad.xhtml">Tipo de propiedades</a></li>
-                      <li><a href="tables.xhtml">Tablas</a></li>
+                      <li><a href="#{request.contextPath}/pages/configuracion/estratos.xhtml">#{msg['menu.estrato']}</a></li>
+                      <li><a href="#{request.contextPath}/pages/configuracion/tipoPropiedad.xhtml">#{msg['menu.tipo.propiedad']}</a></li>
+                      <li><a href="#{request.contextPath}/pages/configuracion/tables.xhtml">#{msg['menu.tablas']}</a></li>
                     </ul>
                   </li>
-                   <li><a href="cotizacion.xhtml"><i class="fa fa-laptop"></i> Cotización
+                   <li><a href="cotizacion.xhtml"><i class="fa fa-laptop"></i> #{msg['menu.cotizacion']}
                    		<span class="label label-success pull-right">Coming Soon</span></a>
                    </li>
                 </ul>
@@ -78,7 +77,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""/>John Doe
+                    <img src="images/img.jpg" alt=""/>#{globalBB.usuario.nombre}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

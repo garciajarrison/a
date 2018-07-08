@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<ui:composition template="../common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+	
+		<h1>#{msg['tipo.propiedad.lista']}</h1>
+		<br /><br /><br />
+		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
+		<p:dataTable var="tp" value="#{tipoPropiedadBB.entityList}" 
+						emptyMessage="#{msg['no.registros']}">
+		 
+		    <p:column headerText="#{msg['tipo.propiedad']}" sortBy="#{tp.tipoPropiedad}">
+		        <h:outputText value="#{tp.tipoPropiedad}" />
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['tipo.propiedad.tipo.vivienda']}" sortBy="#{tp.tipoVivienda}">
+		        <h:outputText value="#{tp.tipoVivienda}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
+		   		</h:outputText>
+		    </p:column>
+		 
+		    <p:column headerText="#{msg['tipo.propiedad.incremento']}" sortBy="#{tp.incremento}">
+		        <h:outputText value="#{tp.incremento}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />
+		   		</h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['acciones']}">
+		    	<center>
+			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
+			       		<p:ajax event="click" listener="#{tipoPropiedadBB.setSelectedTipoPropiedad(tp)}" 
+			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
+			       </p:commandButton>
+			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
+						<p:ajax event="click" listener="#{tipoPropiedadBB.setSelectedTipoPropiedad(tp)}"
+								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
+					</p:commandButton>
+				</center>
+		    </p:column>
+		    
+		</p:dataTable>
+		
+		
+		<p:dialog header="#{msg['tipo.propiedad.agregar']}" id="dlgAgregar" 
+				widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel id="lName" value="#{msg['tipo.propiedad']}:" for="txtName"/>
+			   		<p:selectOneMenu id="txtName" value="#{tipoPropiedadBB.tipoPropiedad.tipoPropiedad}" title="#{msg['tipo.propiedad']}" 
+			   			label="#{msg['tipo.propiedad']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedad}"  />
+			   			<p:ajax event="change" update=":#{p:component('selTipoVivienda')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel id="lName2" value="#{msg['tipo.propiedad.tipo.vivienda']}:" for="selTipoVivienda"/>
+			   		<p:selectOneMenu id="selTipoVivienda" value="#{tipoPropiedadBB.tipoPropiedad.tipoVivienda}" 
+			   			title="#{msg['tipo.propiedad.tipo.vivienda']}" 
+			   			label="#{msg['tipo.propiedad.tipo.vivienda']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedadUrbanoRural}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel id="lPorcentaje" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentaje"/>
+			   		<p:inputNumber id="txtPorcentaje" value="#{tipoPropiedadBB.tipoPropiedad.incremento}" 
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
+			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
+			   				maxValue="100" symbol="%" symbolPosition="s" />  
+			   		
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" >
+		   				<p:ajax process="dlgAgregar" listener="#{tipoPropiedadBB.addEntity}"/>
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+
+		<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel id="lNameU" value="#{msg['tipo.propiedad']}:" for="txtName"/>
+					<h:outputLabel id="txtNameU" value="#{tipoPropiedadBB.selectedTipoPropiedad.tipoPropiedad}"/>
+					
+					<h:outputLabel id="lNameU2" value="#{msg['tipo.propiedad.tipo.vivienda']}:"/>
+					<h:outputLabel id="txtNameU2" value="#{tipoPropiedadBB.selectedTipoPropiedad.tipoVivienda}"/>
+		
+			   		<h:outputLabel id="lporcentajeU" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentajeU"/>
+			   		<p:inputNumber id="txtPorcentajeU" value="#{tipoPropiedadBB.selectedTipoPropiedad.incremento}" 
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" label="#{msg['tipo.propiedad.incremento']}" minValue="0"
+			   				maxValue="100" symbol="%" symbolPosition="s" />  
+
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton id="btnActualizarEstrato" value="#{msg['btn.actualizar']}" type="button">
+					<p:ajax event="click" listener="#{tipoPropiedadBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+		
+		<p:dialog header="#{msg['estrato.eliminar.estrato']}" id="dlgEliminar" widgetVar="dlgEliminar" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{tipoPropiedadBB.deleteEntity}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
+		
+		
+   </ui:define>
+</ui:composition>
