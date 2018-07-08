@@ -117,7 +117,7 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	//TODO cree esta columna mal para q la cuadremos despues
-	@Column(name = "indetificacion", length = 20)
+	@Column(name = "identificacion", length = 20)
 	public String getIdentificacion() {
 		return this.identificacion;
 	}
