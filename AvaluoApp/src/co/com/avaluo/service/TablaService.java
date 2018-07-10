@@ -35,8 +35,8 @@ public class TablaService implements ITablasService {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Tablas> getEntitys() {	
-		return getEntityDAO().getEntities();
+	public List<Tablas> getEntitys(int idEmpresa) {	
+		return getEntityDAO().getEntities(idEmpresa);
 	}
 
 	public ITablasDAO getEntityDAO() {

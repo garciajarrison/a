@@ -15,9 +15,9 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.model.entity.TipoPropiedad;
+import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.Usuario;
-import co.com.avaluo.service.IPropiedadService;
+import co.com.avaluo.service.ITablasService;
 
 @ManagedBean(name = "tablaBB")
 @ViewScoped
@@ -26,27 +26,25 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ITablaService tablaService;
+	private ITablasService tablaService;
 	
-	private TipoPropiedad tipoPropiedad = new TipoPropiedad();
-	private TipoPropiedad selectedTipoPropiedad;
-	private List<TipoPropiedad> entityList;
+	private Tablas tablas = new Tablas();
+	private Tablas selectedTablas;
+	private List<Tablas> entityList;
 	private Usuario usuario;
 	private Util util;
-	private List<SelectItem> listaTipoPropiedadUrbanoRural;
 	private List<SelectItem> listaTipoPropiedad;
 	private String tipo = "";
 	
 	public TablaBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		listaTipoPropiedadUrbanoRural = new ArrayList<SelectItem>();
 		listaTipoPropiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
-		cargarListaTipoPropiedad();
+		cargarListaTablas();
 	}
 	
-	private void cargarListaTipoPropiedad() {
-		entityList = propiedadService.getListaTipoPropiedad(usuario.getEmpresa().getId());
+	private void cargarListaTablas() {
+		entityList = tablaService.getEntitys(usuario.getEmpresa().getId());
 		if(entityList == null)
 			entityList = new ArrayList<>();
 	}
@@ -55,20 +53,22 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		try {
 			boolean guardar = true;
 			//Validamos que no exista un estrato con esa configuracion
-			for(TipoPropiedad estr : entityList) {
-				if(estr.getTipoPropiedad().equals(tipoPropiedad.getTipoPropiedad()) &&
-						estr.getTipoVivienda().equals(tipoPropiedad.getTipoVivienda())) {
+			for(Tablas tbl : entityList) {
+				if(tbl.getTipo().equals(tablas.getTipo()) &&
+						tbl.getMinimo().equals(tablas.getMinimo())
+						//Falta validar que el rango no se duplique
+						) {
 					guardar = false;
-					util.mostrarErrorKey("tipo.propiedad.ya.existe");
+					util.mostrarErrorKey("ya.existe");
 				}
 			}
 			
 			if(guardar) {
-				tipoPropiedad.setEmpresa(usuario.getEmpresa());
-				getPropiedadService().addTipoPropiedad(tipoPropiedad);
-				this.cargarListaTipoPropiedad();
+				tablas.setEmpresa(usuario.getEmpresa());
+				tablaService.addEntity(tablas);
+				this.cargarListaTablas();
 				util.mostrarMensajeKey("exito.guardar"); 
-				tipoPropiedad = new TipoPropiedad();
+				tablas = new Tablas();
 				util.actualizarPF("formulario");
 			}else {
 				util.actualizarPF("growl");
@@ -82,9 +82,9 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void updateEntity() {
 		try {
-			getPropiedadService().updateTipoPropiedad(selectedTipoPropiedad);
+			getTablaService().updateEntity(selectedTablas);
 			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaTipoPropiedad();
+			cargarListaTablas();
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -94,47 +94,15 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	
 	public void deleteEntity() {
 		try {
-			getPropiedadService().deleteTipoPropiedad(selectedTipoPropiedad);
+			getTablaService().deleteEntity(selectedTablas);
 			util.mostrarMensajeKey("exito.eliminar");
-			cargarListaTipoPropiedad();
+			cargarListaTablas();
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			util.mostrarErrorKey("error.eliminando");
 		} 	
 		
-	}
-
-	public IPropiedadService getPropiedadService() {
-		return propiedadService;
-	}
-
-	public void setPropiedadService(IPropiedadService propiedadService) {
-		this.propiedadService = propiedadService;
-	}
-
-	public TipoPropiedad getTipoPropiedad() {
-		return tipoPropiedad;
-	}
-
-	public void setTipoPropiedad(TipoPropiedad tipoPropiedad) {
-		this.tipoPropiedad = tipoPropiedad;
-	}
-
-	public TipoPropiedad getSelectedTipoPropiedad() {
-		return selectedTipoPropiedad;
-	}
-
-	public void setSelectedTipoPropiedad(TipoPropiedad selectedTipoPropiedad) {
-		this.selectedTipoPropiedad = selectedTipoPropiedad;
-	}
-
-	public List<TipoPropiedad> getEntityList() {
-		return entityList;
-	}
-
-	public void setEntityList(List<TipoPropiedad> entityList) {
-		this.entityList = entityList;
 	}
 
 	public Usuario getUsuario() {
@@ -161,26 +129,12 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
-	public List<SelectItem> getListaTipoPropiedadUrbanoRural() {
-		if(tipoPropiedad != null && tipoPropiedad.getTipoPropiedad() != null && 
-				!"".equals(tipoPropiedad.getTipoPropiedad()) &&
-				!tipo.equals(tipoPropiedad.getTipoPropiedad())) {
-			
-			tipo = tipoPropiedad.getTipoPropiedad();
-			if("URBANO".equals(tipo)) {
-				listaTipoPropiedadUrbanoRural = ListasGenericas.getInstance().getListaTipoPropiedadUrbano();
-			}else if("RURAL".equals(tipo)) {
-				listaTipoPropiedadUrbanoRural = ListasGenericas.getInstance().getListaTipoPropiedadRural();
-			}else {
-				listaTipoPropiedadUrbanoRural = new ArrayList<>();
-			}
-		}
-			
-		return listaTipoPropiedadUrbanoRural;
+	public ITablasService getTablaService() {
+		return tablaService;
 	}
 
-	public void setListaTipoPropiedadUrbanoRural(List<SelectItem> listaTipoPropiedadUrbanoRural) {
-		this.listaTipoPropiedadUrbanoRural = listaTipoPropiedadUrbanoRural;
+	public void setTablaService(ITablasService tablaService) {
+		this.tablaService = tablaService;
 	}
 	
  }

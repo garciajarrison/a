@@ -51,11 +51,8 @@
 			<div align="center">
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 					<h:outputLabel id="lName" value="#{msg['estrato']}:" for="txtName"/>
-			   		<p:selectOneMenu id="txtName" value="#{estratoBB.estrato.nombre}" title="#{msg['estrato']}" 
-			   			label="#{msg['estrato']}" required="true" >
-			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
-			   			<f:selectItems value="#{estratoBB.listaEstratos}"  />
-			   		</p:selectOneMenu>	
+					<p:inputText id="txtName" value="#{estratoBB.estrato.nombre}" title="#{msg['estrato']}" 
+			   			label="#{msg['estrato']}" required="true" maxlength="50" />
 			   		
 			   		<h:outputLabel id="lPorcentaje" value="#{msg['estrato.porcentaje']}:" for="txtPorcentaje"/>
 			   		<p:inputNumber id="txtPorcentaje" value="#{estratoBB.estrato.porcentaje}" 

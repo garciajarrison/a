@@ -39,7 +39,6 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		propiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
-		getListaEstratos();
 		cargarListaEstratos();
 	}
 	
@@ -54,6 +53,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 			boolean guardar = true;
 			//Validamos que no exista un estrato con esa configuracion
 			for(Estrato estr : entityList) {
+				estrato.setNombre(estrato.getNombre().trim());
 				if(estr.getNombre().equals(estrato.getNombre())) {
 					guardar = false;
 					util.mostrarErrorKey("estrato.ya.existe");
@@ -138,10 +138,6 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	public void setEntityList(List<Estrato> entityList) {
 		this.entityList = entityList;
 	}
-    
-    public List<SelectItem> getListaEstratos(){
-    	return ListasGenericas.getInstance().getListaEstratos();
-    }
 
 	public List<SelectItem> getPropiedad() {
 		return propiedad;

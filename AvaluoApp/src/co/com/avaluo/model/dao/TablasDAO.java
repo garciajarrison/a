@@ -47,11 +47,12 @@ public class TablasDAO implements ITablasDAO {
 		return (Tablas) list.get(0);
 	}
 
-	public List<Tablas> getEntities( ) {
+	public List<Tablas> getEntities(int idEmpresa) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<Tablas> list = (List<Tablas>) session.createQuery("from Tablas where estado = true").list();
+		List<Tablas> list = (List<Tablas>) session.createQuery("from Tablas where estado = true and empresa.id = ?")
+				.setParameter(0, idEmpresa).list();
 		
 		return list;
 	}

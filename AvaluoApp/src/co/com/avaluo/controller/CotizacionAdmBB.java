@@ -214,7 +214,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public Map<String, String> getListaTablas() {
 		tablas = new ArrayList<Tablas>();
-		tablas.addAll(getTablasService().getEntitys());
+	//	tablas.addAll(getTablasService().getEntitys());
 		for (Tablas tabla : tablas) {
 			listaTablas.put(tabla.getNombre(),tabla.getTipo());
 		}

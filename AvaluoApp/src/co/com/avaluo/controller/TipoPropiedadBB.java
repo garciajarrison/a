@@ -33,14 +33,11 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 	private List<TipoPropiedad> entityList;
 	private Usuario usuario;
 	private Util util;
-	private List<SelectItem> listaTipoPropiedadUrbanoRural;
 	private List<SelectItem> listaTipoPropiedad;
-	private String tipo = "";
 	
 	public TipoPropiedadBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		listaTipoPropiedadUrbanoRural = new ArrayList<SelectItem>();
 		listaTipoPropiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
 		cargarListaTipoPropiedad();
 	}
@@ -159,28 +156,6 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setListaTipoPropiedad(List<SelectItem> listaTipoPropiedad) {
 		this.listaTipoPropiedad = listaTipoPropiedad;
-	}
-
-	public List<SelectItem> getListaTipoPropiedadUrbanoRural() {
-		if(tipoPropiedad != null && tipoPropiedad.getTipoPropiedad() != null && 
-				!"".equals(tipoPropiedad.getTipoPropiedad()) &&
-				!tipo.equals(tipoPropiedad.getTipoPropiedad())) {
-			
-			tipo = tipoPropiedad.getTipoPropiedad();
-			if("URBANO".equals(tipo)) {
-				listaTipoPropiedadUrbanoRural = ListasGenericas.getInstance().getListaTipoPropiedadUrbano();
-			}else if("RURAL".equals(tipo)) {
-				listaTipoPropiedadUrbanoRural = ListasGenericas.getInstance().getListaTipoPropiedadRural();
-			}else {
-				listaTipoPropiedadUrbanoRural = new ArrayList<>();
-			}
-		}
-			
-		return listaTipoPropiedadUrbanoRural;
-	}
-
-	public void setListaTipoPropiedadUrbanoRural(List<SelectItem> listaTipoPropiedadUrbanoRural) {
-		this.listaTipoPropiedadUrbanoRural = listaTipoPropiedadUrbanoRural;
 	}
 	
  }

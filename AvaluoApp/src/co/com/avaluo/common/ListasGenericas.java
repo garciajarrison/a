@@ -11,10 +11,7 @@ public class ListasGenericas {
 	private List<SelectItem> listaTiposDocumento;
 	private List<SelectItem> listaLicencias;
 	private List<SelectItem> listaIdiomas;
-	private List<SelectItem> listaTipoPropiedadUrbano;
-	private List<SelectItem> listaTipoPropiedadRural;
 	private List<SelectItem> listaTipoPropiedad;
-	private List<SelectItem> listaEstratos;
 	
 	public static ListasGenericas getInstance() {
 		if(instance == null)
@@ -28,9 +25,6 @@ public class ListasGenericas {
 		listaTiposDocumento = this.consultarListas(EnumListas.TIPOS_DOCUMENTO);
 		listaLicencias = this.consultarListas(EnumListas.LISTA_LICENCIAS);
 		listaIdiomas = this.consultarListas(EnumListas.LISTA_IDIOMAS);
-		listaTipoPropiedadUrbano = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_URBANO);
-		listaTipoPropiedadRural = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD_RURAL);
-		listaEstratos = this.consultarListas(EnumListas.LISTA_ESTRATOS);
 		listaTipoPropiedad = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD);
 	}
 
@@ -53,7 +47,6 @@ public class ListasGenericas {
 		return listaTiposDocumento;
 	}
 
-
 	public List<SelectItem> getListaLicencias() {
 		return listaLicencias;
 	}
@@ -62,23 +55,9 @@ public class ListasGenericas {
 		return listaIdiomas;
 	}
 
-	public List<SelectItem> getListaTipoPropiedadUrbano() {
-		return listaTipoPropiedadUrbano;
-	}
-
-	public List<SelectItem> getListaTipoPropiedadRural() {
-		return listaTipoPropiedadRural;
-	}
-
-	public List<SelectItem> getListaEstratos() {
-		return listaEstratos;
-	}
-
-
 	public List<SelectItem> getListaTipoPropiedad() {
 		return listaTipoPropiedad;
 	}
-
 
 	public void setListaTipoPropiedad(List<SelectItem> listaTipoPropiedad) {
 		this.listaTipoPropiedad = listaTipoPropiedad;

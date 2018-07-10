@@ -15,5 +15,5 @@ public interface ITablasService {
 	
 	Tablas getEntityById(int id);
 	
-	List<Tablas> getEntitys();
+	List<Tablas> getEntitys(int idEmpresa);
 }
