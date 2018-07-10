@@ -11,7 +11,7 @@ import co.com.avaluo.model.entity.Tablas;
 
 @Service
 @Transactional(readOnly = true)
-public class TablasService implements ITablasService {
+public class TablaService implements ITablasService {
 
 	@Autowired
 	private ITablasDAO entityDAO;

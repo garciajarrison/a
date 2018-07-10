@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<ui:composition template="common/template.xhtml"
+<ui:composition template="../common/template.xhtml"
    xmlns="http://www.w3c.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
@@ -7,11 +7,12 @@
    xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:define name="content">
+	
+	<h1>#{msg['tabla.lista']}</h1>
+	<br /><br /><br />
+	<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
 		
-		<p:dataTable var="tables" value="#{tablesBB.entityList}" selectionMode="single" selection="#{tablesBB.selectedTables}" rowKey="#{tables.id}">
-		    <f:facet name="header">
-		        List of Tables Base of Calculation
-		    </f:facet>
+		<p:dataTable var="tables" value="#{tablaBB.entityList}" selectionMode="single" selection="#{tablaBB.selectedTables}" rowKey="#{tables.id}">
 		 
 		    <p:column headerText="Id">
 		        <h:outputText value="#{tables.id}" />
@@ -72,78 +73,78 @@
 		<p:commandButton value="Add" type="button" onclick="PF('dlg').show();" />
 		<p:commandButton value="Update" type="button" onclick="PF('dlg1').show();" />
 		<p:commandButton value="Delete" type="button">
-		<p:ajax event="click" listener="#{tablesBB.deleteEntity}" process="@all" update="formulario"/>
+		<p:ajax event="click" listener="#{tablaBB.deleteEntity}" process="@all" update="formulario"/>
 		</p:commandButton>
 		
 		<p:dialog header="Add Table" widgetVar="dlg" minHeight="40">
 		    <h:outputLabel id="ltableTypeD" value="Table type:" for="txtTableTypeD"></h:outputLabel>
-	        <p:inputText id="txtTableTypeD" value="#{tablesBB.tables.tableType}" />
+	        <p:inputText id="txtTableTypeD" value="#{tablaBB.tables.tableType}" />
 		    <h:outputLabel id="lNameD" value="Name:" for="txtNameD"></h:outputLabel>
-		        <p:inputText id="txtNameD" value="#{tablesBB.tables.name}" />
+		        <p:inputText id="txtNameD" value="#{tablaBB.tables.name}" />
 		    <h:outputLabel id="lIdServicesD" value="Id Services:" for="txtIdServicesD"></h:outputLabel>
-		        <p:inputText id="txtIdServicesD" value="#{tablesBB.tables.idServices}" />
+		        <p:inputText id="txtIdServicesD" value="#{tablaBB.tables.idServices}" />
 		    <h:outputLabel id="lUomD" value="UOM:" for="txtUomD"></h:outputLabel>
-		        <p:inputText id="txtUomD" value="#{tablesBB.tables.uom}" />
+		        <p:inputText id="txtUomD" value="#{tablaBB.tables.uom}" />
 		    <h:outputLabel id="lUomALtD" value="UOM ALT:" for="txtUomAltD"></h:outputLabel>
-		        <p:inputText id="txtUomAltD" value="#{tablesBB.tables.uomAlt}" />
+		        <p:inputText id="txtUomAltD" value="#{tablaBB.tables.uomAlt}" />
 		    <h:outputLabel id="lConverD" value="Conver:" for="txtConverD"></h:outputLabel>
-		        <p:inputText id="txtConverD" value="#{tablesBB.tables.conver}" />
+		        <p:inputText id="txtConverD" value="#{tablaBB.tables.conver}" />
 		    <h:outputLabel id="lBaseD" value="Base:" for="txtBaseD"></h:outputLabel>
-		        <p:inputText id="txtBaseD" value="#{tablesBB.tables.base}" />
+		        <p:inputText id="txtBaseD" value="#{tablaBB.tables.base}" />
 		    <h:outputLabel id="lExpensesD" value="Expenses:" for="txtExpensesD"></h:outputLabel>
-		        <p:inputText id="txtExpensesD" value="#{tablesBB.tables.expenses}" />
+		        <p:inputText id="txtExpensesD" value="#{tablaBB.tables.expenses}" />
 		    <h:outputLabel id="lDayoFJobD" value="Day of Job:" for="txtDayOfJobD"></h:outputLabel>
-		        <p:inputText id="txtDayOfJobD" value="#{tablesBB.tables.dayOfJob}" />
+		        <p:inputText id="txtDayOfJobD" value="#{tablaBB.tables.dayOfJob}" />
 		    <h:outputLabel id="lMinimumD" value="Minimum:" for="txtMinimumD"></h:outputLabel>
-		        <p:inputText id="txtMinimumD" value="#{tablesBB.tables.minimum}" />
+		        <p:inputText id="txtMinimumD" value="#{tablaBB.tables.minimum}" />
 		    <h:outputLabel id="lLawD" value="Law:" for="txtLawD"></h:outputLabel>
-		        <p:inputText id="txtLawD" value="#{tablesBB.tables.law}" />
+		        <p:inputText id="txtLawD" value="#{tablaBB.tables.law}" />
 		    <h:outputLabel id="lEntityD" value="Entity:" for="txtEntityD"></h:outputLabel>
-		        <p:inputText id="txtEntityD" value="#{tablesBB.tables.entity}" />
+		        <p:inputText id="txtEntityD" value="#{tablaBB.tables.entity}" />
 		    <h:outputLabel id="lNoteD" value="Note:" for="txtNoteD"></h:outputLabel>
-		        <p:inputText id="txtNoteD" value="#{tablesBB.tables.note}" />
+		        <p:inputText id="txtNoteD" value="#{tablaBB.tables.note}" />
 		    <h:outputLabel id="lYearD" value="Year:" for="txtYearD"></h:outputLabel>
-		        <p:inputText id="txtYearD" value="#{tablesBB.tables.year}" />
+		        <p:inputText id="txtYearD" value="#{tablaBB.tables.year}" />
 		    <h:outputLabel id="lStateD" value="State:" for="txtStateD"></h:outputLabel>
-		        <p:inputText id="txtStateD" value="#{tablesBB.tables.state}" />
+		        <p:inputText id="txtStateD" value="#{tablaBB.tables.state}" />
    		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{tablesBB.addEntity}" process="@all" update="formulario"/>   		
+			<p:ajax event="click" listener="#{tablaBB.addEntity}" process="@all" update="formulario"/>   		
    		</p:commandButton>
 		</p:dialog>		
 
 		<p:dialog header="Update Tables" widgetVar="dlg1" minHeight="40">
 			<h:outputLabel id="ltableTypeU" value="Table type:" for="txtTableTypeU"></h:outputLabel>
-	        <p:inputText id="txtTableTypeU" value="#{tablesBB.tables.tableType}" />
+	        <p:inputText id="txtTableTypeU" value="#{tablaBB.tables.tableType}" />
 		    <h:outputLabel id="lNameU" value="Name:" for="txtNameU"></h:outputLabel>
-		        <p:inputText id="txtNameU" value="#{tablesBB.tables.name}" />
+		        <p:inputText id="txtNameU" value="#{tablaBB.tables.name}" />
 		    <h:outputLabel id="lIdServicesU" value="Id Services:" for="txtIdServicesU"></h:outputLabel>
-		        <p:inputText id="txtIdServicesU" value="#{tablesBB.tables.idServices}" />
+		        <p:inputText id="txtIdServicesU" value="#{tablaBB.tables.idServices}" />
 		    <h:outputLabel id="lUomU" value="UOM:" for="txtUomU"></h:outputLabel>
-		        <p:inputText id="txtUomU" value="#{tablesBB.tables.uom}" />
+		        <p:inputText id="txtUomU" value="#{tablaBB.tables.uom}" />
 		    <h:outputLabel id="lUomALtU" value="UOM ALT:" for="txtUomAltU"></h:outputLabel>
-		        <p:inputText id="txtUomAltU" value="#{tablesBB.tables.uomAlt}" />
+		        <p:inputText id="txtUomAltU" value="#{tablaBB.tables.uomAlt}" />
 		    <h:outputLabel id="lConverU" value="Conver:" for="txtConverU"></h:outputLabel>
-		        <p:inputText id="txtConverU" value="#{tablesBB.tables.conver}" />
+		        <p:inputText id="txtConverU" value="#{tablaBB.tables.conver}" />
 		    <h:outputLabel id="lBaseU" value="Base:" for="txtBaseU"></h:outputLabel>
-		        <p:inputText id="txtBaseU" value="#{tablesBB.tables.base}" />
+		        <p:inputText id="txtBaseU" value="#{tablaBB.tables.base}" />
 		    <h:outputLabel id="lExpensesU" value="Expenses:" for="txtExpensesU"></h:outputLabel>
-		        <p:inputText id="txtExpensesU" value="#{tablesBB.tables.expenses}" />
+		        <p:inputText id="txtExpensesU" value="#{tablaBB.tables.expenses}" />
 		    <h:outputLabel id="lDayoFJobU" value="Day of Job:" for="txtDayOfJobU"></h:outputLabel>
-		        <p:inputText id="txtDayOfJobU" value="#{tablesBB.tables.dayOfJob}" />
+		        <p:inputText id="txtDayOfJobU" value="#{tablaBB.tables.dayOfJob}" />
 		    <h:outputLabel id="lMinimumU" value="Minimum:" for="txtMinimumU"></h:outputLabel>
-		        <p:inputText id="txtMinimumU" value="#{tablesBB.tables.minimum}" />
+		        <p:inputText id="txtMinimumU" value="#{tablaBB.tables.minimum}" />
 		    <h:outputLabel id="lLawU" value="Law:" for="txtLawU"></h:outputLabel>
-		        <p:inputText id="txtLawU" value="#{tablesBB.tables.law}" />
+		        <p:inputText id="txtLawU" value="#{tablaBB.tables.law}" />
 		    <h:outputLabel id="lEntityU" value="Entity:" for="txtEntityU"></h:outputLabel>
-		        <p:inputText id="txtEntityU" value="#{tablesBB.tables.entity}" />
+		        <p:inputText id="txtEntityU" value="#{tablaBB.tables.entity}" />
 		    <h:outputLabel id="lNoteU" value="Note:" for="txtNoteU"></h:outputLabel>
-		        <p:inputText id="txtNoteU" value="#{tablesBB.tables.note}" />
+		        <p:inputText id="txtNoteU" value="#{tablaBB.tables.note}" />
 		    <h:outputLabel id="lYearU" value="Year:" for="txtYearU"></h:outputLabel>
-		        <p:inputText id="txtYearU" value="#{tablesBB.tables.year}" />
+		        <p:inputText id="txtYearU" value="#{tablaBB.tables.year}" />
 		    <h:outputLabel id="lStateRU" value="State:" for="txtStateD"></h:outputLabel>
-		        <p:inputText id="txtStateU" value="#{tablesBB.tables.state}" />
+		        <p:inputText id="txtStateU" value="#{tablaBB.tables.state}" />
    		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{tablesBB.updateEntity}" process="@all" update="formulario"/>   		
+			<p:ajax event="click" listener="#{tablaBB.updateEntity}" process="@all" update="formulario"/>   		
    		</p:commandButton>
 		</p:dialog>		
 		
