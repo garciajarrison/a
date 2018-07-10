@@ -16,7 +16,6 @@ public class DetalleTabla implements java.io.Serializable {
 
 	private int id;
 	private Tablas tablas;
-	private Empresa empresa;
 	private Long desde;
 	private Long hasta;
 	private Double porcentajeAplicar;
@@ -28,10 +27,9 @@ public class DetalleTabla implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public DetalleTabla(int id, Tablas tablas, Empresa empresa, Long desde, Long hasta, Double porcentajeAplicar) {
+	public DetalleTabla(int id, Tablas tablas, Long desde, Long hasta, Double porcentajeAplicar) {
 		this.id = id;
 		this.tablas = tablas;
-		this.empresa = empresa;
 		this.desde = desde;
 		this.hasta = hasta;
 		this.porcentajeAplicar = porcentajeAplicar;
@@ -56,16 +54,6 @@ public class DetalleTabla implements java.io.Serializable {
 
 	public void setTablas(Tablas tablas) {
 		this.tablas = tablas;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa_id")
-	public Empresa getEmpresa() {
-		return this.empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	@Column(name = "desde", precision = 10, scale = 0)

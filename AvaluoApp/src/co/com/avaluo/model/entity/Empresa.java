@@ -29,7 +29,6 @@ public class Empresa implements java.io.Serializable {
 	private Set<Cotizacion> cotizacionsForEmpresaId = new HashSet<Cotizacion>(0);
 	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
 	private Set<Tablas> tablases = new HashSet<Tablas>(0);
-	private Set<DetalleTabla> detalleTablas = new HashSet<DetalleTabla>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<Licencia> licencias = new HashSet<Licencia>(0);
 	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
@@ -47,7 +46,7 @@ public class Empresa implements java.io.Serializable {
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
 			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads,
 			Set<Cotizacion> cotizacionsForEmpresaId, Set<Propiedad> propiedads, Set<Tablas> tablases,
-			Set<DetalleTabla> detalleTablas, Set<Usuario> usuarios, Set<Licencia> licencias,
+			Set<Usuario> usuarios, Set<Licencia> licencias,
 			Set<Cotizacion> cotizacionsForClienteId, Set<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
@@ -60,7 +59,6 @@ public class Empresa implements java.io.Serializable {
 		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
 		this.propiedads = propiedads;
 		this.tablases = tablases;
-		this.detalleTablas = detalleTablas;
 		this.usuarios = usuarios;
 		this.licencias = licencias;
 		this.cotizacionsForClienteId = cotizacionsForClienteId;
@@ -167,15 +165,6 @@ public class Empresa implements java.io.Serializable {
 
 	public void setTablases(Set<Tablas> tablases) {
 		this.tablases = tablases;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<DetalleTabla> getDetalleTablas() {
-		return this.detalleTablas;
-	}
-
-	public void setDetalleTablas(Set<DetalleTabla> detalleTablas) {
-		this.detalleTablas = detalleTablas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")

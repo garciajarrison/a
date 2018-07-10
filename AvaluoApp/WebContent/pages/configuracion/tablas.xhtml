@@ -12,141 +12,140 @@
 	<br /><br /><br />
 	<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
 		
-		<p:dataTable var="tables" value="#{tablaBB.entityList}" selectionMode="single" selection="#{tablaBB.selectedTables}" rowKey="#{tables.id}">
+		<p:dataTable var="tables" value="#{tablaBB.entityList}" emptyMessage="#{msg['no.registros']}">
 		 
-		    <p:column headerText="Id">
-		        <h:outputText value="#{tables.id}" />
-		    </p:column>
-		    <p:column headerText="Table Type">
-		        <h:outputText value="#{tables.tableType}" />
+		    <p:column headerText="#{msg['tabla.tipo']}" sortBy="#{tables.minimo}">
+		        <h:outputText value="#{tables.tipo}" />
 		    </p:column>		 
-		    <p:column headerText="Name">
-		        <h:outputText value="#{tables.name}" />
+		    <p:column headerText="#{msg['tabla.nombre']}" sortBy="#{tables.nombre}" filterBy="#{tables.nombre}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.nombre}" />
 		    </p:column>
 		 
-		    <p:column headerText="Id Services">
-		        <h:outputText value="#{tables.idServices}" />
+		    <p:column headerText="#{msg['tabla.conversion']}" sortBy="#{tables.conversion}" filterBy="#{tables.conversion}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.conversion}" />
 		    </p:column>
-		    <p:column headerText="Uom">
-		        <h:outputText value="#{tables.uom}" />
-		    </p:column>
-		    <p:column headerText="Uom Alt">
-		        <h:outputText value="#{tables.uomAlt}" />
-		    </p:column>		 
-		    <p:column headerText="Conver">
-		        <h:outputText value="#{tables.conver}" />
-		    </p:column>
-		 
-		    <p:column headerText="Base">
+		    <p:column headerText="#{msg['tabla.base']}" sortBy="#{tables.base}" filterBy="#{tables.base}" filterMatchMode="contains">
 		        <h:outputText value="#{tables.base}" />
 		    </p:column>
-		 
-		    <p:column headerText="Expenses">
-		        <h:outputText value="#{tables.expenses}" />
-		    </p:column>
-		    <p:column headerText="Day of Job">
-		        <h:outputText value="#{tables.dayOfJob}" />
+		    <p:column headerText="#{msg['tabla.gasto']}" sortBy="#{tables.gasto}" filterBy="#{tables.gasto}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.gasto}" />
 		    </p:column>		 
-		    <p:column headerText="Minimum">
-		        <h:outputText value="#{tables.minimum}" />
+		    <p:column headerText="#{msg['tabla.estado']}" sortBy="#{tables.estado}">
+		        <h:outputText value="#{tables.estado}" />
 		    </p:column>
 		 
-		    <p:column headerText="Law">
-		        <h:outputText value="#{tables.law}" />
+		    <p:column headerText="#{msg['tabla.uom']}" sortBy="#{tables.uom}" filterBy="#{tables.uom}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.uom}" />
 		    </p:column>
-
-		    <p:column headerText="Entity">
-		        <h:outputText value="#{tables.entity}" />
+		 
+		    <p:column headerText="#{msg['tabla.uomalt']}" sortBy="#{tables.uomAlt}" filterBy="#{tables.uomAlt}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.uomAlt}" />
 		    </p:column>
-		    <p:column headerText="Note">
-		        <h:outputText value="#{tables.note}" />
+		    <p:column headerText="#{msg['tabla.dias.trabajados']}" sortBy="#{tables.diasDeTrabajo}" filterBy="#{tables.diasDeTrabajo}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.diasDeTrabajo}" />
 		    </p:column>		 
-		    <p:column headerText="Year">
-		        <h:outputText value="#{tables.year}" />
+		    <p:column headerText="#{msg['tabla.minimo']}" sortBy="#{tables.minimo}" filterBy="#{tables.minimo}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.minimo}" />
 		    </p:column>
-		    <p:column headerText="State">
-		        <h:outputText value="#{tables.state}" />
+		    
+		    <p:column headerText="#{msg['acciones']}">
+		    	<center>
+			       <!-- p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
+			       		<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}" 
+			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
+			       </p:commandButton>
+			       <p:commandButton id="btnAddDetalle" value="#{msg['btn.agregar.detalle']}" type="button" >
+			       		<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}" 
+			       				update=":#{p:component('dlgDetalle')}" oncomplete="PF('dlgDetalle').show();"/>
+			       </p:commandButton -->
+			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
+						<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}"
+								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
+					</p:commandButton>
+				</center>
 		    </p:column>
-		 
 		    
 		</p:dataTable>
-		<p:commandButton value="Add" type="button" onclick="PF('dlg').show();" />
-		<p:commandButton value="Update" type="button" onclick="PF('dlg1').show();" />
-		<p:commandButton value="Delete" type="button">
-		<p:ajax event="click" listener="#{tablaBB.deleteEntity}" process="@all" update="formulario"/>
-		</p:commandButton>
 		
-		<p:dialog header="Add Table" widgetVar="dlg" minHeight="40">
-		    <h:outputLabel id="ltableTypeD" value="Table type:" for="txtTableTypeD"></h:outputLabel>
-	        <p:inputText id="txtTableTypeD" value="#{tablaBB.tables.tableType}" />
-		    <h:outputLabel id="lNameD" value="Name:" for="txtNameD"></h:outputLabel>
-		        <p:inputText id="txtNameD" value="#{tablaBB.tables.name}" />
-		    <h:outputLabel id="lIdServicesD" value="Id Services:" for="txtIdServicesD"></h:outputLabel>
-		        <p:inputText id="txtIdServicesD" value="#{tablaBB.tables.idServices}" />
-		    <h:outputLabel id="lUomD" value="UOM:" for="txtUomD"></h:outputLabel>
-		        <p:inputText id="txtUomD" value="#{tablaBB.tables.uom}" />
-		    <h:outputLabel id="lUomALtD" value="UOM ALT:" for="txtUomAltD"></h:outputLabel>
-		        <p:inputText id="txtUomAltD" value="#{tablaBB.tables.uomAlt}" />
-		    <h:outputLabel id="lConverD" value="Conver:" for="txtConverD"></h:outputLabel>
-		        <p:inputText id="txtConverD" value="#{tablaBB.tables.conver}" />
-		    <h:outputLabel id="lBaseD" value="Base:" for="txtBaseD"></h:outputLabel>
-		        <p:inputText id="txtBaseD" value="#{tablaBB.tables.base}" />
-		    <h:outputLabel id="lExpensesD" value="Expenses:" for="txtExpensesD"></h:outputLabel>
-		        <p:inputText id="txtExpensesD" value="#{tablaBB.tables.expenses}" />
-		    <h:outputLabel id="lDayoFJobD" value="Day of Job:" for="txtDayOfJobD"></h:outputLabel>
-		        <p:inputText id="txtDayOfJobD" value="#{tablaBB.tables.dayOfJob}" />
-		    <h:outputLabel id="lMinimumD" value="Minimum:" for="txtMinimumD"></h:outputLabel>
-		        <p:inputText id="txtMinimumD" value="#{tablaBB.tables.minimum}" />
-		    <h:outputLabel id="lLawD" value="Law:" for="txtLawD"></h:outputLabel>
-		        <p:inputText id="txtLawD" value="#{tablaBB.tables.law}" />
-		    <h:outputLabel id="lEntityD" value="Entity:" for="txtEntityD"></h:outputLabel>
-		        <p:inputText id="txtEntityD" value="#{tablaBB.tables.entity}" />
-		    <h:outputLabel id="lNoteD" value="Note:" for="txtNoteD"></h:outputLabel>
-		        <p:inputText id="txtNoteD" value="#{tablaBB.tables.note}" />
-		    <h:outputLabel id="lYearD" value="Year:" for="txtYearD"></h:outputLabel>
-		        <p:inputText id="txtYearD" value="#{tablaBB.tables.year}" />
-		    <h:outputLabel id="lStateD" value="State:" for="txtStateD"></h:outputLabel>
-		        <p:inputText id="txtStateD" value="#{tablaBB.tables.state}" />
-   		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{tablaBB.addEntity}" process="@all" update="formulario"/>   		
-   		</p:commandButton>
-		</p:dialog>		
-
-		<p:dialog header="Update Tables" widgetVar="dlg1" minHeight="40">
-			<h:outputLabel id="ltableTypeU" value="Table type:" for="txtTableTypeU"></h:outputLabel>
-	        <p:inputText id="txtTableTypeU" value="#{tablaBB.tables.tableType}" />
-		    <h:outputLabel id="lNameU" value="Name:" for="txtNameU"></h:outputLabel>
-		        <p:inputText id="txtNameU" value="#{tablaBB.tables.name}" />
-		    <h:outputLabel id="lIdServicesU" value="Id Services:" for="txtIdServicesU"></h:outputLabel>
-		        <p:inputText id="txtIdServicesU" value="#{tablaBB.tables.idServices}" />
-		    <h:outputLabel id="lUomU" value="UOM:" for="txtUomU"></h:outputLabel>
-		        <p:inputText id="txtUomU" value="#{tablaBB.tables.uom}" />
-		    <h:outputLabel id="lUomALtU" value="UOM ALT:" for="txtUomAltU"></h:outputLabel>
-		        <p:inputText id="txtUomAltU" value="#{tablaBB.tables.uomAlt}" />
-		    <h:outputLabel id="lConverU" value="Conver:" for="txtConverU"></h:outputLabel>
-		        <p:inputText id="txtConverU" value="#{tablaBB.tables.conver}" />
-		    <h:outputLabel id="lBaseU" value="Base:" for="txtBaseU"></h:outputLabel>
-		        <p:inputText id="txtBaseU" value="#{tablaBB.tables.base}" />
-		    <h:outputLabel id="lExpensesU" value="Expenses:" for="txtExpensesU"></h:outputLabel>
-		        <p:inputText id="txtExpensesU" value="#{tablaBB.tables.expenses}" />
-		    <h:outputLabel id="lDayoFJobU" value="Day of Job:" for="txtDayOfJobU"></h:outputLabel>
-		        <p:inputText id="txtDayOfJobU" value="#{tablaBB.tables.dayOfJob}" />
-		    <h:outputLabel id="lMinimumU" value="Minimum:" for="txtMinimumU"></h:outputLabel>
-		        <p:inputText id="txtMinimumU" value="#{tablaBB.tables.minimum}" />
-		    <h:outputLabel id="lLawU" value="Law:" for="txtLawU"></h:outputLabel>
-		        <p:inputText id="txtLawU" value="#{tablaBB.tables.law}" />
-		    <h:outputLabel id="lEntityU" value="Entity:" for="txtEntityU"></h:outputLabel>
-		        <p:inputText id="txtEntityU" value="#{tablaBB.tables.entity}" />
-		    <h:outputLabel id="lNoteU" value="Note:" for="txtNoteU"></h:outputLabel>
-		        <p:inputText id="txtNoteU" value="#{tablaBB.tables.note}" />
-		    <h:outputLabel id="lYearU" value="Year:" for="txtYearU"></h:outputLabel>
-		        <p:inputText id="txtYearU" value="#{tablaBB.tables.year}" />
-		    <h:outputLabel id="lStateRU" value="State:" for="txtStateD"></h:outputLabel>
-		        <p:inputText id="txtStateU" value="#{tablaBB.tables.state}" />
-   		<p:commandButton value="Add" type="button"  update="growl">
-			<p:ajax event="click" listener="#{tablaBB.updateEntity}" process="@all" update="formulario"/>   		
-   		</p:commandButton>
-		</p:dialog>		
+		<p:dialog header="#{msg['tabla.agregar']}" id="dlgAgregar" 
+				widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+				
+					<h:outputLabel value="#{msg['tabla.tipo']}:" for="txtTipo"/>
+			   		<p:selectOneMenu id="txtTipo" value="#{tablaBB.tablas.tipo}" title="#{msg['tabla.tipo']}" 
+			   			label="#{msg['tabla.tipo']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTipoPropiedad}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['tabla.nombre']}:" for="txtNombre"/>
+			   		<p:inputText id="txtNombre" value="#{tablaBB.tablas.nombre}" 
+			   			title="#{msg['tabla.nombre']}" maxlength="100"
+			   			label="#{msg['tabla.nombre']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.conversion']}:" for="txtConversion"/>
+			   		<p:inputNumber id="txtConversion" value="#{tablaBB.tablas.conversion}" 
+			   			title="#{msg['tabla.conversion']}" minValue="0"
+			   			label="#{msg['tabla.conversion']}" required="true" />	
+			   			
+			   		<h:outputLabel value="#{msg['tabla.base']}:" for="txtBase"/>
+			   		<p:inputNumber id="txtBase" value="#{tablaBB.tablas.base}" 
+			   			title="#{msg['tabla.base']}" minValue="0"
+			   			label="#{msg['tabla.base']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.gasto']}:" for="txtgasto"/>
+			   		<p:inputNumber id="txtgasto" value="#{tablaBB.tablas.gastos}" 
+			   			title="#{msg['tabla.gasto']}" minValue="0"
+			   			label="#{msg['tabla.gasto']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.estado']}:" for="selEstado"/>
+			   		<p:selectOneMenu id="selEstado" value="#{tablaBB.tablas.estado}" title="#{msg['tabla.estado']}" 
+			   			label="#{msg['tabla.estado']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaEstados}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['tabla.uom']}:" for="txtuom"/>
+			   		<p:inputText id="txtuom" value="#{tablaBB.tablas.uom}" 
+			   			title="#{msg['tabla.uom']}" maxlength="10"
+			   			label="#{msg['tabla.uom']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.uomalt']}:" for="txtuomalt"/>
+			   		<p:inputText id="txtuomalt" value="#{tablaBB.tablas.uomAlt}" 
+			   			title="#{msg['tabla.uomalt']}" maxlength="10"
+			   			label="#{msg['tabla.uomalt']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.dias.trabajados']}:" for="txtdiasDeTrabajo"/>
+			   		<p:inputNumber id="txtdiasDeTrabajo" value="#{tablaBB.tablas.diasDeTrabajo}" 
+			   			title="#{msg['tabla.dias.trabajados']}" minValue="0"
+			   			label="#{msg['tabla.dias.trabajados']}" required="true" />
+			   			
+			   		<h:outputLabel value="#{msg['tabla.minimo']}:" for="txtminimo"/>
+			   		<p:inputNumber id="txtminimo" value="#{tablaBB.tablas.minimo}" 
+			   			title="#{msg['tabla.minimo']}" minValue="0"
+			   			label="#{msg['tabla.minimo']}" required="true" />		
+			   		
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" >
+		   				<p:ajax process="dlgAgregar" listener="#{tablaBB.addEntity}"/>
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
+		
+		<p:dialog header="#{msg['tabla.eliminar']}" id="dlgEliminar" widgetVar="dlgEliminar" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{tablaBB.deleteEntity}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
 		
    </ui:define>
 </ui:composition>

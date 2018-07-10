@@ -33,13 +33,13 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	private List<Tablas> entityList;
 	private Usuario usuario;
 	private Util util;
-	private List<SelectItem> listaTipoPropiedad;
+	private ListasGenericas listasGenericas;
 	private String tipo = "";
 	
 	public TablaBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		listaTipoPropiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
+		listasGenericas = ListasGenericas.getInstance();
 		cargarListaTablas();
 	}
 	
@@ -121,20 +121,40 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		this.util = util;
 	}
 
-	public List<SelectItem> getListaTipoPropiedad() {
-		return listaTipoPropiedad;
-	}
-
-	public void setListaTipoPropiedad(List<SelectItem> listaTipoPropiedad) {
-		this.listaTipoPropiedad = listaTipoPropiedad;
-	}
-
 	public ITablasService getTablaService() {
 		return tablaService;
 	}
 
 	public void setTablaService(ITablasService tablaService) {
 		this.tablaService = tablaService;
+	}
+
+	public ListasGenericas getListasGenericas() {
+		return listasGenericas;
+	}
+
+	public Tablas getTablas() {
+		return tablas;
+	}
+
+	public void setTablas(Tablas tablas) {
+		this.tablas = tablas;
+	}
+
+	public Tablas getSelectedTablas() {
+		return selectedTablas;
+	}
+
+	public void setSelectedTablas(Tablas selectedTablas) {
+		this.selectedTablas = selectedTablas;
+	}
+
+	public List<Tablas> getEntityList() {
+		return entityList;
+	}
+
+	public void setEntityList(List<Tablas> entityList) {
+		this.entityList = entityList;
 	}
 	
  }
