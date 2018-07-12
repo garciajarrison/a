@@ -6,44 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.ITipoPropiedadDAO;
-import co.com.avaluo.model.entity.TipoPropiedad;
+import co.com.avaluo.model.dao.ICiudadDAO;
+import co.com.avaluo.model.entity.Ciudad;
 
 @Service
 @Transactional(readOnly = true)
-public class TipoPropiedadService implements ITipoPropiedadService {
+public class CiudadService implements ICiudadService {
 
 	@Autowired
-	private ITipoPropiedadDAO entityDAO;
+	private ICiudadDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(TipoPropiedad entity) {
+	public void addEntity(Ciudad entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(TipoPropiedad entity) {
+	public void deleteEntity(Ciudad entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(TipoPropiedad entity) {
+	public void updateEntity(Ciudad entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public TipoPropiedad getEntityById(int id) {
+	public Ciudad getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<TipoPropiedad> getEntitys(String tipo, int id) {	
-		return getEntityDAO().getEntities(tipo, id);
+	public List<Ciudad> getEntitys() {	
+		return getEntityDAO().getEntities();
 	}
 
-	public ITipoPropiedadDAO getEntityDAO() {
+	public ICiudadDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEntityDAO(ITipoPropiedadDAO entityDAO) {
+	public void setEntityDAO(ICiudadDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

@@ -97,7 +97,7 @@ public class Usuario implements java.io.Serializable {
 		this.rol = rol;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;

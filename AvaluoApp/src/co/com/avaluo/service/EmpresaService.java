@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IEmpresaDAO;
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Usuario;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,26 +19,30 @@ public class EmpresaService implements IEmpresaService {
 	private IEmpresaDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Estrato entity) {
+	public void addEntity(Empresa entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Estrato entity) {
+	public void deleteEntity(Empresa entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Estrato entity) {
+	public void updateEntity(Empresa entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public Estrato getEntityById(int id) {
+	public Empresa getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Estrato> getEntitys() {	
+	public List<Empresa> getEntitys() {	
 		return getEntityDAO().getEntities();
+	}
+	
+	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
+		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
 	}
 	
 	public IEmpresaDAO getEntityDAO() {

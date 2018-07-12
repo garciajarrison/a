@@ -14,5 +14,5 @@ public interface ITablasDAO {
 	
 	Tablas getEntity(int id);
 
-	List<Tablas> getEntities();
+	List<Tablas> getEntities(int idEmpresa);
 }

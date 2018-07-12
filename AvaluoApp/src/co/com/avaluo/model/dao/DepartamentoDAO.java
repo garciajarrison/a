@@ -7,10 +7,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.com.avaluo.model.entity.TipoPropiedad;
+import co.com.avaluo.model.entity.Departamento;
 
 @Repository
-public class TipoPropiedadDAO implements ITipoPropiedadDAO {
+public class DepartamentoDAO implements IDepartamentoDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -22,38 +22,36 @@ public class TipoPropiedadDAO implements ITipoPropiedadDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(TipoPropiedad entity) {
+	public void addEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(TipoPropiedad entity) {
+	public void deleteEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(TipoPropiedad entity) {
+	public void updateEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public TipoPropiedad getEntity(int id) {
+	public Departamento getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
-				.createQuery("from TipoPropiedad where id=? ").setParameter(0, id)
+				.createQuery("from Departamento where id=?").setParameter(0, id)
 				.list();
 		
-		return (TipoPropiedad) list.get(0);
+		return (Departamento) list.get(0);
 	}
 
-	public List<TipoPropiedad> getEntities(String tipo, int id) {
+	public List<Departamento > getEntities() {
 		Session session = getSessionFactory().getCurrentSession();
-		
 		@SuppressWarnings("unchecked")
-		List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoPropiedad = ? and empresa.id=?").setParameter(0, tipo).setParameter(1, id).list();
-		//List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoVivienda = ?").setParameter(0, tipo).list();
-		
+		List<Departamento> list = (List<Departamento>) session.createQuery("from Departamento ")
+				.list();
 		return list;
 	}
 

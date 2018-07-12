@@ -20,6 +20,10 @@ import javax.persistence.Table;
 @Table(name = "empresa", schema = "avalsoft")
 public class Empresa implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Ciudad ciudad;
 	private String tipoIdentificacion;

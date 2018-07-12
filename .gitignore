@@ -8,3 +8,12 @@ AvaluoApp/WebContent/pages/estratos.xhtml
 AvaluoApp/WebContent/pages/estratos.xhtml
 AvaluoApp/WebContent/pages/estratos.xhtml
 RemoteSystemsTempFiles/.project
+*.class
+AvaluoApp/.classpath
+AvaluoApp/.settings/org.eclipse.wst.common.project.facet.core.xml
+AvaluoApp/target/classes/co/com/avaluo/model/entity/Usuario.class
+*.class
+Servers/Tomcat v9.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v9.0 Server at localhost-config/server.xml
+AvaluoApp/.classpath
+AvaluoApp/.settings/org.eclipse.wst.common.project.facet.core.xml

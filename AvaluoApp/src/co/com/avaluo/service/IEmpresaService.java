@@ -2,19 +2,22 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
-import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Empresa;
+import co.com.avaluo.model.entity.Usuario;
 
 
 public interface IEmpresaService {
 	
-	void addEntity(Estrato entity);
+	void addEntity(Empresa entity);
 	
-	void updateEntity(Estrato entity);
+	void updateEntity(Empresa entity);
 
-	void deleteEntity(Estrato entity);
+	void deleteEntity(Empresa entity);
 	
-	Estrato getEntityById(int id);
+	Empresa getEntityById(int id);
 	
-	List<Estrato> getEntitys();
+	List<Empresa> getEntitys();
+	
+	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
 
 }
