@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -15,6 +15,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
+import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.ITablasService;
@@ -30,11 +31,14 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	
 	private Tablas tablas = new Tablas();
 	private Tablas selectedTablas;
+	private Tablas detalleList;
+	private List<Tablas> detalleLista;
+	private DetalleTabla detalle;
+	private DetalleTabla selectedDetalle;
 	private List<Tablas> entityList;
 	private Usuario usuario;
 	private Util util;
 	private ListasGenericas listasGenericas;
-	private String tipo = "";
 	
 	public TablaBB() {
 		util = Util.getInstance();
@@ -44,7 +48,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	}
 	
 	private void cargarListaTablas() {
-		entityList = tablaService.getEntitys(usuario.getEmpresa().getId());
+		entityList = tablaService.getTablas(usuario.getEmpresa().getId());
 		if(entityList == null)
 			entityList = new ArrayList<>();
 	}
@@ -52,7 +56,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	public void addEntity() {
 		try {
 			boolean guardar = true;
-			//Validamos que no exista un estrato con esa configuracion
+			//Validamos que no exista una tabla con esa configuracion
 			for(Tablas tbl : entityList) {
 				if(tbl.getTipo().equals(tablas.getTipo()) &&
 						tbl.getMinimo().equals(tablas.getMinimo())
@@ -65,7 +69,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 			
 			if(guardar) {
 				tablas.setEmpresa(usuario.getEmpresa());
-				tablaService.addEntity(tablas);
+				tablaService.addTabla(tablas);
 				this.cargarListaTablas();
 				util.mostrarMensajeKey("exito.guardar"); 
 				tablas = new Tablas();
@@ -77,12 +81,11 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 			e.printStackTrace();
 			util.mostrarErrorKey("error.guardar"); 
 		} 	
-		
 	}
-
+	
 	public void updateEntity() {
 		try {
-			getTablaService().updateEntity(selectedTablas);
+			getTablaService().updateTabla(selectedTablas);
 			util.mostrarMensajeKey("exito.actualizar");  
 			cargarListaTablas();
 			util.actualizarPF("formulario");
@@ -92,9 +95,55 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		} 	
 	}
 	
+	public void addEntityDetalle() {
+		try {
+			boolean guardar = true;
+			//Validamos que no exista un detalle con esa configuracion
+			for(DetalleTabla det : detalleList.getDetalleTablas()) {
+				if(det.getDesde().equals(detalle.getDesde()) &&
+						det.getHasta().equals(detalle.getHasta())
+						//Falta validar que el rango no se duplique
+						) {
+					guardar = false;
+					util.mostrarErrorKey("ya.existe");
+				}
+			}
+			
+			if(guardar) {
+				tablaService.addTablaDetalle(detalle);
+				this.cargarListaTablas();
+				util.mostrarMensajeKey("exito.guardar"); 
+				detalle = new DetalleTabla();
+				util.actualizarPF("dtDetalle");
+			}else {
+				util.actualizarPF("growl");
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			util.mostrarErrorKey("error.guardar"); 
+		} 	
+	}
+	
+	public void updateEntityDetalle() {
+		try {
+			getTablaService().updateTablaDetalle(selectedDetalle);
+			util.mostrarMensajeKey("exito.actualizar");  
+			cargarListaTablas();
+			util.actualizarPF("dtDetalle");
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			util.mostrarErrorKey("error.actualizar"); 
+		} 	
+	}
+	
+	public void verDetalle(SelectEvent event) {
+		detalleList = (Tablas) event.getObject();
+		detalleLista = detalleList.getDetalleTablas();
+	}
+	
 	public void deleteEntity() {
 		try {
-			getTablaService().deleteEntity(selectedTablas);
+			getTablaService().deleteTabla(selectedTablas);
 			util.mostrarMensajeKey("exito.eliminar");
 			cargarListaTablas();
 			util.actualizarPF("formulario");
@@ -155,6 +204,30 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void setEntityList(List<Tablas> entityList) {
 		this.entityList = entityList;
+	}
+
+	public DetalleTabla getSelectedDetalle() {
+		return selectedDetalle;
+	}
+
+	public void setSelectedDetalle(DetalleTabla selectedDetalle) {
+		this.selectedDetalle = selectedDetalle;
+	}
+
+	public Tablas getDetalleList() {
+		return detalleList;
+	}
+
+	public void setDetalleList(Tablas detalleList) {
+		this.detalleList = detalleList;
+	}
+
+	public DetalleTabla getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(DetalleTabla detalle) {
+		this.detalle = detalle;
 	}
 	
  }

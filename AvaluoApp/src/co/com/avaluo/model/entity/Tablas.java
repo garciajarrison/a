@@ -1,8 +1,8 @@
 package co.com.avaluo.model.entity;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "tablas", schema = "avalsoft")
@@ -31,7 +32,7 @@ public class Tablas implements java.io.Serializable {
 	private String uomAlt;
 	private Long diasDeTrabajo;
 	private Long minimo;
-	private Set<DetalleTabla> detalleTablas = new HashSet<DetalleTabla>(0);
+	private List<DetalleTabla> detalleTablas = new ArrayList<>();
 
 	public Tablas() {
 	}
@@ -44,7 +45,7 @@ public class Tablas implements java.io.Serializable {
 
 	public Tablas(int id, Empresa empresa, String tipo, String nombre, BigDecimal conversion,
 			BigDecimal base, BigDecimal gastos, boolean estado, String uom, String uomAlt, Long diasDeTrabajo,
-			Long minimo, Set<DetalleTabla> detalleTablas) {
+			Long minimo, List<DetalleTabla> detalleTablas) {
 		this.id = id;
 		this.empresa = empresa;
 		this.tipo = tipo;
@@ -80,8 +81,6 @@ public class Tablas implements java.io.Serializable {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-
-
 
 	@Column(name = "tipo", length = 25)
 	public String getTipo() {
@@ -174,11 +173,11 @@ public class Tablas implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablas")
-	public Set<DetalleTabla> getDetalleTablas() {
+	public List<DetalleTabla> getDetalleTablas() {
 		return this.detalleTablas;
 	}
 
-	public void setDetalleTablas(Set<DetalleTabla> detalleTablas) {
+	public void setDetalleTablas(List<DetalleTabla> detalleTablas) {
 		this.detalleTablas = detalleTablas;
 	}
 

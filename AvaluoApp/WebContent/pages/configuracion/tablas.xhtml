@@ -12,7 +12,10 @@
 	<br /><br /><br />
 	<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
 		
-		<p:dataTable var="tables" value="#{tablaBB.entityList}" emptyMessage="#{msg['no.registros']}">
+		<p:dataTable var="tables" value="#{tablaBB.entityList}" emptyMessage="#{msg['no.registros']}"
+				selectionMode="single" selection="#{tablaBB.detalleList}" rowKey="#{tables.id}">
+		 
+		 	<p:ajax event="rowSelect" update=":#{p:component('dtDetalle')}" listener="#{tablaBB.verDetalle}" />
 		 
 		    <p:column headerText="#{msg['tabla.tipo']}" sortBy="#{tables.minimo}">
 		        <h:outputText value="#{tables.tipo}" />
@@ -27,11 +30,11 @@
 		    <p:column headerText="#{msg['tabla.base']}" sortBy="#{tables.base}" filterBy="#{tables.base}" filterMatchMode="contains">
 		        <h:outputText value="#{tables.base}" />
 		    </p:column>
-		    <p:column headerText="#{msg['tabla.gasto']}" sortBy="#{tables.gasto}" filterBy="#{tables.gasto}" filterMatchMode="contains">
-		        <h:outputText value="#{tables.gasto}" />
+		    <p:column headerText="#{msg['tabla.gasto']}" sortBy="#{tables.gastos}" filterBy="#{tables.gastos}" filterMatchMode="contains">
+		        <h:outputText value="#{tables.gastos}" />
 		    </p:column>		 
 		    <p:column headerText="#{msg['tabla.estado']}" sortBy="#{tables.estado}">
-		        <h:outputText value="#{tables.estado}" />
+		        <h:outputText value="#{tables.estado ? 'Activo' : 'Inactivo'}" />
 		    </p:column>
 		 
 		    <p:column headerText="#{msg['tabla.uom']}" sortBy="#{tables.uom}" filterBy="#{tables.uom}" filterMatchMode="contains">
@@ -50,14 +53,7 @@
 		    
 		    <p:column headerText="#{msg['acciones']}">
 		    	<center>
-			       <!-- p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-			       		<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}" 
-			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
-			       </p:commandButton>
-			       <p:commandButton id="btnAddDetalle" value="#{msg['btn.agregar.detalle']}" type="button" >
-			       		<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}" 
-			       				update=":#{p:component('dlgDetalle')}" oncomplete="PF('dlgDetalle').show();"/>
-			       </p:commandButton -->
+			    
 			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
 						<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}"
 								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
@@ -66,6 +62,44 @@
 		    </p:column>
 		    
 		</p:dataTable>
+		
+		<br /> <br /> <br />
+		
+		<h2>Detalle</h2>
+		
+		<br /> <br />
+		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarDet').show();" />
+		<p:dataTable id="dtDetalle" widgetVar="dtDetalle" var="detalle" value="#{tablaBB.detalleList.detalleTablas}" 
+				emptyMessage="#{msg['no.registros']}" rendered="#{empty tablaBB.detalle}">
+		 
+		    <p:column headerText="#{msg['tabla.desde']}" sortBy="#{tables.desde}" filterBy="#{tables.desde}" filterMatchMode="contains">
+		        <h:outputText value="#{detalle.desde}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+		        </h:outputText>
+		    </p:column>		 
+		    <p:column headerText="#{msg['tabla.hasta']}" sortBy="#{tables.hasta}" filterBy="#{tables.hasta}" filterMatchMode="contains">
+		        <h:outputText value="#{detalle.hasta}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+		        </h:outputText>
+		    </p:column>
+		    <p:column headerText="#{msg['tabla.porcentaje.aplicar']}" sortBy="#{tables.porcentajeAplicar}" filterBy="#{tables.porcentajeAplicar}" filterMatchMode="contains">
+		        <h:outputText value="#{detalle.porcentajeAplicar}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+		        </h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['acciones']}">
+		    	<center>
+			    
+			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
+						<p:ajax event="click" listener="#{tablaBB.setSelectedDetalle(detalle)}"
+								update=":#{p:component('dlgEliminarDet')}" oncomplete="PF('dlgEliminarDet').show();"/>
+					</p:commandButton>
+				</center>
+		    </p:column>
+		    
+		</p:dataTable>
+		
 		
 		<p:dialog header="#{msg['tabla.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
@@ -146,6 +180,48 @@
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>	
+		
+		<p:dialog header="#{msg['tabla.agregar.detalle']}" id="dlgAgregarDet" 
+				widgetVar="dlgAgregarDet" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+				
+					<h:outputLabel value="#{msg['tabla.desde']}:" for="txtdesde"/>
+			   		<p:inputNumber id="txtdesde" value="#{tablaBB.detalle.desde}" 
+			   				decimalPlaces="2" title="#{msg['tabla.desde']}" required="true"
+			   				label="#{msg['tabla.desde']}" minValue="0"/>   
+			   		
+			   		<h:outputLabel value="#{msg['tabla.hasta']}:" for="txthasta"/>
+			   		<p:inputNumber id="txthasta" value="#{tablaBB.detalle.hasta}" 
+			   				decimalPlaces="2" title="#{msg['tabla.hasta']}" required="true"
+			   				label="#{msg['tabla.hasta']}" minValue="0"/>  
+			   			
+			   		<h:outputLabel value="#{msg['tabla.porcentaje.aplicar']}:" for="txtPorcentaje"/>
+			   		<p:inputNumber id="txtPorcentaje" value="#{tablaBB.detalle.porcentajeAplicar}" required="true"
+			   				decimalPlaces="2" title="#{msg['tabla.porcentaje.aplicar']}" 
+			   				label="#{msg['tabla.porcentaje.aplicar']}" minValue="0"
+			   				maxValue="100" symbol="%" symbolPosition="s" />  	
+			   			
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" >
+		   				<p:ajax process="dlgAgregar" listener="#{tablaBB.addEntityDetalle}"/>
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>
+		
+		<p:dialog header="#{msg['tabla.eliminar.detalle']}" id="dlgEliminarDet" widgetVar="dlgEliminarDet" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{tablaBB.deleteEntityDetalle}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>
 		
    </ui:define>
 </ui:composition>

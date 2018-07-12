@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Tablas;
 
 @Repository
@@ -22,22 +23,22 @@ public class TablasDAO implements ITablasDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(Tablas entity) {
+	public void addTabla(Tablas entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(Tablas entity) {
+	public void deleteTabla(Tablas entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Tablas entity) {
+	public void updateTabla(Tablas entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Tablas getEntity(int id) {
+	public Tablas getTablaById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
@@ -47,7 +48,7 @@ public class TablasDAO implements ITablasDAO {
 		return (Tablas) list.get(0);
 	}
 
-	public List<Tablas> getEntities(int idEmpresa) {
+	public List<Tablas> getTablas(int idEmpresa) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
@@ -55,6 +56,21 @@ public class TablasDAO implements ITablasDAO {
 				.setParameter(0, idEmpresa).list();
 		
 		return list;
+	}
+
+	public void updateTablaDetalle(DetalleTabla detalle) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.update(detalle);
+	}
+
+	public void addTablaDetalle(DetalleTabla detalle) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.save(detalle);
+	}
+
+	public void deleteTablaDetalle(DetalleTabla detalle) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.delete(detalle);
 	}
 
 }
