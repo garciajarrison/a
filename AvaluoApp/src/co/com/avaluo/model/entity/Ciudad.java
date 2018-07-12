@@ -1,7 +1,7 @@
 package co.com.avaluo.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +23,9 @@ public class Ciudad implements java.io.Serializable {
 	private String nombre;
 	private String codigo;
 	private Boolean estado;
-	private Set<Licencia> licencias = new HashSet<Licencia>(0);
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
-	private Set<Empresa> empresas = new HashSet<Empresa>(0);
+	private List<Licencia> licencias = new ArrayList<>();
+	private List<Propiedad> propiedads = new ArrayList<>();
+	private List<Empresa> empresas = new ArrayList<>();
 
 	public Ciudad() {
 	}
@@ -36,7 +36,7 @@ public class Ciudad implements java.io.Serializable {
 	}
 
 	public Ciudad(int id, Departamento departamento, String nombre, String codigo, Boolean estado,
-			Set<Licencia> licencias, Set<Propiedad> propiedads, Set<Empresa> empresas) {
+			List<Licencia> licencias, List<Propiedad> propiedads, List<Empresa> empresas) {
 		this.id = id;
 		this.departamento = departamento;
 		this.nombre = nombre;
@@ -96,29 +96,29 @@ public class Ciudad implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ciudad")
-	public Set<Licencia> getLicencias() {
+	public List<Licencia> getLicencias() {
 		return this.licencias;
 	}
 
-	public void setLicencias(Set<Licencia> licencias) {
+	public void setLicencias(List<Licencia> licencias) {
 		this.licencias = licencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ciudad")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ciudad")
-	public Set<Empresa> getEmpresas() {
+	public List<Empresa> getEmpresas() {
 		return this.empresas;
 	}
 
-	public void setEmpresas(Set<Empresa> empresas) {
+	public void setEmpresas(List<Empresa> empresas) {
 		this.empresas = empresas;
 	}
 

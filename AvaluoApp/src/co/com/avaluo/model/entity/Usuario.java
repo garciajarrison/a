@@ -1,8 +1,8 @@
 package co.com.avaluo.model.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,8 +36,8 @@ public class Usuario implements java.io.Serializable {
 	private boolean estado;
 	private String lenguaje;
 	private String profesion;
-	private Set<Contacto> contactos = new HashSet<Contacto>(0);
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	private List<Contacto> contactos = new ArrayList<Contacto>();
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>();
 
 	public Usuario() {
 	}
@@ -51,7 +51,7 @@ public class Usuario implements java.io.Serializable {
 
 	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
-			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Propiedad> propiedads) {
+			boolean estado, String lenguaje, String profesion, List<Contacto> contactos, List<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
@@ -213,20 +213,20 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<Contacto> getContactos() {
+	public List<Contacto> getContactos() {
 		return this.contactos;
 	}
 
-	public void setContactos(Set<Contacto> contactos) {
+	public void setContactos(List<Contacto> contactos) {
 		this.contactos = contactos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 

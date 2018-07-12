@@ -32,7 +32,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	private Tablas tablas = new Tablas();
 	private Tablas selectedTablas;
 	private Tablas detalleList;
-	private List<Tablas> detalleLista;
+	private List<DetalleTabla> detalleLista;
 	private DetalleTabla detalle;
 	private DetalleTabla selectedDetalle;
 	private List<Tablas> entityList;
@@ -228,6 +228,14 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void setDetalle(DetalleTabla detalle) {
 		this.detalle = detalle;
+	}
+
+	public List<DetalleTabla> getDetalleLista() {
+		return detalleLista;
+	}
+
+	public void setDetalleLista(List<DetalleTabla> detalleLista) {
+		this.detalleLista = detalleLista;
 	}
 	
  }

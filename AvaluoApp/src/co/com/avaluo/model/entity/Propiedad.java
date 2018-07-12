@@ -1,8 +1,8 @@
 package co.com.avaluo.model.entity;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class Propiedad implements java.io.Serializable {
 	private String direccion;
 	private String unidadMedida;
 	private BigDecimal valorMedida;
-	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
+	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>();
 
 
 	public Propiedad() {
@@ -42,7 +42,7 @@ public class Propiedad implements java.io.Serializable {
 	}
 
 	public Propiedad(int id, Empresa empresa, Usuario usuario, Ciudad ciudad, String tipo, String registro,
-			String direccion, String unidadMedida, BigDecimal valorMedida, Set<DetalleCotizacion> detalleCotizacions
+			String direccion, String unidadMedida, BigDecimal valorMedida, List<DetalleCotizacion> detalleCotizacions
 			) {
 		this.id = id;
 		this.empresa = empresa;
@@ -143,11 +143,11 @@ public class Propiedad implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
-	public Set<DetalleCotizacion> getDetalleCotizacions() {
+	public List<DetalleCotizacion> getDetalleCotizacions() {
 		return this.detalleCotizacions;
 	}
 
-	public void setDetalleCotizacions(Set<DetalleCotizacion> detalleCotizacions) {
+	public void setDetalleCotizacions(List<DetalleCotizacion> detalleCotizacions) {
 		this.detalleCotizacions = detalleCotizacions;
 	}
 

@@ -1,7 +1,7 @@
 package co.com.avaluo.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Rol implements java.io.Serializable {
 	private String nombre;
 	private String descripcion;
 	private boolean estado;
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private List<Usuario> usuarios = new ArrayList<Usuario>(0);
 
 	public Rol() {
 	}
@@ -30,7 +30,7 @@ public class Rol implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Rol(int id, String nombre, String descripcion, boolean estado, Set<Usuario> usuarios) {
+	public Rol(int id, String nombre, String descripcion, boolean estado, List<Usuario> usuarios) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -77,11 +77,11 @@ public class Rol implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

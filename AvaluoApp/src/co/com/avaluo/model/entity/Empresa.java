@@ -1,7 +1,7 @@
 package co.com.avaluo.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,14 +25,14 @@ public class Empresa implements java.io.Serializable {
 	private String nombre;
 	private String description;
 	private boolean estado;
-	private Set<TipoPropiedad> tipoPropiedads = new HashSet<TipoPropiedad>(0);
-	private Set<Cotizacion> cotizacionsForEmpresaId = new HashSet<Cotizacion>(0);
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
-	private Set<Tablas> tablases = new HashSet<Tablas>(0);
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
-	private Set<Licencia> licencias = new HashSet<Licencia>(0);
-	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
-	private Set<Estrato> estratos = new HashSet<Estrato>(0);
+	private List<TipoPropiedad> tipoPropiedads = new ArrayList<TipoPropiedad>();
+	private List<Cotizacion> cotizacionsForEmpresaId = new ArrayList<Cotizacion>();
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>();
+	private List<Tablas> tablases = new ArrayList<Tablas>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Licencia> licencias = new ArrayList<Licencia>();
+	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>();
+	private List<Estrato> estratos = new ArrayList<Estrato>();
 
 	public Empresa() {
 	}
@@ -44,10 +44,10 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
-			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads,
-			Set<Cotizacion> cotizacionsForEmpresaId, Set<Propiedad> propiedads, Set<Tablas> tablases,
-			Set<Usuario> usuarios, Set<Licencia> licencias,
-			Set<Cotizacion> cotizacionsForClienteId, Set<Estrato> estratos) {
+			String description, boolean estado, List<TipoPropiedad> tipoPropiedads,
+			List<Cotizacion> cotizacionsForEmpresaId, List<Propiedad> propiedads, List<Tablas> tablases,
+			List<Usuario> usuarios, List<Licencia> licencias,
+			List<Cotizacion> cotizacionsForClienteId, List<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -132,74 +132,74 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<TipoPropiedad> getTipoPropiedads() {
+	public List<TipoPropiedad> getTipoPropiedads() {
 		return this.tipoPropiedads;
 	}
 
-	public void setTipoPropiedads(Set<TipoPropiedad> tipoPropiedads) {
+	public void setTipoPropiedads(List<TipoPropiedad> tipoPropiedads) {
 		this.tipoPropiedads = tipoPropiedads;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByEmpresaId")
-	public Set<Cotizacion> getCotizacionsForEmpresaId() {
+	public List<Cotizacion> getCotizacionsForEmpresaId() {
 		return this.cotizacionsForEmpresaId;
 	}
 
-	public void setCotizacionsForEmpresaId(Set<Cotizacion> cotizacionsForEmpresaId) {
+	public void setCotizacionsForEmpresaId(List<Cotizacion> cotizacionsForEmpresaId) {
 		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Tablas> getTablases() {
+	public List<Tablas> getTablases() {
 		return this.tablases;
 	}
 
-	public void setTablases(Set<Tablas> tablases) {
+	public void setTablases(List<Tablas> tablases) {
 		this.tablases = tablases;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Licencia> getLicencias() {
+	public List<Licencia> getLicencias() {
 		return this.licencias;
 	}
 
-	public void setLicencias(Set<Licencia> licencias) {
+	public void setLicencias(List<Licencia> licencias) {
 		this.licencias = licencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByClienteId")
-	public Set<Cotizacion> getCotizacionsForClienteId() {
+	public List<Cotizacion> getCotizacionsForClienteId() {
 		return this.cotizacionsForClienteId;
 	}
 
-	public void setCotizacionsForClienteId(Set<Cotizacion> cotizacionsForClienteId) {
+	public void setCotizacionsForClienteId(List<Cotizacion> cotizacionsForClienteId) {
 		this.cotizacionsForClienteId = cotizacionsForClienteId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public Set<Estrato> getEstratos() {
+	public List<Estrato> getEstratos() {
 		return this.estratos;
 	}
 
-	public void setEstratos(Set<Estrato> estratos) {
+	public void setEstratos(List<Estrato> estratos) {
 		this.estratos = estratos;
 	}
 

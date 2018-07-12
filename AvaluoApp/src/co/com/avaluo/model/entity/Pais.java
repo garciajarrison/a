@@ -1,7 +1,7 @@
 package co.com.avaluo.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Pais implements java.io.Serializable {
 	private String nombre;
 	private String codigo;
 	private boolean estado;
-	private Set<Departamento> departamentos = new HashSet<Departamento>(0);
+	private List<Departamento> departamentos = new ArrayList<Departamento>();
 
 	public Pais() {
 	}
@@ -30,7 +30,7 @@ public class Pais implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Pais(int id, String nombre, String codigo, boolean estado, Set<Departamento> departamentos) {
+	public Pais(int id, String nombre, String codigo, boolean estado, List<Departamento> departamentos) {
 		this.id = id;
 		this.nombre = nombre;
 		this.codigo = codigo;
@@ -77,11 +77,11 @@ public class Pais implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pais")
-	public Set<Departamento> getDepartamentos() {
+	public List<Departamento> getDepartamentos() {
 		return this.departamentos;
 	}
 
-	public void setDepartamentos(Set<Departamento> departamentos) {
+	public void setDepartamentos(List<Departamento> departamentos) {
 		this.departamentos = departamentos;
 	}
 
