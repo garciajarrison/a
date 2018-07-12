@@ -8,3 +8,7 @@ AvaluoApp/WebContent/pages/estratos.xhtml
 AvaluoApp/WebContent/pages/estratos.xhtml
 AvaluoApp/WebContent/pages/estratos.xhtml
 RemoteSystemsTempFiles/.project
+AvaluoApp/.classpath
+AvaluoApp/.settings/org.eclipse.wst.common.project.facet.core.xml
+Servers/Tomcat v9.0 Server at localhost-config/server.xml
+AvaluoApp/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
