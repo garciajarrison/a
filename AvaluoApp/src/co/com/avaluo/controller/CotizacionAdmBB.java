@@ -101,6 +101,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
+		listaCiudades = ciudadService.getEntitys();
+		if(entityList == null)
+			entityList = new ArrayList<>();
 
 	}
 	
@@ -343,6 +346,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setListaDepartamentos(List<Departamento> listaDepartamentos) {
 		this.listaDepartamentos = listaDepartamentos;
+	}
+
+	public List<Ciudad> getListaCiudades() {
+		return listaCiudades;
+	}
+
+	public List<Departamento> getListaDepartamentos() {
+		return listaDepartamentos;
 	}
 
 	public String getCiudad() {

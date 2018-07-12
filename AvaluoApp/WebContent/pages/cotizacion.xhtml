@@ -37,33 +37,32 @@
 	        </p:tab>
 	        <p:tab title="Informacin de la propiedad">
 	          	<p:panel >
-	          		<h:panelGrid columns="2" columnClasses="label, value">
-	          			<p:dataTable var="ciudad" value="#{estratoBB.entityList}" selectionMode="single" 
-								selection="#{estrato.selectedEstrato}" rowKey="#{estrato.id}"
+	          		<h:panelGrid columns="1" columnClasses="label, value">
+	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" selectionMode="single" 
+								selection="#{cotizacionAdmBB.selectedPropiedad}"  rowKey="#propiedad.id}"
 								emptyMessage="No se encontraron registros.">
 						    <f:facet name="header">
 						        Lista de ciudades
 						    </f:facet>
 						 
-						    <p:column headerText="Estrato">
-						        <h:outputText value="#{estrato.nombre}" />
+						    <p:column headerText="Nombre">
+						        <h:outputText value="#{ciudad.nombre}" />
 						    </p:column>
 						    
-						    <p:column headerText="Porcentaje">
-						        <h:outputText value="#{estrato.porcentaje}" />
+						    <p:column headerText="Codigo">
+						        <h:outputText value="#{ciudad.codigo}" />
 						    </p:column>
 						 
-						    <p:column headerText="Valor minimo cotizacion">
-						        <h:outputText value="#{estrato.valor}" />
+						    <p:column headerText="Estado">
+						        <h:outputText value="#{ciudad.estado}" />
+						    </p:column>
+						    
+						    <p:column headerText="Departamento">
+						        <h:outputText value="#{ciudad.dpto}" />
 						    </p:column>
 						 
 						    
 						</p:dataTable>
-					<p:commandButton value="Agregar" type="button" onclick="PF('dlgAgregar').show();" />
-					<p:commandButton value="Actualizar" type="button" onclick="PF('dlgActualizar').show();" />
-					<p:commandButton value="Borrar" type="button">
-						<p:ajax event="click" listener="#{estratoBB.deleteEntity}" process="@all" update="formulario"/>
-					</p:commandButton>
 	          			
 	          		
 			   		<h:outputText id="lTable" value="Tabla:" for="selTables"></h:outputText>
@@ -101,6 +100,13 @@
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaDepartamento}" />
 			        </p:selectOneMenu>
+			       </h:panelGrid>
+			       <h:panelGrid columns="3" columnClasses="label, value">
+					<p:commandButton value="Agregar" type="button" onclick="PF('dlgAgregar').show();" />
+					<p:commandButton value="Actualizar" type="button" onclick="PF('dlgActualizar').show();" />
+					<p:commandButton value="Borrar" type="button">
+						<p:ajax event="click"  process="@all" update="formulario"/>
+					</p:commandButton>
 			       </h:panelGrid>
 			    </p:panel>
 	        </p:tab>
