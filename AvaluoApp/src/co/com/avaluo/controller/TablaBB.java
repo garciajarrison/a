@@ -32,8 +32,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	private Tablas tablas = new Tablas();
 	private Tablas selectedTablas;
 	private Tablas detalleList;
-	private List<DetalleTabla> detalleLista;
-	private DetalleTabla detalle;
+	private DetalleTabla detalle = new DetalleTabla();
 	private DetalleTabla selectedDetalle;
 	private List<Tablas> entityList;
 	private Usuario usuario;
@@ -138,7 +137,6 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	
 	public void verDetalle(SelectEvent event) {
 		detalleList = (Tablas) event.getObject();
-		detalleLista = detalleList.getDetalleTablas();
 	}
 	
 	public void deleteEntity() {
@@ -228,14 +226,6 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void setDetalle(DetalleTabla detalle) {
 		this.detalle = detalle;
-	}
-
-	public List<DetalleTabla> getDetalleLista() {
-		return detalleLista;
-	}
-
-	public void setDetalleLista(List<DetalleTabla> detalleLista) {
-		this.detalleLista = detalleLista;
 	}
 	
  }

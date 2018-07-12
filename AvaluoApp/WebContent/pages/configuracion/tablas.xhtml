@@ -69,7 +69,7 @@
 		
 		<br /> <br />
 		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarDet').show();" />
-		<p:dataTable id="dtDetalle" widgetVar="dtDetalle" var="detalle" value="#{tablaBB.detalleLista}" 
+		<p:dataTable id="dtDetalle" widgetVar="dtDetalle" var="detalle" value="#{tablaBB.detalleList.detalleTablas}" 
 				emptyMessage="#{msg['no.registros']}" rendered="#{empty tablaBB.detalle}">
 		 
 		    <p:column headerText="#{msg['tabla.desde']}" sortBy="#{tables.desde}" filterBy="#{tables.desde}" filterMatchMode="contains">
@@ -104,7 +104,7 @@
 		<p:dialog header="#{msg['tabla.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
 			<div align="center">
-				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+				<h:panelGrid id="dlgAgregarData" columns="2" cellspacing="2" cellpadding="2">
 				
 					<h:outputLabel value="#{msg['tabla.tipo']}:" for="txtTipo"/>
 			   		<p:selectOneMenu id="txtTipo" value="#{tablaBB.tablas.tipo}" title="#{msg['tabla.tipo']}" 
@@ -163,7 +163,7 @@
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{tablaBB.addEntity}"/>
+		   				<p:ajax process="dlgAgregarData" listener="#{tablaBB.addEntity}"/>
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>	
@@ -184,7 +184,7 @@
 		<p:dialog header="#{msg['tabla.agregar.detalle']}" id="dlgAgregarDet" 
 				widgetVar="dlgAgregarDet" minHeight="40">
 			<div align="center">
-				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+				<h:panelGrid id="dlgAgregarDetData" columns="2" cellspacing="2" cellpadding="2">
 				
 					<h:outputLabel value="#{msg['tabla.desde']}:" for="txtdesde"/>
 			   		<p:inputNumber id="txtdesde" value="#{tablaBB.detalle.desde}" 
@@ -204,8 +204,8 @@
 			   			
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{tablaBB.addEntityDetalle}"/>
+		   		<p:commandButton value="#{msg['btn.agregar']}" process="dlgAgregarDetData" 
+		   				ajax="true" actionListener="#{tablaBB.addEntityDetalle}">
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>

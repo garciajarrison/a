@@ -56,11 +56,12 @@
 			   		
 			   		<h:outputLabel id="lPorcentaje" value="#{msg['estrato.porcentaje']}:" for="txtPorcentaje"/>
 			   		<p:inputNumber id="txtPorcentaje" value="#{estratoBB.estrato.porcentaje}" 
-			   				decimalPlaces="2" title="#{msg['estrato.porcentaje']}" label="#{msg['estrato.porcentaje']}" minValue="0"
+			   				decimalPlaces="2" title="#{msg['estrato.porcentaje']}" label="#{msg['estrato.porcentaje']}" 
+			   				minValue="0" required="true"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 			   		
 			   		<h:outputLabel id="lValue" value="#{msg['estrato.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputNumber id="txtValue" value="#{estratoBB.estrato.valor}" 
+			   		<p:inputNumber id="txtValue" value="#{estratoBB.estrato.valor}" required="true"
 			   				decimalPlaces="2" title="#{msg['estrato.valor.minimo.cotizacion']}" 
 			   				label="#{msg['estrato.valor.minimo.cotizacion']}" minValue="0"/>  
 			   		
@@ -79,12 +80,12 @@
 					<h:outputLabel id="txtNameU" value="#{estratoBB.selectedEstrato.nombre}"/>
 		
 			   		<h:outputLabel id="lporcentajeU" value="#{msg['estrato.porcentaje']}:" for="txtPorcentajeU"/>
-			   		<p:inputNumber id="txtPorcentajeU" value="#{estratoBB.selectedEstrato.porcentaje}" 
+			   		<p:inputNumber id="txtPorcentajeU" value="#{estratoBB.selectedEstrato.porcentaje}" required="true" 
 			   				decimalPlaces="2" title="#{msg['estrato.porcentaje']}" label="#{msg['estrato.porcentaje']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 
 			   		<h:outputLabel id="lValueU" value="#{msg['estrato.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputText id="txtValueU" value="#{estratoBB.selectedEstrato.valor}"
+			   		<p:inputText id="txtValueU" value="#{estratoBB.selectedEstrato.valor}" required="true"
 			   				label="#{msg['estrato.valor.minimo.cotizacion']}" title="#{msg['estrato.valor.minimo.cotizacion']}"/>
 			   	</h:panelGrid>
 			   	<br /><br />

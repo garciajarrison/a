@@ -119,6 +119,8 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 	}
 
 	public TipoPropiedad getSelectedTipoPropiedad() {
+		if(selectedTipoPropiedad == null)
+			selectedTipoPropiedad = new TipoPropiedad();
 		return selectedTipoPropiedad;
 	}
 

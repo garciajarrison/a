@@ -128,6 +128,8 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	}
 
 	public Estrato getSelectedEstrato() {
+		if(selectedEstrato == null)
+			selectedEstrato = new  Estrato();
 		return selectedEstrato;
 	}
 

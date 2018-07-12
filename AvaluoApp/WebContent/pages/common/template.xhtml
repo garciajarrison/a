@@ -15,7 +15,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="icon" href="images/favicon.ico" type="image/ico" />
 	
-	    <title>Avalsoft</title>
+	    <title>#{msg['app']}</title>
 	
 	    <link rel="stylesheet" type="text/css"
 			href="#{request.contextPath}/resources/css/bootstrap.min.css" />
@@ -44,7 +44,7 @@
 	        <div class="right_col" role="main">
 	        	<p:fragment>
         		<p:autoUpdate />
-			   		<p:growl id="growl" showDetail="true" />
+			   		<p:growl id="growl" showDetail="false" />
 			   	</p:fragment>
 			    <ui:insert name="content"/>
 		    </div>

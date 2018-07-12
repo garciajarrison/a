@@ -172,7 +172,7 @@ public class Tablas implements java.io.Serializable {
 		this.minimo = minimo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablas")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tablas")
 	public List<DetalleTabla> getDetalleTablas() {
 		return this.detalleTablas;
 	}
