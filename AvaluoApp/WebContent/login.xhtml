@@ -4,7 +4,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -18,7 +17,37 @@
 	<h:outputStylesheet library="css" name="icheck/flat/green.css" />
 	<h:outputStylesheet library="css" name="animate.min.css" />
 	
-    
+    <script type="text/javascript">
+
+		$(document).ready(function () {
+	
+			var sPageURL = window.location.search.substring(1);
+			if(sPageURL.length>0){
+				 switch (sPageURL) {
+				 
+					case "CredencialesInvalidas":
+						var mensaje = "Usuario o contraseña incorrecto";
+						break;
+					case "SesionExpirada":
+						var mensaje = "La sesión ha expirado";
+						break;
+					case "UsuarioBloqueado":
+						var mensaje = "El usuario está bloqueado.";
+					break;
+					case "UsuarioNoPermiso":
+						var mensaje = "El usuario no tiene permisos para ingresar a la aplicación.";
+					break;
+					case "Error":
+						var mensaje = "Ha ocurrido un error en la aplicación, por favor intente de nuevo.";
+					break;
+					default:
+						var mensaje = "";
+				 
+				}
+				 $("#mensaje").append(mensaje);
+			}
+		});
+	</script>
 </h:head>
 <h:body style="background:#F7F7F7;">
  <div class="">
@@ -30,6 +59,7 @@
                 <section class="login_content">
                     <h:form>
                     	<p:growl id="growl" sticky="true" autoUpdate="true" /> 
+                    	<div id="mensaje" class="error" style="font-weight: bold !important;font-weight: bold !important;font-size: 18px;color: red;" align="center"></div>
                         <h1>#{msg['login']}</h1>
                         <div>
 		              	 <p:inputText value="#{loginBB.usuario.correo}" required="true" 

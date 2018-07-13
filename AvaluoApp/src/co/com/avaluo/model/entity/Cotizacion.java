@@ -1,7 +1,7 @@
 package co.com.avaluo.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ public class Cotizacion implements java.io.Serializable {
 	private Empresa empresaByClienteId;
 	private Empresa empresaByEmpresaId;
 	private Double valor;
-	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
+	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<>();
 
 	public Cotizacion() {
 	}
@@ -32,7 +32,7 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	public Cotizacion(int id, Empresa empresaByClienteId, Empresa empresaByEmpresaId, Double valor,
-			Set<DetalleCotizacion> detalleCotizacions) {
+			List<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
 		this.empresaByClienteId = empresaByClienteId;
 		this.empresaByEmpresaId = empresaByEmpresaId;
@@ -81,11 +81,11 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cotizacion")
-	public Set<DetalleCotizacion> getDetalleCotizacions() {
+	public List<DetalleCotizacion> getDetalleCotizacions() {
 		return this.detalleCotizacions;
 	}
 
-	public void setDetalleCotizacions(Set<DetalleCotizacion> detalleCotizacions) {
+	public void setDetalleCotizacions(List<DetalleCotizacion> detalleCotizacions) {
 		this.detalleCotizacions = detalleCotizacions;
 	}
 

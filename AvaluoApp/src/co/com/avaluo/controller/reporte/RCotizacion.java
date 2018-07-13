@@ -21,40 +21,41 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import co.com.avaluo.common.Util;
+import co.com.avaluo.model.entity.Cotizacion;
 
 public class RCotizacion {
-	private static String FILE = "c:/temp/FirstPdf.pdf";
-	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-	private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
-	private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-	private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+	private static final String FILE = "c:/temp/FirstPdf.pdf";
+	private static final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+	private static final Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
+	private static final Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+	private static final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 	private Util util;
 	
 	public RCotizacion() {
 		util = Util.getInstance();
 	}
-
-	public static void main(String[] args) {
+	
+	public void generarReporte(Cotizacion cotizacion) {
 		try {
 			Document document = new Document();
 			PdfWriter.getInstance(document, new FileOutputStream(FILE));
 			document.open();
 			addMetaData(document);
-			addTitlePage(document);
-			addContent(document);
+			addTitlePage(document, cotizacion);
+			addContent(document, cotizacion);
 			document.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static void addMetaData(Document document) {
+	private void addMetaData(Document document) {
 		document.addTitle(util.getMessage("reporte.cotizacion.titulo"));
 		document.addAuthor(util.getMessage("app"));
 		document.addCreator("Jarrison Andrey Garcia Paniagua");
 	}
 
-	private static void addTitlePage(Document document) throws DocumentException {
+	private void addTitlePage(Document document, Cotizacion cotizacion) throws DocumentException {
 		Paragraph preface = new Paragraph();
 		// We add one empty line
 		addEmptyLine(preface, 1);
@@ -79,7 +80,7 @@ public class RCotizacion {
 		document.newPage();
 	}
 
-	private static void addContent(Document document) throws DocumentException {
+	private static void addContent(Document document, Cotizacion cotizacion) throws DocumentException {
 		Anchor anchor = new Anchor("First Chapter", catFont);
 		anchor.setName("First Chapter");
 
