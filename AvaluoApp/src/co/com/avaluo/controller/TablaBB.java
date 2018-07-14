@@ -44,7 +44,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	}
 	
 	private void cargarListaTablas() {
-		entityList = tablaService.getEntitys(usuario.getEmpresa().getId());
+		entityList = tablaService.getTablas(usuario.getEmpresa().getId());
 		if(entityList == null)
 			entityList = new ArrayList<>();
 	}
@@ -65,7 +65,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 			
 			if(guardar) {
 				tablas.setEmpresa(usuario.getEmpresa());
-				tablaService.addEntity(tablas);
+				tablaService.addTabla(tablas);
 				this.cargarListaTablas();
 				util.mostrarMensajeKey("exito.guardar"); 
 				tablas = new Tablas();
@@ -82,7 +82,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void updateEntity() {
 		try {
-			getTablaService().updateEntity(selectedTablas);
+			getTablaService().updateTabla(selectedTablas);
 			util.mostrarMensajeKey("exito.actualizar");  
 			cargarListaTablas();
 			util.actualizarPF("formulario");
@@ -94,7 +94,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 	
 	public void deleteEntity() {
 		try {
-			getTablaService().deleteEntity(selectedTablas);
+			getTablaService().deleteTabla(selectedTablas);
 			util.mostrarMensajeKey("exito.eliminar");
 			cargarListaTablas();
 			util.actualizarPF("formulario");
