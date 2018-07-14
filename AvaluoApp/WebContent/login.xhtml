@@ -4,11 +4,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Avalsoft</title>
+	<title>#{msg['app']}</title>
 	<!-- Bootstrap core CSS -->
 
 	<link rel="stylesheet" type="text/css"  href="#{request.contextPath}/resources/fonts/css/font-awesome.css"/>
@@ -18,7 +17,37 @@
 	<h:outputStylesheet library="css" name="icheck/flat/green.css" />
 	<h:outputStylesheet library="css" name="animate.min.css" />
 	
-    
+    <script type="text/javascript">
+
+		$(document).ready(function () {
+	
+			var sPageURL = window.location.search.substring(1);
+			if(sPageURL.length>0){
+				 switch (sPageURL) {
+				 
+					case "CredencialesInvalidas":
+						var mensaje = "Usuario o contraseña incorrecto";
+						break;
+					case "SesionExpirada":
+						var mensaje = "La sesión ha expirado";
+						break;
+					case "UsuarioBloqueado":
+						var mensaje = "El usuario está bloqueado.";
+					break;
+					case "UsuarioNoPermiso":
+						var mensaje = "El usuario no tiene permisos para ingresar a la aplicación.";
+					break;
+					case "Error":
+						var mensaje = "Ha ocurrido un error en la aplicación, por favor intente de nuevo.";
+					break;
+					default:
+						var mensaje = "";
+				 
+				}
+				 $("#mensaje").append(mensaje);
+			}
+		});
+	</script>
 </h:head>
 <h:body style="background:#F7F7F7;">
  <div class="">
@@ -29,33 +58,32 @@
             <div id="login" class="animate form">
                 <section class="login_content">
                     <h:form>
-                    	<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" /> 
-                        <h1>Login Form</h1>
+                    	<p:growl id="growl" sticky="true" autoUpdate="true" /> 
+                    	<div id="mensaje" class="error" style="font-weight: bold !important;font-weight: bold !important;font-size: 18px;color: red;" align="center"></div>
+                        <h1>#{msg['login']}</h1>
                         <div>
 		              	 <p:inputText value="#{loginBB.usuario.correo}" required="true" 
-		              	 		title="Correo electronico" styleClass="form-control" placeholder="Correo Electronico"/>
+		              	 		title="#{msg['login.correo']}" styleClass="form-control" placeholder="#{msg['login.correo']}"/>
 		              </div>
 		              <div>
 		              	<p:password value="#{loginBB.usuario.contrasena}" required="true" 
-		              			title="Contrasena" styleClass="form-control" placeholder="Contrasena"/>
+		              			title="#{msg['login.contrasena']}" styleClass="form-control" placeholder="#{msg['login.contrasena']}"/>
 		              </div>
 		              <div>
-		              	<p:commandButton value="Ingresar" actionListener="#{loginBB.login}" 
+		              	<p:commandButton value="#{msg['login.ingresar']}" actionListener="#{loginBB.login}" 
 		              			styleClass="btn btn-default submit" update="@form"/>
-                            <a class="reset_pass" href="#">Lost your password?</a>
+		              			
+                            <a class="reset_pass" href="#">#{msg['login.olvido.clave']}</a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="separator">
 
-                            <p class="change_link">New to site?
-                                <a href="#toregister" class="to_register"> Create Account </a>
-                            </p>
                             <div class="clearfix"></div>
                             <br />
                             <div>
-                                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Avalsoft!</h1>
+                                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> #{msg['app']}!</h1>
 
-                                <p>©2018 Todos los derechos reservados.</p>
+                                <p>#{msg['derechos.reservados']}</p>
                             </div>
                         </div>
                         

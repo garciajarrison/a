@@ -15,7 +15,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="icon" href="images/favicon.ico" type="image/ico" />
 	
-	    <title>Avalsoft</title>
+	    <title>#{msg['app']}</title>
 	
 	    <link rel="stylesheet" type="text/css"
 			href="#{request.contextPath}/resources/css/bootstrap.min.css" />
@@ -32,6 +32,12 @@
     </h:head>
 
     <h:body styleClass="nav-md">
+    
+    <script type="text/javascript">
+	    function redirectSesion(){
+	    	window.location.href = '#{facesContext.externalContext.requestContextPath}/login.xhtml?SesionExpirada' 
+	    }
+    </script>
         
        <div class="container body">
       <div class="main_container">
@@ -42,13 +48,14 @@
 	        
 	        <!-- page content -->
 	        <div class="right_col" role="main">
-	        	<p:fragment>
-        		<p:autoUpdate />
-			   		<p:growl id="growl" showDetail="true" />
-			   	</p:fragment>
+		        <p:growl id="growl" widgetVar="growl" showDetail="false" showSummary="true" 
+						sticky="true" life="1000" escape="false"> 
+					<p:autoUpdate/>
+				</p:growl>
 			    <ui:insert name="content"/>
 		    </div>
 		    
+		    <p:idleMonitor timeout="600000" onidle="redirectSesion();" />
 		    
 		    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
 		    		
@@ -61,6 +68,36 @@
 			       <strong>#{msg['cargando']}</strong> 
 			    </div>
 			</p:dialog> 
+			
+			<p:dialog position="center center" header="#{msg['cerrar.session']}" resizable="false" closable="false"
+			           id="cerrarSesion" widgetVar="cerrarSesion" modal="true" >  
+				<div style="width:100%; margin-top:0px important;"  >
+					<table width="100%">
+					<tr>
+						<td width="25%"/>
+						<td width="50%">
+						<p:graphicImage width="100%" style="max-width:100%; max-heigth:auto;  margin-top:0px important;" 
+								 value="/resources/images/logo.png"/>
+						</td>
+						<td width="25%">
+						</td>
+					</tr>	
+					</table>
+				</div>
+				<div align="center">
+					<br />
+					<h:panelGrid>
+						<h:outputText value="#{msg['cerrar.session.confirmar']}"/>
+						<br />
+					</h:panelGrid>
+					<div align="center">
+		
+			        <p:commandButton value="#{msg['no']}" immediate="true" icon="#{msg.iconNo}" onclick="PF('cerrarSesion').hide()" process="@this" />
+					 <p:commandButton value="#{msg['si']}" immediate="true" styleClass="ui-confirmdialog-yes" action="#{globalBB.cerrarSesion}" />	          
+			        
+					</div>
+				</div>
+			</p:dialog>
 		    
 		    
 	    </h:form>

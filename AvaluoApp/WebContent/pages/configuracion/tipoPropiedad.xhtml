@@ -55,20 +55,16 @@
 			   			label="#{msg['tipo.propiedad']}" required="true" >
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedad}"  />
-			   			<p:ajax event="change" update=":#{p:component('selTipoVivienda')}"/>
 			   		</p:selectOneMenu>
 			   		
 			   		<h:outputLabel id="lName2" value="#{msg['tipo.propiedad.tipo.vivienda']}:" for="selTipoVivienda"/>
-			   		<p:selectOneMenu id="selTipoVivienda" value="#{tipoPropiedadBB.tipoPropiedad.tipoVivienda}" 
-			   			title="#{msg['tipo.propiedad.tipo.vivienda']}" 
-			   			label="#{msg['tipo.propiedad.tipo.vivienda']}" required="true" >
-			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
-			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedadUrbanoRural}"  />
-			   		</p:selectOneMenu>
+			   		<p:inputText id="selTipoVivienda" value="#{tipoPropiedadBB.tipoPropiedad.tipoVivienda}" 
+			   			title="#{msg['tipo.propiedad.tipo.vivienda']}" maxlength="100"
+			   			label="#{msg['tipo.propiedad.tipo.vivienda']}" required="true" />
 			   		
 			   		<h:outputLabel id="lPorcentaje" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentaje"/>
 			   		<p:inputNumber id="txtPorcentaje" value="#{tipoPropiedadBB.tipoPropiedad.incremento}" 
-			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}"  required="true"
 			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 			   		
@@ -91,8 +87,9 @@
 		
 			   		<h:outputLabel id="lporcentajeU" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentajeU"/>
 			   		<p:inputNumber id="txtPorcentajeU" value="#{tipoPropiedadBB.selectedTipoPropiedad.incremento}" 
-			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" label="#{msg['tipo.propiedad.incremento']}" minValue="0"
-			   				maxValue="100" symbol="%" symbolPosition="s" />  
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
+			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
+			   				maxValue="100" symbol="%" symbolPosition="s"  required="true"/>  
 
 			   	</h:panelGrid>
 			   	<br /><br />

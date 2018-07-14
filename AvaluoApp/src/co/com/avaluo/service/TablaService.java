@@ -12,7 +12,7 @@ import co.com.avaluo.model.entity.Tablas;
 
 @Service
 @Transactional(readOnly = true)
-public class TablasService implements ITablasService {
+public class TablaService implements ITablasService {
 
 	@Autowired
 	private ITablasDAO entityDAO;
@@ -40,14 +40,17 @@ public class TablasService implements ITablasService {
 		return getEntityDAO().getTablas(idEmpresa);
 	}
 
-	public void updateTablaDetalle(DetalleTabla selectedDetalle) {
-		getEntityDAO().updateTablaDetalle(selectedDetalle);
+	@Transactional(readOnly = false)
+	public void updateTablaDetalle(DetalleTabla detalle) {
+		getEntityDAO().updateTablaDetalle(detalle);
 	}
 
+	@Transactional(readOnly = false)
 	public void addTablaDetalle(DetalleTabla detalle) {
 		getEntityDAO().addTablaDetalle(detalle);
 	}
-
+	
+	@Transactional(readOnly = false)
 	public void deleteTablaDetalle(DetalleTabla detalle) {
 		getEntityDAO().deleteTablaDetalle(detalle);
 	}

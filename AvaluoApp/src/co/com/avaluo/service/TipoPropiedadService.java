@@ -35,8 +35,8 @@ public class TipoPropiedadService implements ITipoPropiedadService {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<TipoPropiedad> getEntitys(String tipo, int id) {	
-		return getEntityDAO().getEntities(tipo, id);
+	public List<TipoPropiedad> getEntitys(String tipo, int idEmpresa) {	
+		return getEntityDAO().getEntities(tipo, idEmpresa);
 	}
 
 	public ITipoPropiedadDAO getEntityDAO() {

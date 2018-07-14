@@ -1,3 +1,7 @@
+------CAMBIOS------
+--TABLAS
+--TABLA_DETALLE
+
 ------NUEVO------
 ----COTIZACION
 ----DETALLECOTIZACION
@@ -315,13 +319,13 @@ ALTER TABLE avalsoft.detalle_cotizacion
 -- Table: avalsoft.tablas
 -- -----------------------------------------------------
 -- DROP SEQUENCE avalsoft.cotizacion_seq;
-CREATE SEQUENCE avalsoft.cotizacion_seq;
-ALTER SEQUENCE avalsoft.cotizacion_seq
+CREATE SEQUENCE avalsoft.tablas_seq;
+ALTER SEQUENCE avalsoft.tablas_seq
     OWNER TO postgres; 
     
 -- DROP TABLE avalsoft.tablas;
 CREATE TABLE avalsoft.tablas(
-    id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('avalsoft.tablas_seq'::regclass),
     tipo character varying(25) COLLATE pg_catalog."default",
     nombre character varying(100) COLLATE pg_catalog."default",
     conversion numeric,
@@ -329,7 +333,6 @@ CREATE TABLE avalsoft.tablas(
     gastos numeric,
     estado boolean NOT NULL,
     empresa_id integer NOT NULL,
-    propiedad_id integer NOT NULL,
     uom character varying(10) COLLATE pg_catalog."default",
     uom_alt character varying(10) COLLATE pg_catalog."default",
     dias_de_trabajo numeric(10,0),
@@ -337,10 +340,6 @@ CREATE TABLE avalsoft.tablas(
     CONSTRAINT pk_cotizacion PRIMARY KEY (id),
     CONSTRAINT fk_tablas_empresa FOREIGN KEY (empresa_id)
         REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT fk_tablas_propiedad FOREIGN KEY (propiedad_id)
-        REFERENCES avalsoft.propiedad (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 )
@@ -367,12 +366,7 @@ CREATE TABLE avalsoft.detalle_tabla(
     desde numeric(10,0),
     hasta numeric(10,0),
     porcentaje_aplicar double precision,
-    empresa_id integer,
     CONSTRAINT detalle_tabla_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_detalle_tabla_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
     CONSTRAINT fk_detalle_tabla_tablas FOREIGN KEY (tabla_id)
         REFERENCES avalsoft.tablas (id) MATCH SIMPLE
         ON UPDATE NO ACTION

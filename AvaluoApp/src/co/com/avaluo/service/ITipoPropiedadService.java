@@ -15,5 +15,5 @@ public interface ITipoPropiedadService {
 	
 	TipoPropiedad getEntityById(int id);
 	
-	List<TipoPropiedad> getEntitys( String tipo, int id);
+	List<TipoPropiedad> getEntitys( String tipo, int idEmpresa);
 }

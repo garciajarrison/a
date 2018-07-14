@@ -23,24 +23,14 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
-import co.com.avaluo.model.entity.Departamento;
-import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Propiedad;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.TipoPropiedad;
 import co.com.avaluo.model.entity.Usuario;
-import co.com.avaluo.service.EstratoService;
-import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.ICotizacionService;
-import co.com.avaluo.service.IDepartamentoService;
-import co.com.avaluo.service.IEmpresaService;
-import co.com.avaluo.service.IEstratoService;
 import co.com.avaluo.service.ITablasService;
 import co.com.avaluo.service.ITipoPropiedadService;
-import co.com.avaluo.service.IUsuarioService;
 
 
 @ManagedBean(name = "cotizacionAdmBB")
@@ -56,72 +46,28 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private ITipoPropiedadService propertyService;
 	@Autowired
 	private ITablasService tablasService;
-	@Autowired
-	private IUsuarioService usuarioService;
-	@Autowired
-	private IEstratoService estratoService;	
-	@Autowired
-	private IEmpresaService empresaService;
-	@Autowired
-	private ICiudadService ciudadService;
-	@Autowired
-	private IDepartamentoService DepartamentoService;
 	
 	private Cotizacion cotizacion = new Cotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
 	private List<Cotizacion> entityList;
 	private Usuario usuario;
 	private Usuario cliente = new Usuario();
-	//private Empresa empresa = new Usuario();
 	private List<SelectItem> listaTipoDocumentos;
 	private String tabla;
 	private String propiedad;
-	private String estrato;
-	private String ciudad;
-	private String departamento;
-	private String identificacion;
 	private List<Tablas> tablas;
-	private Propiedad selectedPropiedad;
-
-	private Propiedad infoPropiedad = new Propiedad();
 	private Map<String,String> listaTablas = new HashMap<String, String>();
 	private Map<String,String> listaTipoPropiedad = new HashMap<String, String>();
-	private List<TipoPropiedad> listaTipoPropiedades;
-	private List<Propiedad> listaPropiedades;
-	private Map<String,String> listaCiudad = new HashMap<String, String>();
-	private List<Ciudad> listaCiudades;
-	private Map<String,String> listaDepartamento = new HashMap<String, String>();
-	private List<Departamento> listaDepartamentos;
-	private Map<String,String> listaEstrato = new HashMap<String, String>();
-	private List<Estrato> listaEstratos;
-	public Propiedad getSelectedPropiedad() {
-		return selectedPropiedad;
-	}
-
-	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
-		this.selectedPropiedad = selectedPropiedad;
-	}
-
+	private List<TipoPropiedad> listaPropiedades;
 	private boolean skip;	
 	private Util util;
 
 	
 	
 	public CotizacionAdmBB() {
-		cotizacion = new Cotizacion();
-		Empresa empresa =new Empresa();
-		Usuario clien = new Usuario();
-		cotizacion.setEmpresa(empresa);
-		cotizacion.setUsuario(clien);
-		
-		
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
-		listaCiudades = ciudadService.getEntitys();
-		if(entityList == null)
-			entityList = new ArrayList<>();
-		
 
 	}
 	
@@ -161,16 +107,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		
 	}
 
-	
-	public void onconsultaCliente(String identif) { 
-		cliente = getUsuarioService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
-		cotizacion.setUsuario(cliente);
-		String a;
-		a="";
-		System.out.println(a);
-	}
-		
-	
 	public List<Cotizacion> getEntityList() {
 		entityList = getCotizacionService().getEntitys();
 		return entityList;
@@ -198,38 +134,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setTablasService(ITablasService tablasService) {
 		this.tablasService = tablasService;
-	}
-
-	public IUsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-
-	public void setUsuarioService(IUsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
-
-	public Propiedad getInfoPropiedad() {
-		return infoPropiedad;
-	}
-
-	public void setInfoPropiedad(Propiedad infoPropiedad) {
-		this.infoPropiedad = infoPropiedad;
-	}
-
-	public IEmpresaService getEmpresaService() {
-		return empresaService;
-	}
-
-	public void setEmpresaService(IEmpresaService empresaService) {
-		this.empresaService = empresaService;
-	}
-
-	public IEstratoService getEstratoService() {
-		return estratoService;
-	}
-
-	public void setEstratoService(IEstratoService estratoService) {
-		this.estratoService = estratoService;
 	}
 
 	public Cotizacion getSelectedCotizacion() {
@@ -260,14 +164,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.propiedad = propiedad;
 	}
 
-	public String getEstrato() {
-		return estrato;
-	}
-
-	public void setEstrato(String estrato) {
-		this.estrato = estrato;
-	}
-
 	public List<SelectItem> getListaTipoDocumentos() {
 		return listaTipoDocumentos;
 	}
@@ -284,121 +180,12 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
-	public List<Propiedad> getListaPropiedades() {
+	public List<TipoPropiedad> getListaPropiedades() {
 		return listaPropiedades;
 	}
 
-	public void setListaPropiedades(List<Propiedad> listaPropiedades) {
+	public void setListaPropiedades(List<TipoPropiedad> listaPropiedades) {
 		this.listaPropiedades = listaPropiedades;
-	}
-
-	public Map<String, String> getListaEstrato() {
-		listaEstratos = new ArrayList<Estrato>();
-		listaEstratos.addAll(getEstratoService().getEntitys(usuario.getEmpresa().getId()));
-		for (Estrato estrato : listaEstratos) {
-			listaEstrato.put(estrato.getNombre(),String.valueOf(estrato.getId()));
-		}
-		
-
-		return listaEstrato;
-	}
-
-	public void setListaEstrato(Map<String, String> listaEstrato) {
-		this.listaEstrato = listaEstrato;
-	}
-
-	public List<Estrato> getListaEstratos() {
-		return listaEstratos;
-	}
-
-	public void setListaEstratos(List<Estrato> listaEstratos) {
-		this.listaEstratos = listaEstratos;
-	}
-
-	public Map<String, String> getListaCiudad() {
-		listaCiudades = new ArrayList<Ciudad>();
-		listaCiudades.addAll(getCiudadService().getEntitys());
-		for (Ciudad ciudad : listaCiudades) {
-			listaCiudad.put(ciudad.getNombre(), String.valueOf(ciudad.getId() ));
-		}
-		
-		return listaCiudad;
-	}
-
-	public void setListaCiudad(Map<String, String> listaCiudad) {
-		this.listaCiudad = listaCiudad;
-	}
-
-
-	public Map<String, String> getListaDepartamento() {
-		listaDepartamentos = new ArrayList<Departamento>();
-		listaDepartamentos.addAll(getDepartamentoService().getEntitys());
-		for (Departamento departamento : listaDepartamentos) {
-			listaDepartamento.put(departamento.getNombre(), String.valueOf(departamento.getId() ));
-		}
-		
-		return listaDepartamento;
-	}
-
-	public void setListaDepartamento(Map<String, String> listaDepartamento) {
-		this.listaDepartamento = listaDepartamento;
-	}
-
-
-	public ICiudadService getCiudadService() {
-		return ciudadService;
-	}
-
-	public void setCiudadService(ICiudadService ciudadService) {
-		this.ciudadService = ciudadService;
-	}
-
-	public IDepartamentoService getDepartamentoService() {
-		return DepartamentoService;
-	}
-
-	public void setDepartamentoService(IDepartamentoService departamentoService) {
-		DepartamentoService = departamentoService;
-	}
-
-	public void setListaCiudades(List<Ciudad> listaCiudades) {
-		this.listaCiudades = listaCiudades;
-	}
-
-	public void setListaDepartamentos(List<Departamento> listaDepartamentos) {
-		this.listaDepartamentos = listaDepartamentos;
-	}
-
-	public List<Ciudad> getListaCiudades() {
-		return listaCiudades;
-	}
-
-	public List<Departamento> getListaDepartamentos() {
-		return listaDepartamentos;
-	}
-
-	public List<TipoPropiedad> getListaTipoPropiedades() {
-		return listaTipoPropiedades;
-	}
-
-	public void setListaTipoPropiedades(List<TipoPropiedad> listaTipoPropiedades) {
-		this.listaTipoPropiedades = listaTipoPropiedades;
-	}
-
-	public String getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
 	}
 
 	public Usuario getCliente() {
@@ -407,14 +194,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
-	}
-
-	public String getIdentificacion() {
-		return identificacion;
-	}
-
-	public void setIdentificacion(String identificacion) {
-		this.identificacion = identificacion;
 	}
 
 	public Util getUtil() {
@@ -435,14 +214,12 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public Map<String, String> getListaTablas() {
 		tablas = new ArrayList<Tablas>();
-		tablas.addAll(getTablasService().getEntitys(usuario.getEmpresa().getId()));
+	//	tablas.addAll(getTablasService().getEntitys());
 		for (Tablas tabla : tablas) {
 			listaTablas.put(tabla.getNombre(),tabla.getTipo());
 		}
 		return listaTablas;
 	}
-	
-	
 
 	public void setListaTablas(Map<String, String> listaTablas) {
 		this.listaTablas = listaTablas;
@@ -484,10 +261,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void onTableChange(String tabla) {
         if(tabla !=null && !tabla.equals("")) {
-        	listaTipoPropiedades = new ArrayList<TipoPropiedad>();
-        	listaTipoPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
-			for (TipoPropiedad property : listaTipoPropiedades) {
-				listaTipoPropiedad.put(property.getTipoVivienda(),property.getTipoVivienda());
+        	listaPropiedades = new ArrayList<TipoPropiedad>();
+        	listaPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
+			for (TipoPropiedad property : listaPropiedades) {
+				listaTipoPropiedad.put(property.getTipoPropiedad(),property.getTipoPropiedad());
 			}
 	    }
         else
