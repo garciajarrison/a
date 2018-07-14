@@ -15,5 +15,5 @@ public interface ITipoPropiedadDAO {
 	
 	TipoPropiedad getEntity(int id);
 
-	List<TipoPropiedad> getEntities( String tipo, int id);
+	List<TipoPropiedad> getEntities( String tipo, int idEmpresa);
 }

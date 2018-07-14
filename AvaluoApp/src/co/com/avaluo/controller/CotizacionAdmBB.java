@@ -262,7 +262,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void onTableChange(String tabla) {
         if(tabla !=null && !tabla.equals("")) {
         	listaPropiedades = new ArrayList<TipoPropiedad>();
-        	listaPropiedades.addAll(getPropertyService().getEntitys(tabla));
+        	listaPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
 			for (TipoPropiedad property : listaPropiedades) {
 				listaTipoPropiedad.put(property.getTipoPropiedad(),property.getTipoPropiedad());
 			}

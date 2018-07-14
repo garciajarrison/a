@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ITablasDAO;
+import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Tablas;
 
 @Service
@@ -17,28 +18,40 @@ public class TablasService implements ITablasService {
 	private ITablasDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Tablas entity) {
-		getEntityDAO().addEntity(entity);
+	public void addTabla(Tablas entity) {
+		getEntityDAO().addTabla(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Tablas entity) {
-		getEntityDAO().deleteEntity(entity);
+	public void deleteTabla(Tablas entity) {
+		getEntityDAO().deleteTabla(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Tablas entity) {
-		getEntityDAO().updateEntity(entity);
+	public void updateTabla(Tablas entity) {
+		getEntityDAO().updateTabla(entity);
 	}
 
-	public Tablas getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
+	public Tablas getTablaById(int id) {
+		return getEntityDAO().getTablaById(id);
 	}
 
-	public List<Tablas> getEntitys(int idEmpresa) {	
-		return getEntityDAO().getEntities(idEmpresa);
+	public List<Tablas> getTablas(int idEmpresa) {	
+		return getEntityDAO().getTablas(idEmpresa);
 	}
 
+	public void updateTablaDetalle(DetalleTabla selectedDetalle) {
+		getEntityDAO().updateTablaDetalle(selectedDetalle);
+	}
+
+	public void addTablaDetalle(DetalleTabla detalle) {
+		getEntityDAO().addTablaDetalle(detalle);
+	}
+
+	public void deleteTablaDetalle(DetalleTabla detalle) {
+		getEntityDAO().deleteTablaDetalle(detalle);
+	}
+	
 	public ITablasDAO getEntityDAO() {
 		return entityDAO;
 	}

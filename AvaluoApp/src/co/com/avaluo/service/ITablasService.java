@@ -16,7 +16,6 @@ public interface ITablasService {
 	
 	Tablas getTablaById(int id);
 	
-<<<<<<< HEAD
 	List<Tablas> getTablas(int idEmpresa);
 
 	void updateTablaDetalle(DetalleTabla selectedDetalle);
@@ -24,7 +23,4 @@ public interface ITablasService {
 	void addTablaDetalle(DetalleTabla detalle);
 	
 	void deleteTablaDetalle(DetalleTabla detalle);
-=======
-	List<Tablas> getEntitys(int idEmpresa);
->>>>>>> upstream/master
 }
