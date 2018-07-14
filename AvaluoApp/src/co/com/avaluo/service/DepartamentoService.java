@@ -6,46 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IEmpresaDAO;
-import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Estrato;
-import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.model.dao.IDepartamentoDAO;
+import co.com.avaluo.model.entity.Departamento;
 
 @Service
 @Transactional(readOnly = true)
-public class EmpresaService implements IEmpresaService {
+public class DepartamentoService implements IDepartamentoService {
 
 	@Autowired
-	private IEmpresaDAO entityDAO;
+	private IDepartamentoDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Empresa entity) {
+	public void addEntity(Departamento entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Empresa entity) {
+	public void deleteEntity(Departamento entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Empresa entity) {
+	public void updateEntity(Departamento entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public Empresa getEntityById(int id) {
+	public Departamento getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Empresa> getEntitys() {	
+	public List<Departamento> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
-	
-	public IEmpresaDAO getEntityDAO() {
+
+	public IDepartamentoDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEmpresaDAO(IEmpresaDAO entityDAO) {
+	public void setEntityDAO(IDepartamentoDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

@@ -6,46 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.avaluo.model.dao.IEmpresaDAO;
-import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Estrato;
-import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.model.dao.ICiudadDAO;
+import co.com.avaluo.model.entity.Ciudad;
 
 @Service
 @Transactional(readOnly = true)
-public class EmpresaService implements IEmpresaService {
+public class CiudadService implements ICiudadService {
 
 	@Autowired
-	private IEmpresaDAO entityDAO;
+	private ICiudadDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Empresa entity) {
+	public void addEntity(Ciudad entity) {
 		getEntityDAO().addEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Empresa entity) {
+	public void deleteEntity(Ciudad entity) {
 		getEntityDAO().deleteEntity(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Empresa entity) {
+	public void updateEntity(Ciudad entity) {
 		getEntityDAO().updateEntity(entity);
 	}
 
-	public Empresa getEntityById(int id) {
+	public Ciudad getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Empresa> getEntitys() {	
+	public List<Ciudad> getEntitys() {	
 		return getEntityDAO().getEntities();
 	}
-	
-	public IEmpresaDAO getEntityDAO() {
+
+	public ICiudadDAO getEntityDAO() {
 		return entityDAO;
 	}
 
-	public void setEmpresaDAO(IEmpresaDAO entityDAO) {
+	public void setEntityDAO(ICiudadDAO entityDAO) {
 		this.entityDAO = entityDAO;
 	}
 }

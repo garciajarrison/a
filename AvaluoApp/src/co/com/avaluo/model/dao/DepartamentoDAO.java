@@ -7,11 +7,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.model.entity.Departamento;
 
 @Repository
-public class EmpresaDAO implements IEmpresaDAO {
+public class DepartamentoDAO implements IDepartamentoDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -23,40 +22,37 @@ public class EmpresaDAO implements IEmpresaDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(Empresa entity) {
+	public void addEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(Empresa entity) {
+	public void deleteEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Empresa entity) {
+	public void updateEntity(Departamento entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Empresa getEntity(int id) {
+	public Departamento getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
-				.createQuery("from Empresa where id=?").setParameter(0, id)
+				.createQuery("from Departamento where id=?").setParameter(0, id)
 				.list();
 		
-		return (Empresa) list.get(0);
+		return (Departamento) list.get(0);
 	}
 
-	public List<Empresa > getEntities() {
+	public List<Departamento > getEntities() {
 		Session session = getSessionFactory().getCurrentSession();
-		
 		@SuppressWarnings("unchecked")
-		List<Empresa> list = (List<Empresa>) session.createQuery("from Empresa").list();
-		
+		List<Departamento> list = (List<Departamento>) session.createQuery("from Departamento ")
+				.list();
 		return list;
 	}
-
-	
 
 }

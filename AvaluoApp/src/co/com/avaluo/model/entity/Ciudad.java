@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "ciudad", schema = "avalsoft")
@@ -122,4 +125,16 @@ public class Ciudad implements java.io.Serializable {
 		this.empresas = empresas;
 	}
 
+	
+	private String dpto;
+
+	//@Formula("(select nombre from departamento o where o.id = departamento_id)")
+	@Transient
+	public String getDpto() {
+		return dpto;
+	}
+
+	public void setDpto(String dpto) {
+		this.dpto = dpto;
+	}
 }

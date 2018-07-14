@@ -2,18 +2,20 @@ package co.com.avaluo.model.dao;
 
 import java.util.List;
 
-import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Empresa;
+import co.com.avaluo.model.entity.Usuario;
 
 
 public interface IEmpresaDAO {
-	void addEntity(Estrato entity);
+	void addEntity(Empresa entity);
 
-	void updateEntity(Estrato entity);
+	void updateEntity(Empresa entity);
 	
-	void deleteEntity(Estrato entity);
+	void deleteEntity(Empresa entity);
 	
-	Estrato getEntity(int id);
+	Empresa getEntity(int id);
 
-	List<Estrato> getEntities();
+	List<Empresa> getEntities();
+	
 
 }

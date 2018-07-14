@@ -18,5 +18,7 @@ public interface IUsuarioDAO {
 	Usuario getEntityById(int id);
 
 	List<Usuario> getEntities();
+	
+	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
 
 }

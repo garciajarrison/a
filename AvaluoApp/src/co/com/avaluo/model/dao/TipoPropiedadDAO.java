@@ -41,17 +41,18 @@ public class TipoPropiedadDAO implements ITipoPropiedadDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
-				.createQuery("from TipoPropiedad where id=?").setParameter(0, id)
+				.createQuery("from TipoPropiedad where id=? ").setParameter(0, id)
 				.list();
 		
 		return (TipoPropiedad) list.get(0);
 	}
 
-	public List<TipoPropiedad> getEntities( String propertyType) {
+	public List<TipoPropiedad> getEntities(String tipo, int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoVivienda = ?").setParameter(0, propertyType).list();
+		List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoPropiedad = ? and empresa.id=?").setParameter(0, tipo).setParameter(1, id).list();
+		//List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoVivienda = ?").setParameter(0, tipo).list();
 		
 		return list;
 	}
