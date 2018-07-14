@@ -8,10 +8,15 @@
 
 	<ui:define name="content">
 
-		<h1>#{msg['cotizacion.lista']}</h1>
-		<br /><br /><br />	
+		<h1>#{msg['cotizacion']}</h1>
+		<br />
+		
+			<p:commandButton value="Nueva" id="btnNuevo" update="growl"  styleClass="ui-priority-primary" />
+			<p:commandButton value="Consulta" id="btnConsulta" update="growl"  styleClass="ui-priority-primary" />
+		
+		
 		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}">
-	        <p:tab title="Informacin del cliente">
+	        <p:tab title="#{msg['cotizacion.tab.cliente']}">
 	          	<p:panel id="infCLie" >
 	          		<h:panelGrid columns="2" columnClasses="label, value">
 				   		<h:outputText id="tipoIden" value="Tipo identificacin:" for="selTipoIdent"></h:outputText>
@@ -39,7 +44,7 @@
 		   			</h:panelGrid>
    				</p:panel>
 	        </p:tab>
-	        <p:tab title="Informacin de la propiedad">
+	        <p:tab title="#{msg['cotizacion.tab.Propiedad']}">
 	          	<p:panel >
 	          	
 	          		<h2>#{msg['cotizacion.lista']}</h2>
@@ -126,14 +131,12 @@
 			       </h:panelGrid>
 			    </p:panel>
 	        </p:tab>
-	        <p:tab title="Informacin de rea">
+	        <p:tab title="#{msg['cotizacion.tab.remitente']}">
 	          		        </p:tab>
-	        <p:tab title="Informacin del remitente">
+	        <p:tab title="#{msg['cotizacion.tab.resultado']}">
 	          	
 	        </p:tab>
-	        <p:tab title="Informacin adicional">
-	          	
-	        </p:tab>	              
+	              
     	</p:wizard>  
 
 
