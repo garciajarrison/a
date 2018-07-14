@@ -81,6 +81,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String departamento;
 	private String identificacion;
 	private List<Tablas> tablas;
+
 	private Propiedad selectedPropiedad;
 
 	private Propiedad infoPropiedad = new Propiedad();
@@ -88,19 +89,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Map<String,String> listaTipoPropiedad = new HashMap<String, String>();
 	private List<TipoPropiedad> listaTipoPropiedades;
 	private List<Propiedad> listaPropiedades;
+
 	private Map<String,String> listaCiudad = new HashMap<String, String>();
 	private List<Ciudad> listaCiudades;
 	private Map<String,String> listaDepartamento = new HashMap<String, String>();
 	private List<Departamento> listaDepartamentos;
 	private Map<String,String> listaEstrato = new HashMap<String, String>();
 	private List<Estrato> listaEstratos;
-	public Propiedad getSelectedPropiedad() {
-		return selectedPropiedad;
-	}
-
-	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
-		this.selectedPropiedad = selectedPropiedad;
-	}
 
 	private boolean skip;	
 	private Util util;
@@ -121,7 +116,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaCiudades = ciudadService.getEntitys();
 		if(entityList == null)
 			entityList = new ArrayList<>();
-		
+
 
 	}
 	
@@ -168,6 +163,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		String a;
 		a="";
 		System.out.println(a);
+
 	}
 		
 	
@@ -377,6 +373,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return listaDepartamentos;
 	}
 
+
 	public List<TipoPropiedad> getListaTipoPropiedades() {
 		return listaTipoPropiedades;
 	}
@@ -494,6 +491,15 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
         	listaTipoPropiedad =  new HashMap<String,String>();
         
 	}
+        
+    	public Propiedad getSelectedPropiedad() {
+    		return selectedPropiedad;
+    	}
+
+    	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
+    		this.selectedPropiedad = selectedPropiedad;
+    	}
+        
 
 	public void onRowSelect(SelectEvent event) {
     }

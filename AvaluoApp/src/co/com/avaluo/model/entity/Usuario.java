@@ -115,7 +115,9 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	@Column(name = "identificacion")
+
+	//TODO cree esta columna mal para q la cuadremos despues
+	@Column(name = "identificacion", length = 20)
 	public String getIdentificacion() {
 		return this.identificacion;
 	}
