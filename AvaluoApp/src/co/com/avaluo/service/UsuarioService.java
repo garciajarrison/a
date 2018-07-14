@@ -52,5 +52,10 @@ public class UsuarioService implements IUsuarioService {
 		this.usersDAO = usersDAO;
 	}
 
+	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
+		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
+	}
+	
+
 
 }

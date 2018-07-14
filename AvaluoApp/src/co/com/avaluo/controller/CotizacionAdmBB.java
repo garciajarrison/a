@@ -81,7 +81,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String departamento;
 	private String identificacion;
 	private List<Tablas> tablas;
-	
+	private Propiedad selectedPropiedad;
+
 	private Propiedad infoPropiedad = new Propiedad();
 	private Map<String,String> listaTablas = new HashMap<String, String>();
 	private Map<String,String> listaTipoPropiedad = new HashMap<String, String>();
@@ -93,6 +94,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<Departamento> listaDepartamentos;
 	private Map<String,String> listaEstrato = new HashMap<String, String>();
 	private List<Estrato> listaEstratos;
+	public Propiedad getSelectedPropiedad() {
+		return selectedPropiedad;
+	}
+
+	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
+		this.selectedPropiedad = selectedPropiedad;
+	}
+
 	private boolean skip;	
 	private Util util;
 
@@ -101,8 +110,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public CotizacionAdmBB() {
 		cotizacion = new Cotizacion();
 		Empresa empresa =new Empresa();
-		cotizacion.setEmpresaByEmpresaId(empresa);
-		cotizacion.setEmpresaByClienteId(empresa);
+		Usuario clien = new Usuario();
+		cotizacion.setEmpresa(empresa);
+		cotizacion.setUsuario(clien);
 		
 		
 		util = Util.getInstance();
@@ -153,8 +163,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public void onconsultaCliente(String identif) { 
-		cliente = getEmpresaService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
-		
+		cliente = getUsuarioService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
+		cotizacion.setUsuario(cliente);
+		String a;
+		a="";
+		System.out.println(a);
 	}
 		
 	

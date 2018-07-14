@@ -41,10 +41,6 @@ public class EmpresaService implements IEmpresaService {
 		return getEntityDAO().getEntities();
 	}
 	
-	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
-		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
-	}
-	
 	public IEmpresaDAO getEntityDAO() {
 		return entityDAO;
 	}

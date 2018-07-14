@@ -18,6 +18,8 @@ public interface IUsuarioService {
 	List<Usuario> getEntities();
 
 	Usuario login(Usuario usuario);
-	
+
+	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
+
 	
 }

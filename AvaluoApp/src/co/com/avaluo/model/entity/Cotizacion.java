@@ -52,7 +52,7 @@ public class Cotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cliente_id")
 	public Usuario getUsuario() {
 		return this.usuario;
@@ -62,7 +62,7 @@ public class Cotizacion implements java.io.Serializable {
 		this.usuario = usuario;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id")
 	public Empresa getEmpresa() {
 		return this.empresa;

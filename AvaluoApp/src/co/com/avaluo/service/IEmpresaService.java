@@ -18,6 +18,5 @@ public interface IEmpresaService {
 	
 	List<Empresa> getEntitys();
 	
-	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
 
 }

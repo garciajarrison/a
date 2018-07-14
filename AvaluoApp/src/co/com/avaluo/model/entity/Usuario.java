@@ -86,7 +86,7 @@ public class Usuario implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "rol_id", nullable = false)
 	public Rol getRol() {
 		return this.rol;
@@ -96,7 +96,7 @@ public class Usuario implements java.io.Serializable {
 		this.rol = rol;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;
@@ -215,7 +215,7 @@ public class Usuario implements java.io.Serializable {
 		this.profesion = profesion;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
 	public Set<Contacto> getContactos() {
 		return this.contactos;
 	}
@@ -224,7 +224,7 @@ public class Usuario implements java.io.Serializable {
 		this.contactos = contactos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
 	public Set<Cotizacion> getCotizacions() {
 		return this.cotizacions;
 	}
@@ -233,7 +233,7 @@ public class Usuario implements java.io.Serializable {
 		this.cotizacions = cotizacions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
 	public Set<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}

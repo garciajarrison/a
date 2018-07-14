@@ -76,7 +76,7 @@ public class Empresa implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ciudad_id", nullable = false)
 	public Ciudad getCiudad() {
 		return this.ciudad;
@@ -131,7 +131,7 @@ public class Empresa implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<TipoPropiedad> getTipoPropiedads() {
 		return this.tipoPropiedads;
 	}
@@ -140,7 +140,7 @@ public class Empresa implements java.io.Serializable {
 		this.tipoPropiedads = tipoPropiedads;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Cotizacion> getCotizacions() {
 		return this.cotizacions;
 	}
@@ -149,7 +149,7 @@ public class Empresa implements java.io.Serializable {
 		this.cotizacions = cotizacions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
@@ -158,7 +158,7 @@ public class Empresa implements java.io.Serializable {
 		this.propiedads = propiedads;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Tablas> getTablases() {
 		return this.tablases;
 	}
@@ -167,7 +167,7 @@ public class Empresa implements java.io.Serializable {
 		this.tablases = tablases;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<DetalleTabla> getDetalleTablas() {
 		return this.detalleTablas;
 	}
@@ -176,7 +176,7 @@ public class Empresa implements java.io.Serializable {
 		this.detalleTablas = detalleTablas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
@@ -185,7 +185,7 @@ public class Empresa implements java.io.Serializable {
 		this.usuarios = usuarios;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Licencia> getLicencias() {
 		return this.licencias;
 	}
@@ -194,7 +194,7 @@ public class Empresa implements java.io.Serializable {
 		this.licencias = licencias;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Estrato> getEstratos() {
 		return this.estratos;
 	}

@@ -17,6 +17,5 @@ public interface IEmpresaDAO {
 
 	List<Empresa> getEntities();
 	
-	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
 
 }
