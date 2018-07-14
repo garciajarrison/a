@@ -1411,7 +1411,7 @@ VALUES ('Administrador', 'Administrador del sistema', true),
 		('Cliente', 'Cliente de los empleados de los avaluadores', true);
 		
 INSERT INTO avalsoft.usuario(
-	tipo_documento, indetificacion, nombre, correo, direccion, telefono, 
+	tipo_documento, identificacion, nombre, correo, direccion, telefono, 
 	celular, contrasena, estado, lenguaje, profesion, rol_id, empresa_id)
 VALUES ('CC', '77777777', 'Empleado 1', 'empleado1@gmail.com', 'direccion 1', 
 		'5555555', '3114445555', '123', true, 'ES', 'Ingenebrio', 2, 1),
