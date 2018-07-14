@@ -1,8 +1,7 @@
 package co.com.avaluo.model.entity;
-// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
+// Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

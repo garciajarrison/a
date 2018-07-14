@@ -85,7 +85,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Propiedad infoPropiedad = new Propiedad();
 	private Map<String,String> listaTablas = new HashMap<String, String>();
 	private Map<String,String> listaTipoPropiedad = new HashMap<String, String>();
-	private List<TipoPropiedad> listaPropiedades;
+	private List<TipoPropiedad> listaTipoPropiedades;
+	private List<Propiedad> listaPropiedades;
 	private Map<String,String> listaCiudad = new HashMap<String, String>();
 	private List<Ciudad> listaCiudades;
 	private Map<String,String> listaDepartamento = new HashMap<String, String>();
@@ -98,12 +99,19 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	
 	
 	public CotizacionAdmBB() {
+		cotizacion = new Cotizacion();
+		Empresa empresa =new Empresa();
+		cotizacion.setEmpresaByEmpresaId(empresa);
+		cotizacion.setEmpresaByClienteId(empresa);
+		
+		
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
 		listaCiudades = ciudadService.getEntitys();
 		if(entityList == null)
 			entityList = new ArrayList<>();
+		
 
 	}
 	
@@ -263,11 +271,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
-	public List<TipoPropiedad> getListaPropiedades() {
+	public List<Propiedad> getListaPropiedades() {
 		return listaPropiedades;
 	}
 
-	public void setListaPropiedades(List<TipoPropiedad> listaPropiedades) {
+	public void setListaPropiedades(List<Propiedad> listaPropiedades) {
 		this.listaPropiedades = listaPropiedades;
 	}
 
@@ -354,6 +362,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public List<Departamento> getListaDepartamentos() {
 		return listaDepartamentos;
+	}
+
+	public List<TipoPropiedad> getListaTipoPropiedades() {
+		return listaTipoPropiedades;
+	}
+
+	public void setListaTipoPropiedades(List<TipoPropiedad> listaTipoPropiedades) {
+		this.listaTipoPropiedades = listaTipoPropiedades;
 	}
 
 	public String getCiudad() {
@@ -455,9 +471,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void onTableChange(String tabla) {
         if(tabla !=null && !tabla.equals("")) {
-        	listaPropiedades = new ArrayList<TipoPropiedad>();
-        	listaPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
-			for (TipoPropiedad property : listaPropiedades) {
+        	listaTipoPropiedades = new ArrayList<TipoPropiedad>();
+        	listaTipoPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
+			for (TipoPropiedad property : listaTipoPropiedades) {
 				listaTipoPropiedad.put(property.getTipoVivienda(),property.getTipoVivienda());
 			}
 	    }

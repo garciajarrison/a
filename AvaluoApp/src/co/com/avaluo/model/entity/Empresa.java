@@ -1,9 +1,8 @@
 package co.com.avaluo.model.entity;
-// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
+// Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,10 +19,6 @@ import javax.persistence.Table;
 @Table(name = "empresa", schema = "avalsoft")
 public class Empresa implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private Ciudad ciudad;
 	private String tipoIdentificacion;
@@ -32,13 +27,12 @@ public class Empresa implements java.io.Serializable {
 	private String description;
 	private boolean estado;
 	private Set<TipoPropiedad> tipoPropiedads = new HashSet<TipoPropiedad>(0);
-	private Set<Cotizacion> cotizacionsForEmpresaId = new HashSet<Cotizacion>(0);
+	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
 	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
 	private Set<Tablas> tablases = new HashSet<Tablas>(0);
 	private Set<DetalleTabla> detalleTablas = new HashSet<DetalleTabla>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<Licencia> licencias = new HashSet<Licencia>(0);
-	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
 	private Set<Estrato> estratos = new HashSet<Estrato>(0);
 
 	public Empresa() {
@@ -51,10 +45,9 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
-			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads,
-			Set<Cotizacion> cotizacionsForEmpresaId, Set<Propiedad> propiedads, Set<Tablas> tablases,
-			Set<DetalleTabla> detalleTablas, Set<Usuario> usuarios, Set<Licencia> licencias,
-			Set<Cotizacion> cotizacionsForClienteId, Set<Estrato> estratos) {
+			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads, Set<Cotizacion> cotizacions,
+			Set<Propiedad> propiedads, Set<Tablas> tablases, Set<DetalleTabla> detalleTablas, Set<Usuario> usuarios,
+			Set<Licencia> licencias, Set<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -63,13 +56,12 @@ public class Empresa implements java.io.Serializable {
 		this.description = description;
 		this.estado = estado;
 		this.tipoPropiedads = tipoPropiedads;
-		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
+		this.cotizacions = cotizacions;
 		this.propiedads = propiedads;
 		this.tablases = tablases;
 		this.detalleTablas = detalleTablas;
 		this.usuarios = usuarios;
 		this.licencias = licencias;
-		this.cotizacionsForClienteId = cotizacionsForClienteId;
 		this.estratos = estratos;
 	}
 
@@ -148,13 +140,13 @@ public class Empresa implements java.io.Serializable {
 		this.tipoPropiedads = tipoPropiedads;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByEmpresaId")
-	public Set<Cotizacion> getCotizacionsForEmpresaId() {
-		return this.cotizacionsForEmpresaId;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	public Set<Cotizacion> getCotizacions() {
+		return this.cotizacions;
 	}
 
-	public void setCotizacionsForEmpresaId(Set<Cotizacion> cotizacionsForEmpresaId) {
-		this.cotizacionsForEmpresaId = cotizacionsForEmpresaId;
+	public void setCotizacions(Set<Cotizacion> cotizacions) {
+		this.cotizacions = cotizacions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
@@ -200,15 +192,6 @@ public class Empresa implements java.io.Serializable {
 
 	public void setLicencias(Set<Licencia> licencias) {
 		this.licencias = licencias;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresaByClienteId")
-	public Set<Cotizacion> getCotizacionsForClienteId() {
-		return this.cotizacionsForClienteId;
-	}
-
-	public void setCotizacionsForClienteId(Set<Cotizacion> cotizacionsForClienteId) {
-		this.cotizacionsForClienteId = cotizacionsForClienteId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")

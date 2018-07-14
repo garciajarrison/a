@@ -7,60 +7,74 @@
    xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:define name="content">
-	
+
+		<h1>#{msg['cotizacion.lista']}</h1>
+		<br /><br /><br />	
 		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}">
 	        <p:tab title="Informacin del cliente">
 	          	<p:panel id="infCLie" >
 	          		<h:panelGrid columns="2" columnClasses="label, value">
 				   		<h:outputText id="tipoIden" value="Tipo identificacin:" for="selTipoIdent"></h:outputText>
-				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cliente.tipoDocumento}" style="width:125px">
+				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.tipoIdentificacion}" style="width:125px">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 			        	</p:selectOneMenu> 
 				 		<h:outputText id="lIdentificacion" value="Identificacin:" for="txtIdentificacion"></h:outputText>
-				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.identificacion}">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.identificacion)}" update="infCLie" process="@this" ></p:ajax>
+				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.identificacion}">
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.empresaByClienteId.identificacion)}" update="infCLie" process="@this" ></p:ajax>
 				   		</p:inputText>
 				   		<h:outputText id="lName" value="Names:" for="txtName"></h:outputText>
-				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cliente.nombre}"></p:inputText>  		
+				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.nombre}"></p:inputText>  		
 				   		 
 			 	   		<h:outputText id="lPhone" value="Telfono:" for="txtPhone"></h:outputText>
-				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cliente.telefono}"></p:inputText>  		
+				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.telefono}"></p:inputText>  		
 			 	   		<h:outputText id="lCelular" value="Celular:" for="txtCelular"></h:outputText>
-				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cliente.celular}"></p:inputText>  		
+				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.celular}"></p:inputText>  		
 			 	   		<h:outputText id="lAddress" value="Direccin:" for="txtAddress"></h:outputText>
-				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cliente.direccion}"></p:inputText>  		
+				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.direccion}"></p:inputText>  		
 			 	   		<h:outputText id="lEmail" value="Email:" for="txtEmail"></h:outputText>
-				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cliente.correo}"></p:inputText>  		
+				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.empresaByClienteId.correo}"></p:inputText>  		
+				   		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarCli').show();" />
+				   		
 		   			</h:panelGrid>
    				</p:panel>
 	        </p:tab>
 	        <p:tab title="Informacin de la propiedad">
 	          	<p:panel >
 	          		<h:panelGrid columns="1" columnClasses="label, value">
+	          			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarPro').show();" />
 	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" selectionMode="single" 
 								selection="#{cotizacionAdmBB.selectedPropiedad}"  rowKey="#propiedad.id}"
-								emptyMessage="No se encontraron registros.">
-						    <f:facet name="header">
-						        Lista de ciudades
-						    </f:facet>
+								emptyMessage="#{msg['no.registros']}">
+						    
 						 
-						    <p:column headerText="Nombre">
-						        <h:outputText value="#{ciudad.nombre}" />
+						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
+						        <h:outputText value="#{propiedad.tipo}" />
 						    </p:column>
 						    
-						    <p:column headerText="Codigo">
-						        <h:outputText value="#{ciudad.codigo}" />
+						    <p:column headerText="#{msg['cotizacion.registro']}">
+						        <h:outputText value="#{propiedad.registro}" />
 						    </p:column>
 						 
-						    <p:column headerText="Estado">
-						        <h:outputText value="#{ciudad.estado}" />
+						    <p:column headerText="#{msg['cotizacion.direccion']}">
+						        <h:outputText value="#{propiedad.direccion}" />
 						    </p:column>
 						    
-						    <p:column headerText="Departamento">
-						        <h:outputText value="#{ciudad.dpto}" />
+						    <p:column headerText="#{msg['cotizacion.ciudad']}">
+						        <h:outputText value="#{propiedad.ciudad.nombre}" />
+						    </p:column>						    
+						    
+						    <p:column headerText="#{msg['cotizacion.unidad']}">
+						        <h:outputText value="#{propiedad.unidadMedida}" />
 						    </p:column>
 						 
+						    <p:column headerText="#{msg['cotizacion.area']}">
+						        <h:outputText value="#{propiedad.valorMedida}" />
+						    </p:column>						    
+						    
+						    <p:column headerText="#{msg['cotizacion.area']}">
+						        <h:outputText value="#{propiedad.valorMedida}" />
+						    </p:column>						    
 						    
 						</p:dataTable>
 	          			

@@ -1,9 +1,8 @@
 package co.com.avaluo.model.entity;
-// Generated 4/07/2018 09:59:38 PM by Hibernate Tools 4.0.1.Final
+// Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,8 +20,8 @@ import javax.persistence.Table;
 public class Cotizacion implements java.io.Serializable {
 
 	private int id;
-	private Empresa empresaByClienteId;
-	private Empresa empresaByEmpresaId;
+	private Usuario usuario;
+	private Empresa empresa;
 	private Double valor;
 	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
 
@@ -33,11 +32,11 @@ public class Cotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Cotizacion(int id, Empresa empresaByClienteId, Empresa empresaByEmpresaId, Double valor,
+	public Cotizacion(int id, Usuario usuario, Empresa empresa, Double valor,
 			Set<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
-		this.empresaByClienteId = empresaByClienteId;
-		this.empresaByEmpresaId = empresaByEmpresaId;
+		this.usuario = usuario;
+		this.empresa = empresa;
 		this.valor = valor;
 		this.detalleCotizacions = detalleCotizacions;
 	}
@@ -55,22 +54,22 @@ public class Cotizacion implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id")
-	public Empresa getEmpresaByClienteId() {
-		return this.empresaByClienteId;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setEmpresaByClienteId(Empresa empresaByClienteId) {
-		this.empresaByClienteId = empresaByClienteId;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "empresa_id")
-	public Empresa getEmpresaByEmpresaId() {
-		return this.empresaByEmpresaId;
+	public Empresa getEmpresa() {
+		return this.empresa;
 	}
 
-	public void setEmpresaByEmpresaId(Empresa empresaByEmpresaId) {
-		this.empresaByEmpresaId = empresaByEmpresaId;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Column(name = "valor", precision = 17, scale = 17)

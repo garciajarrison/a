@@ -1,15 +1,12 @@
 package co.com.avaluo.model.entity;
-// Generated 1/07/2018 11:54:30 AM by Hibernate Tools 4.0.1.Final
+// Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,6 +38,7 @@ public class Usuario implements java.io.Serializable {
 	private String lenguaje;
 	private String profesion;
 	private Set<Contacto> contactos = new HashSet<Contacto>(0);
+	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
 	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
 
 	public Usuario() {
@@ -55,7 +53,8 @@ public class Usuario implements java.io.Serializable {
 
 	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
-			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Propiedad> propiedads) {
+			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Cotizacion> cotizacions,
+			Set<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
@@ -72,13 +71,13 @@ public class Usuario implements java.io.Serializable {
 		this.lenguaje = lenguaje;
 		this.profesion = profesion;
 		this.contactos = contactos;
+		this.cotizacions = cotizacions;
 		this.propiedads = propiedads;
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -97,7 +96,7 @@ public class Usuario implements java.io.Serializable {
 		this.rol = rol;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;
@@ -116,8 +115,7 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	//TODO cree esta columna mal para q la cuadremos despues
-	@Column(name = "identificacion", length = 20)
+	@Column(name = "identificacion")
 	public String getIdentificacion() {
 		return this.identificacion;
 	}
@@ -224,6 +222,15 @@ public class Usuario implements java.io.Serializable {
 
 	public void setContactos(Set<Contacto> contactos) {
 		this.contactos = contactos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public Set<Cotizacion> getCotizacions() {
+		return this.cotizacions;
+	}
+
+	public void setCotizacions(Set<Cotizacion> cotizacions) {
+		this.cotizacions = cotizacions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
