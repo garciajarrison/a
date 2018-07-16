@@ -11,33 +11,35 @@
 		<h1>#{msg['cotizacion']}</h1>
 		<br />
 		
-			<p:commandButton value="Nueva" id="btnNuevo" update="growl"  styleClass="ui-priority-primary" />
+			<p:commandButton value="Nueva" id="btnNuevo" update="growl"  styleClass="ui-priority-primary" >
+				<p:ajax event="click" listener="#{cotizacionAdmBB.nuevaCotizacion}"/>
+			</p:commandButton>
 			<p:commandButton value="Consulta" id="btnConsulta" update="growl"  styleClass="ui-priority-primary" />
-		
-		
-		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}">
+			<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
+			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText>
+		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}" backLabel="Regresar" nextLabel="Siguiente" >
 	        <p:tab title="#{msg['cotizacion.tab.cliente']}">
-	          	<p:panel id="infCLie" >
+	          	<p:panel id="infCLie" style="background:none;" >
 	          		<h:panelGrid columns="2" columnClasses="label, value">
-				   		<h:outputText id="tipoIden" value="Tipo identificacin:" for="selTipoIdent"></h:outputText>
+				   		<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent"></p:outputLabel>
 				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuario.tipoDocumento}" style="width:125px">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 			        	</p:selectOneMenu> 
-				 		<h:outputText id="lIdentificacion" value="Identificacin:" for="txtIdentificacion"></h:outputText>
+				 		<p:outputLabel id="lIdentificacion" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacion"></p:outputLabel>
 				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuario.identificacion}">
 				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuario.identificacion)}" update="infCLie" process="@this" ></p:ajax>
 				   		</p:inputText>
-				   		<h:outputText id="lName" value="Names:" for="txtName"></h:outputText>
+				   		<p:outputLabel id="lName" value="#{msg['cotizacion.nombre']}" for="txtName"></p:outputLabel>
 				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuario.nombre}"></p:inputText>  		
 				   		 
-			 	   		<h:outputText id="lPhone" value="Telfono:" for="txtPhone"></h:outputText>
+			 	   		<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone"></p:outputLabel>
 				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuario.telefono}"></p:inputText>  		
-			 	   		<h:outputText id="lCelular" value="Celular:" for="txtCelular"></h:outputText>
+			 	   		<p:outputLabel id="lCelular" value="#{msg['cotizacion.celular']}" for="txtCelular"></p:outputLabel>
 				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.usuario.celular}"></p:inputText>  		
-			 	   		<h:outputText id="lAddress" value="Direccin:" for="txtAddress"></h:outputText>
+			 	   		<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress"></p:outputLabel>
 				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuario.direccion}"></p:inputText>  		
-			 	   		<h:outputText id="lEmail" value="Email:" for="txtEmail"></h:outputText>
+			 	   		<p:outputLabel id="lEmail" value="#{msg['cotizacion.correo']}" for="txtEmail"></p:outputLabel>
 				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuario.correo}"></p:inputText>  		
 				   		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarCli').show();" />
 				   		
@@ -49,12 +51,12 @@
 	          	
 	          		<h2>#{msg['cotizacion.lista']}</h2>
 	          		<h:panelGrid columns="1" columnClasses="label, value">
-	          			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarPro').show();" />
+	          			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgPropiedad').show();" >	          				          		
+							
+						</p:commandButton>
 	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" selectionMode="single" 
 								selection="#{cotizacionAdmBB.selectedPropiedad}"  rowKey="#propiedad.id}"
 								emptyMessage="#{msg['no.registros']}">
-						    
-						 
 						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
 						        <h:outputText value="#{propiedad.tipo}" />
 						    </p:column>
@@ -79,56 +81,14 @@
 						        <h:outputText value="#{propiedad.valorMedida}" />
 						    </p:column>						    
 						    
-						    <p:column headerText="#{msg['cotizacion.area']}">
-						        <h:outputText value="#{propiedad.valorMedida}" />
+						    <p:column headerText="#{msg['cotizacion.estrato']}">
+						        <h:outputText value="#{propiedad.estrato}" />
 						    </p:column>						    
 						    
 						</p:dataTable>
 	          			
-	          		
-			   		<h:outputText id="lTable" value="Tabla:" for="selTables"></h:outputText>
-			   		<p:selectOneMenu id="selTables" value="#{cotizacionAdmBB.tabla}" style="width:125px">
-			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.tabla)}" process="selTables,selProperty" update="selProperty" />
-			            <f:selectItem itemLabel="Select One" itemValue="" />  
-			            <f:selectItems value="#{cotizacionAdmBB.listaTablas}" />
-			        </p:selectOneMenu>
-		
-			   		<h:outputText id="lProperty" value="Propiedad:" for="selProperty"></h:outputText>
-			   		<p:selectOneMenu id="selProperty" value="#{cotizacionAdmBB.propiedad}" style="width:125px">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
-			        </p:selectOneMenu>		        	
-			 		
-			 		<h:outputText id="lMatricula" value="Matricula inmobiliaria:" for="txtMatricula"></h:outputText>	
-			 		<p:inputText id="txtMatricula" value="#{cotizacionAdmBB.propiedad}"></p:inputText>	 
-			 		
-			 		<h:outputText id="lEstrato" value="Estrato:" for="selEstrato"></h:outputText>			   		
-			   		<p:selectOneMenu id="selEstrato" value="#{cotizacionAdmBB.estrato}" style="width:125px">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
-			        </p:selectOneMenu>  
-			        <h:outputText id="lCiudad" value="Ciudad:" for="selCiudad"></h:outputText>			
-			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.ciudad}" style="width:125px">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
-			        </p:selectOneMenu> 
-			        <h:outputText id="lDepartamento" value="Departamento:" for="selDepartamento"></h:outputText>	    				
-			   		<p:selectOneMenu id="selDepartamento" value="#{cotizacionAdmBB.departamento}" style="width:125px">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaDepartamento}" />
-			        </p:selectOneMenu>
-			       </h:panelGrid>
-			       <h:panelGrid columns="3" columnClasses="label, value">
-					<p:commandButton value="Agregar" type="button" onclick="PF('dlgAgregar').show();" />
-					<p:commandButton value="Actualizar" type="button" onclick="PF('dlgActualizar').show();" />
-					<p:commandButton value="Borrar" type="button">
-						<p:ajax event="click"  process="@all" update="formulario"/>
-					</p:commandButton>
-			       </h:panelGrid>
+	          		</h:panelGrid>
+			   		
 			    </p:panel>
 	        </p:tab>
 	        <p:tab title="#{msg['cotizacion.tab.remitente']}">
@@ -139,7 +99,54 @@
 	              
     	</p:wizard>  
 
+		<p:dialog header="#{msg['cotizacion.dialog.Propiedad']}" id="dlgPropiedad" widgetVar="dlgPropiedad" minHeight="40">
+				<h:panelGrid columns="1" columnClasses="label, value">
+					<p:outputLabel id="lTable" value="Tabla:" for="selTables"></p:outputLabel>
+			   		<p:selectOneMenu id="selTables" value="#{cotizacionAdmBB.detCotizacion.propiedad.tipo}" style="width:125px">
+			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.detCotizacion.propiedad.tipo)}" process="selTables,selProperty" update="selProperty" />
+			            <f:selectItem itemLabel="Select One" itemValue="" />  
+			            <f:selectItems value="#{cotizacionAdmBB.listaTablas}" />
+			        </p:selectOneMenu>
+		
+			   		<p:outputLabel id="lProperty" value="Propiedad:" for="selProperty"></p:outputLabel>
+			   		<p:selectOneMenu id="selProperty" value="#{cotizacionAdmBB.propiedad}" style="width:125px">
+			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
+			        </p:selectOneMenu>		        	
+			 		
+			 		<p:outputLabel id="lMatricula" value="Matricula inmobiliaria:" for="txtMatricula"></p:outputLabel>	
+			 		<p:inputText id="txtMatricula" value="#{cotizacionAdmBB.detCotizacion.propiedad.registro}"></p:inputText>	 
 
+			 		<p:outputLabel id="lDireccion" value="Direccion:" for="txtDireccion"></p:outputLabel>	
+			 		<p:inputText id="txtDireccion" value="#{cotizacionAdmBB.detCotizacion.propiedad.direccion}"></p:inputText>	 
+			 		
 
+			        <p:outputLabel id="lCiudad" value="Ciudad:" for="selCiudad"></p:outputLabel>			
+			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.detCotizacion.propiedad.ciudad}" style="width:125px">
+			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
+			        </p:selectOneMenu> 
+			        <p:outputLabel id="lDepartamento" value="Departamento:" for="selDepartamento"></p:outputLabel>	    				
+			   		<p:selectOneMenu id="selDepartamento" value="#{cotizacionAdmBB.departamento}" style="width:125px">			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaDepartamento}" />
+			        </p:selectOneMenu>
+			 		<p:outputLabel id="lEstrato" value="Estrato:" for="selEstrato"></p:outputLabel>			   		
+			   		<p:selectOneMenu id="selEstrato" value="#{cotizacionAdmBB.detCotizacion.propiedad.estrato}" style="width:125px">
+			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
+			        </p:selectOneMenu>  			        
+			       </h:panelGrid>
+			       <h:panelGrid columns="3" columnClasses="label, value">
+					
+					<p:commandButton value="Actualizar" type="button" onclick="PF('dlgActualizar').show();" />
+					<p:commandButton value="Borrar" type="button">
+						<p:ajax event="click"  process="@all" update="formulario"/>
+					</p:commandButton>
+			       </h:panelGrid>
+		</p:dialog>
    </ui:define>
 </ui:composition>

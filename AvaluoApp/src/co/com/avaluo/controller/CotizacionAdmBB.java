@@ -26,6 +26,7 @@ import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.DetalleCotizacion;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Propiedad;
@@ -68,6 +69,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private IDepartamentoService DepartamentoService;
 	
 	private Cotizacion cotizacion = new Cotizacion();
+	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
 	private List<Cotizacion> entityList;
 	private Usuario usuario;
@@ -118,6 +120,19 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			entityList = new ArrayList<>();
 
 
+	}
+	
+	public void nuevaCotizacion() {
+		this.cotizacion = new Cotizacion();
+		Usuario usu = new Usuario();
+		cotizacion.setEmpresa(usuario.getEmpresa());
+		cotizacion.setUsuario(usu);
+		
+		this.detCotizacion = new DetalleCotizacion();
+		detCotizacion.setCotizacion(cotizacion);
+		Propiedad prop = new Propiedad();
+		detCotizacion.setPropiedad(prop);
+		
 	}
 	
 	public void addEntity() {
@@ -412,6 +427,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setIdentificacion(String identificacion) {
 		this.identificacion = identificacion;
+	}
+
+	public DetalleCotizacion getDetCotizacion() {
+		return detCotizacion;
+	}
+
+	public void setDetCotizacion(DetalleCotizacion detCotizacion) {
+		this.detCotizacion = detCotizacion;
 	}
 
 	public Util getUtil() {

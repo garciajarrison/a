@@ -45,7 +45,7 @@ public class Empresa implements java.io.Serializable {
 
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
 			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads, Set<Cotizacion> cotizacions,
-			Set<Propiedad> propiedads, Set<Tablas> tablases, Set<DetalleTabla> detalleTablas, Set<Usuario> usuarios,
+			Set<Propiedad> propiedads, Set<Tablas> tablases, Set<Usuario> usuarios,
 			Set<Licencia> licencias, Set<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
@@ -58,7 +58,6 @@ public class Empresa implements java.io.Serializable {
 		this.cotizacions = cotizacions;
 		this.propiedads = propiedads;
 		this.tablases = tablases;
-		this.detalleTablas = detalleTablas;
 		this.usuarios = usuarios;
 		this.licencias = licencias;
 		this.estratos = estratos;
