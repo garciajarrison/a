@@ -160,11 +160,11 @@ public class Util {
             }
         }
         
+        String messageBundleName = FacesContext.getCurrentInstance().getApplication().getMessageBundle();
+        ResourceBundle bundle = ResourceBundle.getBundle(messageBundleName, locale);
+        
         String resourceString;
-        EnumLenguajes lenguaje = (EnumLenguajes)this.getSessionAttribute(EnumSessionAttributes.LENGUAJE);
-        String messagesBaseName = "messages_" + lenguaje.getLocale().getLanguage();
         try {
-            ResourceBundle bundle = ResourceBundle.getBundle(messagesBaseName,locale);
             resourceString = bundle.getString(key);
         } catch(MissingResourceException e) {
             return key;
