@@ -1,4 +1,4 @@
-package co.com.avaluo.model.entity;
+ package co.com.avaluo.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
