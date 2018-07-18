@@ -145,7 +145,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public void onconsultaCliente(String identif) { 
-		cliente = getEmpresaService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
+		//cliente = getEmpresaService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
 		
 	}
 		
@@ -406,7 +406,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public Map<String, String> getListaTablas() {
 		tablas = new ArrayList<Tablas>();
-		tablas.addAll(getTablasService().getEntitys(usuario.getEmpresa().getId()));
+		tablas.addAll(getTablasService().getTablas(usuario.getEmpresa().getId()));
 		for (Tablas tabla : tablas) {
 			listaTablas.put(tabla.getNombre(),tabla.getTipo());
 		}
