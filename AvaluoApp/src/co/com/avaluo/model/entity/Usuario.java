@@ -4,6 +4,7 @@ package co.com.avaluo.model.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +25,10 @@ import javax.persistence.TemporalType;
 @Table(name = "usuario", schema = "avalsoft")
 public class Usuario implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Rol rol;
 	private Empresa empresa;
@@ -119,7 +124,7 @@ public class Usuario implements java.io.Serializable {
 
 
 	//TODO cree esta columna mal para q la cuadremos despues
-	@Column(name = "indetificacion", length = 20)
+	@Column(name = "identificacion", length = 20)
 	public String getIdentificacion() {
 		return this.identificacion;
 	}

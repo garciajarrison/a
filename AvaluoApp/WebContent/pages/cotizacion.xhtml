@@ -94,7 +94,7 @@
 	          			
 	          		</h:panelGrid>
 			   		<p:commandButton value="#{msg['btn.agregar']}" type="button"  >	          				          		
-							 <p:ajax event="click" listener="#{cotizacionAdmBB.cotizar}"  process="@all"/>
+							 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all"/>
 						</p:commandButton>
 			    </p:panel>
 	        </p:tab>

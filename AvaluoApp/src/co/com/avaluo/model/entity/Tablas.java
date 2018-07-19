@@ -72,7 +72,7 @@ public class Tablas implements java.io.Serializable {
 		return this.id;
 	}
 
-	public void ListId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -82,7 +82,7 @@ public class Tablas implements java.io.Serializable {
 		return this.empresa;
 	}
 
-	public void ListEmpresa(Empresa empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 
@@ -91,7 +91,7 @@ public class Tablas implements java.io.Serializable {
 		return this.tipo;
 	}
 
-	public void ListTipo(String tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -100,7 +100,7 @@ public class Tablas implements java.io.Serializable {
 		return this.nombre;
 	}
 
-	public void ListNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -109,7 +109,7 @@ public class Tablas implements java.io.Serializable {
 		return this.conversion;
 	}
 
-	public void ListConversion(BigDecimal conversion) {
+	public void setConversion(BigDecimal conversion) {
 		this.conversion = conversion;
 	}
 
@@ -118,7 +118,7 @@ public class Tablas implements java.io.Serializable {
 		return this.base;
 	}
 
-	public void ListBase(BigDecimal base) {
+	public void setBase(BigDecimal base) {
 		this.base = base;
 	}
 
@@ -127,7 +127,7 @@ public class Tablas implements java.io.Serializable {
 		return this.gastos;
 	}
 
-	public void ListGastos(BigDecimal gastos) {
+	public void setGastos(BigDecimal gastos) {
 		this.gastos = gastos;
 	}
 
@@ -136,7 +136,7 @@ public class Tablas implements java.io.Serializable {
 		return this.estado;
 	}
 
-	public void ListEstado(boolean estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -145,7 +145,7 @@ public class Tablas implements java.io.Serializable {
 		return this.uom;
 	}
 
-	public void ListUom(String uom) {
+	public void setUom(String uom) {
 		this.uom = uom;
 	}
 
@@ -154,7 +154,7 @@ public class Tablas implements java.io.Serializable {
 		return this.uomAlt;
 	}
 
-	public void ListUomAlt(String uomAlt) {
+	public void setUomAlt(String uomAlt) {
 		this.uomAlt = uomAlt;
 	}
 
@@ -163,7 +163,7 @@ public class Tablas implements java.io.Serializable {
 		return this.diasDeTrabajo;
 	}
 
-	public void ListDiasDeTrabajo(Long diasDeTrabajo) {
+	public void setDiasDeTrabajo(Long diasDeTrabajo) {
 		this.diasDeTrabajo = diasDeTrabajo;
 	}
 
@@ -172,7 +172,7 @@ public class Tablas implements java.io.Serializable {
 		return this.minimo;
 	}
 
-	public void ListMinimo(Long minimo) {
+	public void setMinimo(Long minimo) {
 		this.minimo = minimo;
 	}
 
@@ -181,7 +181,7 @@ public class Tablas implements java.io.Serializable {
 		return this.propiedads;
 	}
 
-	public void ListPropiedads(List<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 
@@ -190,7 +190,7 @@ public class Tablas implements java.io.Serializable {
 		return this.detalleTablas;
 	}
 
-	public void ListDetalleTablas(List<DetalleTabla> detalleTablas) {
+	public void setDetalleTablas(List<DetalleTabla> detalleTablas) {
 		this.detalleTablas = detalleTablas;
 	}
 

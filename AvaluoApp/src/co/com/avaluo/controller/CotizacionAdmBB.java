@@ -3,6 +3,8 @@ package co.com.avaluo.controller;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,8 @@ import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
@@ -95,7 +99,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Map<String,Integer> listaTablas = new HashMap<String, Integer>();
 	private Map<String,Integer> listaTipoPropiedad = new HashMap<String, Integer>();
 	private List<TipoPropiedad> listaTipoPropiedades;
-	private List<Propiedad> listaPropiedades ;
+	private List<Propiedad> listaPropiedades = new ArrayList<Propiedad>();
 
 	private Map<String,Integer> listaCiudad = new HashMap<String, Integer>();
 
@@ -244,6 +248,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		BigDecimal tax = new BigDecimal(0);
 		for (Propiedad p : listaPropiedades) {
 			//Tablas t=p.getTablas();
+			List<DetalleTabla> lista = p.getTablas().getDetalleTablas();
+			// Collection.sort(lista);
+			
 			for (DetalleTabla detTabla : p.getTablas().getDetalleTablas()) {
 				BigDecimal delta = new BigDecimal(detTabla.getHasta()  - detTabla.getDesde());
 				BigDecimal used;
@@ -290,7 +297,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	                
 	                
 	                
-	                if (used.compareTo(BigDecimal.ZERO) == 0)
+	                if (used.compareTo(BigDecimal.ZERO) == 0) {
 	                
 	                    resultado = new BigDecimal(0);
 	                } else {
@@ -303,8 +310,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 				valorCotizacion = valorCotizacion.add(resultado);
 	            }
 				
-                	 
-                	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100).add( p.getEstrato().getPorcentaje())).divide(new BigDecimal(100)) ;
+			} 	 
+                	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100).add( p.getEstrato().getPorcentaje().multiply(new BigDecimal(-1)))).divide(new BigDecimal(100)) ;
                 	 
                      //cotizacion = cotizacion * (100 + objEst.getPorcentaje()) / 100;
                 	 valorCotizacion = valorCotizacion.divide(new BigDecimal(10000));
@@ -576,6 +583,22 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public List<Departamento> getListaDepartamentos() {
 		return listaDepartamentos;
+	}
+
+	public List<TipoPropiedad> getListaTipoPropiedades() {
+		return listaTipoPropiedades;
+	}
+
+	public void setListaTipoPropiedades(List<TipoPropiedad> listaTipoPropiedades) {
+		this.listaTipoPropiedades = listaTipoPropiedades;
+	}
+
+	public List<Propiedad> getListaPropiedades() {
+		return listaPropiedades;
+	}
+
+	public void setListaPropiedades(List<Propiedad> listaPropiedades) {
+		this.listaPropiedades = listaPropiedades;
 	}
 
 	public String getCiudad() {

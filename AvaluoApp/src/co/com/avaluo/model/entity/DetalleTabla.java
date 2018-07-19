@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "detalle_tabla", schema = "avalsoft")
-public class DetalleTabla implements java.io.Serializable {
+public class DetalleTabla implements java.io.Serializable, Comparable<DetalleTabla> {
 
 	private int id;
 	private Tablas tablas;
@@ -81,6 +81,20 @@ public class DetalleTabla implements java.io.Serializable {
 
 	public void setPorcentajeAplicar(Double porcentajeAplicar) {
 		this.porcentajeAplicar = porcentajeAplicar;
+	}
+
+	@Override
+	public int compareTo(DetalleTabla arg0) {
+		// TODO Auto-generated method stub
+		 if (id < arg0.id) {
+             return -1;
+         }
+         if (id > arg0.id) {
+             return 1;
+         }
+         return 0;
+		
+	
 	}
 
 }
