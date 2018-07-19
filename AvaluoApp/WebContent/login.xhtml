@@ -49,13 +49,17 @@
 		});
 	</script>
 </h:head>
-<h:body style="background:#F7F7F7;">
+<h:body style="background:#F7F7F7;background-image:url('resources/images/logo.jpg')">
  <div class="">
         <a class="hiddenanchor" id="toregister"></a>
         <a class="hiddenanchor" id="tologin"></a>
-
         <div id="wrapper">
-            <div id="login" class="animate form">
+        
+            <div id="login" class="animate form" 
+            	style="background-color: rgba(247, 247, 247, 0.78);
+					    padding-right: 25px;    color: black;
+					    padding-left: 25px;
+					    border-radius: 10%;">
                 <section class="login_content">
                     <h:form>
                     	<p:growl id="growl" sticky="true" autoUpdate="true" /> 
@@ -72,8 +76,9 @@
 		              <div>
 		              	<p:commandButton value="#{msg['login.ingresar']}" actionListener="#{loginBB.login}" 
 		              			styleClass="btn btn-default submit" update="@form"/>
-		              			
-                            <a class="reset_pass" href="#">#{msg['login.olvido.clave']}</a>
+		              	<p:spacer width="20px" />
+		              	<p:commandButton value="#{msg['login.olvido.clave']}" actionListener="#{loginBB.login}" 
+		              			styleClass="btn btn-default submit" update="@form"/>		
                         </div>
                         <div class="clearfix"></div>
                         <div class="separator">
@@ -81,7 +86,7 @@
                             <div class="clearfix"></div>
                             <br />
                             <div>
-                                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> #{msg['app']}!</h1>
+                                <h1> #{msg['app']}!</h1>
 
                                 <p>#{msg['derechos.reservados']}</p>
                             </div>

@@ -13,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.hibernate.service.spi.InjectService;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -36,7 +35,6 @@ import co.com.avaluo.model.entity.Rol;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.TipoPropiedad;
 import co.com.avaluo.model.entity.Usuario;
-import co.com.avaluo.service.EstratoService;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.ICotizacionService;
 import co.com.avaluo.service.IDepartamentoService;
@@ -46,7 +44,6 @@ import co.com.avaluo.service.IPropiedadService;
 import co.com.avaluo.service.ITablasService;
 import co.com.avaluo.service.ITipoPropiedadService;
 import co.com.avaluo.service.IUsuarioService;
-import co.com.avaluo.service.PropiedadService;
 
 
 @ManagedBean(name = "cotizacionAdmBB")
@@ -91,6 +88,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String identificacion;
 	private List<Tablas> tablas;
 
+
 	private Propiedad selectedPropiedad;
 
 	private Propiedad infPropiedad = new Propiedad();
@@ -100,26 +98,26 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<Propiedad> listaPropiedades ;
 
 	private Map<String,Integer> listaCiudad = new HashMap<String, Integer>();
+
 	private List<Ciudad> listaCiudades;
 	private Map<String,Integer> listaDepartamento = new HashMap<String, Integer>();
 	private List<Departamento> listaDepartamentos;
 	private Map<String,Integer> listaEstrato = new HashMap<String, Integer>();
 	private List<Estrato> listaEstratos;
-	private Usuario usuarioExiste = new Usuario();
 
+	private Usuario usuarioExiste = new Usuario();
 	private boolean skip;	
 	private Util util;
 
 	
 	
 	public CotizacionAdmBB() {
+
 		cotizacion = new Cotizacion();
 		Empresa empresa =new Empresa();
 		Usuario clien = new Usuario();
 		cotizacion.setEmpresa(empresa);
 		cotizacion.setUsuario(clien);
-
-		
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
@@ -128,6 +126,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		nuevaCotizacion();
 		if(entityList == null)
 			entityList = new ArrayList<>();
+
 
 
 	}
@@ -476,13 +475,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
-	public List<Propiedad> getListaPropiedades() {
+	/*public List<TipoPropiedad> getListaPropiedades() {
 		return listaPropiedades;
 	}
 
-	public void setListaPropiedades(List<Propiedad> listaPropiedades) {
+	public void setListaPropiedades(List<TipoPropiedad> listaPropiedades) {
 		this.listaPropiedades = listaPropiedades;
-	}
+	}*/
 
 	public Map<String, Integer> getListaEstrato() {
 		listaEstratos = new ArrayList<Estrato>();
@@ -579,15 +578,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return listaDepartamentos;
 	}
 
-
-	public List<TipoPropiedad> getListaTipoPropiedades() {
-		return listaTipoPropiedades;
-	}
-
-	public void setListaTipoPropiedades(List<TipoPropiedad> listaTipoPropiedades) {
-		this.listaTipoPropiedades = listaTipoPropiedades;
-	}
-
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -619,6 +609,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void setIdentificacion(String identificacion) {
 		this.identificacion = identificacion;
 	}
+
 
 	public DetalleCotizacion getDetCotizacion() {
 		return detCotizacion;
@@ -717,19 +708,18 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
         	listaTipoPropiedad =  new HashMap<String,Integer>();
         
 	}
-        
-    	public Propiedad getSelectedPropiedad() {
-    		return selectedPropiedad;
-    	}
-
-    	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
-    		this.selectedPropiedad = selectedPropiedad;
-    	}
-        
 
 	public void onRowSelect(SelectEvent event) {
     }
  
     public void onRowUnselect(UnselectEvent event) {
-    }	
+    }
+
+	public Propiedad getSelectedPropiedad() {
+		return selectedPropiedad;
+	}
+
+	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
+		this.selectedPropiedad = selectedPropiedad;
+	}	
  }
