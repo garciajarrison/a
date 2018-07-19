@@ -46,7 +46,7 @@ public class DetalleTabla implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tabla_id")
 	public Tablas getTablas() {
 		return this.tablas;

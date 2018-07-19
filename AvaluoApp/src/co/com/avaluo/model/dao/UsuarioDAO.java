@@ -70,8 +70,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 		List<?> list = session
 				.createQuery("from Usuario u where u.identificacion=? and u.empresa.id = ? and u.rol.id=?").setParameter(0, identificacion).setParameter(1, id).setParameter(2, rol_Id) 
 				.list();
+		Usuario usuario = new Usuario();
+		if (list.size() > 0) {
+			usuario = (Usuario) list.get(0);
+		}
 		
-		return (Usuario) list.get(0);
+		return usuario;
 	}
 
 

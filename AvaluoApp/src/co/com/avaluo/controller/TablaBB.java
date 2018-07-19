@@ -67,7 +67,7 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 			}
 			
 			if(guardar) {
-				tablas.setEmpresa(usuario.getEmpresa());
+				//tablas.setEmpresa(usuario.getEmpresa());
 				tablaService.addTabla(tablas);
 				this.cargarListaTablas();
 				util.mostrarMensajeKey("exito.guardar"); 

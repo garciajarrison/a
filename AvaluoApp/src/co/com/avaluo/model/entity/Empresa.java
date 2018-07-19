@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,7 +30,7 @@ public class Empresa implements java.io.Serializable {
 	private boolean estado;
 	private Set<TipoPropiedad> tipoPropiedads = new HashSet<TipoPropiedad>(0);
 	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	
 	private Set<Tablas> tablases = new HashSet<Tablas>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<Licencia> licencias = new HashSet<Licencia>(0);
@@ -56,7 +58,7 @@ public class Empresa implements java.io.Serializable {
 		this.estado = estado;
 		this.tipoPropiedads = tipoPropiedads;
 		this.cotizacions = cotizacions;
-		this.propiedads = propiedads;
+		
 		this.tablases = tablases;
 		this.usuarios = usuarios;
 		this.licencias = licencias;
@@ -64,8 +66,8 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -147,14 +149,6 @@ public class Empresa implements java.io.Serializable {
 		this.cotizacions = cotizacions;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Propiedad> getPropiedads() {
-		return this.propiedads;
-	}
-
-	public void setPropiedads(Set<Propiedad> propiedads) {
-		this.propiedads = propiedads;
-	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
 	public Set<Tablas> getTablases() {
