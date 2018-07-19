@@ -7,10 +7,10 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui">
     
-    <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>#{msg['app']}</span></a>
+    <div class="col-md-3 left_col" style="background-color:black !important;">
+          <div class="left_col scroll-view" style="background-color:black !important;">
+            <div class="navbar nav_title" style="border: 0;background-color:black !important;" align="center">
+              <a href="home.xhtml" class="site_title"> <span>#{msg['app']}</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -30,7 +30,7 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color:black !important;">
               <div class="menu_section">
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> #{msg['menu.configuracion']} <span class="fa fa-chevron-down"></span></a>
@@ -44,19 +44,21 @@
                    		<span class="label label-success pull-right">#{msg['pronto']}</span></a>
                    </li>
                 </ul>
+                
               </div>
             </div>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
+            <div class="sidebar-footer hidden-small" style="background-color:black !important;">
+            <p:graphicImage library="images" name="logo.jpg" width="100%" />
               <a data-toggle="tooltip" data-placement="top" title="#{msg['menu.configuracion']}">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="#{msg['menu.pantalla.completa']}">
+              <a data-toggle="tooltip" data-placement="top" title="#{msg['menu.pantalla.completa']}" onclick="launchFullscreen(document.documentElement);">
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="#{msg['menu.Ayuda']}">
+              <a data-toggle="tooltip" data-placement="top" title="#{msg['menu.ayuda']}">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="#{msg['cerrar.session']}" onclick="PF('cerrarSesion').show()">
@@ -68,7 +70,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
+        <div class="top_nav" style="background-color:black !important;">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -78,7 +80,8 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""/>#{globalBB.usuario.nombre}
+                     <h:graphicImage library="images" name="img.jpg"/>
+                    #{globalBB.usuario.nombre}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

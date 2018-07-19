@@ -1,3 +1,40 @@
+var fullScreamFlag = false;
+
+function launchFullscreen(element) {
+	
+	if(!fullScreamFlag){
+		  fullScreamFlag = true;
+		  cargarFullScreem(element);
+	}else{
+		exitFullscreen();
+		fullScreamFlag = false;
+	}
+  
+}
+
+function cargarFullScreem(element){
+  if(element.requestFullscreen) {
+	    element.requestFullscreen();
+	  } else if(element.mozRequestFullScreen) {
+	    element.mozRequestFullScreen();
+	  } else if(element.webkitRequestFullscreen) {
+	    element.webkitRequestFullscreen();
+	  } else if(element.msRequestFullscreen) {
+	    element.msRequestFullscreen();
+}
+}
+
+
+function exitFullscreen() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
