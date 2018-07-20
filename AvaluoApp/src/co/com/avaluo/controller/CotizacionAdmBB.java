@@ -108,6 +108,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<Departamento> listaDepartamentos;
 	private Map<String,Integer> listaEstrato = new HashMap<String, Integer>();
 	private List<Estrato> listaEstratos;
+	private List<SelectItem> listaUnidadMedida;
 
 	private Usuario usuarioExiste = new Usuario();
 	private boolean skip;	
@@ -127,6 +128,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
 		listaCiudades = ciudadService.getEntitys();
 		listaPropiedades =  new ArrayList<Propiedad>();
+		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
+		
 		nuevaCotizacion();
 		if(entityList == null)
 			entityList = new ArrayList<>();
@@ -204,8 +207,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void addPropiedad() {
 		
 		infPropiedad.setUsuario(usuario);
-		infPropiedad.setUnidadMedida("m2");
-		infPropiedad.setValorMedida(new BigDecimal(500));
+
 		
 		Estrato est = new Estrato();
 		TipoPropiedad tprop = new TipoPropiedad();
@@ -250,13 +252,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			//Tablas t=p.getTablas();
 			List<DetalleTabla> lista = p.getTablas().getDetalleTablas();
 			// Collection.sort(lista);
+			BigDecimal mt2 = p.getValorMedida();
+			BigDecimal totmt2 = p.getValorMedida();
 			
 			for (DetalleTabla detTabla : p.getTablas().getDetalleTablas()) {
 				BigDecimal delta = new BigDecimal(detTabla.getHasta()  - detTabla.getDesde());
 				BigDecimal used;
 				BigDecimal convert;
-				BigDecimal mt2 = p.getValorMedida();
-				BigDecimal totmt2 = p.getValorMedida();
+				
 				if (p.getUnidadMedida().equals("m2")) {
 				  convert = new BigDecimal(1);	
 				}
@@ -695,6 +698,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setTablas(List<Tablas> tablas) {
 		this.tablas = tablas;
+	}
+
+	public List<SelectItem> getListaUnidadMedida() {
+		return listaUnidadMedida;
+	}
+
+	public void setListaUnidadMedida(List<SelectItem> listaUnidadMedida) {
+		this.listaUnidadMedida = listaUnidadMedida;
 	}
 
 	public boolean isSkip() {

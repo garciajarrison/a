@@ -12,6 +12,7 @@ public class ListasGenericas {
 	private List<SelectItem> listaLicencias;
 	private List<SelectItem> listaIdiomas;
 	private List<SelectItem> listaTipoPropiedad;
+	private List<SelectItem> listaUnidadMedida;
 	private List<SelectItem> listaEstados;
 	
 	public static ListasGenericas getInstance() {
@@ -27,6 +28,7 @@ public class ListasGenericas {
 		listaLicencias = this.consultarListas(EnumListas.LISTA_LICENCIAS);
 		listaIdiomas = this.consultarListas(EnumListas.LISTA_IDIOMAS);
 		listaTipoPropiedad = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD);
+		listaUnidadMedida = this.consultarListas(EnumListas.LISTA_UNIDAD_MEDIDA);
 		listaEstados = new ArrayList<>();
 		listaEstados.add(new SelectItem(true, "Activo"));
 		listaEstados.add(new SelectItem(false, "Inactivo"));
@@ -69,6 +71,16 @@ public class ListasGenericas {
 
 	public List<SelectItem> getListaEstados() {
 		return listaEstados;
+	}
+
+
+	public List<SelectItem> getListaUnidadMedida() {
+		return listaUnidadMedida;
+	}
+
+
+	public void setListaUnidadMedida(List<SelectItem> listaUnidadMedida) {
+		this.listaUnidadMedida = listaUnidadMedida;
 	}
 
 }

@@ -4,6 +4,7 @@ package co.com.avaluo.model.entity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -34,8 +36,8 @@ public class Tablas implements java.io.Serializable {
 	private String uomAlt;
 	private Long diasDeTrabajo;
 	private Long minimo;
-	private List<Propiedad> propiedads = new  ArrayList();
-	private List<DetalleTabla> detalleTablas = new  ArrayList();
+	private List<Propiedad> propiedads = new  ArrayList<Propiedad>();
+	private List<DetalleTabla> detalleTablas = new  ArrayList<DetalleTabla>();
 
 	public Tablas() {
 	}
@@ -186,6 +188,7 @@ public class Tablas implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tablas")
+	@OrderBy(value = "desde ASC")
 	public List<DetalleTabla> getDetalleTablas() {
 		return this.detalleTablas;
 	}

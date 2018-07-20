@@ -144,7 +144,14 @@
 			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
-			        </p:selectOneMenu>  			        
+			        </p:selectOneMenu>  	
+			 		<p:outputLabel id="lUMedidad" value="Unidad de medida:" for="selUMedida"></p:outputLabel>	
+				   		<p:selectOneMenu id="selUMedida" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" style="width:125px">
+				            <f:selectItem itemLabel="Seleccione" itemValue="" />
+				            <f:selectItems value="#{cotizacionAdmBB.listaUnidadMedida}" />			
+			        	</p:selectOneMenu> 
+			        <p:outputLabel id="lValorMedida" value="Matricula inmobiliaria:" for="txtValorMedida"></p:outputLabel>	
+			 		<p:inputText id="txtValorMedida" value="#{cotizacionAdmBB.infPropiedad.valorMedida}"></p:inputText>	 			 					        	        
 			       </h:panelGrid>
 			       <h:panelGrid columns="3" columnClasses="label, value">
 					
