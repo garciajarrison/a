@@ -219,7 +219,8 @@ ALTER SEQUENCE avalsoft.propiedad_seq
     OWNER TO postgres; 
     
 -- DROP TABLE avalsoft.propiedad ;   
-CREATE TABLE avalsoft.propiedad(
+CREATE TABLE avalsoft.propiedad
+(
     id integer NOT NULL DEFAULT nextval('avalsoft.propiedad_seq'::regclass),
     tipo character varying(25) COLLATE pg_catalog."default",
     registro character varying(100) COLLATE pg_catalog."default",
@@ -229,13 +230,23 @@ CREATE TABLE avalsoft.propiedad(
     ciudad_id integer NOT NULL,
     usuario_id integer NOT NULL,
     estrato_id integer NOT NULL,
+    tipo_propiedad_id integer NOT NULL,
+    tablas_id integer NOT NULL,
     CONSTRAINT pk_propiedad PRIMARY KEY (id),
     CONSTRAINT fk_propiedad_ciudad FOREIGN KEY (ciudad_id)
         REFERENCES avalsoft.ciudad (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT fk_propiedad_estrato FOREIGN KEY (estrato_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        REFERENCES avalsoft.estrato (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_propiedad_tablas FOREIGN KEY (tablas_id)
+        REFERENCES avalsoft.tablas (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_propiedad_tipo_propiedad FOREIGN KEY (tipo_propiedad_id)
+        REFERENCES avalsoft.tipo_propiedad (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fk_propiedad_usuario FOREIGN KEY (usuario_id)
@@ -324,8 +335,9 @@ ALTER SEQUENCE avalsoft.tablas_seq
     OWNER TO postgres; 
     
 -- DROP TABLE avalsoft.tablas;
-CREATE TABLE avalsoft.tablas(
-    id integer NOT NULL DEFAULT nextval('avalsoft.tablas_seq'::regclass),
+CREATE TABLE avalsoft.tablas
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_seq'::regclass),
     tipo character varying(25) COLLATE pg_catalog."default",
     nombre character varying(100) COLLATE pg_catalog."default",
     conversion numeric,
@@ -355,12 +367,9 @@ ALTER TABLE avalsoft.tablas
 -- Table: avalsoft.detalle_tabla
 -- -----------------------------------------------------
 -- DROP SEQUENCE avalsoft.detalle_tabla_id_seq;
-CREATE SEQUENCE avalsoft.detalle_tabla_id_seq;
-ALTER SEQUENCE avalsoft.detalle_tabla_id_seq
-    OWNER TO postgres; 
-    
--- DROP TABLE avalsoft.detalle_tabla;
-CREATE TABLE avalsoft.detalle_tabla(
+
+CREATE TABLE avalsoft.detalle_tabla
+(
     id integer NOT NULL DEFAULT nextval('avalsoft.detalle_tabla_id_seq'::regclass),
     tabla_id integer,
     desde numeric(10,0),
