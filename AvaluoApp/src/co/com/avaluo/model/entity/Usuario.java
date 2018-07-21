@@ -45,7 +45,8 @@ public class Usuario implements java.io.Serializable {
 	private String lenguaje;
 	private String profesion;
 	private Set<Contacto> contactos = new HashSet<Contacto>(0);
-	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
+	private Set<Cotizacion> cotizacionsForRemitenteId = new HashSet<Cotizacion>(0);
+	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
 	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
 
 	public Usuario() {
@@ -60,8 +61,8 @@ public class Usuario implements java.io.Serializable {
 
 	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
-			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Cotizacion> cotizacions,
-			Set<Propiedad> propiedads) {
+			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Cotizacion> cotizacionsForRemitenteId,
+			Set<Cotizacion> cotizacionsForClienteId, Set<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
@@ -78,7 +79,8 @@ public class Usuario implements java.io.Serializable {
 		this.lenguaje = lenguaje;
 		this.profesion = profesion;
 		this.contactos = contactos;
-		this.cotizacions = cotizacions;
+		this.cotizacionsForClienteId = cotizacionsForClienteId;
+		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
 		this.propiedads = propiedads;
 	}
 
@@ -233,13 +235,24 @@ public class Usuario implements java.io.Serializable {
 		this.contactos = contactos;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
-	public Set<Cotizacion> getCotizacions() {
-		return this.cotizacions;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioByRemitenteId")
+	public Set<Cotizacion> getCotizacionsForRemitenteId() {
+		return this.cotizacionsForRemitenteId;
 	}
 
-	public void setCotizacions(Set<Cotizacion> cotizacions) {
-		this.cotizacions = cotizacions;
+	public void setCotizacionsForRemitenteId(Set<Cotizacion> cotizacionsForRemitenteId) {
+		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
+	}
+
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioByClienteId")
+	public Set<Cotizacion> getCotizacionsForClienteId() {
+		return this.cotizacionsForClienteId;
+	}
+
+	public void setCotizacionsForClienteId(Set<Cotizacion> cotizacionsForClienteId) {
+		this.cotizacionsForClienteId = cotizacionsForClienteId;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")

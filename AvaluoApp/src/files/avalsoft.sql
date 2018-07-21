@@ -271,28 +271,10 @@ ALTER SEQUENCE avalsoft.cotizacion_id_seq
     OWNER TO postgres; 
 
 -- DROP TABLE avalsoft.cotizacion;
-CREATE TABLE avalsoft.cotizacion(
-    id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_id_seq'::regclass),
-    empresa_id integer,
-    cliente_id integer,
-    valor double precision,
-    CONSTRAINT cotizacion_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_cotizacion_cliente FOREIGN KEY (cliente_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fk_cotizacion_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
+	@Id
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 
-ALTER TABLE avalsoft.cotizacion
-    OWNER to postgres;
     
 -- -----------------------------------------------------    
 -- Table: avalsoft.detalle_cotizacion
@@ -303,28 +285,10 @@ ALTER SEQUENCE avalsoft.detalle_cotizacion_id_seq
     OWNER TO postgres; 
     
 -- DROP TABLE avalsoft.detalle_cotizacion;
-CREATE TABLE avalsoft.detalle_cotizacion(
-    id integer NOT NULL DEFAULT nextval('avalsoft.detalle_cotizacion_id_seq'::regclass),
-    cotizacion_id integer NOT NULL,
-    propiedad_id integer NOT NULL,
-    valor numeric(20,0),
-    CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_detalle_cotizacion FOREIGN KEY (cotizacion_id)
-        REFERENCES avalsoft.cotizacion (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fk_detalle_cotizacion_propiedad FOREIGN KEY (propiedad_id)
-        REFERENCES avalsoft.propiedad (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
+	@Id
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 
-ALTER TABLE avalsoft.detalle_cotizacion
-    OWNER to postgres;
 
 -- -----------------------------------------------------
 -- Table: avalsoft.tablas
