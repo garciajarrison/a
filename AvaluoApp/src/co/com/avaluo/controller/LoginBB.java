@@ -10,11 +10,9 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import co.com.avaluo.common.EnumLenguajes;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacion;
-import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.IUsuarioService;
@@ -37,10 +35,18 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 		try {
 			usuario = this.getUsuarioService().login(usuario);
 			if(usuario != null) {
-				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
-				Util.getInstance().cambiarIdioma(usuario.getLenguaje());
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
-				Util.getInstance().redirect("home.xhtml");
+				
+				//Validamos la licencia
+				//Licencia licenciaActual = this.getUsuarioService().cargarLicenciaActual(usuario); 
+				//if(licenciaActual != null) {
+				//	Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
+					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
+					Util.getInstance().cambiarIdioma(usuario.getLenguaje());
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
+					Util.getInstance().redirect("home.xhtml");
+				/*}else {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "La licencia expiro, por favor comuníquese con la entidad.", "")); 
+				}*/
 			} else{
 				usuario = new Usuario();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  
