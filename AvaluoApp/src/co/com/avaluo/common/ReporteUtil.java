@@ -18,22 +18,24 @@ public class ReporteUtil {
 	public ReporteUtil(){}
 
 	public Paragraph addTexto(String texto, Font fuente, int espacios) {
-		return addTexto(texto, fuente, espacios, 0);
+		return addTexto(texto, fuente, 0, espacios);
 	}
 	
-	public Paragraph addTexto(String texto, Font fuente, int espacios, int align) {
-		Paragraph retorno = addEmptyLine(espacios);
-		retorno.add(new Paragraph(texto, fuente));
-		retorno.setAlignment(align);
-		return retorno;
+	public Paragraph addTexto(String texto, Font fuente, int align, int espacios) {
+		Paragraph parrafo = new Paragraph();
+		parrafo.add(addEmptyLine(espacios));
+		Paragraph contenido = new Paragraph(texto, fuente);
+		contenido.setAlignment(align);
+		parrafo.add(contenido);
+		return parrafo;
 	}
 	
 	public Paragraph addEmptyLine(int number) {
-		Paragraph paragraph = new Paragraph();
+		Paragraph parrafo = new Paragraph();
 		for (int i = 0; i < number; i++) {
-			paragraph.add(new Paragraph(" "));
+			parrafo.add(new Paragraph(" "));
 		}
-		return paragraph;
+		return parrafo;
 	}
 	
 	public PdfPTable createdTable(List<String> TitulosTabla, List<String> contenido) throws BadElementException {

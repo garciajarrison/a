@@ -38,7 +38,7 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			usuario = this.getUsuarioService().login(usuario);
 			if(usuario != null) {
 				Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
-				this.cambiarIdioma(usuario.getLenguaje());
+				Util.getInstance().cambiarIdioma(usuario.getLenguaje());
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
 				Util.getInstance().redirect("home.xhtml");
 			} else{
@@ -58,16 +58,6 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 		}
 	}
 	
-	private void cambiarIdioma(String sigla) {
-		for(EnumLenguajes lenguaje : EnumLenguajes.values()) {
-			if(lenguaje.getSigla().equals(sigla)){
-				FacesContext.getCurrentInstance().getViewRoot().setLocale(lenguaje.getLocale());
-				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, lenguaje);
-				break;
-			}
-		}
-	}
-
 	public IUsuarioService getUsuarioService() {
 		return usuarioService;
 	}

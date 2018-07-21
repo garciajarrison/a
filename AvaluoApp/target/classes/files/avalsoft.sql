@@ -467,4 +467,28 @@ CREATE TABLE avalsoft.licencia (
 
 ALTER TABLE avalsoft.licencia
     OWNER to postgres;
+    
+-- -----------------------------------------------------
+-- Table Avalsoft.reporte
+-- -----------------------------------------------------
+
+-- DROP SEQUENCE avalsoft.reporte_seq;
+CREATE SEQUENCE avalsoft.reporte_seq;
+ALTER SEQUENCE avalsoft.reporte_seq
+    OWNER TO postgres;    
+    
+-- DROP TABLE Avalsoft.reporte ;
+CREATE TABLE avalsoft.reporte (
+  id integer NOT NULL DEFAULT nextval('avalsoft.reporte_seq'::regclass),
+  codigo VARCHAR(150) not NULL,
+  visible boolean not NULL,
+  empresa_id integer NOT NULL,
+  CONSTRAINT pk_reporte PRIMARY KEY (id),
+  CONSTRAINT fk_reporte_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE);
+
+ALTER TABLE avalsoft.reporte
+    OWNER to postgres; 
 

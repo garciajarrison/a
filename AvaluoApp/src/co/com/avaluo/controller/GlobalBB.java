@@ -28,6 +28,10 @@ public class GlobalBB implements Serializable {
 	public GlobalBB() {
 		usuario = (Usuario) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USUARIO);
 		EnumLenguajes lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+		if(lenguaje == null && usuario != null) {
+			util.cambiarIdioma(usuario.getLenguaje());
+			lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+		}
     	locale = lenguaje.getLocale();
         FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
@@ -39,10 +43,6 @@ public class GlobalBB implements Serializable {
 	 */
 	public void cerrarSesion() throws IOException {
 		
-		//Borrar esto
-		RCotizacion reporte = new RCotizacion();
-		reporte.generarReporte(new Cotizacion());
-						
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext extContext = fc.getExternalContext();
 		extContext.redirect(util.getContextPath() + "/login.xhtml");
