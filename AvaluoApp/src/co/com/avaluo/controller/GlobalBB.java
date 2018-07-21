@@ -43,11 +43,15 @@ public class GlobalBB implements Serializable {
 	}
 	
 	public void cargarPermisos() {
-		configuracion = true;
-		cotizacion = true;
-	/*	if(cargarPermisos();,licencia.getNombre()){
-			
-		}*/
+		
+		if("CAMEL".equals(licencia.getNombre()) || 
+				"AVALSOFT".equals(licencia.getNombre()) ||
+				"ANT".equals(licencia.getNombre()) ||
+				"SHARK".equals(licencia.getNombre()) ||
+				"EAGLE".equals(licencia.getNombre())){
+			configuracion = true;
+			cotizacion = true;
+		}
 	}
 	
 	/**
