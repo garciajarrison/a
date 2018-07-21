@@ -31,6 +31,7 @@ import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.DetalleCotizacion;
+import co.com.avaluo.model.entity.DetalleCotizacionId;
 import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
@@ -79,6 +80,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Cotizacion cotizacion = new Cotizacion();
 	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
+	private DetalleCotizacion selectedDetalle = new DetalleCotizacion();
 	private List<Cotizacion> entityList;
 	private Usuario usuario;
 	private Usuario cliente = new Usuario();
@@ -108,6 +110,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<Departamento> listaDepartamentos;
 	private Map<String,Integer> listaEstrato = new HashMap<String, Integer>();
 	private List<Estrato> listaEstratos;
+	private List<DetalleCotizacion> listaDetCotizacion;
 	private List<SelectItem> listaUnidadMedida;
 
 	private Usuario usuarioExiste = new Usuario();
@@ -122,12 +125,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		Empresa empresa =new Empresa();
 		Usuario clien = new Usuario();
 		cotizacion.setEmpresa(empresa);
-		cotizacion.setUsuario(clien);
+		cotizacion.setUsuarioByClienteId(clien);
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
 		listaCiudades = ciudadService.getEntitys();
 		listaPropiedades =  new ArrayList<Propiedad>();
+		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
 		
 		nuevaCotizacion();
@@ -142,8 +146,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.cotizacion = new Cotizacion();
 		Usuario usu = new Usuario();
 		cotizacion.setEmpresa(usuario.getEmpresa());
-		cotizacion.setUsuario(usu);
-		
+		cotizacion.setUsuarioByClienteId(usu);
+		cotizacion.setUsuarioByRemitenteId(usu);
 		this.detCotizacion = new DetalleCotizacion();
 		detCotizacion.setCotizacion(cotizacion);
 		Tablas tabla = new Tablas();
@@ -176,7 +180,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void addCliente() {
 		try {
 			boolean guardar = true;
-			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuario().getIdentificacion(), usuario.getEmpresa().getId(), 3);
+			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByClienteId().getIdentificacion(), usuario.getEmpresa().getId(), 3);
 			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
 				guardar = false;
 				util.mostrarErrorKey("cotizacion.cliente.ya.existe");
@@ -185,11 +189,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			if(guardar) {
 				Rol rol = new Rol();
 				rol.setId(3);
-				cotizacion.getUsuario().setEmpresa(usuario.getEmpresa());
-				cotizacion.getUsuario().setRol(rol);
-				cotizacion.getUsuario().setEstado(true);
-				cotizacion.getUsuario().setLenguaje("ES");
-				getUsuarioService().addEntity(cotizacion.getUsuario());
+				cotizacion.getUsuarioByClienteId().setEmpresa(usuario.getEmpresa());
+				cotizacion.getUsuarioByClienteId().setRol(rol);
+				cotizacion.getUsuarioByClienteId().setEstado(true);
+				cotizacion.getUsuarioByClienteId().setLenguaje("ES");
+				getUsuarioService().addEntity(cotizacion.getUsuarioByClienteId());
 				util.mostrarMensajeKey("exito.guardar"); 
 				util.actualizarPF("formulario");
 			}else {
@@ -242,6 +246,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		
 		
 	}
+
+	
+
 	
 	public void cotizar() {
 		BigDecimal resultado = new BigDecimal(0);
@@ -254,6 +261,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			// Collection.sort(lista);
 			BigDecimal mt2 = p.getValorMedida();
 			BigDecimal totmt2 = p.getValorMedida();
+			valorCotizacion = new BigDecimal(0);
 			
 			for (DetalleTabla detTabla : p.getTablas().getDetalleTablas()) {
 				BigDecimal delta = new BigDecimal(detTabla.getHasta()  - detTabla.getDesde());
@@ -317,8 +325,19 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
                 	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100).add( p.getEstrato().getPorcentaje().multiply(new BigDecimal(-1)))).divide(new BigDecimal(100)) ;
                 	 
                      //cotizacion = cotizacion * (100 + objEst.getPorcentaje()) / 100;
-                	 valorCotizacion = valorCotizacion.divide(new BigDecimal(10000));
-                	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(10000));
+                	 valorCotizacion = valorCotizacion.divide(new BigDecimal(100000));
+                	 valorCotizacion = valorCotizacion.setScale(0, BigDecimal.ROUND_CEILING);
+                	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100000));
+                	 
+                	 this.detCotizacion = new DetalleCotizacion();
+                	 DetalleCotizacionId detId = new DetalleCotizacionId();
+             		detCotizacion.setCotizacion(cotizacion);
+             		detCotizacion.setPropiedad(p);
+             		detId.setCotizacionId(cotizacion.getId());
+             		detId.setPropiedadId(p.getId());
+             		detId.setValor(valorCotizacion);
+             		detCotizacion.setId(detId);
+             		listaDetCotizacion.add(detCotizacion);
 			}
 		
 	
@@ -353,20 +372,20 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void onconsultaCliente(String identif) { 
 		cliente = getUsuarioService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
 		if (cliente.getNombre() != null) {
-			cotizacion.setUsuario(cliente);
+			cotizacion.setUsuarioByClienteId(cliente);
 		}
 		else {
 			Rol rol = new Rol();
 			rol.setId(3);
-			cotizacion.getUsuario().setNombre("");
-			cotizacion.getUsuario().setTelefono("");
-			cotizacion.getUsuario().setCelular("");
-			cotizacion.getUsuario().setDireccion("");
-			cotizacion.getUsuario().setEstado(false);
-			cotizacion.getUsuario().setDireccion("");
-			cotizacion.getUsuario().setCorreo("");
-			cotizacion.getUsuario().setId(0);
-			cotizacion.getUsuario().setRol(rol);
+			cotizacion.getUsuarioByClienteId().setNombre("");
+			cotizacion.getUsuarioByClienteId().setTelefono("");
+			cotizacion.getUsuarioByClienteId().setCelular("");
+			cotizacion.getUsuarioByClienteId().setDireccion("");
+			cotizacion.getUsuarioByClienteId().setEstado(false);
+			cotizacion.getUsuarioByClienteId().setDireccion("");
+			cotizacion.getUsuarioByClienteId().setCorreo("");
+			cotizacion.getUsuarioByClienteId().setId(0);
+			cotizacion.getUsuarioByClienteId().setRol(rol);
 		}
 		
 	}
@@ -645,6 +664,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.detCotizacion = detCotizacion;
 	}
 
+	public List<DetalleCotizacion> getListaDetCotizacion() {
+		return listaDetCotizacion;
+	}
+
+	public void setListaDetCotizacion(List<DetalleCotizacion> listaDetCotizacion) {
+		this.listaDetCotizacion = listaDetCotizacion;
+	}
+
 	public Usuario getUsuarioExiste() {
 		return usuarioExiste;
 	}
@@ -755,5 +782,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
 		this.selectedPropiedad = selectedPropiedad;
+	}
+
+	public DetalleCotizacion getSelectedDetalle() {
+		return selectedDetalle;
+	}
+
+	public void setSelectedDetalle(DetalleCotizacion selectedDetalle) {
+		this.selectedDetalle = selectedDetalle;
 	}	
  }

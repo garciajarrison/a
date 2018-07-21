@@ -1,13 +1,12 @@
 package co.com.avaluo.model.entity;
-// Generated 17/07/2018 09:50:42 PM by Hibernate Tools 4.0.1.Final
+// Generated 20/07/2018 06:18:00 PM by Hibernate Tools 4.0.1.Final
 
-import java.math.BigDecimal;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,40 +18,35 @@ import javax.persistence.Table;
 @Table(name = "detalle_cotizacion", schema = "avalsoft")
 public class DetalleCotizacion implements java.io.Serializable {
 
-	private int id;
+	private DetalleCotizacionId id;
 	private Cotizacion cotizacion;
 	private Propiedad propiedad;
-	private BigDecimal valor;
 
 	public DetalleCotizacion() {
 	}
 
-	public DetalleCotizacion(int id, Cotizacion cotizacion, Propiedad propiedad) {
+	public DetalleCotizacion(DetalleCotizacionId id, Cotizacion cotizacion, Propiedad propiedad) {
 		this.id = id;
 		this.cotizacion = cotizacion;
 		this.propiedad = propiedad;
 	}
 
-	public DetalleCotizacion(int id, Cotizacion cotizacion, Propiedad propiedad, BigDecimal valor) {
-		this.id = id;
-		this.cotizacion = cotizacion;
-		this.propiedad = propiedad;
-		this.valor = valor;
-	}
+	@EmbeddedId
 
-	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
-	public int getId() {
+	@AttributeOverrides({
+			@AttributeOverride(name = "cotizacionId", column = @Column(name = "cotizacion_id", nullable = false)),
+			@AttributeOverride(name = "propiedadId", column = @Column(name = "propiedad_id", nullable = false)),
+			@AttributeOverride(name = "valor", column = @Column(name = "valor", precision = 131089, scale = 0)) })
+	public DetalleCotizacionId getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(DetalleCotizacionId id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cotizacion_id", nullable = false)
+	@JoinColumn(name = "cotizacion_id", nullable = false, insertable = false, updatable = false)
 	public Cotizacion getCotizacion() {
 		return this.cotizacion;
 	}
@@ -62,22 +56,13 @@ public class DetalleCotizacion implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "propiedad_id", nullable = false)
+	@JoinColumn(name = "propiedad_id", nullable = false, insertable = false, updatable = false)
 	public Propiedad getPropiedad() {
 		return this.propiedad;
 	}
 
 	public void setPropiedad(Propiedad propiedad) {
 		this.propiedad = propiedad;
-	}
-
-	@Column(name = "valor", precision = 20, scale = 0)
-	public BigDecimal getValor() {
-		return this.valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
 	}
 
 }
