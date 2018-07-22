@@ -31,7 +31,7 @@ public class Tablas implements java.io.Serializable {
 	private BigDecimal conversion;
 	private BigDecimal base;
 	private BigDecimal gastos;
-	private boolean estado;
+	private boolean estado = true;
 	private String uom;
 	private String uomAlt;
 	private Long diasDeTrabajo;
@@ -190,6 +190,9 @@ public class Tablas implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tablas")
 	@OrderBy(value = "desde ASC")
 	public List<DetalleTabla> getDetalleTablas() {
+		if(detalleTablas == null) {
+			detalleTablas = new ArrayList<>();
+		}
 		return this.detalleTablas;
 	}
 

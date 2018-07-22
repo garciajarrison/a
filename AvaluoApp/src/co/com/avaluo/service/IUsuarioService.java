@@ -2,6 +2,7 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
 
@@ -20,6 +21,8 @@ public interface IUsuarioService {
 	Usuario login(Usuario usuario);
 
 	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
+
+	Licencia cargarLicenciaActual(Usuario usuario);
 
 	
 }

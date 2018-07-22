@@ -12,8 +12,7 @@ import javax.faces.context.FacesContext;
 import co.com.avaluo.common.EnumLenguajes;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacion;
-import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
 @ManagedBean(name = "globalBB")
@@ -22,14 +21,37 @@ public class GlobalBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
+	private Licencia licencia;
 	private Locale locale;
 	private Util util = Util.getInstance();
 	
+	//Permisos
+	private boolean configuracion = false;
+	private boolean cotizacion = false;
+	
 	public GlobalBB() {
 		usuario = (Usuario) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USUARIO);
+		licencia = (Licencia) Util.getInstance().getSessionAttribute(EnumSessionAttributes.LICENCIA);
 		EnumLenguajes lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+		if(lenguaje == null && usuario != null) {
+			util.cambiarIdioma(usuario.getLenguaje());
+			lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+		}
     	locale = lenguaje.getLocale();
         FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+        cargarPermisos();
+	}
+	
+	public void cargarPermisos() {
+		
+		if("CAMEL".equals(licencia.getNombre()) || 
+				"AVALSOFT".equals(licencia.getNombre()) ||
+				"ANT".equals(licencia.getNombre()) ||
+				"SHARK".equals(licencia.getNombre()) ||
+				"EAGLE".equals(licencia.getNombre())){
+			configuracion = true;
+			cotizacion = true;
+		}
 	}
 	
 	/**
@@ -39,10 +61,6 @@ public class GlobalBB implements Serializable {
 	 */
 	public void cerrarSesion() throws IOException {
 		
-		//Borrar esto
-		RCotizacion reporte = new RCotizacion();
-		reporte.generarReporte(new Cotizacion());
-						
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext extContext = fc.getExternalContext();
 		extContext.redirect(util.getContextPath() + "/login.xhtml");
@@ -59,6 +77,22 @@ public class GlobalBB implements Serializable {
 	
 	public Locale getLocale() {
 	    return locale;
+	}
+
+	public boolean isConfiguracion() {
+		return configuracion;
+	}
+
+	public void setConfiguracion(boolean configuracion) {
+		this.configuracion = configuracion;
+	}
+
+	public boolean isCotizacion() {
+		return cotizacion;
+	}
+
+	public void setCotizacion(boolean cotizacion) {
+		this.cotizacion = cotizacion;
 	}
 
  }

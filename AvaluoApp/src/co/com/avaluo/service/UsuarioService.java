@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IUsuarioDAO;
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
 @Service
@@ -44,6 +45,14 @@ public class UsuarioService implements IUsuarioService {
 		return getEntityDAO().getEntities();
 	}
 
+	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
+		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
+	}
+
+	public Licencia cargarLicenciaActual(Usuario usuario) {
+		return getEntityDAO().cargarLicenciaActual(usuario);
+	}
+	
 	public IUsuarioDAO getEntityDAO() {
 		return usersDAO;
 	}
@@ -51,11 +60,5 @@ public class UsuarioService implements IUsuarioService {
 	public void setEntityDAO(IUsuarioDAO usersDAO) {
 		this.usersDAO = usersDAO;
 	}
-
-	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
-		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
-	}
-	
-
 
 }

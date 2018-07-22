@@ -1,5 +1,6 @@
 package co.com.avaluo.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
 @Repository
@@ -65,17 +67,40 @@ public class UsuarioDAO implements IUsuarioDAO {
 	}
 
 	public Usuario consultaIdentificacion(String identificacion, int id, int rol_Id) {
+		
+		Session session = getSessionFactory().getCurrentSession();
+		return (Usuario) session
+				.createQuery("from Usuario u where u.identificacion=? and u.empresa.id = ? and u.rol.id=?")
+				.setParameter(0, identificacion).setParameter(1, id).setParameter(2, rol_Id) 
+				.uniqueResult();
+	}
+
+	public Licencia cargarLicenciaActual(Usuario usuario) {
+		Licencia retorno;
 		Session session = getSessionFactory().getCurrentSession();
 		
-		List<?> list = session
-				.createQuery("from Usuario u where u.identificacion=? and u.empresa.id = ? and u.rol.id=?").setParameter(0, identificacion).setParameter(1, id).setParameter(2, rol_Id) 
-				.list();
-		Usuario usuario = new Usuario();
-		if (list.size() > 0) {
-			usuario = (Usuario) list.get(0);
+		StringBuilder hql = new StringBuilder("select l from Licencia l ")
+				.append(" where l.empresa = :empresaId ")
+				.append(" and l.empresa.usuarios = :usuarioId ")
+				.append(" and l.fechaExpiracion >= current_date ");
+				
+		retorno = (Licencia)session
+				.createQuery(hql.toString())
+				.setParameter("empresaId", usuario.getEmpresa().getId())
+				.setParameter("usuarioId", usuario.getId())
+				.uniqueResult();
+				
+		if(retorno != null) {
+			actualizarUltimaConn(retorno);
 		}
 		
-		return usuario;
+		return retorno;
+	}
+	
+	private void actualizarUltimaConn(Licencia licencia) {
+		Session session = getSessionFactory().getCurrentSession();
+		licencia.setFechaUltimaConn(new Date());
+		session.delete(licencia);
 	}
 
 
