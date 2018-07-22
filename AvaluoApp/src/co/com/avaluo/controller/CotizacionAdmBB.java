@@ -326,7 +326,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
                 	 
                      //cotizacion = cotizacion * (100 + objEst.getPorcentaje()) / 100;
                 	 valorCotizacion = valorCotizacion.divide(new BigDecimal(100000));
-                	 valorCotizacion = valorCotizacion.setScale(0, BigDecimal.ROUND_CEILING);
+                	 valorCotizacion = valorCotizacion.setScale(0, BigDecimal.ROUND_HALF_UP);
                 	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100000));
                 	 
                 	 this.detCotizacion = new DetalleCotizacion();
