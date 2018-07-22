@@ -35,6 +35,7 @@ public class Empresa implements java.io.Serializable {
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<Licencia> licencias = new HashSet<Licencia>(0);
 	private Set<Estrato> estratos = new HashSet<Estrato>(0);
+	private Set<Reporte> reportes = new HashSet<Reporte>(0);
 
 	public Empresa() {
 	}
@@ -186,6 +187,15 @@ public class Empresa implements java.io.Serializable {
 
 	public void setEstratos(Set<Estrato> estratos) {
 		this.estratos = estratos;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
+	public Set<Reporte> getReportes() {
+		return reportes;
+	}
+
+	public void setReportes(Set<Reporte> reportes) {
+		this.reportes = reportes;
 	}
 
 }

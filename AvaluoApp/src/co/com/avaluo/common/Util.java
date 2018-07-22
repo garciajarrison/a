@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.util.ComponentUtils;
 
 public class Util {
 	
@@ -88,6 +89,16 @@ public class Util {
 		HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		return sesion.getId();
 	}
+	
+	public void cambiarIdioma(String sigla) {
+		for(EnumLenguajes lenguaje : EnumLenguajes.values()) {
+			if(lenguaje.getSigla().equals(sigla)){
+				FacesContext.getCurrentInstance().getViewRoot().setLocale(lenguaje.getLocale());
+				Util.getInstance().setSessionAttribute(EnumSessionAttributes.LENGUAJE, lenguaje);
+				break;
+			}
+		}
+	}
 
 	/**
 	 * Obtiene la ruta relativa del contexto de la aplicacion
@@ -106,12 +117,10 @@ public class Util {
 			int i = 1;
 			for (String id : idBotonActualizar) {
 				if(id != null) {
-					if(id.contains("@")) {
+					if(id.contains("@"))
 						retorno.append(id);
-					}else {
-						//retorno.append(ComponentUtils.findComponentClientId(id));
-						retorno.append(FacesContext.getCurrentInstance().getViewRoot().findComponent(id));
-					}
+					else 
+						retorno.append(ComponentUtils.findComponentClientId(id));
 					if(cantidad > i )retorno.append(" ");
 					i++;
 				}

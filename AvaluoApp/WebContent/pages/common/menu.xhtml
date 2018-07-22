@@ -33,16 +33,23 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color:black !important;">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> #{msg['menu.configuracion']} <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#{request.contextPath}/pages/configuracion/estratos.xhtml">#{msg['menu.estrato']}</a></li>
-                      <li><a href="#{request.contextPath}/pages/configuracion/tipoPropiedad.xhtml">#{msg['menu.tipo.propiedad']}</a></li>
-                      <li><a href="#{request.contextPath}/pages/configuracion/tablas.xhtml">#{msg['menu.tablas']}</a></li>
-                    </ul>
-                  </li>
-                   <li><a href="#{request.contextPath}/pages/cotizacion.xhtml"><i class="fa fa-laptop"></i> #{msg['menu.cotizacion']}
-                   		<span class="label label-success pull-right">#{msg['pronto']}</span></a>
-                   </li>
+	                <h:panelGroup rendered="#{globalBB.configuracion}">
+	               		<li><a><i class="fa fa-home"></i> #{msg['menu.configuracion']} <span class="fa fa-chevron-down"></span></a>
+		                    <ul class="nav child_menu">
+		                      <li><a href="#{request.contextPath}/pages/configuracion/estratos.xhtml">#{msg['menu.estrato']}</a></li>
+		                      <li><a href="#{request.contextPath}/pages/configuracion/tipoPropiedad.xhtml">#{msg['menu.tipo.propiedad']}</a></li>
+		                      <li><a href="#{request.contextPath}/pages/configuracion/tablas.xhtml">#{msg['menu.tablas']}</a></li>
+		                      <li><a href="#{request.contextPath}/pages/configuracion/reportes.xhtml">#{msg['menu.reportes']}
+		                      	<span class="label label-success pull-right">#{msg['pronto']}</span></a></li>
+		                    </ul>
+		                 </li>
+	                </h:panelGroup>
+                  
+                   <h:panelGroup rendered="#{globalBB.cotizacion}">
+	                   <li><a href="#{request.contextPath}/pages/cotizacion.xhtml"><i class="fa fa-laptop"></i> #{msg['menu.cotizacion']}
+	                   		<span class="label label-success pull-right">#{msg['pronto']}</span></a>
+	                   </li>
+                   </h:panelGroup>
                 </ul>
                 
               </div>
