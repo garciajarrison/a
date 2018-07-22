@@ -133,7 +133,7 @@ public class Tablas implements java.io.Serializable {
 		this.gastos = gastos;
 	}
 
-	@Column(name = "estado", nullable = false)
+	@Column(name = "estado")
 	public boolean isEstado() {
 		return this.estado;
 	}
