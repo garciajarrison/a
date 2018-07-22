@@ -1,6 +1,7 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,22 +38,22 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			if(usuario != null) {
 				
 				//Validamos la licencia
-				Licencia licenciaActual; 
-				/*for(Licencia licencia : usuario.getEmpresa().getLicencias()) {
-					if(licencia.getFechaExpiracion() ) {
+				Licencia licenciaActual = null; 
+				for(Licencia licencia : usuario.getEmpresa().getLicencias()) {
+					if(licencia.getFechaExpiracion().compareTo(new Date()) >= 0) {
 						licenciaActual = licencia;
 					}
-				}*/
+				}
 				
-				//if(licenciaActual != null) {
-				//	Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
+				if(licenciaActual != null) {
+					Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
 					Util.getInstance().cambiarIdioma(usuario.getLenguaje());
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
 					Util.getInstance().redirect("home.xhtml");
-				/*}else {
+				}else {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "La licencia expiro, por favor comuníquese con la entidad.", "")); 
-				}*/
+				}
 			} else{
 				usuario = new Usuario();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  

@@ -33,7 +33,7 @@ public class Cuenta{
         }
     }
     public void retiro(){
-    
+    	
     }
     public void getBalance(){
     
