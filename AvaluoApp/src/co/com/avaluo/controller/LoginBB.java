@@ -37,16 +37,16 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			if(usuario != null) {
 				
 				//Validamos la licencia
-				//Licencia licenciaActual = this.getUsuarioService().cargarLicenciaActual(usuario); 
-				//if(licenciaActual != null) {
-				//	Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
+				Licencia licenciaActual = this.getUsuarioService().cargarLicenciaActual(usuario); 
+				if(licenciaActual != null) {
+					Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
 					Util.getInstance().cambiarIdioma(usuario.getLenguaje());
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
 					Util.getInstance().redirect("home.xhtml");
-				/*}else {
+				}else {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "La licencia expiro, por favor comuníquese con la entidad.", "")); 
-				}*/
+				}
 			} else{
 				usuario = new Usuario();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  

@@ -1,6 +1,7 @@
 package co.com.avaluo.model.entity;
-// Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
+// Generated 20/07/2018 05:27:56 PM by Hibernate Tools 4.0.1.Final
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -22,22 +23,27 @@ import javax.persistence.Table;
 public class Cotizacion implements java.io.Serializable {
 
 	private int id;
-	private Usuario usuario;
+	private Usuario usuarioByClienteId;
+	private Usuario usuarioByRemitenteId;
 	private Empresa empresa;
-	private Double valor;
+	private BigDecimal valor;
 	private Set<DetalleCotizacion> detalleCotizacions = new HashSet<DetalleCotizacion>(0);
 
 	public Cotizacion() {
 	}
 
-	public Cotizacion(int id) {
+	public Cotizacion(int id, Usuario usuarioByClienteId, Usuario usuarioByRemitenteId, Empresa empresa) {
 		this.id = id;
+		this.usuarioByClienteId = usuarioByClienteId;
+		this.usuarioByRemitenteId = usuarioByRemitenteId;
+		this.empresa = empresa;
 	}
 
-	public Cotizacion(int id, Usuario usuario, Empresa empresa, Double valor,
-			Set<DetalleCotizacion> detalleCotizacions) {
+	public Cotizacion(int id, Usuario usuarioByClienteId, Usuario usuarioByRemitenteId, Empresa empresa,
+			BigDecimal valor, Set<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
-		this.usuario = usuario;
+		this.usuarioByClienteId = usuarioByClienteId;
+		this.usuarioByRemitenteId = usuarioByRemitenteId;
 		this.empresa = empresa;
 		this.valor = valor;
 		this.detalleCotizacions = detalleCotizacions;
@@ -55,17 +61,27 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "cliente_id")
-	public Usuario getUsuario() {
-		return this.usuario;
+	@JoinColumn(name = "cliente_id", nullable = false)
+	public Usuario getUsuarioByClienteId() {
+		return this.usuarioByClienteId;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioByClienteId(Usuario usuarioByClienteId) {
+		this.usuarioByClienteId = usuarioByClienteId;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "empresa_id")
+	@JoinColumn(name = "remitente_id", nullable = false)
+	public Usuario getUsuarioByRemitenteId() {
+		return this.usuarioByRemitenteId;
+	}
+
+	public void setUsuarioByRemitenteId(Usuario usuarioByRemitenteId) {
+		this.usuarioByRemitenteId = usuarioByRemitenteId;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;
 	}
@@ -74,16 +90,16 @@ public class Cotizacion implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	@Column(name = "valor", precision = 17, scale = 17)
-	public Double getValor() {
+	@Column(name = "valor", precision = 131089, scale = 0)
+	public BigDecimal getValor() {
 		return this.valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cotizacion")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cotizacion")
 	public Set<DetalleCotizacion> getDetalleCotizacions() {
 		return this.detalleCotizacions;
 	}

@@ -22,25 +22,25 @@
 	          	<p:panel id="infCLie" style="background:none;" >
 	          		<h:panelGrid columns="2" columnClasses="label, value">
 				   		<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent"></p:outputLabel>
-				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuario.tipoDocumento}" style="width:125px">
+				   		<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:125px">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 			        	</p:selectOneMenu> 
 				 		<p:outputLabel id="lIdentificacion" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacion"></p:outputLabel>
-				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuario.identificacion}">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuario.identificacion)}" update="infCLie" process="@this" ></p:ajax>
+				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}">
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="@this" ></p:ajax>
 				   		</p:inputText>
 				   		<p:outputLabel id="lName" value="#{msg['cotizacion.nombre']}" for="txtName"></p:outputLabel>
-				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuario.nombre}"></p:inputText>  		
+				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}"></p:inputText>  		
 				   		 
 			 	   		<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone"></p:outputLabel>
-				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuario.telefono}"></p:inputText>  		
+				   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}"></p:inputText>  		
 			 	   		<p:outputLabel id="lCelular" value="#{msg['cotizacion.celular']}" for="txtCelular"></p:outputLabel>
-				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.usuario.celular}"></p:inputText>  		
+				   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.celular}"></p:inputText>  		
 			 	   		<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress"></p:outputLabel>
-				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuario.direccion}"></p:inputText>  		
+				   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}"></p:inputText>  		
 			 	   		<p:outputLabel id="lEmail" value="#{msg['cotizacion.correo']}" for="txtEmail"></p:outputLabel>
-				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuario.correo}"></p:inputText>  		
+				   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.correo}"></p:inputText>  		
 				   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
 				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente}" process="@all"/>
 				   		</p:commandButton>
@@ -93,15 +93,74 @@
 						</p:dataTable>
 	          			
 	          		</h:panelGrid>
-			   		<p:commandButton value="#{msg['btn.agregar']}" type="button"  >	          				          		
-							 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all"/>
-						</p:commandButton>
 			    </p:panel>
+			    
+			    
 	        </p:tab>
 	        <p:tab title="#{msg['cotizacion.tab.remitente']}">
-	          		        </p:tab>
+				<p:panel id="infRemit" style="background:none;" >
+	          		<h:panelGrid columns="2" columnClasses="label, value">
+				   		<p:outputLabel id="tipoIdenR" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdentR"></p:outputLabel>
+				   		<p:selectOneMenu id="selTipoIdentR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento}" style="width:125px">
+				            <f:selectItem itemLabel="Seleccione" itemValue="" />
+				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
+			        	</p:selectOneMenu> 
+				 		<p:outputLabel id="lIdentificacionR" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacionR"></p:outputLabel>
+				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}">
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
+				   		</p:inputText>
+				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR"></p:outputLabel>
+				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}"></p:inputText>  		
+				   		 
+			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR"></p:outputLabel>
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}"></p:inputText>  		
+			 	   		<p:outputLabel id="lCelularR" value="#{msg['cotizacion.celular']}" for="txtCelularR"></p:outputLabel>
+				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}"></p:inputText>  		
+			 	   		<p:outputLabel id="lAddressR" value="#{msg['cotizacion.direccion']}" for="txtAddressR"></p:outputLabel>
+				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}"></p:inputText>  		
+			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR"></p:outputLabel>
+				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}"></p:inputText>  		
+				   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
+				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente}" process="@all"/>
+				   		</p:commandButton>
+				   		
+		   			</h:panelGrid>
+   				</p:panel>	        
+	        
+	        </p:tab>
 	        <p:tab title="#{msg['cotizacion.tab.resultado']}">
-	          	
+				<p:panel id="infResult" style="background:none;" >
+	          		<h:panelGrid columns="2" columnClasses="label, value">	        
+				<p:dataTable  rows="15" var="detalle" value="#{cotizacionAdmBB.listaDetCotizacion}" 
+								emptyMessage="#{msg['no.registros']}">
+						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
+						        <h:outputText value="#{detalle.propiedad.tablas.nombre}" />
+						    </p:column>
+						    
+						    <p:column headerText="#{msg['cotizacion.tipo.vivienda']}">
+						        <h:outputText value="#{detalle.propiedad.tipoPropiedad.tipoVivienda}" />
+						    </p:column>
+						    <p:column headerText="#{msg['cotizacion.registro']}">
+						        <h:outputText value="#{detalle.propiedad.registro}" />
+						    </p:column>
+						 
+						    <p:column headerText="#{msg['cotizacion.direccion']}">
+						        <h:outputText value="#{detalle.propiedad.direccion}" />
+						    </p:column>
+						    
+						    <p:column headerText="#{msg['cotizacion.ciudad']}">
+						        <h:outputText value="#{detalle.id.valor}" />
+						    </p:column>						    
+						    
+						     
+						    
+						</p:dataTable>	
+					
+				</h:panelGrid>        
+         		<p:commandButton value="#{msg['btn.agregar']}" type="button"  >	          				          		
+					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update="infResult"/>
+				</p:commandButton>
+				</p:panel>
 	        </p:tab>
 	              
     	</p:wizard>  

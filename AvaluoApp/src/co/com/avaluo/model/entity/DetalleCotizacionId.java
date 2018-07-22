@@ -1,5 +1,4 @@
 package co.com.avaluo.model.entity;
-// Generated 20/07/2018 10:06:20 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
