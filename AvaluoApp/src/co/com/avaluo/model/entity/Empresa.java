@@ -1,8 +1,9 @@
 package co.com.avaluo.model.entity;
 // Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,14 +29,14 @@ public class Empresa implements java.io.Serializable {
 	private String nombre;
 	private String description;
 	private boolean estado;
-	private Set<TipoPropiedad> tipoPropiedads = new HashSet<TipoPropiedad>(0);
-	private Set<Cotizacion> cotizacions = new HashSet<Cotizacion>(0);
+	private List<TipoPropiedad> tipoPropiedads = new ArrayList<>(0);
+	private List<Cotizacion> cotizacions = new ArrayList<Cotizacion>(0);
 	
-	private Set<Tablas> tablases = new HashSet<Tablas>(0);
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
-	private Set<Licencia> licencias = new HashSet<Licencia>(0);
-	private Set<Estrato> estratos = new HashSet<Estrato>(0);
-	private Set<Reporte> reportes = new HashSet<Reporte>(0);
+	private List<Tablas> tablases = new ArrayList<Tablas>(0);
+	private List<Usuario> usuarios = new ArrayList<Usuario>(0);
+	private List<Licencia> licencias = new ArrayList<Licencia>(0);
+	private List<Estrato> estratos = new ArrayList<Estrato>(0);
+	private List<Reporte> reportes = new ArrayList<Reporte>(0);
 
 	public Empresa() {
 	}
@@ -47,9 +48,9 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
-			String description, boolean estado, Set<TipoPropiedad> tipoPropiedads, Set<Cotizacion> cotizacions,
-			Set<Propiedad> propiedads, Set<Tablas> tablases, Set<Usuario> usuarios,
-			Set<Licencia> licencias, Set<Estrato> estratos) {
+			String description, boolean estado, List<TipoPropiedad> tipoPropiedads, List<Cotizacion> cotizacions,
+			List<Propiedad> propiedads, List<Tablas> tablases, List<Usuario> usuarios,
+			List<Licencia> licencias, List<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -133,68 +134,68 @@ public class Empresa implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<TipoPropiedad> getTipoPropiedads() {
+	public List<TipoPropiedad> getTipoPropiedads() {
 		return this.tipoPropiedads;
 	}
 
-	public void setTipoPropiedads(Set<TipoPropiedad> tipoPropiedads) {
+	public void setTipoPropiedads(List<TipoPropiedad> tipoPropiedads) {
 		this.tipoPropiedads = tipoPropiedads;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Cotizacion> getCotizacions() {
+	public List<Cotizacion> getCotizacions() {
 		return this.cotizacions;
 	}
 
-	public void setCotizacions(Set<Cotizacion> cotizacions) {
+	public void setCotizacions(List<Cotizacion> cotizacions) {
 		this.cotizacions = cotizacions;
 	}
 
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Tablas> getTablases() {
+	public List<Tablas> getTablases() {
 		return this.tablases;
 	}
 
-	public void setTablases(Set<Tablas> tablases) {
+	public void setTablases(List<Tablas> tablases) {
 		this.tablases = tablases;
 	}
 
 
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Licencia> getLicencias() {
+	public List<Licencia> getLicencias() {
 		return this.licencias;
 	}
 
-	public void setLicencias(Set<Licencia> licencias) {
+	public void setLicencias(List<Licencia> licencias) {
 		this.licencias = licencias;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Estrato> getEstratos() {
+	public List<Estrato> getEstratos() {
 		return this.estratos;
 	}
 
-	public void setEstratos(Set<Estrato> estratos) {
+	public void setEstratos(List<Estrato> estratos) {
 		this.estratos = estratos;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public Set<Reporte> getReportes() {
+	public List<Reporte> getReportes() {
 		return reportes;
 	}
 
-	public void setReportes(Set<Reporte> reportes) {
+	public void setReportes(List<Reporte> reportes) {
 		this.reportes = reportes;
 	}
 
