@@ -1,6 +1,7 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,7 +38,13 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			if(usuario != null) {
 				
 				//Validamos la licencia
-				Licencia licenciaActual = this.getUsuarioService().cargarLicenciaActual(usuario); 
+				Licencia licenciaActual = null; 
+				for(Licencia licencia : usuario.getEmpresa().getLicencias()) {
+					if(licencia.getFechaExpiracion().compareTo(new Date()) >= 0) {
+						licenciaActual = licencia;
+					}
+				}
+				
 				if(licenciaActual != null) {
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
