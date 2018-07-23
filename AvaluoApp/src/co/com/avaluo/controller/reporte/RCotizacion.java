@@ -1,7 +1,6 @@
 package co.com.avaluo.controller.reporte;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +16,15 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import co.com.avaluo.common.ReporteUtil;
 import co.com.avaluo.common.Util;
+import co.com.avaluo.common.bo.ReporteLista;
 import co.com.avaluo.model.entity.Cotizacion;
 
 public class RCotizacion {
-	private static final String FILE = "c:/temp/FirstPdf.pdf";
+
 	private static final Font NORMAL_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
 	private static final Font NORMAL_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 	private static final Font BOLD_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+	private static final Font BOLD_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 	private Util util;
 	private ReporteUtil reporteUtil;
 
@@ -46,7 +47,7 @@ public class RCotizacion {
         } catch (IOException e) {
                 e.printStackTrace();
         }
-}
+	}
 
 	public ByteArrayOutputStream generarReporte(Cotizacion cotizacion) {
 		
@@ -55,13 +56,6 @@ public class RCotizacion {
 			
 			Document document = new Document();
 			PdfWriter.getInstance(document, byteArrayOutputStream);
-
-			// setting page size, margins and mirrered margins
-			/*
-			 * document.setPageSize(PageSize.A5); document.setMargins(36, 72, 108, 180);
-			 * document.setMarginMirroringTopBottom(true);
-			 */
-
 			document.open();
 			addMetaData(document);
 			addContenido(document, cotizacion);
@@ -69,7 +63,6 @@ public class RCotizacion {
 			
 			//Exportar
 			//exportFile(byteArrayOutputStream);
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,72 +84,61 @@ public class RCotizacion {
 		// Anexo de ciudad y fecha (debe obtenerse de la cotizacion)
 		document.add(reporteUtil.addTexto("Ciudad, Fecha correspondencia", NORMAL_14, 0));
 
-		document.add(reporteUtil.addTexto("Señor(a)", NORMAL_14, 3));
+		document.add(reporteUtil.addTexto("Señor(a)", NORMAL_14, 4));
 		document.add(reporteUtil.addTexto("<NOMBRE DEL PROPIETARIO>", NORMAL_14, 0));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.solicitante.contratante"), NORMAL_12, 0));
 
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido1"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 3));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido2", "<MOTIVO DEL AVALUO>."),
-				NORMAL_12, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido1"), NORMAL_12, Element.ALIGN_JUSTIFIED, 3));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido2", "<MOTIVO DEL AVALUO>."),NORMAL_12, 1));
 
 		if (urbano) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido3"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido4", "1234"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido4", "1234"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido5"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido6"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido6"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 
 		if (urbano) {
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido7"), BOLD_14,
-					Element.ALIGN_CENTER, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido7"), BOLD_14, Element.ALIGN_CENTER, 1));
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido8"), BOLD_14, 1));
 		}
 
 		if (rural) {
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido9"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTextoNegritaTexto(util.getMessage("reporte.cotizacion.contenido9.negrita"), 
+														util.getMessage("reporte.cotizacion.contenido9"), 
+														BOLD_12, NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (urbano) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido10"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido11"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido12"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido11"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido12"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (rural) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido13"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido14"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido14"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (urbano) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido15"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido16"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido16"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (rural) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido17"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido18"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido18"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (urbano) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido19"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido20"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido20"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (rural) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido21"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido22"), NORMAL_12,
-					Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido22"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		if (urbano) {
@@ -255,28 +237,28 @@ public class RCotizacion {
 					Element.ALIGN_JUSTIFIED, 1));
 		}
 
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido53"), BOLD_14,
-				Element.ALIGN_CENTER, 1));
-
-		// Agregamos biñeta
-		List<String> contenido = new ArrayList<String>();
-		contenido.add(util.getMessage("reporte.cotizacion.contenido55"));
-		contenido.add(util.getMessage("reporte.cotizacion.contenido56"));
-		document.add(reporteUtil.addBinneta(util.getMessage("reporte.cotizacion.contenido54"), contenido, BOLD_14,
-				NORMAL_12));
-		// Agregamos biñeta
-		contenido = new ArrayList<String>();
-		contenido.add(util.getMessage("reporte.cotizacion.contenido58"));
-		document.add(reporteUtil.addBinneta(util.getMessage("reporte.cotizacion.contenido57"), contenido, BOLD_14,
-				NORMAL_12));
-
-		// Tabla REQUERIMIENTOS: AVALUOS COMERCIAL DE INMUEBLES
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido59"), BOLD_14,
-				Element.ALIGN_CENTER, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido60"), BOLD_14,
-				Element.ALIGN_CENTER, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido53"), BOLD_14, Element.ALIGN_JUSTIFIED, 1));
+		
+		List<ReporteLista> binnetas = new ArrayList<>();
+		String titulo;
+		List<String> contenidos = new ArrayList<>();
+		//Anexo de biñetas
+		titulo = util.getMessage("reporte.cotizacion.contenido.titulo.bineta54");
+		contenidos.add(util.getMessage("reporte.cotizacion.contenido.contenido.bineta55"));
+		contenidos.add(util.getMessage("reporte.cotizacion.contenido.contenido.bineta56"));
+		binnetas.add(new ReporteLista(new com.itextpdf.text.ListItem(titulo, BOLD_14), contenidos, NORMAL_12));
+		contenidos = new ArrayList<>();
+		titulo = util.getMessage("reporte.cotizacion.contenido.titulo.bineta57");
+		contenidos.add(util.getMessage("reporte.cotizacion.contenido.contenido.bineta58"));
+		
+		binnetas.add(new ReporteLista(new com.itextpdf.text.ListItem(titulo, BOLD_14), contenidos, NORMAL_12));
+		document.add(reporteUtil.addBinneta(binnetas, 1));
+		
+		//Anexo de tabla
+		
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido.contenido.bineta59"), BOLD_14, Element.ALIGN_CENTER, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido.contenido.bineta60"), BOLD_14, Element.ALIGN_CENTER, 1));
 		document.add(reporteUtil.addEmptyLine(1));
-
 		List<String> titulosTabla = new ArrayList<String>();
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo1"));
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo2"));
@@ -285,57 +267,48 @@ public class RCotizacion {
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo5"));
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo6"));
 
-		contenido = new ArrayList<String>();
-		contenido.add("A");
-		contenido.add("B");
-		contenido.add("C");
-		contenido.add("D");
-		contenido.add("E");
-		contenido.add("F");
-		contenido.add("A");
-		contenido.add("B");
-		contenido.add("C");
-		contenido.add("D");
-		contenido.add("E");
-		contenido.add("F");
+		List<String> contenidoTabla = new ArrayList<String>();
+		contenidoTabla.add("A");
+		contenidoTabla.add("B");
+		contenidoTabla.add("C");
+		contenidoTabla.add("D");
+		contenidoTabla.add("E");
+		contenidoTabla.add("F");
+		contenidoTabla.add("A");
+		contenidoTabla.add("B");
+		contenidoTabla.add("C");
+		contenidoTabla.add("D");
+		contenidoTabla.add("E");
+		contenidoTabla.add("F");
 
 		// Agregamos la tabla
-		document.add(reporteUtil.createdTable(titulosTabla, contenido));
+		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido61"), NORMAL_12, 1));
+		
+		
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido62"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido63"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido63"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		// if(azul){
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido64"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido65"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido65"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		// }
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido66"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido67"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido67"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido68"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido69"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido70"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido72"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido73"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido69"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido70"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido72"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido73"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido74"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido75"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido75"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido76"), BOLD_14, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido77"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido78"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido79"), NORMAL_12,
-				Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido77"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido78"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido79"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido80"), BOLD_14, 1));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido81"), NORMAL_12,
@@ -554,63 +527,63 @@ public class RCotizacion {
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo2"));
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo3"));
 
-		contenido = new ArrayList<String>();
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido11"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido12"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido13"));
+		contenidoTabla = new ArrayList<String>();
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido11"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido12"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido13"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido21"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido22"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido23"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido21"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido22"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido23"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido31"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido32"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido33"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido31"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido32"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido33"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido41"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido42"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido43"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido41"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido42"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido43"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido51"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido52"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido53"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido51"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido52"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido53"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido61"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido62"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido63"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido61"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido62"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido63"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido71"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido72"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido75"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido71"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido72"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido75"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido81"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido82"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido83"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido81"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido82"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido83"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido91"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido92"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido93"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido91"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido92"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido93"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido101"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido102"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido103"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido101"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido102"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido103"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido111"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido112"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido113"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido111"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido112"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido113"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido121"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido122"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido123"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido121"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido122"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido123"));
 
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido131"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido132"));
-		contenido.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido133"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido131"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido132"));
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido133"));
 
 		// Agregamos la tabla de categorias de avaluos
-		document.add(reporteUtil.createdTable(titulosTabla, contenido));
+		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido180"), BOLD_14, 1));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido181"), NORMAL_12,

@@ -22,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
@@ -31,7 +29,7 @@ import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.DetalleCotizacion;
-import co.com.avaluo.model.entity.DetalleCotizacionId;
+
 import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
@@ -330,13 +328,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
                 	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100000));
                 	 
                 	 this.detCotizacion = new DetalleCotizacion();
-                	 DetalleCotizacionId detId = new DetalleCotizacionId();
              		detCotizacion.setCotizacion(cotizacion);
              		detCotizacion.setPropiedad(p);
-             		detId.setCotizacionId(cotizacion.getId());
-             		detId.setPropiedadId(p.getId());
-             		detId.setValor(valorCotizacion);
-             		detCotizacion.setId(detId);
+
+             		detCotizacion.setValor(valorCotizacion);
+             		
              		listaDetCotizacion.add(detCotizacion);
 			}
 		

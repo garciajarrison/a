@@ -271,9 +271,34 @@ ALTER SEQUENCE avalsoft.cotizacion_id_seq
     OWNER TO postgres; 
 
 -- DROP TABLE avalsoft.cotizacion;
-	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+CREATE TABLE avalsoft.cotizacion
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_id_seq'::regclass),
+    empresa_id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    valor numeric,
+    remitente_id integer NOT NULL,
+    CONSTRAINT cotizacion_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_cotizacion_cliente FOREIGN KEY (cliente_id)
+        REFERENCES avalsoft.usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_cotizacion_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_cotizacion_remitente FOREIGN KEY (remitente_id)
+        REFERENCES avalsoft.usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.cotizacion
+    OWNER to postgres;
 
     
 -- -----------------------------------------------------    
@@ -285,9 +310,29 @@ ALTER SEQUENCE avalsoft.detalle_cotizacion_id_seq
     OWNER TO postgres; 
     
 -- DROP TABLE avalsoft.detalle_cotizacion;
-	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+CREATE TABLE avalsoft.detalle_cotizacion
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.detalle_cotizacion_id_seq'::regclass),
+    cotizacion_id integer NOT NULL,
+    propiedad_id integer NOT NULL,
+    valor numeric,
+    CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_detalle_cotizacion FOREIGN KEY (cotizacion_id)
+        REFERENCES avalsoft.cotizacion (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_detalle_cotizacion_propiedad FOREIGN KEY (propiedad_id)
+        REFERENCES avalsoft.propiedad (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.detalle_cotizacion
+    OWNER to postgres;
 
 
 -- -----------------------------------------------------
