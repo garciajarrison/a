@@ -45,8 +45,8 @@ public class UsuarioService implements IUsuarioService {
 		return getEntityDAO().getEntities();
 	}
 
-	public Usuario  consultaIdentificacion(String identificacion, int id, int rol_Id) {
-		return getEntityDAO().consultaIdentificacion(identificacion, id, rol_Id);
+	public Usuario  consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {
+		return getEntityDAO().consultaIdentificacion(tipoIdentificacion, identificacion, id, rol_Id);
 	}
 
 	public Licencia cargarLicenciaActual(Usuario usuario) {

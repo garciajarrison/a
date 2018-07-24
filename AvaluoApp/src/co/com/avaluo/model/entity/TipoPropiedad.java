@@ -1,7 +1,9 @@
 package co.com.avaluo.model.entity;
 // Generated 16/07/2018 08:18:17 PM by Hibernate Tools 4.0.1.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +28,7 @@ public class TipoPropiedad implements java.io.Serializable {
 	private String tipoPropiedad;
 	private String tipoVivienda;
 	private Double incremento;
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>(0);
 
 	public TipoPropiedad() {
 	}
@@ -37,7 +39,7 @@ public class TipoPropiedad implements java.io.Serializable {
 	}
 
 	public TipoPropiedad(int id, Empresa empresa, String tipoPropiedad, String tipoVivienda, Double incremento,
-			Set<Propiedad> propiedads) {
+			List<Propiedad> propiedads) {
 		this.id = id;
 		this.empresa = empresa;
 		this.tipoPropiedad = tipoPropiedad;
@@ -95,11 +97,11 @@ public class TipoPropiedad implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tipoPropiedad")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 

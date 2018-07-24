@@ -66,7 +66,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return list;
 	}
 
-	public Usuario consultaIdentificacion(String identificacion, int id, int rol_Id) {
+	public Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {
 		
 		Session session = getSessionFactory().getCurrentSession();
 		return (Usuario) session

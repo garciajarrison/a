@@ -162,7 +162,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setEstrato(est);
 	}
 	
-	public void addEntity() {
+	public void guardar() {
 		try {
 			getCotizacionService().addEntity(cotizacion);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
@@ -178,7 +178,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void addCliente() {
 		try {
 			boolean guardar = true;
-			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByClienteId().getIdentificacion(), usuario.getEmpresa().getId(), 3);
+			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByClienteId().getTipoDocumento(), cotizacion.getUsuarioByClienteId().getIdentificacion(), usuario.getEmpresa().getId(), 3);
 			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
 				guardar = false;
 				util.mostrarErrorKey("cotizacion.cliente.ya.existe");
@@ -334,6 +334,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
              		detCotizacion.setValor(valorCotizacion);
              		
              		listaDetCotizacion.add(detCotizacion);
+             		
+             		cotizacion.setDetalleCotizacions(listaDetCotizacion);
 			}
 		
 	
@@ -365,10 +367,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	}
 
 	
-	public void onconsultaCliente(String identif) { 
-		cliente = getUsuarioService().consultaIdentificacion(identif, usuario.getEmpresa().getId(), 3);
-		if (cliente.getNombre() != null) {
+	public void onconsultaCliente(String tipoIdentif, String identif) { 
+		cliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 3);
+		if (cliente != null) {
 			cotizacion.setUsuarioByClienteId(cliente);
+			cotizacion.setUsuarioByRemitenteId(cliente);
 		}
 		else {
 			Rol rol = new Rol();
@@ -383,6 +386,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			cotizacion.getUsuarioByClienteId().setId(0);
 			cotizacion.getUsuarioByClienteId().setRol(rol);
 		}
+		
+	}
+	
+	public void guardar2() {
 		
 	}
 		

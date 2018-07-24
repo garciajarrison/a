@@ -2,7 +2,9 @@ package co.com.avaluo.model.entity;
 // Generated 16/07/2018 09:00:49 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +29,7 @@ public class Estrato implements java.io.Serializable {
 	private String nombre;
 	private BigDecimal valor;
 	private BigDecimal porcentaje;
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>();
 
 	public Estrato() {
 	}
@@ -40,7 +42,7 @@ public class Estrato implements java.io.Serializable {
 	}
 
 	public Estrato(int id, Empresa empresa, String nombre, BigDecimal valor, BigDecimal porcentaje,
-			Set<Propiedad> propiedads) {
+			List<Propiedad> propiedads) {
 		this.id = id;
 		this.empresa = empresa;
 		this.nombre = nombre;
@@ -98,11 +100,11 @@ public class Estrato implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "estrato")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 
