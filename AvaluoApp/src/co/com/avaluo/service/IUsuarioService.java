@@ -20,7 +20,7 @@ public interface IUsuarioService {
 
 	Usuario login(Usuario usuario);
 
-	Usuario consultaIdentificacion(String identificacion, int id, int rol_Id);
+	Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id);
 
 	Licencia cargarLicenciaActual(Usuario usuario);
 

@@ -11,10 +11,10 @@
 		<h1>#{msg['cotizacion']}</h1>
 		<br />
 		
-			<p:commandButton value="Nueva" id="btnNuevo" update="growl"  styleClass="ui-priority-primary" >
+			<p:commandButton value="#{msg['cotizacion.btn.nueva']}" id="btnNuevo" update="growl"  styleClass="ui-priority-primary" >
 				<p:ajax event="click" listener="#{cotizacionAdmBB.nuevaCotizacion}"/>
 			</p:commandButton>
-			<p:commandButton value="Consulta" id="btnConsulta" update="growl"  styleClass="ui-priority-primary" />
+			<p:commandButton value="#{msg['cotizacion.btn.consulta']}" id="btnConsulta" update="growl"  styleClass="ui-priority-primary" />
 			<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
 			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText>
 		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}" backLabel="Regresar" nextLabel="Siguiente" >
@@ -28,7 +28,7 @@
 			        	</p:selectOneMenu> 
 				 		<p:outputLabel id="lIdentificacion" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacion"></p:outputLabel>
 				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="@this" ></p:ajax>
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="@this" ></p:ajax>
 				   		</p:inputText>
 				   		<p:outputLabel id="lName" value="#{msg['cotizacion.nombre']}" for="txtName"></p:outputLabel>
 				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}"></p:inputText>  		
@@ -149,7 +149,7 @@
 						    </p:column>
 						    
 						    <p:column headerText="#{msg['cotizacion.ciudad']}">
-						        <h:outputText value="#{detalle.id.valor}" />
+						        <h:outputText value="#{detalle.valor}" />
 						    </p:column>						    
 						    
 						     
@@ -157,9 +157,13 @@
 						</p:dataTable>	
 					
 				</h:panelGrid>        
-         		<p:commandButton value="#{msg['btn.agregar']}" type="button"  >	          				          		
+         		<p:commandButton value="#{msg['cotizacion.btn.calcular']}" type="button"  >	          				          		
 					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update="infResult"/>
 				</p:commandButton>
+				<p:commandButton value="#{msg['btn.guardar']}" type="button"  >	          				          		
+					 <p:ajax  listener="#{cotizacionAdmBB.guardar}"  process="@all" update="infResult"/>
+				</p:commandButton>
+				
 				</p:panel>
 	        </p:tab>
 	              

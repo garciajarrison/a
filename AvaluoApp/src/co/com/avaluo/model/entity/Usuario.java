@@ -1,8 +1,10 @@
 package co.com.avaluo.model.entity;
 // Generated 13/07/2018 10:29:45 PM by Hibernate Tools 4.0.1.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -44,10 +46,10 @@ public class Usuario implements java.io.Serializable {
 	private boolean estado;
 	private String lenguaje;
 	private String profesion;
-	private Set<Contacto> contactos = new HashSet<Contacto>(0);
-	private Set<Cotizacion> cotizacionsForRemitenteId = new HashSet<Cotizacion>(0);
-	private Set<Cotizacion> cotizacionsForClienteId = new HashSet<Cotizacion>(0);
-	private Set<Propiedad> propiedads = new HashSet<Propiedad>(0);
+	private List<Contacto> contactos = new ArrayList<Contacto>();
+	private List<Cotizacion> cotizacionsForRemitenteId = new ArrayList<Cotizacion>(0);
+	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>(0);
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>(0);
 
 	public Usuario() {
 	}
@@ -61,8 +63,8 @@ public class Usuario implements java.io.Serializable {
 
 	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
-			boolean estado, String lenguaje, String profesion, Set<Contacto> contactos, Set<Cotizacion> cotizacionsForRemitenteId,
-			Set<Cotizacion> cotizacionsForClienteId, Set<Propiedad> propiedads) {
+			boolean estado, String lenguaje, String profesion, List<Contacto> contactos, List<Cotizacion> cotizacionsForRemitenteId,
+			List<Cotizacion> cotizacionsForClienteId, List<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
@@ -227,40 +229,40 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
-	public Set<Contacto> getContactos() {
+	public List<Contacto> getContactos() {
 		return this.contactos;
 	}
 
-	public void setContactos(Set<Contacto> contactos) {
+	public void setContactos(List<Contacto> contactos) {
 		this.contactos = contactos;
 	}
 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioByRemitenteId")
-	public Set<Cotizacion> getCotizacionsForRemitenteId() {
+	public List<Cotizacion> getCotizacionsForRemitenteId() {
 		return this.cotizacionsForRemitenteId;
 	}
 
-	public void setCotizacionsForRemitenteId(Set<Cotizacion> cotizacionsForRemitenteId) {
+	public void setCotizacionsForRemitenteId(List<Cotizacion> cotizacionsForRemitenteId) {
 		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
 	}
 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioByClienteId")
-	public Set<Cotizacion> getCotizacionsForClienteId() {
+	public List<Cotizacion> getCotizacionsForClienteId() {
 		return this.cotizacionsForClienteId;
 	}
 
-	public void setCotizacionsForClienteId(Set<Cotizacion> cotizacionsForClienteId) {
+	public void setCotizacionsForClienteId(List<Cotizacion> cotizacionsForClienteId) {
 		this.cotizacionsForClienteId = cotizacionsForClienteId;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
-	public Set<Propiedad> getPropiedads() {
+	public List<Propiedad> getPropiedads() {
 		return this.propiedads;
 	}
 
-	public void setPropiedads(Set<Propiedad> propiedads) {
+	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
 	}
 
