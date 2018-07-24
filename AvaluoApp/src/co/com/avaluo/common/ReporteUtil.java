@@ -31,13 +31,26 @@ public class ReporteUtil {
 		return parrafo;
 	}
 	
-	public Paragraph addTextoNegritaTexto(String textoNegrita, String texto, Font bold, Font normal, int align, int espacios) {
+	public Paragraph addTextoNegritaTexto(String texto1, String texto2, Font font1, Font font2, int align, int espacios) {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
 		Paragraph contenido = new Paragraph();
 		contenido.setAlignment(align);
-		contenido.add(new Chunk(textoNegrita+" ", bold));
-		contenido.add(new Chunk(texto, normal));
+		contenido.add(new Chunk(texto1+" ", font1));
+		contenido.add(new Chunk(texto2, font2));
+		parrafo.add(contenido);
+        return parrafo;
+	}
+	
+	public Element addTextoNegritaTexto(String texto1, String texto2, String texto3, Font font1, Font font2,
+													Font font3, int align, int espacios) {
+		Paragraph parrafo = new Paragraph();
+		parrafo.add(addEmptyLine(espacios));
+		Paragraph contenido = new Paragraph();
+		contenido.setAlignment(align);
+		contenido.add(new Chunk(texto1+" ", font1));
+		contenido.add(new Chunk(texto2+" ", font2));
+		contenido.add(new Chunk(texto3, font3));
 		parrafo.add(contenido);
         return parrafo;
 	}
@@ -79,21 +92,25 @@ public class ReporteUtil {
 		
 		for(ReporteLista binneta: binnetas) {
 			
-			list.add(binneta.getContenido());
-			listContenido = new com.itextpdf.text.List();
-			listContenido.setListSymbol("\u2022");
-			
-			for(String contenido: binneta.getContenidos()) {
-				itemContenido = new com.itextpdf.text.ListItem(contenido, binneta.getFontContenido());
-				itemContenido.setAlignment(Element.ALIGN_JUSTIFIED);
-				listContenido.add(itemContenido);
+			list.add(new com.itextpdf.text.ListItem(30, binneta.getContenido(), binneta.getFontTitulo()));
+			if (binneta.getContenidos() != null) {
+				listContenido = new com.itextpdf.text.List();
+				listContenido.setListSymbol("\u2022");
+				
+				for(String contenido: binneta.getContenidos()) {
+					itemContenido = new com.itextpdf.text.ListItem(" " + contenido, binneta.getFontContenido());
+					itemContenido.setAlignment(Element.ALIGN_JUSTIFIED);
+					itemContenido.setLeading(25f);
+				//	Paragraph parrafo = new Paragraph();
+				//	parrafo.SetLeading(fixed, multiplied);
+					listContenido.add(itemContenido);
+				}
+				listContenido.setIndentationLeft(30);
+				list.add(listContenido);
 			}
-			listContenido.setIndentationLeft(30);
-			list.add(listContenido);
 		}
 		
 		return list;
 	}
-	
 
 }

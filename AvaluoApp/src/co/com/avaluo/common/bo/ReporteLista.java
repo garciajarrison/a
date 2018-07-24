@@ -9,25 +9,26 @@ import com.itextpdf.text.Font;
 public class ReporteLista implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Element contenido;
+	private String contenido;
 	private List<String> contenidos;
 	private Font fontTitulo;
 	private Font fontContenido;
 	
-	public ReporteLista(Element contenido) {
+	public ReporteLista(String contenido) {
 		this.contenido = contenido;
 	}
 	
-	public ReporteLista(Element contenido, List<String> contenidos, Font fontContenido) {
+	public ReporteLista(String contenido, Font fontTitulo, List<String> contenidos, Font fontContenido) {
 		this.contenido = contenido;
 		this.contenidos = contenidos;
 		this.fontContenido = fontContenido;
+		this.fontTitulo = fontTitulo;
 	}
 
-	public Element getContenido() {
+	public String getContenido() {
 		return contenido;
 	}
-	public void setContenido(Element contenido) {
+	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
 	public List<String> getContenidos() {
