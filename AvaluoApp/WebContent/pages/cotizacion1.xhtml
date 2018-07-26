@@ -17,7 +17,7 @@
 			<p:commandButton value="#{msg['cotizacion.btn.consulta']}" id="btnConsulta" update="growl"  styleClass="ui-priority-primary" />
 			<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
 			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText>
-		<p:wizard flowListener="#{cotizacionAdmBB.onFlowProcess}" backLabel="Regresar" nextLabel="Siguiente"  >
+		<p:accordionPanel multiple="true">
 	        <p:tab title="#{msg['cotizacion.tab.cliente']}">
 	          	<p:panel id="infCLie" style="background:none;" >
 	          	 <p:messages />
@@ -50,12 +50,12 @@
    				</p:panel>
 	        </p:tab>
 	        <p:tab title="#{msg['cotizacion.tab.Propiedad']}">
-	          	<p:panel >
+	          	<p:panel id="jnfProp">
 	          	
 	          		<h2>#{msg['cotizacion.lista']}</h2>
 	          		<h:panelGrid columns="1" columnClasses="label, value">
 	          			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgPropiedad').show();" >	          				          		
-							 <p:ajax event="click" listener="#{cotizacionAdmBB.limpiarPropiedad}"  process="@all"/>
+							 <p:ajax event="click" listener="#{cotizacionAdmBB.limpiarPropiedad}"  process="jnfProp"/>
 						</p:commandButton>
 	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" selectionMode="single" 
 								selection="#{cotizacionAdmBB.selectedPropiedad}"  rowKey="#propiedad.id}"
@@ -109,7 +109,7 @@
 				 		<p:outputLabel id="lIdentificacionR" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacionR"></p:outputLabel>
 				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
 				   					 required="true">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
 				   		</p:inputText>
 				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR"></p:outputLabel>
 				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true"></p:inputText>  		
@@ -169,7 +169,7 @@
 				</p:panel>
 	        </p:tab>
 	              
-    	</p:wizard>  
+    	</p:accordionPanel>  
 
 		<p:dialog header="#{msg['cotizacion.dialog.Propiedad']}" id="dlgPropiedad" widgetVar="dlgPropiedad" minHeight="40">
 				<h:panelGrid columns="2" columnClasses="label, value">
