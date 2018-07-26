@@ -49,18 +49,19 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
 					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
 					Util.getInstance().cambiarIdioma(usuario.getLenguaje());
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido!", usuario.getNombre()));  
+					Util.getInstance().mostrarMensajeKey(Util.getInstance().getMessage("login.bienvenido"),  usuario.getNombre());
+					//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Util.getInstance().getMessage("bienvenido"), usuario.getNombre()));  
 					Util.getInstance().redirect("home.xhtml");
 				}else {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "La licencia expiro, por favor comuníquese con la entidad.", "")); 
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.licencia.expiro"), "")); 
 				}
 			} else{
 				usuario = new Usuario();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", ""));  
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.datos.incorrectos"), ""));  
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos de ingreso incorrectos", "")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.datos.incorrectos"), "")); 
 		} 	
 	}
 	
