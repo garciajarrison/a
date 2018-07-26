@@ -3,8 +3,6 @@ package co.com.avaluo.controller;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,6 @@ import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.DetalleCotizacion;
-
 import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;

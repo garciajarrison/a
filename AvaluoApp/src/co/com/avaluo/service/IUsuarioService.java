@@ -22,7 +22,13 @@ public interface IUsuarioService {
 
 	Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id);
 
-	Licencia cargarLicenciaActual(Usuario usuario);
+	void bloquearCuenta(String correo);
+
+	void actualizarUltimaConn(Licencia licencia);
+
+	void cambiarClave(String correo, String clave);
+
+	Usuario consultarUsuarioPorCorreo(String correo);
 
 	
 }

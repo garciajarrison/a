@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IEmpresaDAO;
 import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Estrato;
-import co.com.avaluo.model.entity.Usuario;
 
 @Service
 @Transactional(readOnly = true)

@@ -16,34 +16,36 @@ public class EnviarCorreoUtil {
 	private Properties mailServerProperties;
 	private Session getMailSession;
 	private MimeMessage generateMailMessage;
- 
-	public void generateAndSendEmail() throws AddressException, MessagingException {
+	
+	public EnviarCorreoUtil() {
 		
-		System.setProperty("java.net.preferIPv6Addresses" , "true");
-		System.out.println("\n 1st ===> setup Mail Server Properties..");
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.auth", "true");
 		mailServerProperties.put("mail.smtp.starttls.enable", "true");
 		mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
 		mailServerProperties.put("mail.smtp.port", "587");
-		//mailServerProperties.put("java.net.preferIPv4Stack", "true");
+	}
+ 
+	public void generateAndSendEmail(String para, String copia, String asunto, String mensaje) throws AddressException, MessagingException {
 		
-		System.out.println("Mail Server Properties have been setup successfully..");
+		Util util = Util.getInstance();
+		//mailServerProperties.put("java.net.preferIPv4Stack", "true");
+		//System.setProperty("java.net.preferIPv6Addresses" , "true");
  
 		System.out.println("\n\n 2nd ===> get Mail Session..");
 		getMailSession = Session.getDefaultInstance(mailServerProperties,    
 		           new javax.mail.Authenticator() {    
 	           protected PasswordAuthentication getPasswordAuthentication() {    
-	           return new PasswordAuthentication("garciajarrison@gmail.com","AsdfqweR58");  
+	           return new PasswordAuthentication(util.getMessage("avalsoft.correo"),util.getMessage("avalsoft.clave.correo"));  
 	           }    
 	          }); 
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
-		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("garciajarrison@gmail.com"));
-		//generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("test2@crunchify.com"));
-		generateMailMessage.setSubject("hey q mas estoy enviando un correo.");
-		String emailBody = "aqui una prueba ome. " + "<br><br> bien gracias, <br>Crunchify Admin";
-		generateMailMessage.setContent(emailBody, "text/html");
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
+		if(copia != null && !"".equals(copia))
+			generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(copia));
+		generateMailMessage.setSubject(asunto);
+		generateMailMessage.setContent(mensaje, "text/html");
 		System.out.println("Mail Session has been created successfully..");
  
 		// Step3

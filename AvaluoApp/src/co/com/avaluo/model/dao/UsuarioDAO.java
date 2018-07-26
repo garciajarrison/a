@@ -13,6 +13,7 @@ import co.com.avaluo.model.entity.Usuario;
 
 @Repository
 public class UsuarioDAO implements IUsuarioDAO {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -26,7 +27,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	public Usuario login(Usuario users) {
 		Session session = getSessionFactory().getCurrentSession();
-		return (Usuario)session.createQuery("from Usuario where correo=? and contrasena = ?")
+		return (Usuario)session.createQuery("from Usuario where correo=? and contrasena = ? and estado = true")
 				.setParameter(0, users.getCorreo())
 				.setParameter(1, users.getContrasena())
 				.uniqueResult();
@@ -75,33 +76,36 @@ public class UsuarioDAO implements IUsuarioDAO {
 				.uniqueResult();
 	}
 
-	public Licencia cargarLicenciaActual(Usuario usuario) {
-		Licencia retorno;
-		Session session = getSessionFactory().getCurrentSession();
-		
-		StringBuilder hql = new StringBuilder("select l from Licencia l ")
-				.append(" where l.empresa = :empresaId ")
-				.append(" and l.empresa.usuarios = :usuarioId ")
-				.append(" and l.fechaExpiracion >= current_date ");
-				
-		retorno = (Licencia)session
-				.createQuery(hql.toString())
-				.setParameter("empresaId", usuario.getEmpresa().getId())
-				.setParameter("usuarioId", usuario.getId())
-				.uniqueResult();
-				
-		if(retorno != null) {
-			actualizarUltimaConn(retorno);
-		}
-		
-		return retorno;
-	}
-	
-	private void actualizarUltimaConn(Licencia licencia) {
+	public void actualizarUltimaConn(Licencia licencia) {
 		Session session = getSessionFactory().getCurrentSession();
 		licencia.setFechaUltimaConn(new Date());
-		session.delete(licencia);
+		session.update(licencia);
 	}
+
+	public void bloquearCuenta(String correo) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.createQuery("update Usuario set estado = false where correo = :correo")
+			.setParameter("correo", correo).executeUpdate();
+		
+	}
+
+	public void cambiarClave(String correo, String clave) {
+		Session session = getSessionFactory().getCurrentSession();
+		Usuario usr = consultarUsuarioPorCorreo(correo);
+		if(usr != null) {
+			usr.setContrasena(clave);
+			session.update(usr);
+		}
+	}
+
+	public Usuario consultarUsuarioPorCorreo(String correo) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (Usuario) session
+				.createQuery("from Usuario u where u.correo = :correo and u.estado = true")
+				.setParameter("correo", correo)
+				.uniqueResult();
+	}
+
 
 
 }

@@ -1,17 +1,21 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.Date;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.common.EnumSessionAttributes;
+import co.com.avaluo.common.EnviarCorreoUtil;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
@@ -25,16 +29,37 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 	private static final long serialVersionUID = 1L;
 	private IUsuarioService usuarioService;
 	private IEmpresaService empresaService;
+	private boolean mostrarRecuperarClave;
+	private boolean mostrarCambiarClave;
+	private String clave;
+	private String confirClave;
+	private Integer codigoPrivado;
+	private Integer codigo;
+	private int intentos;
 	
 	private Usuario usuario = new Usuario();
 	
 	public LoginBB() {
+		resetCampos();
 		cerrarSession();
+	}
+	
+	private void resetCampos() {
+		intentos = 0;
+		mostrarCambiarClave = false;
+		mostrarRecuperarClave = false;
+		usuario.setContrasena("");
 	}
 
 	public void login() {
+		
+		Util util = Util.getInstance();
+		
 		try {
+			String claveEncript = Util.getInstance().encriptarClave(usuario.getContrasena());
+			usuario.setContrasena(claveEncript);
 			usuario = this.getUsuarioService().login(usuario);
+			usuario.setContrasena("");
 			if(usuario != null) {
 				
 				//Validamos la licencia
@@ -46,30 +71,112 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 				}
 				
 				if(licenciaActual != null) {
-					Util.getInstance().setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
-					Util.getInstance().setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
-					Util.getInstance().cambiarIdioma(usuario.getLenguaje());
-					Util.getInstance().mostrarMensajeKey(Util.getInstance().getMessage("login.bienvenido"),  usuario.getNombre());
-					//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, Util.getInstance().getMessage("bienvenido"), usuario.getNombre()));  
-					Util.getInstance().redirect("home.xhtml");
+					this.getUsuarioService().actualizarUltimaConn(licenciaActual);
+					util.setSessionAttribute(EnumSessionAttributes.LICENCIA, licenciaActual);
+					util.setSessionAttribute(EnumSessionAttributes.USUARIO, usuario);
+					util.cambiarIdioma(usuario.getLenguaje());
+					util.mostrarMensajeKeyRedirect("login.bienvenido",true , usuario.getNombre());
+					util.redirect("home.xhtml");
 				}else {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.licencia.expiro"), "")); 
+					util.mostrarErrorKey("login.licencia.expiro");
 				}
 			} else{
-				usuario = new Usuario();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.datos.incorrectos"), ""));  
+				util.mostrarErrorKey("login.datos.incorrectos");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, Util.getInstance().getMessage("login.datos.incorrectos"), "")); 
+			util.mostrarErrorKey("login.datos.incorrectos");
 		} 	
+	}
+	
+	public void enviarCodigo() {
+		
+		EnviarCorreoUtil envCorreo = new EnviarCorreoUtil();
+		Util util = Util.getInstance();
+		
+		try {
+			if(usuario.getCorreo() == null || "".equals(usuario.getCorreo())) {
+				util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("login.correo"));
+			}else {
+				//envia el codigo solo si existe un usuario con el correo diligenciado
+				Usuario tmp = this.getUsuarioService().consultarUsuarioPorCorreo(usuario.getCorreo());
+				if(tmp != null) {
+				
+					SecureRandom sr = null;
+					try {
+					    sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
+					    sr.nextBytes(new byte[1]);
+					    byte[] b = new byte[20];
+					    sr.setSeed(b);
+					    // Alternativamente se puede usar un long para resembrar
+					    sr.setSeed(System.currentTimeMillis());
+					    codigoPrivado = sr.nextInt(1000000);
+					   
+					    // para garantizar el caracter aleatorio generemos una nueva semilla
+					} catch (NoSuchAlgorithmException e) {
+					    e.printStackTrace();
+					} catch (NoSuchProviderException e) {
+					    e.printStackTrace();
+					} 
+					
+					/* TODO descomentar y provar en el servidor
+					 envCorreo.generateAndSendEmail(usuario.getCorreo(), null, 
+								util.getMessage("avalsoft.correo.recuperar.clave.asunto"), 
+								util.getMessage("avalsoft.correo.recuperar.clave.contenido", codigoPrivado));*/
+					
+					util.mostrarMensajeKey("login.exito.eviando.codigo");
+					this.mostrarRecuperarClave = true;
+				}else {
+					util.mostrarErrorKey("login.usuario.no.existe");
+					this.resetCampos();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			util.mostrarErrorKey("login.error.eviando.codigo");
+		}
+	}
+	
+	public void verificarCodigo() {
+		try {
+			if(codigo == codigoPrivado) {
+				mostrarCambiarClave = true;
+			}else {
+				intentos++;
+				validarBloqueo();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void validarBloqueo() {
+		if(intentos >= 3) {
+			this.getUsuarioService().bloquearCuenta(usuario.getCorreo());
+			Util.getInstance().mostrarErrorKey("login.bloqueo.cuenta");
+			resetCampos();
+		}
+	}
+	
+	public void cambiarClave() {
+		try {
+			if(clave.equals(confirClave)) {
+				String claveEncript = Util.getInstance().encriptarClave(clave);
+				this.getUsuarioService().cambiarClave(usuario.getCorreo(), claveEncript);
+				Util.getInstance().mostrarMensajeKey("login.cambio.clave.exito");
+				resetCampos();
+			}else {
+				Util.getInstance().mostrarErrorKey("login.cambio.clave.error");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void cerrarSession() {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		}catch(Exception e) {
-		}
+		}catch(Exception e) {}
 	}
 	
 	public IUsuarioService getUsuarioService() {
@@ -96,6 +203,30 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public boolean isMostrarRecuperarClave() {
+		return mostrarRecuperarClave;
+	}
+
+	public void setMostrarRecuperarClave(boolean mostrarRecuperarClave) {
+		this.mostrarRecuperarClave = mostrarRecuperarClave;
+	}
+
+	public boolean isMostrarCambiarClave() {
+		return mostrarCambiarClave;
+	}
+
+	public void setMostrarCambiarClave(boolean mostrarCambiarClave) {
+		this.mostrarCambiarClave = mostrarCambiarClave;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 	
  }
