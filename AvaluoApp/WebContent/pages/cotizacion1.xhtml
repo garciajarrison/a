@@ -49,6 +49,39 @@
 		   			</h:panelGrid>
    				</p:panel>
 	        </p:tab>
+	        <p:tab title="#{msg['cotizacion.tab.remitente']}">
+				<p:panel id="infRemit" style="background:none;" >
+	          		<h:panelGrid columns="2" columnClasses="label, value">
+				   		<p:outputLabel id="tipoIdenR" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdentR"></p:outputLabel>
+				   		<p:selectOneMenu id="selTipoIdentR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento}" style="width:125px">
+				            <f:selectItem itemLabel="Seleccione" itemValue="" />
+				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
+			        	</p:selectOneMenu> 
+				 		<p:outputLabel id="lIdentificacionR" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacionR"></p:outputLabel>
+				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
+				   					 required="true">
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
+				   		</p:inputText>
+				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR"></p:outputLabel>
+				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true"></p:inputText>  		
+				   		 
+			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR"></p:outputLabel>
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" required="true"></p:inputText>  		
+			 	   		<p:outputLabel id="lCelularR" value="#{msg['cotizacion.celular']}" for="txtCelularR"></p:outputLabel>
+				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" required="true"></p:inputText>  		
+			 	   		<p:outputLabel id="lAddressR" value="#{msg['cotizacion.direccion']}" for="txtAddressR"></p:outputLabel>
+				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" required="true"></p:inputText>  		
+			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR"></p:outputLabel>
+				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" required="true"></p:inputText>  		
+				   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
+				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente}" process="@all"/>
+				   		</p:commandButton>
+				   		
+		   			</h:panelGrid>
+   				</p:panel>	        
+	        
+	        </p:tab>
+	        
 	        <p:tab title="#{msg['cotizacion.tab.Propiedad']}">
 	          	<p:panel id="jnfProp">
 	          	
@@ -97,38 +130,6 @@
 			    </p:panel>
 			    
 			    
-	        </p:tab>
-	        <p:tab title="#{msg['cotizacion.tab.remitente']}">
-				<p:panel id="infRemit" style="background:none;" >
-	          		<h:panelGrid columns="2" columnClasses="label, value">
-				   		<p:outputLabel id="tipoIdenR" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdentR"></p:outputLabel>
-				   		<p:selectOneMenu id="selTipoIdentR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento}" style="width:125px">
-				            <f:selectItem itemLabel="Seleccione" itemValue="" />
-				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
-			        	</p:selectOneMenu> 
-				 		<p:outputLabel id="lIdentificacionR" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacionR"></p:outputLabel>
-				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
-				   					 required="true">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
-				   		</p:inputText>
-				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR"></p:outputLabel>
-				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true"></p:inputText>  		
-				   		 
-			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR"></p:outputLabel>
-				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" required="true"></p:inputText>  		
-			 	   		<p:outputLabel id="lCelularR" value="#{msg['cotizacion.celular']}" for="txtCelularR"></p:outputLabel>
-				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" required="true"></p:inputText>  		
-			 	   		<p:outputLabel id="lAddressR" value="#{msg['cotizacion.direccion']}" for="txtAddressR"></p:outputLabel>
-				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" required="true"></p:inputText>  		
-			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR"></p:outputLabel>
-				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" required="true"></p:inputText>  		
-				   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
-				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente}" process="@all"/>
-				   		</p:commandButton>
-				   		
-		   			</h:panelGrid>
-   				</p:panel>	        
-	        
 	        </p:tab>
 	        <p:tab title="#{msg['cotizacion.tab.resultado']}">
 				<p:panel id="infResult" style="background:none;" >

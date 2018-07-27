@@ -1,6 +1,7 @@
 package co.com.avaluo.model.entity;
 // Generated 16/07/2018 08:18:17 PM by Hibernate Tools 4.0.1.Final
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TipoPropiedad implements java.io.Serializable {
 	private Empresa empresa;
 	private String tipoPropiedad;
 	private String tipoVivienda;
-	private Double incremento;
+	private BigDecimal incremento;
 	private List<Propiedad> propiedads = new ArrayList<Propiedad>(0);
 
 	public TipoPropiedad() {
@@ -37,7 +38,7 @@ public class TipoPropiedad implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	public TipoPropiedad(int id, Empresa empresa, String tipoPropiedad, String tipoVivienda, Double incremento,
+	public TipoPropiedad(int id, Empresa empresa, String tipoPropiedad, String tipoVivienda, BigDecimal incremento,
 			List<Propiedad> propiedads) {
 		this.id = id;
 		this.empresa = empresa;
@@ -87,11 +88,11 @@ public class TipoPropiedad implements java.io.Serializable {
 	}
 
 	@Column(name = "incremento", precision = 17, scale = 17)
-	public Double getIncremento() {
+	public BigDecimal getIncremento() {
 		return this.incremento;
 	}
 
-	public void setIncremento(Double incremento) {
+	public void setIncremento(BigDecimal incremento) {
 		this.incremento = incremento;
 	}
 

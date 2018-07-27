@@ -1,10 +1,11 @@
 package co.com.avaluo.model.entity;
-// Generated 17/07/2018 09:50:42 PM by Hibernate Tools 4.0.1.Final
+// Generated 22/07/2018 11:53:51 AM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,25 +32,24 @@ public class Tablas implements java.io.Serializable {
 	private BigDecimal conversion;
 	private BigDecimal base;
 	private BigDecimal gastos;
-	private boolean estado = true;
+	private Boolean estado;
 	private String uom;
 	private String uomAlt;
 	private Long diasDeTrabajo;
 	private Long minimo;
-	private List<Propiedad> propiedads = new  ArrayList<Propiedad>();
-	private List<DetalleTabla> detalleTablas = new  ArrayList<DetalleTabla>();
+	private List<Propiedad> propiedads = new ArrayList<Propiedad>();
+	private List<DetalleTabla> detalleTablas = new ArrayList<DetalleTabla>();
 
 	public Tablas() {
 	}
 
-	public Tablas(int id, Empresa empresa, boolean estado) {
+	public Tablas(int id, Empresa empresa) {
 		this.id = id;
 		this.empresa = empresa;
-		this.estado = estado;
 	}
 
 	public Tablas(int id, Empresa empresa, String tipo, String nombre, BigDecimal conversion, BigDecimal base,
-			BigDecimal gastos, boolean estado, String uom, String uomAlt, Long diasDeTrabajo, Long minimo,
+			BigDecimal gastos, Boolean estado, String uom, String uomAlt, Long diasDeTrabajo, Long minimo,
 			List<Propiedad> propiedads, List<DetalleTabla> detalleTablas) {
 		this.id = id;
 		this.empresa = empresa;
@@ -78,7 +78,7 @@ public class Tablas implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;
@@ -134,11 +134,11 @@ public class Tablas implements java.io.Serializable {
 	}
 
 	@Column(name = "estado")
-	public boolean isEstado() {
+	public Boolean getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -188,11 +188,8 @@ public class Tablas implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tablas")
-	@OrderBy(value = "desde ASC")
+	@OrderBy(value="desde ASC")
 	public List<DetalleTabla> getDetalleTablas() {
-		if(detalleTablas == null) {
-			detalleTablas = new ArrayList<>();
-		}
 		return this.detalleTablas;
 	}
 
