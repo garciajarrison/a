@@ -22,6 +22,12 @@ public interface IUsuarioDAO {
 	
 	Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id);
 
-	Licencia cargarLicenciaActual(Usuario usuario);
+	void actualizarUltimaConn(Licencia licencia);
+
+	void bloquearCuenta(String correo);
+
+	void cambiarClave(String correo, String clave);
+
+	Usuario consultarUsuarioPorCorreo(String correo);
 
 }

@@ -3,7 +3,6 @@ package co.com.avaluo.common.bo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 
 public class ReporteLista implements Serializable{

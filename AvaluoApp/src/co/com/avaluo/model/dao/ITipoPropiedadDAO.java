@@ -2,7 +2,6 @@ package co.com.avaluo.model.dao;
 
 import java.util.List;
 
-import co.com.avaluo.model.entity.Propiedad;
 import co.com.avaluo.model.entity.TipoPropiedad;
 
 

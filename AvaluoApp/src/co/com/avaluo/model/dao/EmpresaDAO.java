@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Usuario;
 
 @Repository
 public class EmpresaDAO implements IEmpresaDAO {

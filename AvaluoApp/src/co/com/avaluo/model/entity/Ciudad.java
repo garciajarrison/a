@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Formula;
-
 @Entity
 @Table(name = "ciudad", schema = "avalsoft")
 public class Ciudad implements java.io.Serializable {

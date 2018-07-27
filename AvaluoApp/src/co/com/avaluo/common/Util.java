@@ -187,12 +187,21 @@ public class Util {
         return format.format(arguments);
     }
 	
+	public void mostrarErrorKeyRedirect(String key, boolean aceptRedirect, String... params) {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(aceptRedirect);
+		mostrarError(getMessage(key, params));
+	}
 	public void mostrarErrorKey(String key, String... params) {
 		mostrarError(getMessage(key, params));
 	}
 	
 	private void mostrarError(String mensaje) {
 		this.mostrarMsgGeneral(mensaje, FacesMessage.SEVERITY_ERROR);
+	}
+	
+	public void mostrarMensajeKeyRedirect(String key, boolean aceptRedirect, String... params) {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(aceptRedirect);
+		mostrarMensajeKey(key, params);
 	}
 	
 	public void mostrarMensajeKey(String key, String... params) {
@@ -205,6 +214,10 @@ public class Util {
 	
 	private void mostrarMsgGeneral(String mensaje, FacesMessage.Severity severidad) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, mensaje, ""));  
+	}
+
+	public String encriptarClave(String clave) {
+		return clave;
 	}
 
 }
