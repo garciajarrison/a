@@ -29,7 +29,7 @@
 			        	</p:selectOneMenu> 
 				 		<p:outputLabel id="lIdentificacion" value="#{msg['cotizacion.identificacion']}" for="txtIdentificacion"></p:outputLabel>
 				   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}">
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="@this" ></p:ajax>
+				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie,infRemit" ></p:ajax>
 				   		</p:inputText>
 				   		<p:outputLabel id="lName" value="#{msg['cotizacion.nombre']}" for="txtName"></p:outputLabel>
 				   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}"></p:inputText>  		

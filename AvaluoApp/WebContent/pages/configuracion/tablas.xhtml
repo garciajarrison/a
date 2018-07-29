@@ -81,17 +81,17 @@
 			 
 			    <p:column headerText="#{msg['tabla.desde']}" sortBy="#{tables.desde}" filterBy="#{tables.desde}" filterMatchMode="contains">
 			        <h:outputText value="#{detalle.desde}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        	<f:convertNumber pattern="###,###"  />	
 			        </h:outputText>
 			    </p:column>		 
 			    <p:column headerText="#{msg['tabla.hasta']}" sortBy="#{tables.hasta}" filterBy="#{tables.hasta}" filterMatchMode="contains">
 			        <h:outputText value="#{detalle.hasta}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        	<f:convertNumber pattern="###,###"  />	
 			        </h:outputText>
 			    </p:column>
 			    <p:column headerText="#{msg['tabla.porcentaje.aplicar']}" sortBy="#{tables.porcentajeAplicar}" filterBy="#{tables.porcentajeAplicar}" filterMatchMode="contains">
-			        <h:outputText value="#{detalle.porcentajeAplicar}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        <h:outputText value="%#{detalle.porcentajeAplicar}" >
+			        	<f:convertNumber pattern="#0.000" minFractionDigits="2" />	
 			        </h:outputText>
 			    </p:column>
 			    
