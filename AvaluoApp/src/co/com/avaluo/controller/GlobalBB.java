@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import co.com.avaluo.common.EnumLenguajes;
@@ -23,23 +23,31 @@ public class GlobalBB implements Serializable {
 	private Usuario usuario;
 	private Licencia licencia;
 	private Locale locale;
-	private Util util = Util.getInstance();
+	private Util util;
 	
 	//Permisos
 	private boolean configuracion = false;
 	private boolean cotizacion = false;
 	
 	public GlobalBB() {
+		util = Util.getInstance();
 		usuario = (Usuario) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USUARIO);
-		licencia = (Licencia) Util.getInstance().getSessionAttribute(EnumSessionAttributes.LICENCIA);
-		EnumLenguajes lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
-		if(lenguaje == null && usuario != null) {
-			util.cambiarIdioma(usuario.getLenguaje());
-			lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+		if(usuario != null) {
+			licencia = (Licencia) Util.getInstance().getSessionAttribute(EnumSessionAttributes.LICENCIA);
+			EnumLenguajes lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+			if(lenguaje == null && usuario != null) {
+				util.cambiarIdioma(usuario.getLenguaje());
+				lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
+			}
+	    	locale = lenguaje.getLocale();
+	        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+	        cargarPermisos();
 		}
-    	locale = lenguaje.getLocale();
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-        cargarPermisos();
+	}
+	
+	@PostConstruct
+	public void validarSession() {
+		util.validarSession();
 	}
 	
 	public void cargarPermisos() {
@@ -60,11 +68,7 @@ public class GlobalBB implements Serializable {
 	 * @throws IOException 
 	 */
 	public void cerrarSesion() throws IOException {
-		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		ExternalContext extContext = fc.getExternalContext();
-		extContext.redirect(util.getContextPath() + "/login.xhtml");
-		util.cerrarSesionHttp();
+		util.cerrarSesion();
 	}
 
 	public Usuario getUsuario() {

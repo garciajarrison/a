@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
@@ -40,6 +41,11 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoPropiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
 		cargarListaTipoPropiedad();
+	}
+	
+	@PostConstruct
+	public void validarSession() {
+		util.validarSession();
 	}
 	
 	private void cargarListaTipoPropiedad() {

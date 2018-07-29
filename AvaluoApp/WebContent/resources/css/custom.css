@@ -369,7 +369,7 @@ dark,
 }
 
 body {
-    color: #73879C;
+    color: black;
     background: black;
     /*#ECF0F1; #FCFCFC*/
     
@@ -5792,7 +5792,7 @@ form:after {
     height: 1px;
     position: absolute;
     top: 10px;
-    width: 20%;
+    width: 15%;
 }
 .login_content h1:after {
     background: rgb(126,126,126);
@@ -6342,4 +6342,17 @@ ul.notifications {
     color: #E9EDEF;
     float: right;
     opacity: 1;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #b3ae92 !important;
+    background-color: #fffcfc !important;
+    color: #363636 !important;
+}
+
+
+.aval-label{
+	color: #73879d;
+    font-size: 1.2em !important;
+    
 }

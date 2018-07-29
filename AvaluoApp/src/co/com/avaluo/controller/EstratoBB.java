@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
@@ -40,6 +41,11 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		propiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
 		cargarListaEstratos();
+	}
+	
+	@PostConstruct
+	public void validarSession() {
+		util.validarSession();
 	}
 	
 	private void cargarListaEstratos() {

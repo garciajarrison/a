@@ -67,28 +67,73 @@
                 <section class="login_content">
                     <h:form>
                     	<p:growl id="growl" sticky="true" autoUpdate="true" /> 
-                    	<div id="mensaje" class="error" style="font-weight: bold !important;font-weight: bold !important;font-size: 18px;color: red;" align="center"></div>
-                        <h1>#{msg['login']}</h1>
-                        <div>
-		              	 <p:inputText id="IdCorreo" value="#{loginBB.usuario.correo}" required="true" 
-		              	 		title="#{msg['login.correo']}" label="#{msg['login.correo']}"
-		              	 		styleClass="form-control" placeholder="#{msg['login.correo']}"/>
-		              </div>
-		              <div>
-		              	<p:password id="IdClave" value="#{loginBB.usuario.contrasena}" required="true" 
-		              			title="#{msg['login.contrasena']}" label="#{msg['login.contrasena']}"
-		              			styleClass="form-control" placeholder="#{msg['login.contrasena']}"/>
-		              </div>
-		              <div>
-		              	<p:commandButton value="#{msg['login.ingresar']}" actionListener="#{loginBB.login}" 
-		              			styleClass="btn btn-default submit" update="@form"/>
-		              	<p:spacer width="20px" />
-		              	<p:commandButton value="#{msg['login.olvido.clave']}" process="@form"
-		              			actionListener="#{loginBB.enviarCodigo}" immediate="true"
-		              			styleClass="btn btn-default submit" update="@form"/>		
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="separator">
+	                    <div id="mensaje" class="error" style="font-weight: bold !important;font-weight: bold !important;font-size: 18px;color: red;" align="center"></div>
+	                        
+                    	<h:panelGroup rendered="#{!loginBB.mostrarCodigoSeguridad and !loginBB.mostrarCambiarClave}">
+	                    	<h1>#{msg['login']}</h1>
+	                        <div>
+				              	 <p:inputText id="IdCorreo" value="#{loginBB.usuario.correo}" 
+				              	 		title="#{msg['login.correo']}" label="#{msg['login.correo']}"
+				              	 		styleClass="form-control" placeholder="#{msg['login.correo']}"/>
+							</div>
+							<div>
+				              	<p:password id="IdClave" value="#{loginBB.usuario.contrasena}"
+				              			title="#{msg['login.contrasena']}" label="#{msg['login.contrasena']}"
+				              			styleClass="form-control" placeholder="#{msg['login.contrasena']}"/>
+							</div>
+							<div>
+				              	<p:commandButton value="#{msg['btn.ingresar']}" actionListener="#{loginBB.login}" 
+				              			update="@form"/>
+				              	<p:spacer width="20px" />
+				              	<p:commandButton value="#{msg['btn.olvido.clave']}" process="@form"
+				              			actionListener="#{loginBB.enviarCodigo}" update="@form"/>		
+	                       </div>
+                       </h:panelGroup>
+                       
+                       <!-- Validar codigo de seguridad -->
+                       <h:panelGroup rendered="#{loginBB.mostrarCodigoSeguridad and !loginBB.mostrarCambiarClave}">
+                       		<h1>#{msg['login.cambiar.clave']}</h1>
+	                        <div>
+				              	 <p:inputText id="IdCodigoSeguridad" value="#{loginBB.codigo}" 
+				              	 		title="#{msg['login.codigo.seguridad']}" label="#{msg['login.codigo.seguridad']}"
+				              	 		styleClass="form-control" placeholder="#{msg['login.codigo.seguridad']}"/>
+							</div>
+
+							<div>
+				              	<p:commandButton value="#{msg['btn.cancelar']}" actionListener="#{loginBB.resetCampos}" 
+				              			update="@form"/>
+				              	<p:spacer width="20px" />
+				              	<p:commandButton value="#{msg['btn.verificar.codigo']}" process="@form"
+				              			actionListener="#{loginBB.verificarCodigo}" update="@form"/>		
+	                       </div>
+                       </h:panelGroup>
+                       
+                       <!-- Cambiar clave -->
+                       <h:panelGroup rendered="#{loginBB.mostrarCodigoSeguridad and loginBB.mostrarCambiarClave}">
+                       		<h1>#{msg['login.cambiar.clave']}</h1>
+                       		
+	                         <div>
+				              	 <p:password id="IdContrasena" value="#{loginBB.clave}" 
+				              	 		title="#{msg['login.contrasena']}" label="#{msg['login.contrasena']}"
+				              	 		styleClass="form-control" placeholder="#{msg['login.contrasena']}"/>
+							</div>
+							<div>
+				              	<p:password id="IdConfirmContrasena" value="#{loginBB.confirClave}"
+				              			title="#{msg['login.confirma.contrasena']}" label="#{msg['login.confirma.contrasena']}"
+				              			styleClass="form-control" placeholder="#{msg['login.confirma.contrasena']}"/>
+							</div>
+							<div>
+				              	<p:commandButton value="#{msg['btn.cancelar']}" actionListener="#{loginBB.resetCampos}" 
+				              			update="@form"/>
+				              	<p:spacer width="20px" />
+				              	<p:commandButton value="#{msg['btn.cambiar.clave']}" process="@form"
+				              			actionListener="#{loginBB.cambiarClave}" update="@form"/>		
+	                       </div>
+                       </h:panelGroup> 
+                       
+                       
+                       <div class="clearfix"></div>
+                       <div class="separator">
 
                             <div class="clearfix"></div>
                             <br />
