@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -57,6 +58,11 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		mostrarDetalle = false;
 		cargarListaTablas();
 		generarReporteCotizacion();
+	}
+	
+	@PostConstruct
+	public void validarSession() {
+		util.validarSession();
 	}
 	
 	private void cargarListaTablas() {

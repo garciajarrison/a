@@ -14,6 +14,14 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/black-tie -->
+		<dependency>
+		    <groupId>org.primefaces.themes</groupId>
+		    <artifactId>black-tie</artifactId>
+		    <version>1.0.10</version>
+		</dependency>
+
+		
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
 		<dependency>
 		    <groupId>com.itextpdf</groupId>
@@ -105,6 +113,15 @@
             <version>42.2.1</version>
         </dependency>
 	</dependencies>
+	
+	<repositories>
+	    <repository>
+	        <id>prime-repo</id>
+	        <name>PrimeFaces Maven Repository</name>
+	        <url>http://repository.primefaces.org</url>
+	        <layout>default</layout>
+	    </repository>
+	</repositories>
 
 	<build>
 		<finalName>avalsoft</finalName>

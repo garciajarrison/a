@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -132,9 +133,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		nuevaCotizacion();
 		if(entityList == null)
 			entityList = new ArrayList<>();
-
-
-
+	}
+	
+	@PostConstruct
+	public void validarSession() {
+		util.validarSession();
 	}
 	
 	public void nuevaCotizacion() {
