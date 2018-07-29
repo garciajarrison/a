@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<ui:composition template="../common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+	
+		<h1>#{msg['configuracion']}</h1>
+		<br /><br />
+		<p:accordionPanel multiple="false">
+		 	<p:tab title="#{msg['configuracion.foto.perfil']}">
+	          	<p:panel id="pnFotoPerfil" >
+				</p:panel>
+			</p:tab>
+		</p:accordionPanel>
+		
+   </ui:define>
+</ui:composition>

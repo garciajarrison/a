@@ -28,6 +28,30 @@ public class Util {
 		return instance;
 	}
 	
+	public boolean validaNuloVacio(String valor) {
+		if(valor == null || "".equals(valor)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void validarSession() {
+		if(this.getSessionAttribute(EnumSessionAttributes.USUARIO) == null) {
+			cerrarSesion();
+		}
+	}
+	
+	public void cerrarSesion() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext extContext = fc.getExternalContext();
+		try {
+			extContext.redirect(this.getContextPath() + "/login.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.cerrarSesionHttp();
+	}
+	
 	public void setSessionAttribute(EnumSessionAttributes property, Object value){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
