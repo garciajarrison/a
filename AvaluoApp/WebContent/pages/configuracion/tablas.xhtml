@@ -34,7 +34,9 @@
 		        <h:outputText value="#{tables.conversion}" />
 		    </p:column>
 		    <p:column headerText="#{msg['tabla.base']}" sortBy="#{tables.base}" filterBy="#{tables.base}" filterMatchMode="contains">
-		        <h:outputText value="#{tables.base}" />
+		        <h:outputText value="#{tables.base}" >
+		        	<f:convertNumber pattern="###,###"  />
+		        </h:outputText>
 		    </p:column>
 		    <p:column headerText="#{msg['tabla.gasto']}" sortBy="#{tables.gastos}" filterBy="#{tables.gastos}" filterMatchMode="contains">
 		        <h:outputText value="#{tables.gastos}" />
@@ -54,7 +56,9 @@
 		        <h:outputText value="#{tables.diasDeTrabajo}" />
 		    </p:column>		 
 		    <p:column headerText="#{msg['tabla.minimo']}" sortBy="#{tables.minimo}" filterBy="#{tables.minimo}" filterMatchMode="contains">
-		        <h:outputText value="#{tables.minimo}" />
+		        <h:outputText value="#{tables.minimo}" >
+		        	<f:convertNumber pattern="###,###"  />
+		        </h:outputText>
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['acciones']}">
