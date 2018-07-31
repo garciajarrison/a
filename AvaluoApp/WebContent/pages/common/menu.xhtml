@@ -33,6 +33,15 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="background-color:black !important;">
               <div class="menu_section">
                 <ul class="nav side-menu">
+                
+                
+                <li><a><i class="fa fa-home"></i> #{msg['menu.administracion']} <span class="fa fa-chevron-down"></span></a>
+                	<ul>
+	               		<li><a href="#{request.contextPath}/pages/administracion/empresas.xhtml"><i class="fa fa-home"></i> #{msg['menu.empresas']} <span class="fa fa-chevron-down"></span></a>
+		                 </li>
+                   </ul>
+                   </li>
+                
                 	<li><a><i class="fa fa-home"></i> #{msg['menu.camel']} <span class="fa fa-chevron-down"></span></a>
                 	<ul>
 	                <h:panelGroup rendered="#{globalBB.configuracion}">
