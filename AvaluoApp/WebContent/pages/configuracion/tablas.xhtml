@@ -34,7 +34,9 @@
 		        <h:outputText value="#{tables.conversion}" />
 		    </p:column>
 		    <p:column headerText="#{msg['tabla.base']}" sortBy="#{tables.base}" filterBy="#{tables.base}" filterMatchMode="contains">
-		        <h:outputText value="#{tables.base}" />
+		        <h:outputText value="#{tables.base}" >
+		        	<f:convertNumber pattern="###,###"  />
+		        </h:outputText>
 		    </p:column>
 		    <p:column headerText="#{msg['tabla.gasto']}" sortBy="#{tables.gastos}" filterBy="#{tables.gastos}" filterMatchMode="contains">
 		        <h:outputText value="#{tables.gastos}" />
@@ -54,7 +56,9 @@
 		        <h:outputText value="#{tables.diasDeTrabajo}" />
 		    </p:column>		 
 		    <p:column headerText="#{msg['tabla.minimo']}" sortBy="#{tables.minimo}" filterBy="#{tables.minimo}" filterMatchMode="contains">
-		        <h:outputText value="#{tables.minimo}" />
+		        <h:outputText value="#{tables.minimo}" >
+		        	<f:convertNumber pattern="###,###"  />
+		        </h:outputText>
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['acciones']}">
@@ -81,17 +85,17 @@
 			 
 			    <p:column headerText="#{msg['tabla.desde']}" sortBy="#{tables.desde}" filterBy="#{tables.desde}" filterMatchMode="contains">
 			        <h:outputText value="#{detalle.desde}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        	<f:convertNumber pattern="###,###"  />	
 			        </h:outputText>
 			    </p:column>		 
 			    <p:column headerText="#{msg['tabla.hasta']}" sortBy="#{tables.hasta}" filterBy="#{tables.hasta}" filterMatchMode="contains">
 			        <h:outputText value="#{detalle.hasta}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        	<f:convertNumber pattern="###,###"  />	
 			        </h:outputText>
 			    </p:column>
 			    <p:column headerText="#{msg['tabla.porcentaje.aplicar']}" sortBy="#{tables.porcentajeAplicar}" filterBy="#{tables.porcentajeAplicar}" filterMatchMode="contains">
-			        <h:outputText value="#{detalle.porcentajeAplicar}" >
-			        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />	
+			        <h:outputText value="%#{detalle.porcentajeAplicar}" >
+			        	<f:convertNumber pattern="#0.000" minFractionDigits="2" />	
 			        </h:outputText>
 			    </p:column>
 			    

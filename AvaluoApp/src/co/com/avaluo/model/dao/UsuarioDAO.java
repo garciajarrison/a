@@ -71,8 +71,8 @@ public class UsuarioDAO implements IUsuarioDAO {
 		
 		Session session = getSessionFactory().getCurrentSession();
 		return (Usuario) session
-				.createQuery("from Usuario u where u.identificacion=? and u.empresa.id = ? and u.rol.id=?")
-				.setParameter(0, identificacion).setParameter(1, id).setParameter(2, rol_Id) 
+				.createQuery("from Usuario u where u.tipoDocumento=? and u.identificacion=? and u.empresa.id = ? and u.rol.id=?")
+				.setParameter(0, tipoIdentificacion).setParameter(1, identificacion).setParameter(2, id).setParameter(3, rol_Id) 
 				.uniqueResult();
 	}
 
