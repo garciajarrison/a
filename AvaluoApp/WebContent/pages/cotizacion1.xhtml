@@ -109,7 +109,7 @@
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
-				   					 required="true">
+				   					 styleClass="form-control col-md-7 col-xs-12" required="true">
 				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
 				   		</p:inputText>
 				   	</div>
@@ -118,35 +118,35 @@
 				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true"/>  		
+				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true" styleClass="form-control col-md-7 col-xs-12" />  		
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" required="true"/> 
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" required="true"/> 
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 			 	   		<p:outputLabel id="lCelularR" value="#{msg['cotizacion.celular']}" for="txtCelularR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" required="true"/>  
+				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
 				   	</div>
 	          			
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">		
 			 	   		<p:outputLabel id="lAddressR" value="#{msg['cotizacion.direccion']}" for="txtAddressR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" required="true"/>  
+				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR" styleClass="aval-label"/>
 			 	   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">	
-				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" required="true"/>  
+				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
 				   	</div>
 				   		
 				   	<div class="ui-g-12" align="center">	
