@@ -1,15 +1,16 @@
 package co.com.avaluo.model.entity;
-// Generated 20/07/2018 05:27:56 PM by Hibernate Tools 4.0.1.Final
+// Generated 4/08/2018 01:54:18 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,7 +32,7 @@ public class Cotizacion implements java.io.Serializable {
 	private Usuario usuarioByRemitenteId;
 	private Empresa empresa;
 	private BigDecimal valor;
-	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>();
+	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
 
 	public Cotizacion() {
 	}
@@ -54,8 +55,8 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -86,6 +87,16 @@ public class Cotizacion implements java.io.Serializable {
 		this.usuarioByRemitenteId = usuarioByRemitenteId;
 	}
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cotizacion")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public List<DetalleCotizacion> getDetalleCotizacions() {
+		return this.detalleCotizacions;
+	}
+
+	public void setDetalleCotizacions(List<DetalleCotizacion> detalleCotizacions) {
+		this.detalleCotizacions = detalleCotizacions;
+	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
@@ -106,14 +117,6 @@ public class Cotizacion implements java.io.Serializable {
 		this.valor = valor;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cotizacion")
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public List<DetalleCotizacion> getDetalleCotizacions() {
-		return this.detalleCotizacions;
-	}
 
-	public void setDetalleCotizacions(List<DetalleCotizacion> detalleCotizacions) {
-		this.detalleCotizacions = detalleCotizacions;
-	}
 
 }
