@@ -123,8 +123,6 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-
-	//TODO cree esta columna mal para q la cuadremos despues
 	@Column(name = "identificacion", length = 20)
 	public String getIdentificacion() {
 		return this.identificacion;
@@ -143,6 +141,7 @@ public class Usuario implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "apellido1")
 	public String getApellido1() {
 		return apellido1;
 	}
@@ -151,6 +150,7 @@ public class Usuario implements java.io.Serializable {
 		this.apellido1 = apellido1;
 	}
 
+	@Column(name = "apellido2")
 	public String getApellido2() {
 		return apellido2;
 	}
