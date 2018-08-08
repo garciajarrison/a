@@ -29,18 +29,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-<<<<<<< HEAD
+
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import co.com.avaluo.common.CalcularCoordenadas;
 
-=======
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfWriter;
 
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
@@ -137,8 +133,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Util util;
 	private CalcularCoordenadas calc = new CalcularCoordenadas();
 	private String direc;
-	//TODO Borrar o mover
-		private StreamedContent file;
 
 	//TODO Borrar o mover
 	private StreamedContent file;
@@ -459,12 +453,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		ByteArrayOutputStream docExport = reporte.generarReporte(cotizacion);
 		InputStream targetStream = new ByteArrayInputStream(docExport.toByteArray());
         file = new DefaultStreamedContent(targetStream, "application/pdf", "cotización.pdf");
-<<<<<<< HEAD
+
 	} 
-=======
-	}
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
-	
+
 	
 	public void updateEntity() {
 		try {
