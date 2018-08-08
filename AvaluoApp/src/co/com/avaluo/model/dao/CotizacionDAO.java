@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.DetalleCotizacion;
 
 @Repository
 public class CotizacionDAO implements ICotizacionDAO {
@@ -58,16 +59,24 @@ public class CotizacionDAO implements ICotizacionDAO {
 		return (Cotizacion) list.get(0);
 	}
 
-	public List<Cotizacion> getEntities() {
+	public List<Cotizacion> getEntities(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
-				.createQuery("from Cotizacion")
+				.createQuery("from Cotizacion where empresa_id=?").setParameter(0, id)
 				.list();
 		return (List<Cotizacion>) list;
 	}	
 
 	
+	public List<DetalleCotizacion> getDetCotizacion(int id) {
+		Session session = getSessionFactory().getCurrentSession();
+		
+		List<?> list = session
+				.createQuery("from DetalleCotizacion where cotizacion_id=?").setParameter(0, id)
+				.list();
+		return (List<DetalleCotizacion>) list;
+	}	
 	
 	
 	

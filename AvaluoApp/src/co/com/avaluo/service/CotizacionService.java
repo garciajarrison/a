@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ICotizacionDAO;
 import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.DetalleCotizacion;
 
 
 @Service
@@ -36,9 +37,15 @@ public class CotizacionService implements ICotizacionService {
 		return getEntityDAO().getEntity(id);
 	}
 
-	public List<Cotizacion> getEntitys() {	
-		return getEntityDAO().getEntities();
+	public List<Cotizacion> getEntitys(int id) {	
+		return getEntityDAO().getEntities(id);
 	}
+
+	public List<DetalleCotizacion> getDetCotizacion(int id) {	
+		return getEntityDAO().getDetCotizacion(id);
+	}
+
+
 
 	public ICotizacionDAO getEntityDAO() {
 		return entityDAO;
