@@ -112,6 +112,13 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.1</version>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
+		<dependency>
+		    <groupId>com.google.maps</groupId>
+		    <artifactId>google-maps-services</artifactId>
+		    <version>0.2.9</version>
+		</dependency>        
+        
 	</dependencies>
 	
 	<repositories>

@@ -32,6 +32,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import co.com.avaluo.common.CalcularCoordenadas;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
@@ -126,6 +127,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Usuario usuarioExiste = new Usuario();
 	private boolean skip;	
 	private Util util;
+	private CalcularCoordenadas calc = new CalcularCoordenadas();
+	private String direc;
 
 	//TODO Borrar o mover
 	private StreamedContent file;
@@ -145,7 +148,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaPropiedades =  new ArrayList<Propiedad>();
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
-		
+		direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
 		if(entityList == null)
 			entityList = new ArrayList<>();
@@ -227,6 +230,38 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		} 	
 		
 	}
+	
+	public void addRemitente(String bloque) {
+		try {
+			boolean guardar = true;
+			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByRemitenteId().getTipoDocumento(), cotizacion.getUsuarioByRemitenteId().getIdentificacion(), usuario.getEmpresa().getId(), 0);
+			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
+				guardar = false;
+				util.mostrarErrorKey("cotizacion.remitente.ya.existe");
+			}
+			
+			if(guardar) {
+				Rol rol = new Rol();
+				rol.setId(5);
+				cotizacion.getUsuarioByRemitenteId().setEmpresa(usuario.getEmpresa());
+				cotizacion.getUsuarioByRemitenteId().setRol(rol);
+				cotizacion.getUsuarioByRemitenteId().setEstado(true);
+				cotizacion.getUsuarioByRemitenteId().setLenguaje("ES");
+				getUsuarioService().addEntity(cotizacion.getUsuarioByRemitenteId());
+				util.mostrarMensajeKey("exito.guardar"); 
+				util.actualizarPF(bloque);
+			}else {
+				util.actualizarPF("growl");
+			}
+			
+			
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			util.mostrarErrorKey("error.guardar");  
+		} 	
+		
+	}
+	
 	
 	public void addPropiedad() {
 		
@@ -463,7 +498,28 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		}
 		
 	}
-	
+
+	public void onconsultaRemitente(String tipoIdentif, String identif) { 
+		cliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 0);
+		if (cliente != null) {
+			
+			cotizacion.setUsuarioByRemitenteId(cliente);
+		}
+		else {
+			Rol rol = new Rol();
+			rol.setId(3);
+			cotizacion.getUsuarioByRemitenteId().setNombre("");
+			cotizacion.getUsuarioByRemitenteId().setTelefono("");
+			cotizacion.getUsuarioByRemitenteId().setCelular("");
+			cotizacion.getUsuarioByRemitenteId().setDireccion("");
+			cotizacion.getUsuarioByRemitenteId().setEstado(false);
+			cotizacion.getUsuarioByRemitenteId().setDireccion("");
+			cotizacion.getUsuarioByRemitenteId().setCorreo("");
+			cotizacion.getUsuarioByRemitenteId().setId(0);
+			cotizacion.getUsuarioByRemitenteId().setRol(rol);
+		}
+		
+	}
 	public void guardar2() {
 		
 	}
@@ -908,5 +964,21 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setSelectedDetalle(DetalleCotizacion selectedDetalle) {
 		this.selectedDetalle = selectedDetalle;
+	}
+
+	public CalcularCoordenadas getCalc() {
+		return calc;
+	}
+
+	public void setCalc(CalcularCoordenadas calc) {
+		this.calc = calc;
+	}
+
+	public String getDirec() {
+		return direc;
+	}
+
+	public void setDirec(String direc) {
+		this.direc = direc;
 	}	
  }
