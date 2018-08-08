@@ -25,8 +25,10 @@ public class ReporteUtil {
 	public Paragraph addTexto(String texto, Font fuente, int align, int espacios) {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
+		parrafo.setIndentationLeft(25);
 		Paragraph contenido = new Paragraph(texto, fuente);
 		contenido.setAlignment(align);
+		contenido.setIndentationLeft(25);
 		parrafo.add(contenido);
 		return parrafo;
 	}
@@ -34,8 +36,10 @@ public class ReporteUtil {
 	public Paragraph addTextoNegritaTexto(String texto1, String texto2, Font font1, Font font2, int align, int espacios) {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
+		parrafo.setIndentationLeft(25);
 		Paragraph contenido = new Paragraph();
 		contenido.setAlignment(align);
+		contenido.setIndentationLeft(25);
 		contenido.add(new Chunk(texto1+" ", font1));
 		contenido.add(new Chunk(texto2, font2));
 		parrafo.add(contenido);
@@ -46,8 +50,11 @@ public class ReporteUtil {
 													Font font3, int align, int espacios) {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
+		parrafo.setIndentationLeft(25);
+
 		Paragraph contenido = new Paragraph();
 		contenido.setAlignment(align);
+		contenido.setIndentationLeft(25);
 		contenido.add(new Chunk(texto1+" ", font1));
 		contenido.add(new Chunk(texto2+" ", font2));
 		contenido.add(new Chunk(texto3, font3));
@@ -105,7 +112,7 @@ public class ReporteUtil {
 				//	parrafo.SetLeading(fixed, multiplied);
 					listContenido.add(itemContenido);
 				}
-				listContenido.setIndentationLeft(30);
+				listContenido.setIndentationLeft(45);
 				list.add(listContenido);
 			}
 		}
