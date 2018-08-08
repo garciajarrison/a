@@ -158,27 +158,13 @@
 						    
 						</p:dataTable>	
 					
-				</h:panelGrid>     
-				
-								<p:commandButton value="#{msg['btn.descargar']}" ajax="false" 
-						onclick="PrimeFaces.monitorDownload(start, stop);" 
-						actionListener="#{cotizacionAdmBB.generarReporteCotizacion}"
-						icon="ui-icon-arrowthick-1-s" immediate="true">
-			        <p:fileDownload value="#{cotizacionAdmBB.file}" />
-			    </p:commandButton>   
+				</h:panelGrid>        
          		<p:commandButton value="#{msg['cotizacion.btn.calcular']}" type="button"  >	          				          		
 					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update="infResult"/>
 				</p:commandButton>
 				<p:commandButton value="#{msg['btn.guardar']}" type="button"  >	          				          		
 					 <p:ajax  listener="#{cotizacionAdmBB.guardar}"  process="@all" update="infResult"/>
 				</p:commandButton>
-				dddddd
-				<p:commandButton value="#{msg['btn.descargar']}" ajax="false" 
-						onclick="PrimeFaces.monitorDownload(start, stop);" 
-						actionListener="#{cotizacionAdmBB.generarReporteCotizacion}"
-						icon="ui-icon-arrowthick-1-s" immediate="true">
-			        <p:fileDownload value="#{cotizacionAdmBB.file}" />
-			    </p:commandButton>
 				
 				</p:panel>
 	        </p:tab>
