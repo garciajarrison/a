@@ -50,7 +50,7 @@ public class EstratoDAO implements IEstratoDAO {
 	public List<Estrato > getEntities(int idEmpresa) {
 		Session session = getSessionFactory().getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Estrato> list = (List<Estrato>) session.createQuery("from Estrato where empresa.id = :idEmpresa order by nombre")
+		List<Estrato> list = (List<Estrato>) session.createQuery("from Estrato where empresa.id = :idEmpresa")
 				.setParameter("idEmpresa", idEmpresa).list();
 		return list;
 	}

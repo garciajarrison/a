@@ -8,28 +8,40 @@
 
 	<ui:define name="content">
 	
-		<h1>#{msg['estrato.lista']}</h1>
+		<h1>#{msg['empresa.lista']}</h1>
 		<br /><br /><br />
 		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
-		<p:dataTable var="estrato" value="#{estratoBB.entityList}" 
+		<p:dataTable var="emp" value="#{empresaBB.listaEmpresas}" 
 						emptyMessage="#{msg['no.registros']}">
 		 
-		    <p:column headerText="#{msg['estrato']}" sortBy="#{estrato.nombre}">
+		    <p:column headerText="#{msg['empresa.nombre']}" sortBy="#{estrato.nombre}">
 		        <h:outputText value="#{estrato.nombre}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['estrato.porcentaje']}" sortBy="#{estrato.porcentaje}">
+		    <p:column headerText="#{msg['empresa.descripcion']}" sortBy="#{estrato.porcentaje}">
 		        <h:outputText value="#{estrato.porcentaje}" >
 		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
 		   		</h:outputText>
 		    </p:column>
 		 
-		    <p:column headerText="#{msg['estrato.valor.minimo.cotizacion']}" sortBy="#{estrato.valor}">
+		    <p:column headerText="#{msg['empresa.ciudad']}" sortBy="#{estrato.valor}">
 		        <h:outputText value="#{estrato.valor}" >
 		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
 		   		</h:outputText>
 		    </p:column>
 		    
+		    <p:column headerText="#{msg['empresa.identificacion']}" sortBy="#{estrato.valor}">
+		        <h:outputText value="#{estrato.valor}" >
+		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
+		   		</h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['empresa.estado']}" sortBy="#{estrato.valor}">
+		        <h:outputText value="#{estrato.valor}" >
+		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
+		   		</h:outputText>
+		    </p:column>
+	    
 		    <p:column headerText="#{msg['acciones']}">
 		    	<center>
 			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >

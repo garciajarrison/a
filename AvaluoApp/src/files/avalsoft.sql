@@ -1,14 +1,5 @@
 ------CAMBIOS------
---TABLAS
---TABLA_DETALLE
-
-------NUEVO------
-----COTIZACION
-----DETALLECOTIZACION
-----DETALLETABLA
-----PROPIEDAD
-----TABLAS
-----TIPOPROPIEDAD
+--REPORTE
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -46,72 +37,6 @@ CREATE TABLE avalsoft.rol (
   CONSTRAINT pk_rol PRIMARY KEY (id));
 
 ALTER TABLE avalsoft.rol
-    OWNER to postgres;
-
--- -----------------------------------------------------
--- Table avalsoft.empresa
--- -----------------------------------------------------
-
--- DROP SEQUENCE avalsoft.empresa_seq;
-CREATE SEQUENCE avalsoft.empresa_seq;
-ALTER SEQUENCE avalsoft.empresa_seq
-    OWNER TO postgres; 
-
--- DROP TABLE avalsoft.empresa ;
-CREATE TABLE avalsoft.empresa (
-  id integer NOT NULL DEFAULT nextval('avalsoft.empresa_seq'::regclass),
-  tipo_identificacion VARCHAR(10) NULL,
-  identificacion VARCHAR(20) NULL,
-  nombre VARCHAR(50) NULL,
-  description VARCHAR(100) NULL,
-  estado boolean not NULL,
-  ciudad_id integer NOT NULL,
-  CONSTRAINT pk_empresa PRIMARY KEY (id),
-  CONSTRAINT fk_empresa_ciudad FOREIGN KEY (ciudad_id)
-        REFERENCES avalsoft.ciudad (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE);
-
-ALTER TABLE avalsoft.empresa
-    OWNER to postgres;
-
--- -----------------------------------------------------
--- Table avalsoft.usuario
--- -----------------------------------------------------
-
--- DROP SEQUENCE avalsoft.usuario_seq;
-CREATE SEQUENCE avalsoft.usuario_seq;
-ALTER SEQUENCE avalsoft.usuario_seq
-    OWNER TO postgres;
-    
--- DROP TABLE avalsoft.usuario ;
-CREATE TABLE avalsoft.usuario (
-  id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
-  tipo_documento VARCHAR(10) NULL,
-  identificacion VARCHAR(20) NULL,
-  nombre VARCHAR(50) NULL,
-  correo VARCHAR(80) NULL,
-  fecha_nacimiento date NULL,
-  direccion VARCHAR(150) NULL,
-  telefono VARCHAR(20) NULL,
-  celular VARCHAR(30) NULL,
-  contrasena VARCHAR(150) NULL,
-  estado boolean not NULL,
-  lenguaje VARCHAR(2) NULL,
-  profesion VARCHAR(150) NULL,
-  rol_id integer NOT NULL,
-  empresa_id integer NOT NULL,
-  CONSTRAINT pk_usuario PRIMARY KEY (id),
-  CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id)
-        REFERENCES avalsoft.rol (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-  CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE);
-
-ALTER TABLE avalsoft.usuario
     OWNER to postgres;
     
 -- -----------------------------------------------------
@@ -185,6 +110,72 @@ ALTER TABLE avalsoft.ciudad
     OWNER to postgres;
     
 -- -----------------------------------------------------
+-- Table avalsoft.empresa
+-- -----------------------------------------------------
+
+-- DROP SEQUENCE avalsoft.empresa_seq;
+CREATE SEQUENCE avalsoft.empresa_seq;
+ALTER SEQUENCE avalsoft.empresa_seq
+    OWNER TO postgres; 
+
+-- DROP TABLE avalsoft.empresa ;
+CREATE TABLE avalsoft.empresa (
+  id integer NOT NULL DEFAULT nextval('avalsoft.empresa_seq'::regclass),
+  tipo_identificacion VARCHAR(10) NULL,
+  identificacion VARCHAR(20) NULL,
+  nombre VARCHAR(50) NULL,
+  description VARCHAR(100) NULL,
+  estado boolean not NULL,
+  ciudad_id integer NOT NULL,
+  CONSTRAINT pk_empresa PRIMARY KEY (id),
+  CONSTRAINT fk_empresa_ciudad FOREIGN KEY (ciudad_id)
+        REFERENCES avalsoft.ciudad (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE);
+
+ALTER TABLE avalsoft.empresa
+    OWNER to postgres;
+	
+-- -----------------------------------------------------
+-- Table avalsoft.usuario
+-- -----------------------------------------------------
+
+-- DROP SEQUENCE avalsoft.usuario_seq;
+CREATE SEQUENCE avalsoft.usuario_seq;
+ALTER SEQUENCE avalsoft.usuario_seq
+    OWNER TO postgres;
+    
+-- DROP TABLE avalsoft.usuario ;
+CREATE TABLE avalsoft.usuario (
+  id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
+  tipo_documento VARCHAR(10) NULL,
+  identificacion VARCHAR(20) NULL,
+  nombre VARCHAR(50) NULL,
+  correo VARCHAR(80) NULL,
+  fecha_nacimiento date NULL,
+  direccion VARCHAR(150) NULL,
+  telefono VARCHAR(20) NULL,
+  celular VARCHAR(30) NULL,
+  contrasena VARCHAR(150) NULL,
+  estado boolean not NULL,
+  lenguaje VARCHAR(2) NULL,
+  profesion VARCHAR(150) NULL,
+  rol_id integer NOT NULL,
+  empresa_id integer NOT NULL,
+  CONSTRAINT pk_usuario PRIMARY KEY (id),
+  CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id)
+        REFERENCES avalsoft.rol (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+  CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE);
+
+ALTER TABLE avalsoft.usuario
+    OWNER to postgres;	
+	
+-- -----------------------------------------------------
 -- Table avalsoft.estrato
 -- -----------------------------------------------------
 
@@ -208,6 +199,73 @@ CREATE TABLE avalsoft.estrato (
 
 ALTER TABLE avalsoft.estrato
     OWNER to postgres;
+
+-- -----------------------------------------------------
+-- Table: avalsoft.tablas
+-- -----------------------------------------------------
+-- DROP SEQUENCE avalsoft.cotizacion_seq;
+CREATE SEQUENCE avalsoft.tablas_seq;
+ALTER SEQUENCE avalsoft.tablas_seq
+    OWNER TO postgres; 
+    
+-- DROP TABLE avalsoft.tablas;
+CREATE TABLE avalsoft.tablas
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.tablas_seq'::regclass),
+    tipo character varying(25) COLLATE pg_catalog."default",
+    nombre character varying(100) COLLATE pg_catalog."default",
+    conversion numeric,
+    base numeric,
+    gastos numeric,
+    estado boolean NOT NULL,
+    empresa_id integer NOT NULL,
+    uom character varying(10) COLLATE pg_catalog."default",
+    uom_alt character varying(10) COLLATE pg_catalog."default",
+    dias_de_trabajo numeric(10,0),
+    minimo numeric(10,0),
+    CONSTRAINT pk_cotizacion PRIMARY KEY (id),
+    CONSTRAINT fk_tablas_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.tablas
+    OWNER to postgres;
+
+-- -----------------------------------------------------    
+-- Table: avalsoft.tipo_propiedad
+-- -----------------------------------------------------
+-- DROP SEQUENCE avalsoft.tipo_propiedad_id_seq;
+CREATE SEQUENCE avalsoft.tipo_propiedad_id_seq;
+ALTER SEQUENCE avalsoft.tipo_propiedad_id_seq
+    OWNER TO postgres; 
+
+-- DROP TABLE avalsoft.tipo_propiedad;
+CREATE TABLE avalsoft.tipo_propiedad(
+    id integer NOT NULL DEFAULT nextval('avalsoft.tipo_propiedad_id_seq'::regclass),
+    tipo_propiedad character varying(50) COLLATE pg_catalog."default",
+    tipo_vivienda character varying(100) COLLATE pg_catalog."default",
+    incremento double precision,
+    empresa_id integer NOT NULL,
+    CONSTRAINT tipo_propiedad_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_tipo_propiedad_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.tipo_propiedad
+    OWNER to postgres;    
+
 
 -- -----------------------------------------------------
 -- Table avalsoft.propiedad
@@ -334,48 +392,14 @@ TABLESPACE pg_default;
 ALTER TABLE avalsoft.detalle_cotizacion
     OWNER to postgres;
 
-
--- -----------------------------------------------------
--- Table: avalsoft.tablas
--- -----------------------------------------------------
--- DROP SEQUENCE avalsoft.cotizacion_seq;
-CREATE SEQUENCE avalsoft.tablas_seq;
-ALTER SEQUENCE avalsoft.tablas_seq
-    OWNER TO postgres; 
-    
--- DROP TABLE avalsoft.tablas;
-CREATE TABLE avalsoft.tablas
-(
-    id integer NOT NULL DEFAULT nextval('avalsoft.cotizacion_seq'::regclass),
-    tipo character varying(25) COLLATE pg_catalog."default",
-    nombre character varying(100) COLLATE pg_catalog."default",
-    conversion numeric,
-    base numeric,
-    gastos numeric,
-    estado boolean NOT NULL,
-    empresa_id integer NOT NULL,
-    uom character varying(10) COLLATE pg_catalog."default",
-    uom_alt character varying(10) COLLATE pg_catalog."default",
-    dias_de_trabajo numeric(10,0),
-    minimo numeric(10,0),
-    CONSTRAINT pk_cotizacion PRIMARY KEY (id),
-    CONSTRAINT fk_tablas_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE avalsoft.tablas
-    OWNER to postgres;
     
 -- -----------------------------------------------------    
 -- Table: avalsoft.detalle_tabla
 -- -----------------------------------------------------
 -- DROP SEQUENCE avalsoft.detalle_tabla_id_seq;
+CREATE SEQUENCE avalsoft.detalle_tabla_id_seq;
+ALTER SEQUENCE avalsoft.detalle_tabla_id_seq
+    OWNER TO postgres;
 
 CREATE TABLE avalsoft.detalle_tabla
 (
@@ -397,34 +421,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.detalle_tabla
     OWNER to postgres;
--- -----------------------------------------------------    
--- Table: avalsoft.tipo_propiedad
--- -----------------------------------------------------
--- DROP SEQUENCE avalsoft.tipo_propiedad_id_seq;
-CREATE SEQUENCE avalsoft.tipo_propiedad_id_seq;
-ALTER SEQUENCE avalsoft.tipo_propiedad_id_seq
-    OWNER TO postgres; 
-
--- DROP TABLE avalsoft.tipo_propiedad;
-CREATE TABLE avalsoft.tipo_propiedad(
-    id integer NOT NULL DEFAULT nextval('avalsoft.tipo_propiedad_id_seq'::regclass),
-    tipo_propiedad character varying(50) COLLATE pg_catalog."default",
-    tipo_vivienda character varying(100) COLLATE pg_catalog."default",
-    incremento double precision,
-    empresa_id integer NOT NULL,
-    CONSTRAINT tipo_propiedad_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_tipo_propiedad_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE avalsoft.tipo_propiedad
-    OWNER to postgres;    
+	
     
 -- -----------------------------------------------------
 -- Table avalsoft.contacto
@@ -490,6 +487,7 @@ ALTER SEQUENCE avalsoft.reporte_seq
 CREATE TABLE avalsoft.reporte (
   id integer NOT NULL DEFAULT nextval('avalsoft.reporte_seq'::regclass),
   codigo VARCHAR(150) not NULL,
+  contenido_id varchar(100) not null,
   visible boolean not NULL,
   empresa_id integer NOT NULL,
   CONSTRAINT pk_reporte PRIMARY KEY (id),

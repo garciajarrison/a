@@ -21,10 +21,10 @@ import co.com.avaluo.model.entity.Cotizacion;
 
 public class RCotizacion {
 
-	private static final Font NORMAL_14 = new Font(Font.FontFamily.HELVETICA, 14, Font.NORMAL);
-	private static final Font NORMAL_12 = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
-	private static final Font BOLD_14 = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
-	private static final Font BOLD_12 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+	private static final Font NORMAL_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
+	private static final Font NORMAL_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+	private static final Font BOLD_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+	private static final Font BOLD_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 	private Util util;
 	private ReporteUtil reporteUtil;
 
@@ -85,7 +85,7 @@ public class RCotizacion {
 		document.add(reporteUtil.addTexto("Ciudad, Fecha correspondencia", NORMAL_14, 0));
 
 		document.add(reporteUtil.addTexto("Señor(a)", NORMAL_14, 4));
-		document.add(reporteUtil.addTexto(cotizacion.getUsuarioByClienteId().getNombre(), NORMAL_14, 0));
+		document.add(reporteUtil.addTexto("<NOMBRE DEL PROPIETARIO>", NORMAL_14, 0));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.solicitante.contratante"), NORMAL_12, 0));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido1"), NORMAL_12, Element.ALIGN_JUSTIFIED, 4));
@@ -93,7 +93,7 @@ public class RCotizacion {
 
 		if (urbano) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido3"), BOLD_14, 1));
-			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido4", cotizacion.getId()), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
+			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido4", "1234"), NORMAL_12, Element.ALIGN_JUSTIFIED, 1));
 		}
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido5"), BOLD_14, 1));
@@ -447,7 +447,7 @@ public class RCotizacion {
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido169"));
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido170"));
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido171"));
-		binnetas.add (new ReporteLista(titulo, BOLD_14, contenidos, NORMAL_12));
+		binnetas.add(new ReporteLista(titulo, BOLD_14, contenidos, NORMAL_12));
 
 		contenidos = new ArrayList<>();
 		titulo = util.getMessage("reporte.cotizacion.contenido172");

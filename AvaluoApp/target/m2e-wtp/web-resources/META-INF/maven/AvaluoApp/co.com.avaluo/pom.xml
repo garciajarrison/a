@@ -117,7 +117,7 @@
 		    <groupId>com.google.maps</groupId>
 		    <artifactId>google-maps-services</artifactId>
 		    <version>0.2.9</version>
-		</dependency>        
+		</dependency>         
         
 	</dependencies>
 	

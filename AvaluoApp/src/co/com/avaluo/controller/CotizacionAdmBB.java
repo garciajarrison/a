@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,7 +17,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -29,10 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import co.com.avaluo.common.CalcularCoordenadas;
+
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
@@ -107,21 +106,19 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Propiedad selectedPropiedad;
 
 	private Propiedad infPropiedad = new Propiedad();
-	private SortedMap<String,Integer> listaTablas = new TreeMap<String, Integer>();
-	private SortedMap<String,Integer> listaTipoPropiedad = new TreeMap<String, Integer>();
+	private Map<String,Integer> listaTablas = new HashMap<String, Integer>();
+	private Map<String,Integer> listaTipoPropiedad = new HashMap<String, Integer>();
 	private List<TipoPropiedad> listaTipoPropiedades;
 	private List<Propiedad> listaPropiedades = new ArrayList<Propiedad>();
 
-	private SortedMap<String,Integer> listaCiudad = new TreeMap<String, Integer>();
+	private Map<String,Integer> listaCiudad = new HashMap<String, Integer>();
 
 	private List<Ciudad> listaCiudades;
-	private SortedMap<String,Integer> listaDepartamento = new TreeMap<String, Integer>();
+	private Map<String,Integer> listaDepartamento = new HashMap<String, Integer>();
 	private List<Departamento> listaDepartamentos;
-	private SortedMap<String,Integer> listaEstrato = new TreeMap<String, Integer>();
+	private Map<String,Integer> listaEstrato = new HashMap<String, Integer>();
 	private List<Estrato> listaEstratos;
 	private List<DetalleCotizacion> listaDetCotizacion;
-	
-	private List<Cotizacion> listaCotizacion;
 	private List<SelectItem> listaUnidadMedida;
 
 	private Usuario usuarioExiste = new Usuario();
@@ -129,9 +126,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Util util;
 	private CalcularCoordenadas calc = new CalcularCoordenadas();
 	private String direc;
-
 	//TODO Borrar o mover
-	private StreamedContent file;
+		private StreamedContent file;
+
 	
 	
 	public CotizacionAdmBB() {
@@ -183,24 +180,18 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	
 	public void guardar() {
 		try {
-			if (cotizacion.getId() == 0) {
-				getCotizacionService().addEntity(cotizacion);
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cotizacion creada on exito.", "Message: "));
-			}
-			else {
-				getCotizacionService().updateEntity(cotizacion);
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cotización actualizada con exito.", "Message: "));
-			}
+			getCotizacionService().addEntity(cotizacion);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "Message: "));  
 			
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar la cotización. Intente mas tarde.", "Message: ")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "D'oh!", "Message: ")); 
 		} 	
 		
 	}
 	
 	
-	public void addCliente(String bloque) {
+	public void addCliente() {
 		try {
 			boolean guardar = true;
 			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByClienteId().getTipoDocumento(), cotizacion.getUsuarioByClienteId().getIdentificacion(), usuario.getEmpresa().getId(), 3);
@@ -218,7 +209,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 				cotizacion.getUsuarioByClienteId().setLenguaje("ES");
 				getUsuarioService().addEntity(cotizacion.getUsuarioByClienteId());
 				util.mostrarMensajeKey("exito.guardar"); 
-				util.actualizarPF(bloque);
+				util.actualizarPF("formulario");
 			}else {
 				util.actualizarPF("growl");
 			}
@@ -282,41 +273,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		limpiarPropiedad();
 		
 		
-		util.actualizarPF("jnfProp");
+		util.actualizarPF("formulario");
 		util.mostrarMensajeKey("cotizacion.propiedad.agregada"); 
 	}
-	
-	public void actualizarPropiedad() {
-		
-		infPropiedad.setUsuario(usuario);
-
-		
-		Estrato est = new Estrato();
-		TipoPropiedad tprop = new TipoPropiedad();
-		Tablas tablas = new Tablas();
-		
-		est=getEstratoService().getEntityById(infPropiedad.getEstrato().getId());
-		tprop=getPropertyService().getEntityById(infPropiedad.getTipoPropiedad().getId());
-		tablas = getTablasService().getTablaById(infPropiedad.getTablas().getId());
-		infPropiedad.setEstrato(est);
-		infPropiedad.setTipoPropiedad(tprop);
-		infPropiedad.setTablas(tablas);
-		int i = 0;
-		for (Propiedad p: listaPropiedades) {
-			if (infPropiedad.getId()==p.getId() ) {
-				listaPropiedades.set(i, infPropiedad);
-				i = i + 1;
-			}
-		}
-		
-		//listaPropiedades.add(infPropiedad);
-		//setSelectedPropiedad(infPropiedad);
-		limpiarPropiedad();
-		
-		
-		util.actualizarPF("jnfProp");
-		util.mostrarMensajeKey("cotizacion.propiedad.agregada"); 
-	}	
 	
 	public void limpiarPropiedad() {
 		infPropiedad = new Propiedad();
@@ -338,10 +297,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public void cotizar() {
-		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		BigDecimal resultado = new BigDecimal(0);
 		BigDecimal valorCotizacion = new BigDecimal(0);
-		BigDecimal totalCotizacion = new BigDecimal(0);
 		
 		BigDecimal tax = new BigDecimal(0);
 		for (Propiedad p : listaPropiedades) {
@@ -419,15 +376,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
                 	 valorCotizacion = valorCotizacion.setScale(0, BigDecimal.ROUND_HALF_UP);
                 	 valorCotizacion = valorCotizacion.multiply(new BigDecimal(100000));
                 	 
-                	 int res2;
-     				 res2 = valorCotizacion.compareTo(p.getEstrato().getValor());
-                	 
-                	 if (res2 == -1) {
-                		 valorCotizacion = p.getEstrato().getValor();
-                	 }
-                	 
-                	 totalCotizacion = totalCotizacion.add(valorCotizacion);
-                	 
                 	 this.detCotizacion = new DetalleCotizacion();
              		detCotizacion.setCotizacion(cotizacion);
              		detCotizacion.setPropiedad(p);
@@ -436,10 +384,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
              		
              		listaDetCotizacion.add(detCotizacion);
              		
-             		
+             		cotizacion.setDetalleCotizacions(listaDetCotizacion);
 			}
-		cotizacion.setDetalleCotizacions(listaDetCotizacion);
-		cotizacion.setValor(totalCotizacion);
+		
+	
     }
 
 	//TODO borrar o mover
@@ -449,7 +397,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		ByteArrayOutputStream docExport = reporte.generarReporte(cotizacion);
 		InputStream targetStream = new ByteArrayInputStream(docExport.toByteArray());
         file = new DefaultStreamedContent(targetStream, "application/pdf", "cotización.pdf");
-	}
+	} 
 	
 	
 	public void updateEntity() {
@@ -523,10 +471,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void guardar2() {
 		
 	}
-
+		
 	
 	public List<Cotizacion> getEntityList() {
-		entityList = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		entityList = getCotizacionService().getEntitys();
 		return entityList;
 	}
 	
@@ -630,11 +578,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaTipoDocumentos = listaTipoDocumentos;
 	}
 
-	public SortedMap<String, Integer> getListaTipoPropiedad() {
+	public Map<String, Integer> getListaTipoPropiedad() {
 		return listaTipoPropiedad;
 	}
 
-	public void setListaTipoPropiedad(SortedMap<String, Integer> listaTipoPropiedad) {
+	public void setListaTipoPropiedad(Map<String, Integer> listaTipoPropiedad) {
 		this.listaTipoPropiedad = listaTipoPropiedad;
 	}
 
@@ -646,7 +594,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaPropiedades = listaPropiedades;
 	}*/
 
-	public SortedMap<String, Integer> getListaEstrato() {
+	public Map<String, Integer> getListaEstrato() {
 		listaEstratos = new ArrayList<Estrato>();
 		listaEstratos.addAll(getEstratoService().getEntitys(usuario.getEmpresa().getId()));
 		for (Estrato estrato : listaEstratos) {
@@ -657,7 +605,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return listaEstrato;
 	}
 
-	public void setListaEstrato(SortedMap<String, Integer> listaEstrato) {
+	public void setListaEstrato(Map<String, Integer> listaEstrato) {
 		this.listaEstrato = listaEstrato;
 	}
 
@@ -669,7 +617,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaEstratos = listaEstratos;
 	}
 
-	public SortedMap<String, Integer> getListaCiudad() {
+	public Map<String, Integer> getListaCiudad() {
 		listaCiudades = new ArrayList<Ciudad>();
 		listaCiudades.addAll(getCiudadService().getEntitys());
 		for (Ciudad ciudad : listaCiudades) {
@@ -681,12 +629,12 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return listaCiudad;
 	}
 
-	public void setListaCiudad(SortedMap<String, Integer> listaCiudad) {
+	public void setListaCiudad(Map<String, Integer> listaCiudad) {
 		this.listaCiudad = listaCiudad;
 	}
 
 
-	public SortedMap<String, Integer> getListaDepartamento() {
+	public Map<String, Integer> getListaDepartamento() {
 		listaDepartamentos = new ArrayList<Departamento>();
 		listaDepartamentos.addAll(getDepartamentoService().getEntitys());
 		for (Departamento departamento : listaDepartamentos) {
@@ -696,18 +644,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return listaDepartamento;
 	}
 
-	public void setListaDepartamento(SortedMap<String, Integer> listaDepartamento) {
+	public void setListaDepartamento(Map<String, Integer> listaDepartamento) {
 		this.listaDepartamento = listaDepartamento;
 	}
 
-
-	public List<Cotizacion> getListaCotizacion() {
-		return listaCotizacion;
-	}
-
-	public void setListaCotizacion(List<Cotizacion> listaCotizacion) {
-		this.listaCotizacion = listaCotizacion;
-	}
 
 	public ICiudadService getCiudadService() {
 		return ciudadService;
@@ -838,20 +778,18 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.tabla = tabla;
 	}
 
-	public SortedMap<String, Integer> getListaTablas() {
+	public Map<String, Integer> getListaTablas() {
 		tablas = new ArrayList<Tablas>();
 		tablas.addAll(getTablasService().getTablas(usuario.getEmpresa().getId()));
-		int i = 0;
 		for (Tablas tabla : tablas) {
 			listaTablas.put(tabla.getNombre(),tabla.getId());
-			
 		}
 		return listaTablas;
 	}
 	
 	
 
-	public void setListaTablas(SortedMap<String, Integer> listaTablas) {
+	public void setListaTablas(Map<String, Integer> listaTablas) {
 		this.listaTablas = listaTablas;
 	}
 
@@ -883,14 +821,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		return skip;
 	}
 
-	public StreamedContent getFile() {
-		return file;
-	}
-
-	public void setFile(StreamedContent file) {
-		this.file = file;
-	}
-
 	public void setSkip(boolean skip) {
 		this.skip = skip;
 	}
@@ -918,44 +848,22 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			}
 	    }
         else
-        	listaTipoPropiedad =  new TreeMap<String,Integer>();
+        	listaTipoPropiedad =  new HashMap<String,Integer>();
         
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		cotizacion = (Cotizacion) event.getObject();
-		listaDetCotizacion = getCotizacionService().getDetCotizacion(cotizacion.getId());
-		cotizacion.setDetalleCotizacions(listaDetCotizacion);
-		listaPropiedades = new ArrayList<Propiedad>();
-		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
-		for (DetalleCotizacion detalle: cotizacion.getDetalleCotizacions()) {
-			listaPropiedades.add(detalle.getPropiedad());
-		}
     }
-
-	public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        cotizacion.setDetalleCotizacions(listaDetCotizacion);
-
-    }
+ 
     public void onRowUnselect(UnselectEvent event) {
     }
 
 	public Propiedad getSelectedPropiedad() {
 		return selectedPropiedad;
 	}
-	
-	public void editarPropiedad(Propiedad selectedPropiedad) {
-		limpiarPropiedad();
-		infPropiedad = selectedPropiedad;
-		onTableChange(infPropiedad.getTablas().getId());
-	}
 
 	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
 		this.selectedPropiedad = selectedPropiedad;
-		
 	}
 
 	public DetalleCotizacion getSelectedDetalle() {

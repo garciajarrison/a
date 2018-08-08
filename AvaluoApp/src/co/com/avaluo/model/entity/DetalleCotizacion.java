@@ -1,10 +1,13 @@
 package co.com.avaluo.model.entity;
-// Generated 4/08/2018 01:54:18 PM by Hibernate Tools 4.0.1.Final
+// Generated 22/07/2018 11:53:51 AM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,8 +45,8 @@ public class DetalleCotizacion implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -52,7 +55,7 @@ public class DetalleCotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cotizacion_id", nullable = false)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Cotizacion getCotizacion() {
@@ -63,8 +66,9 @@ public class DetalleCotizacion implements java.io.Serializable {
 		this.cotizacion = cotizacion;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "propiedad_id", nullable = false)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Propiedad getPropiedad() {
 		return this.propiedad;
 	}

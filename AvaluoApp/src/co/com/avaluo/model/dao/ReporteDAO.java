@@ -7,10 +7,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.Reporte;
 
 @Repository
-public class CotizacionDAO implements ICotizacionDAO {
+public class ReporteDAO implements IReporteDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -22,54 +22,34 @@ public class CotizacionDAO implements ICotizacionDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(Cotizacion entity) {
+	public void addReporte(Reporte entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(Cotizacion entity) {
+	public void deleteReporte(Reporte entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Cotizacion entity) {
+	public void updateReporte(Reporte entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Cotizacion getEntity(int id) {
+	public Reporte getReporteById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
-		List<?> list = session
-				.createQuery("from Cotizacion where id=?").setParameter(0, id)
-				.list();
-		
-		return (Cotizacion) list.get(0);
-	}
-	
-	
-	public Cotizacion getCustomer(String idCustomer) {
-		Session session = getSessionFactory().getCurrentSession();
-		
-		List<?> list = session
-				.createQuery("from Customer where customerIdentification=?").setParameter(0, idCustomer)
-				.list();
-		
-		return (Cotizacion) list.get(0);
+		return (Reporte) session
+				.createQuery("from Reporte where id=?").setParameter(0, id)
+				.uniqueResult();
 	}
 
-	public List<Cotizacion> getEntities() {
+	@SuppressWarnings("unchecked")
+	public List<Reporte > getReportes(int idReporte) {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		List<?> list = session
-				.createQuery("from Cotizacion")
-				.list();
-		return (List<Cotizacion>) list;
-	}	
-
-	
-	
-	
-	
+		return (List<Reporte>) session.createQuery("from Reporte where empresa.id = :idEmpresa")
+				.setParameter("idEmpresa", idReporte).list();
+	}
 
 }

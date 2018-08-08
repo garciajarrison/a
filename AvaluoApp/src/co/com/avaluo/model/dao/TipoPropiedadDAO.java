@@ -51,7 +51,7 @@ public class TipoPropiedadDAO implements ITipoPropiedadDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoPropiedad = ? and empresa.id=? order by id")
+		List<TipoPropiedad> list = (List<TipoPropiedad>) session.createQuery("from TipoPropiedad where tipoPropiedad = ? and empresa.id=?")
 				.setParameter(0, tipo).setParameter(1, idEmpresa).list();
 		
 		return list;

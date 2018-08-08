@@ -41,7 +41,7 @@ public class CiudadDAO implements ICiudadDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		List<?> list = session
-				.createQuery("from Ciudad where id=? order by nombre").setParameter(0, id)
+				.createQuery("from Ciudad where id=?").setParameter(0, id)
 				.list();
 		
 		return (Ciudad) list.get(0);
