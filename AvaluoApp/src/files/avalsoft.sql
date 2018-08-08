@@ -1,14 +1,5 @@
 ------CAMBIOS------
---TABLAS
---TABLA_DETALLE
-
-------NUEVO------
-----COTIZACION
-----DETALLECOTIZACION
-----DETALLETABLA
-----PROPIEDAD
-----TABLAS
-----TIPOPROPIEDAD
+--REPORTE
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -496,6 +487,7 @@ ALTER SEQUENCE avalsoft.reporte_seq
 CREATE TABLE avalsoft.reporte (
   id integer NOT NULL DEFAULT nextval('avalsoft.reporte_seq'::regclass),
   codigo VARCHAR(150) not NULL,
+  contenido_id varchar(100) not null,
   visible boolean not NULL,
   empresa_id integer NOT NULL,
   CONSTRAINT pk_reporte PRIMARY KEY (id),
