@@ -52,7 +52,7 @@ public class TablasDAO implements ITablasDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<Tablas> list = (List<Tablas>) session.createQuery("from Tablas where empresa.id = ? and COALESCE(estado,false)=true")
+		List<Tablas> list = (List<Tablas>) session.createQuery("from Tablas where empresa.id = ? and COALESCE(estado,false)=true order by id")
 				.setParameter(0, idEmpresa).list();
 		
 		return list;

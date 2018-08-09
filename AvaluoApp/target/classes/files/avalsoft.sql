@@ -151,6 +151,8 @@ CREATE TABLE avalsoft.usuario (
   tipo_documento VARCHAR(10) NULL,
   identificacion VARCHAR(20) NULL,
   nombre VARCHAR(50) NULL,
+  apellido1 VARCHAR(50) NULL,
+  apellido2 VARCHAR(50) NULL,
   correo VARCHAR(80) NULL,
   fecha_nacimiento date NULL,
   direccion VARCHAR(150) NULL,

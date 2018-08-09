@@ -26,8 +26,8 @@ public class GlobalBB implements Serializable {
 	private Util util;
 	
 	//Permisos
-	private boolean configuracion = false;
-	private boolean cotizacion = false;
+	private boolean configuracion = true;
+	private boolean cotizacion = true;
 	
 	public GlobalBB() {
 		util = Util.getInstance();

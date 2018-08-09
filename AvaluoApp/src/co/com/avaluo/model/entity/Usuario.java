@@ -28,6 +28,8 @@ public class Usuario implements java.io.Serializable {
 	private String tipoDocumento;
 	private String identificacion;
 	private String nombre;
+	private String apellido1;
+	private String apellido2;
 	private String correo;
 	private Date fechaNacimiento;
 	private String direccion;
@@ -37,6 +39,7 @@ public class Usuario implements java.io.Serializable {
 	private boolean estado;
 	private String lenguaje;
 	private String profesion;
+	private String tipoPersona;
 	private List<Contacto> contactos = new ArrayList<Contacto>();
 	private List<Cotizacion> cotizacionsForRemitenteId = new ArrayList<Cotizacion>(0);
 	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>(0);
@@ -52,9 +55,9 @@ public class Usuario implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre,
+	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre, String apellido1, String apellido2,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
-			boolean estado, String lenguaje, String profesion, List<Contacto> contactos, List<Cotizacion> cotizacionsForRemitenteId,
+			boolean estado, String lenguaje, String profesion, String tipoPersona, List<Contacto> contactos, List<Cotizacion> cotizacionsForRemitenteId,
 			List<Cotizacion> cotizacionsForClienteId, List<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
@@ -62,6 +65,8 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 		this.identificacion = identificacion;
 		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.fechaNacimiento = fechaNacimiento;
 		this.direccion = direccion;
@@ -71,6 +76,7 @@ public class Usuario implements java.io.Serializable {
 		this.estado = estado;
 		this.lenguaje = lenguaje;
 		this.profesion = profesion;
+		this.tipoPersona = tipoPersona;
 		this.contactos = contactos;
 		this.cotizacionsForClienteId = cotizacionsForClienteId;
 		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
@@ -117,8 +123,6 @@ public class Usuario implements java.io.Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-
-	//TODO cree esta columna mal para q la cuadremos despues
 	@Column(name = "identificacion", length = 20)
 	public String getIdentificacion() {
 		return this.identificacion;
@@ -135,6 +139,24 @@ public class Usuario implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "apellido1")
+	public String getApellido1() {
+		return apellido1;
+	}
+
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	@Column(name = "apellido2")
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
 	}
 
 	@Column(name = "correo", length = 80)
@@ -228,6 +250,14 @@ public class Usuario implements java.io.Serializable {
 		this.contactos = contactos;
 	}
 
+	@Column(name = "tipo_persona", length = 20)
+	public String getTipoPersona() {
+		return tipoPersona;
+	}
+
+	public void setTipoPersona(String tipoPersona) {
+		this.tipoPersona = tipoPersona;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioByRemitenteId")
 	public List<Cotizacion> getCotizacionsForRemitenteId() {

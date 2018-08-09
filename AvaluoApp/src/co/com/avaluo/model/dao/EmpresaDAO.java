@@ -11,7 +11,6 @@ import co.com.avaluo.model.entity.Empresa;
 
 @Repository
 public class EmpresaDAO implements IEmpresaDAO {
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -23,33 +22,40 @@ public class EmpresaDAO implements IEmpresaDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEmpresa(Empresa entity) {
+	public void addEntity(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEmpresa(Empresa entity) {
+	public void deleteEntity(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEmpresa(Empresa entity) {
+	public void updateEntity(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Empresa getEmpresa(int id) {
+	public Empresa getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
-		return (Empresa) session
+		List<?> list = session
 				.createQuery("from Empresa where id=?").setParameter(0, id)
-				.uniqueResult();
+				.list();
+		
+		return (Empresa) list.get(0);
 	}
 
-	public List<Empresa> getEmpresas() {
+	public List<Empresa > getEntities() {
 		Session session = getSessionFactory().getCurrentSession();
-		return (List<Empresa>) session.createQuery("from Empresa").list();
+		
+		@SuppressWarnings("unchecked")
+		List<Empresa> list = (List<Empresa>) session.createQuery("from Empresa").list();
+		
+		return list;
 	}
+
 	
 
 }
