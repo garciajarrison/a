@@ -1,5 +1,5 @@
 ------CAMBIOS------
---REPORTE
+--USUARIO
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -146,33 +146,43 @@ ALTER SEQUENCE avalsoft.usuario_seq
     OWNER TO postgres;
     
 -- DROP TABLE avalsoft.usuario ;
-CREATE TABLE avalsoft.usuario (
-  id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
-  tipo_documento VARCHAR(10) NULL,
-  identificacion VARCHAR(20) NULL,
-  nombre VARCHAR(50) NULL,
-  apellido1 VARCHAR(50) NULL,
-  apellido2 VARCHAR(50) NULL,
-  correo VARCHAR(80) NULL,
-  fecha_nacimiento date NULL,
-  direccion VARCHAR(150) NULL,
-  telefono VARCHAR(20) NULL,
-  celular VARCHAR(30) NULL,
-  contrasena VARCHAR(150) NULL,
-  estado boolean not NULL,
-  lenguaje VARCHAR(2) NULL,
-  profesion VARCHAR(150) NULL,
-  rol_id integer NOT NULL,
-  empresa_id integer NOT NULL,
-  CONSTRAINT pk_usuario PRIMARY KEY (id),
-  CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id)
-        REFERENCES avalsoft.rol (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-  CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE);
+CREATE TABLE avalsoft.usuario
+(
+   id                  INTEGER NOT NULL DEFAULT nextval ('usuario_seq'::regclass),
+   tipo_documento      CHARACTER VARYING (10) NULL,
+   identificacion      CHARACTER VARYING NULL,
+   nombre              CHARACTER VARYING (50) NULL,
+   correo              CHARACTER VARYING (80) NULL,
+   fecha_nacimiento    DATE NULL,
+   direccion           CHARACTER VARYING (150) NULL,
+   telefono            CHARACTER VARYING (20) NULL,
+   celular             CHARACTER VARYING (30) NULL,
+   contrasena          CHARACTER VARYING (150) NULL,
+   estado              BOOLEAN NOT NULL,
+   lenguaje            CHARACTER VARYING (2) NULL,
+   profesion           CHARACTER VARYING (150) NULL,
+   rol_id              INTEGER NOT NULL,
+   empresa_id          INTEGER NOT NULL,
+   tipo_persona        CHARACTER VARYING (20) NULL,
+   apellido1           CHARACTER VARYING (50) NULL,
+   apellido2           CHARACTER VARYING (50) NULL,
+   CONSTRAINT fk_usuario_rol FOREIGN KEY
+      (rol_id)
+      REFERENCES avalsoft.rol (id)
+         MATCH SIMPLE
+         ON DELETE CASCADE
+         ON UPDATE CASCADE
+      NOT DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT fk_usuario_empresa FOREIGN KEY
+      (empresa_id)
+      REFERENCES avalsoft.empresa (id)
+         MATCH SIMPLE
+         ON DELETE CASCADE
+         ON UPDATE CASCADE
+      NOT DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT pk_usuario PRIMARY KEY (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+)
+WITH (OIDS = FALSE)
 
 ALTER TABLE avalsoft.usuario
     OWNER to postgres;	
