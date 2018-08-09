@@ -50,7 +50,7 @@ public enum EnumReporteCotizacion {
 	TBL1_INTANGIBLES("reporte.cotizacion.tabla.categoria.avaluos.contenido12", 1, 2, false, true, "reporte.cotizacion.tabla.categoria.avaluos.titulo", 1, 3),
 	TBL1_INTANGIBLES_ESPECIALES("reporte.cotizacion.tabla.categoria.avaluos.contenido13", 1, 2, false, true, "reporte.cotizacion.tabla.categoria.avaluos.titulo", 1, 3),
 	//BIBLIOGRAFICA
-	BIBLIOGRAFICA("reporte.cotizacion.contenido", 191, 220, false, true, "reporte.cotizacion.tabla.bibliografia.titulo", 1, 2);
+	BIBLIOGRAFICA("reporte.cotizacion.contenido", 191, 220, false, false, "reporte.cotizacion.tabla.bibliografia.titulo", 1, 2);
 	
 	private String messageKey;
 	private int desde;

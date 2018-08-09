@@ -22,6 +22,7 @@ public class Reporte implements java.io.Serializable {
 	private boolean visible;
 
 	public Reporte() {
+		empresa =  new Empresa();
 	}
 
 	public Reporte(int id, Empresa empresa, String codigo, String idContenido, boolean visible) {

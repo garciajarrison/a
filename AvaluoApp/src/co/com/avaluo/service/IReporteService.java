@@ -2,6 +2,7 @@ package co.com.avaluo.service;
 
 import java.util.List;
 
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Reporte;
 
 
@@ -15,5 +16,7 @@ public interface IReporteService {
 	
 	Reporte getReporteById(int id);
 	
-	List<Reporte> getReportes(int idEmpresa);
+	List<Reporte> getReportes(String codigo, int idEmpresa);
+
+	List<Reporte> datosReporteCotizacion(String codigo, Empresa empresa);
 }
