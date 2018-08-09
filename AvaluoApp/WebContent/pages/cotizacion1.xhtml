@@ -15,10 +15,7 @@
 			<p:commandButton value="#{msg['cotizacion.btn.nueva']}" id="btnNuevo"   styleClass="ui-priority-primary" process="@this" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult">
 				<p:ajax event="click" listener="#{cotizacionAdmBB.nuevaCotizacion}"/>
 			</p:commandButton>
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
 			<p:commandButton id="btnConsulta" value="#{msg['cotizacion.btn.consulta']}" onclick="PF('dlgCotizaciones').show();" process="@this" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult"/>
          		<p:commandButton value="#{msg['cotizacion.btn.calcular']}" type="button"  >	          				          		
 					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult"/>
@@ -53,7 +50,7 @@
 		   				styleClass="form-control col-md-7 col-xs-12">
 		   		</p:inputText>
 		   	</div>	
-<<<<<<< HEAD
+
 		   	
 		   	   			<div class="ui-g-12 ui-md-6 ui-lg-3">
 		   		<p:inputText id="txtTotalCot2" value="#{cotizacionAdmBB.direc}"
@@ -62,9 +59,7 @@
 		   	</div>	
 	   	</div>	
 
-=======
-	   	</div>	
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
+
 		<!-- 	<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
 			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText> -->
 		<p:accordionPanel id="aCotizacion">
@@ -187,11 +182,8 @@
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
 				   					 styleClass="form-control col-md-7 col-xs-12" required="true">
-<<<<<<< HEAD
 				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaRemitente(cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
-=======
-				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
+
 				   		</p:inputText>
 				   	</div>
 				   	
@@ -232,12 +224,7 @@
 				   		
 				   	<div class="ui-g-12" align="center">	
 				   		<p:commandButton value="#{msg['cotizacion.btn.agrremitente']}" type="button">
-<<<<<<< HEAD
 				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addRemitente('infRemit')}" process="infRemit" update="infRemit"/>
-
-=======
-				   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente('infRemit')}" process="infRemit" update="infRemit"/>
->>>>>>> parent of 71f0620... Merge pull request #19 from garciajarrison/master
 				   		</p:commandButton>
 				   	</div>
 				   	</div>
