@@ -152,7 +152,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaPropiedades =  new ArrayList<Propiedad>();
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
-		direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
+		//direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
 		if(entityList == null)
 			entityList = new ArrayList<>();
