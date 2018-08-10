@@ -1,20 +1,17 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import co.com.avaluo.common.EnumReporteCotizacion;
 import co.com.avaluo.common.EnumSessionAttributes;
-import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Reporte;
 import co.com.avaluo.model.entity.Usuario;
@@ -34,12 +31,10 @@ public class ReporteBB extends SpringBeanAutowiringSupport implements Serializab
 	private List<Reporte> entityList;
 	private Usuario usuario;
 	private Util util;
-	private List<SelectItem> propiedad;
 	
 	public ReporteBB() {
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
-		propiedad = ListasGenericas.getInstance().getListaTipoPropiedad();
 		cargarListaReportes();
 	}
 	
@@ -49,20 +44,101 @@ public class ReporteBB extends SpringBeanAutowiringSupport implements Serializab
 	}
 	
 	private void cargarListaReportes() {
-		entityList = reporteService.getReportes(usuario.getEmpresa().getId());
-		if(entityList == null) {
-			//reporteService.cargarReporteInicial(usuario.getEmpresa().getId());
-			//cargarListaReportes();
+		entityList = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa().getId());
+		if(entityList == null || entityList.isEmpty()) {
+			entityList = reporteService.datosReporteCotizacion(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
 		}
 	}
 	
 	public String contenidoKey(String codigoContenido) {
-		return codigoContenido;
+		StringBuilder retorno = new StringBuilder();
+		EnumReporteCotizacion reporteEnc = null;
+	    for(EnumReporteCotizacion rp : EnumReporteCotizacion.values()){
+	        if( rp.toString().equals(codigoContenido.trim())){
+	        	reporteEnc = rp;
+	            break;
+	        }
+	    }
+	    
+	    if(reporteEnc != null) {
+	    	//Datos en tabla
+		    if(reporteEnc.isTabla()) {
+		    	int contColum = 0;
+		    	//titulos
+		    	retorno.append("<table><tr align='center'>");
+		    	for(int i = reporteEnc.getDesdeTabla(); i <= reporteEnc.getHastaTabla(); i++) {
+		    			retorno.append("<th  width='10%'><strong>");
+		    			retorno.append(util.getMessage((reporteEnc.getMessageKeyTituloTabla() + i)));
+		    			retorno.append("</strong></th>");
+		    			contColum++;
+		    	}
+
+		    	int contColumDatos = 1;
+		    	int cont = 1;
+		    	for(int i = reporteEnc.getDesde(); i <= reporteEnc.getHasta(); i++) {
+		    		if(contColumDatos == 1) {
+		    			retorno.append("</tr><tr><td width='10%'>");
+		    			retorno.append(cont++);
+		    			retorno.append("</td>");
+		    		}
+
+		    		if(reporteEnc.getHasta() > (reporteEnc.getHastaTabla() - 1) && 
+		    			i > (reporteEnc.getHastaTabla() - 1)) {
+		    			retorno.append("<br/>");
+			    		retorno.append(util.getMessage((reporteEnc.getMessageKey() + i)));
+		    		}else {
+			    		retorno.append("<td>");
+			    		retorno.append(util.getMessage((reporteEnc.getMessageKey() + i)));
+			    		if(i < (reporteEnc.getHastaTabla() - 1))
+			    			retorno.append("</td>");
+		    			
+		    			if(contColumDatos == contColum) {
+				    		contColumDatos = 1;
+			    		}else {
+			    			contColumDatos++;
+			    		}
+		    			
+		    		}
+		    		
+		    	}
+		    	if(reporteEnc.getHasta() > (reporteEnc.getHastaTabla() - 1)){
+		    		retorno.append("</td>");
+		    	}
+		    	
+		    	retorno.append("</tr></table>");
+		    	
+		    //Datos con negrita    
+		    }else if(reporteEnc.isNegrita()) {
+		    	retorno.append("<strong>");
+		    	retorno.append(util.getMessage((reporteEnc.getMessageKey())));
+		    	retorno.append("</strong>");
+		    	retorno.append(" ");
+		    	retorno.append(util.getMessage((reporteEnc.getMessageKey().replace(".negrita", ""))));
+		    	
+		    }else if(reporteEnc.getDesde() > 0) {
+		    	for(int i = reporteEnc.getDesde(); i <= reporteEnc.getHasta(); i++) {
+		    		if(i == reporteEnc.getDesde()) {
+		    			retorno.append("<strong>");
+		    			retorno.append(util.getMessage((reporteEnc.getMessageKey() + i)));
+		    			retorno.append("</strong>");
+		    		}else {
+		    			retorno.append("<br/>");
+		    			retorno.append(util.getMessage((reporteEnc.getMessageKey() + i)));
+		    		}
+		    	}
+		    }
+		    
+		
+	    }
+	    
+	    
+	    return retorno.toString();
 	}
 	
-	private void cambiarEstado(Reporte reporte) {
+	public void cambiarEstado(Reporte reporte) {
 		try {
-			System.out.println(reporte);
+			reporteService.updateReporte(reporte);
+			util.mostrarMensajeKey("exito.actualizar"); 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -106,11 +182,4 @@ public class ReporteBB extends SpringBeanAutowiringSupport implements Serializab
 		this.entityList = entityList;
 	}
 
-	public List<SelectItem> getPropiedad() {
-		return propiedad;
-	}
-
-	public void setPropiedad(List<SelectItem> propiedad) {
-		this.propiedad = propiedad;
-	}
  }

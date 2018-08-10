@@ -13,21 +13,18 @@
 		
 		<p:dataTable var="reporte" value="#{reporteBB.entityList}" 
 						emptyMessage="#{msg['no.registros']}">
-		 
-		    <p:column headerText="#{msg['reporte']}" sortBy="#{reporte.codigo}">
-		        <h:outputText value="#{reporte.codigo}" />
-		    </p:column>
 		    
-		    <p:column headerText="#{msg['reporte.contenido']}" sortBy="#{reporte.contenido}">
-		        <h:outputText value="#{reporteBB.contenidoKey(reporte.idContenido)}" escape="false">
-		   		</h:outputText>
+		    <p:column width="90%" headerText="#{msg['reporte.contenido']}" sortBy="#{reporte.contenido}">
+		        <h:outputText value="#{reporteBB.contenidoKey(reporte.idContenido)}" escape="false"/>
 		    </p:column>
 		 
-		    <p:column headerText="#{msg['reporte.visible']}" sortBy="#{reporte.valor}">
-		   		<p:selectBooleanButton id="value2" value="#{reporte.visible}" onLabel="Visible" offLabel="Oculto" 
-		   					onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
-		            <p:ajax update="growl" listener="#{reporteBB.cambiarEstado(reporte)}" />
-		        </p:selectBooleanButton>
+		    <p:column width="10%" headerText="#{msg['reporte.visible']}" sortBy="#{reporte.valor}">
+		    	<center>
+			   		<p:selectBooleanButton id="value2" value="#{reporte.visible}" onLabel="Visible" offLabel="Oculto" 
+			   					onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
+			            <p:ajax update=":#{p:component('growl')}" listener="#{reporteBB.cambiarEstado(reporte)}" />
+			        </p:selectBooleanButton>
+		        </center>
 		    </p:column>
 		    
 		</p:dataTable>
