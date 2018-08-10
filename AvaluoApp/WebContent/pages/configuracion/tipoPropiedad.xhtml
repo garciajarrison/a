@@ -12,7 +12,11 @@
 		<br /><br /><br />
 		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
 		<p:dataTable var="tp" value="#{tipoPropiedadBB.entityList}" 
-						emptyMessage="#{msg['no.registros']}">
+					emptyMessage="#{msg['no.registros']}"
+					scrollable="false" paginatorPosition="bottom"
+					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
 		 
 		    <p:column headerText="#{msg['tipo.propiedad']}" sortBy="#{tp.tipoPropiedad}">
 		        <h:outputText value="#{tp.tipoPropiedad}" />

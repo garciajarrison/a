@@ -22,38 +22,32 @@ public class EmpresaDAO implements IEmpresaDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(Empresa entity) {
+	public void addEmpresa(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(Empresa entity) {
+	public void deleteEmpresa(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Empresa entity) {
+	public void updateEmpresa(Empresa entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Empresa getEntity(int id) {
+	public Empresa getEmpresaById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
 		
-		List<?> list = session
+		return (Empresa) session
 				.createQuery("from Empresa where id=?").setParameter(0, id)
-				.list();
-		
-		return (Empresa) list.get(0);
+				.uniqueResult();
 	}
 
-	public List<Empresa > getEntities() {
+	public List<Empresa> getEmpresas() {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		@SuppressWarnings("unchecked")
-		List<Empresa> list = (List<Empresa>) session.createQuery("from Empresa").list();
-		
-		return list;
+		return session.createQuery("from Empresa").list();
 	}
 
 	

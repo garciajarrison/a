@@ -15,35 +15,35 @@ public class LicenciaService implements ILicenciaService {
 
 	@Autowired
 	private ILicenciaDAO entityDAO;
-
-	@Transactional(readOnly = false)
-	public void addEntity(Licencia entity) {
-		getEntityDAO().addEntity(entity);
-	}
-
-	@Transactional(readOnly = false)
-	public void deleteEntity(Licencia entity) {
-		getEntityDAO().deleteEntity(entity);
-	}
-
-	@Transactional(readOnly = false)
-	public void updateEntity(Licencia entity) {
-		getEntityDAO().updateEntity(entity);
-	}
-
-	public Licencia getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
-	}
-
-	public List<Licencia> getEntitys() {	
-		return getEntityDAO().getEntities();
-	}
-
+	
 	public ILicenciaDAO getEntityDAO() {
 		return entityDAO;
 	}
 
 	public void setEntityDAO(ILicenciaDAO entityDAO) {
 		this.entityDAO = entityDAO;
+	}
+
+	@Transactional(readOnly = false)
+	public void addLicencia(Licencia entity) {
+		getEntityDAO().addLicencia(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void deleteLicencia(Licencia entity) {
+		getEntityDAO().deleteLicencia(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void updateLicencia(Licencia entity) {
+		getEntityDAO().updateLicencia(entity);
+	}
+
+	public Licencia getLicenciaById(int id) {
+		return getEntityDAO().getLicenciaById(id);
+	}
+
+	public List<Licencia> getLicencias() {	
+		return getEntityDAO().getLicencias();
 	}
 }

@@ -17,32 +17,31 @@
 					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
 					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
 					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
-					
-
+		 
 		    <p:column headerText="#{msg['empresa']}" sortBy="#{empresa.nombre}">
-		        <h:outputText value="#{empresa.tipoIdentificacion} - #{empresa.identificacion} #{empresa.nombre}" />
+		        <h:outputText value="#{empresa.nombre}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['empresa.descripcion']}" sortBy="#{empresa.descripcion}">
-		        <h:outputText value="#{empresa.descripcion}" />
+		    <p:column headerText="#{msg['empresa.porcentaje']}" sortBy="#{empresa.porcentaje}">
+		        <h:outputText value="#{empresa.porcentaje}" >
+		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
+		   		</h:outputText>
 		    </p:column>
 		 
-		    <p:column headerText="#{msg['empresa.estado']}" sortBy="#{empresa.estado}">
-		        <h:outputText value="#{empresa.estado}" />
-		    </p:column>
-		    
-		    <p:column headerText="#{msg['empresa.ciudad']}" sortBy="#{empresa.ciudad.nombre}">
-		        <h:outputText value="#{empresa.ciudad.nombre}" />
+		    <p:column headerText="#{msg['empresa.valor.minimo.cotizacion']}" sortBy="#{empresa.valor}">
+		        <h:outputText value="#{empresa.valor}" >
+		        	<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />		
+		   		</h:outputText>
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['acciones']}">
 		    	<center>
 			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-			       		<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}" 
+			       		<p:ajax event="click" listener="#{empresaBB.setSelectedEstrato(empresa)}" 
 			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
 			       </p:commandButton>
 			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
-						<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}"
+						<p:ajax event="click" listener="#{empresaBB.setSelectedEstrato(empresa)}"
 								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
 					</p:commandButton>
 				</center>
@@ -82,19 +81,19 @@
 			<div align="center">
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 					<h:outputLabel id="lNameU" value="#{msg['empresa']}:"/>
-					<h:outputLabel id="txtNameU" value="#{empresaBB.selectedEmpresa.nombre}"/>
+					<h:outputLabel id="txtNameU" value="#{empresaBB.selectedEstrato.nombre}"/>
 		
 			   		<h:outputLabel id="lporcentajeU" value="#{msg['empresa.porcentaje']}:" for="txtPorcentajeU"/>
-			   		<p:inputNumber id="txtPorcentajeU" value="#{empresaBB.selectedEmpresa.porcentaje}" required="true" 
+			   		<p:inputNumber id="txtPorcentajeU" value="#{empresaBB.selectedEstrato.porcentaje}" required="true" 
 			   				decimalPlaces="2" title="#{msg['empresa.porcentaje']}" label="#{msg['empresa.porcentaje']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 
 			   		<h:outputLabel id="lValueU" value="#{msg['empresa.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputText id="txtValueU" value="#{empresaBB.selectedEmpresa.valor}" required="true"
+			   		<p:inputText id="txtValueU" value="#{empresaBB.selectedEstrato.valor}" required="true"
 			   				label="#{msg['empresa.valor.minimo.cotizacion']}" title="#{msg['empresa.valor.minimo.cotizacion']}"/>
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton id="btnActualizarEmpresa" value="#{msg['btn.actualizar']}" type="button">
+		   		<p:commandButton id="btnActualizarEstrato" value="#{msg['btn.actualizar']}" type="button">
 					<p:ajax event="click" listener="#{empresaBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
 		   		</p:commandButton>
 	   		</div>

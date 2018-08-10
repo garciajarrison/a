@@ -48,11 +48,18 @@ public class ReporteDAO implements IReporteDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Reporte> getReportes(String codigo, int idReporte) {
+	public List<Reporte> getReportes(String codigo, Empresa empresa) {
+		List<Reporte> retorno;
 		Session session = getSessionFactory().getCurrentSession();
-		return (List<Reporte>) session.createQuery("from Reporte where empresa.id = :idEmpresa and codigo = :codigo order by id")
-				.setParameter("idEmpresa", idReporte)
+		retorno = (List<Reporte>) session.createQuery("from Reporte where empresa.id = :idEmpresa and codigo = :codigo order by id")
+				.setParameter("idEmpresa", empresa.getId())
 				.setParameter("codigo", codigo).list();
+		
+		if(retorno == null || retorno.isEmpty()) {
+			retorno = this.datosReporteCotizacion(codigo, empresa);
+		}
+		
+		return retorno;
 	}
 
 	public List<Reporte> datosReporteCotizacion(String codigo, Empresa empresa) {
@@ -67,7 +74,7 @@ public class ReporteDAO implements IReporteDAO {
 			
 			session.save(guardar);
 		}
-		return getReportes(codigo, empresa.getId());
+		return getReportes(codigo, empresa);
 	}
 
 }
