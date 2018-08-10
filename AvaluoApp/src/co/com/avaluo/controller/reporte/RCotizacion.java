@@ -409,6 +409,7 @@ public class RCotizacion {
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido143"));
 		// if(verde)
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido144"));
+		contenidos.add(util.getMessage("reporte.cotizacion.contenido144.falto"));
 		// if(azul){
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido145"));
 		contenidos.add(util.getMessage("reporte.cotizacion.contenido146"));
@@ -475,59 +476,60 @@ public class RCotizacion {
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo3"));
 
 		contenidoTabla = new ArrayList<String>();
+		int indiceTabla = 0;
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido11"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido12"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido13"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido21"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido22"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido23"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido31"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido32"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido33"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido41"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido42"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido43"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido51"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido52"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido53"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido61"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido62"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido63"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido71"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido72"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido75"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido81"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido82"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido83"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido91"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido92"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido93"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido101"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido102"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido103"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido111"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido112"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido113"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido121"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido122"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido123"));
 
+		contenidoTabla.add((indiceTabla++)+"");
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido131"));
 		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido132"));
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido133"));
 
 		// Agregamos la tabla de categorias de avaluos
 		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
@@ -560,6 +562,75 @@ public class RCotizacion {
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido191"), BOLD_14, 1));
 
 		// tabla bibliografia
+		document.add(reporteUtil.addEmptyLine(1));
+
+		// Tabla categorias de avaluos
+		titulosTabla = new ArrayList<String>();
+		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.bibliografia.titulo1"));
+		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.bibliografia.titulo2"));
+
+		contenidoTabla = new ArrayList<String>();
+		indiceTabla = 0;
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido192"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido193"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido194"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido195"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido196"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido197"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido198"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido199"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido200"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido201"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido202"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido203"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido204"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido205"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido206"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido207"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido208"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido209"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido210"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido211"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido212"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido213"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido214"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido215"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido216"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido217"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido218"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido219"));
+		contenidoTabla.add((indiceTabla++)+"");
+		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido220"));
+		// Agregamos la tabla de categorias de avaluos
+		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
 
 	}
 

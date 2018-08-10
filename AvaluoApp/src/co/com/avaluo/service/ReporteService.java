@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.IReporteDAO;
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Reporte;
 
 @Service
@@ -15,6 +16,14 @@ public class ReporteService implements IReporteService {
 
 	@Autowired
 	private IReporteDAO entityDAO;
+	
+	public IReporteDAO getEntityDAO() {
+		return entityDAO;
+	}
+
+	public void setEntityDAO(IReporteDAO entityDAO) {
+		this.entityDAO = entityDAO;
+	}
 
 	@Transactional(readOnly = false)
 	public void addReporte(Reporte entity) {
@@ -35,15 +44,12 @@ public class ReporteService implements IReporteService {
 		return getEntityDAO().getReporteById(id);
 	}
 
-	public List<Reporte> getReportes(int idEmpresa) {	
-		return getEntityDAO().getReportes(idEmpresa);
+	public List<Reporte> getReportes(String codigo, int idEmpresa) {	
+		return getEntityDAO().getReportes(codigo, idEmpresa);
 	}
 
-	public IReporteDAO getEntityDAO() {
-		return entityDAO;
-	}
-
-	public void setEntityDAO(IReporteDAO entityDAO) {
-		this.entityDAO = entityDAO;
+	@Transactional(readOnly = false)
+	public List<Reporte> datosReporteCotizacion(String codigo, Empresa empresa) {
+		return getEntityDAO().datosReporteCotizacion(codigo, empresa);
 	}
 }
