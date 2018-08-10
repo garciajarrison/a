@@ -316,6 +316,8 @@
 						        <h:outputText value="#{detalle.propiedad.direccion}" />
 						    </p:column>
 						    
+						    
+						    
 						    <p:column headerText="#{msg['cotizacion.valor']}">
 						        
 						        <p:cellEditor>
@@ -358,6 +360,111 @@
 			 		<p:inputText id="txtMatricula" value="#{cotizacionAdmBB.infPropiedad.registro}"
 			   						 title="#{msg['cotizacion.registro']}" 
 			   						label="#{msg['cotizacion.registro']}"></p:inputText>	 
+			   						
+   <p:dataTable id="tDireccion var="dir" value="#{cotizacionAdmBB.direccion" editable="true" editMode="cell" widgetVar="cellDir">
+       <f:facet name="header">
+           Cell Editing with Click and RightClick
+       </f:facet>
+ 
+       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
+ 
+       <p:column headerText="Id">
+              <p:cellEditor>
+                  <f:facet name="output"><h:outputText value="#{dir.id}" /></f:facet>
+                  <f:facet name="input"><p:inputText id="modelInput" value="#{dir.id}" style="width:96%"/></f:facet>
+              </p:cellEditor>
+          </p:column>
+ 
+       <p:column headerText="Tipo via">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.tipoVia}" /></f:facet>
+               <f:facet name="input">                   
+                   <h:selectOneMenu value="#{dir.tipoVia}" style="width:100%">
+                       <f:selectItems value="#{cotizacionAdmBB.listaTipoVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Nro. via">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.numeroVia}" /></f:facet>
+               <f:facet name="input">
+               	   <p:inputText id="iNumeroVia" value="#{dir.numeroVia}" style="width:96%"/>	
+                   
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Letra">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+               <f:facet name="input">
+                   <p:inputText id="iLetraVia" value="#{dir.letraVia}" style="width:96%"/>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Nombre">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.nombreVia}" /></f:facet>
+               <f:facet name="input">
+                   <p:inputText id="iNombreV" value="#{dir.nombreVia}" style="width:96%"/>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Posicion via">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.posicionVia}" /></f:facet>
+               <f:facet name="input">                   
+                   <h:selectOneMenu value="#{dir.posicionVia}" style="width:100%">
+                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Número intersección">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.numeroInterseccion}" /></f:facet>
+               <f:facet name="input">
+                   <p:inputText id="iNumInter" value="#{dir.numeroInterseccion}" style="width:96%"/>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Letra intersección">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.letraInterseccion}" /></f:facet>
+               <f:facet name="input">
+                   <p:inputText id="iLetraInter" value="#{dir.letraInterseccion}" style="width:96%"/>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Posicion intersección">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.posicionInterseccion}" /></f:facet>
+               <f:facet name="input">                   
+                   <h:selectOneMenu value="#{dir.posicionINterseccion}" style="width:100%">
+                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+       <p:column headerText="Componente intersección">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{dir.componenteInterseccion}" /></f:facet>
+               <f:facet name="input">
+                   <p:inputText id="iComponenteInter" value="#{dir.componenteInterseccion}" style="width:96%"/>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+
+   </p:dataTable>
+ 			   						
 
 			 		<p:outputLabel id="lDireccion" value="#{msg['cotizacion.direccion']}" for="txtDireccion" ></p:outputLabel>	
 			 		<p:inputText id="txtDireccion" value="#{cotizacionAdmBB.infPropiedad.direccion}"

@@ -1,15 +1,14 @@
 package co.com.avaluo.model.entity;
-// Generated 17/07/2018 09:50:42 PM by Hibernate Tools 4.0.1.Final
+// Generated 9/08/2018 05:55:20 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,6 +25,7 @@ public class Propiedad implements java.io.Serializable {
 	private int id;
 	private Estrato estrato;
 	private Tablas tablas;
+	private Direcciones direcciones;
 	private Usuario usuario;
 	private Ciudad ciudad;
 	private TipoPropiedad tipoPropiedad;
@@ -34,7 +34,7 @@ public class Propiedad implements java.io.Serializable {
 	private String direccion;
 	private String unidadMedida;
 	private BigDecimal valorMedida;
-	private List<DetalleCotizacion> detalleCotizacions = new ArrayList();
+	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
 
 	public Propiedad() {
 	}
@@ -49,12 +49,13 @@ public class Propiedad implements java.io.Serializable {
 		this.tipoPropiedad = tipoPropiedad;
 	}
 
-	public Propiedad(int id, Estrato estrato, Tablas tablas, Usuario usuario, Ciudad ciudad,
+	public Propiedad(int id, Estrato estrato, Tablas tablas, Direcciones direcciones, Usuario usuario, Ciudad ciudad,
 			TipoPropiedad tipoPropiedad, String tipo, String registro, String direccion, String unidadMedida,
 			BigDecimal valorMedida, List<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
 		this.estrato = estrato;
 		this.tablas = tablas;
+		this.direcciones = direcciones;
 		this.usuario = usuario;
 		this.ciudad = ciudad;
 		this.tipoPropiedad = tipoPropiedad;
@@ -67,8 +68,8 @@ public class Propiedad implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
+
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -77,7 +78,7 @@ public class Propiedad implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estrato_id", nullable = false)
 	public Estrato getEstrato() {
 		return this.estrato;
@@ -87,7 +88,7 @@ public class Propiedad implements java.io.Serializable {
 		this.estrato = estrato;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tablas_id", nullable = false)
 	public Tablas getTablas() {
 		return this.tablas;
@@ -97,7 +98,17 @@ public class Propiedad implements java.io.Serializable {
 		this.tablas = tablas;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "direccion_id")
+	public Direcciones getDirecciones() {
+		return this.direcciones;
+	}
+
+	public void setDirecciones(Direcciones direcciones) {
+		this.direcciones = direcciones;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", nullable = false)
 	public Usuario getUsuario() {
 		return this.usuario;
@@ -107,7 +118,7 @@ public class Propiedad implements java.io.Serializable {
 		this.usuario = usuario;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ciudad_id", nullable = false)
 	public Ciudad getCiudad() {
 		return this.ciudad;
@@ -117,7 +128,7 @@ public class Propiedad implements java.io.Serializable {
 		this.ciudad = ciudad;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tipo_propiedad_id", nullable = false)
 	public TipoPropiedad getTipoPropiedad() {
 		return this.tipoPropiedad;
@@ -172,7 +183,7 @@ public class Propiedad implements java.io.Serializable {
 		this.valorMedida = valorMedida;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "propiedad")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
 	public List<DetalleCotizacion> getDetalleCotizacions() {
 		return this.detalleCotizacions;
 	}
