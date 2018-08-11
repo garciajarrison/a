@@ -44,10 +44,7 @@ public class ReporteBB extends SpringBeanAutowiringSupport implements Serializab
 	}
 	
 	private void cargarListaReportes() {
-		entityList = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa().getId());
-		if(entityList == null || entityList.isEmpty()) {
-			entityList = reporteService.datosReporteCotizacion(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
-		}
+		entityList = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
 	}
 	
 	public String contenidoKey(String codigoContenido) {

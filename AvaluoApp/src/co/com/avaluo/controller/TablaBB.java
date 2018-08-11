@@ -1,8 +1,5 @@
 package co.com.avaluo.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,8 +17,6 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacion;
-import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.DetalleTabla;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.Usuario;
@@ -57,7 +51,6 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		listasGenericas = ListasGenericas.getInstance();
 		mostrarDetalle = false;
 		cargarListaTablas();
-		generarReporteCotizacion();
 	}
 	
 	@PostConstruct
@@ -69,15 +62,6 @@ public class TablaBB extends SpringBeanAutowiringSupport implements Serializable
 		entityList = tablaService.getTablas(usuario.getEmpresa().getId());
 		if(entityList == null)
 			entityList = new ArrayList<>();
-	}
-	
-	//TODO borrar o mover
-	public void generarReporteCotizacion() {
-		
-		RCotizacion reporte = new RCotizacion();
-		ByteArrayOutputStream docExport = reporte.generarReporte(new Cotizacion());
-		InputStream targetStream = new ByteArrayInputStream(docExport.toByteArray());
-        file = new DefaultStreamedContent(targetStream, "application/pdf", "cotización.pdf");
 	}
 	
 	public void addEntity() {

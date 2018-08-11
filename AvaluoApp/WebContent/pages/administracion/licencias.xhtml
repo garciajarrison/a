@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<ui:composition template="../common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+	
+		<h1>#{msg['licencia.lista']}</h1>
+		<br /><br /><br />
+		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
+		<p:dataTable var="licencia" value="#{licenciaBB.listaLicencias}" 
+					emptyMessage="#{msg['no.registros']}"
+					scrollable="false" paginatorPosition="bottom"
+					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
+					
+		    <p:column width="10%" headerText="#{msg['licencia']}" sortBy="#{licencia.nombre}">
+		        <h:outputText value="#{licencia.nombre}" />
+		    </p:column>
+		    
+		    <p:column width="20%" headerText="#{msg['licencia.empresa']}" sortBy="#{licencia.empresa.nombre}">
+		        <h:outputText value="#{licencia.empresa.nombre}" />
+		    </p:column>
+		 
+		    <p:column width="15%" headerText="#{msg['licencia.ciudad']}" sortBy="#{licencia.ciudad.nombre}">
+		        <h:outputText value="#{licencia.ciudad.nombre}" />
+		    </p:column>
+		    
+		    <p:column width="13%" headerText="#{msg['licencia.ultimo.pago']}" sortBy="#{licencia.ultimoPago}">
+		        <h:outputText value="#{licencia.ultimoPago}" />
+		    </p:column>
+		    
+		    <p:column width="13%" headerText="#{msg['licencia.fecha.expiracion']}" sortBy="#{licencia.fechaExpiracion}">
+		        <h:outputText value="#{licencia.fechaExpiracion}" />
+		    </p:column>
+		    
+		    <p:column width="13%" headerText="#{msg['licencia.ultima.conexion']}" sortBy="#{licencia.fechaUltimaConn}">
+		        <h:outputText value="#{licencia.fechaUltimaConn}" />
+		    </p:column>
+		    
+		    <p:column width="20%" headerText="#{msg['acciones']}">
+		    	<center>
+			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
+			       		<p:ajax event="click" listener="#{licenciaBB.setSelectedLicencia(licencia)}" 
+			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
+			       </p:commandButton>
+			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
+						<p:ajax event="click" listener="#{licenciaBB.setSelectedLicencia(licencia)}"
+								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
+					</p:commandButton>
+				</center>
+		    </p:column>
+		    
+		</p:dataTable>
+		
+		
+		<p:dialog header="#{msg['licencia.agregar']}" id="dlgAgregar" 
+				widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+			
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel value="#{msg['licencia']}:"/>
+			   		<p:selectOneMenu id="sellicencia" value="#{licenciaBB.licencia.nombre}" title="#{msg['licencia']}" 
+			   				label="#{msg['licencia']}" required="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listasGenericas.listaLicencias}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   		</p:selectOneMenu>
+		    
+		    		<h:outputLabel value="#{msg['licencia.licencia.empresa']}:"/>
+		    		<p:selectOneMenu id="selEmpresa" value="#{licenciaBB.licencia.empresa.id}" title="#{msg['licencia.licencia.empresa']}" 
+			   				label="#{msg['licencia.licencia.empresa']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaEmpresas}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   		</p:selectOneMenu>
+		 
+		    		<h:outputLabel value="#{msg['licencia.licencia.ultimo.pago']}:"/>
+		        	<p:calendar value="#{licenciaBB.licencia.ultimoPago}" label="#{msg['licencia.licencia.ultimo.pago']}"
+		        			title="#{msg['licencia.licencia.ultimo.pago']}" required="true"
+		        			navigator="true" pattern="yyyy-MM-dd"/>
+		    
+		    		<h:outputLabel value="#{msg['licencia.licencia.fecha.expiracion']}:"/>
+		        	<p:calendar value="#{licenciaBB.licencia.fechaExpiracion}" label="#{msg['licencia.licencia.fecha.expiracion']}"
+		        			title="#{msg['licencia.licencia.fecha.expiracion']}" required="true"
+		        			navigator="true" pattern="yyyy-MM-dd"/>
+		        	
+		        	<h:outputLabel value="#{msg['licencia.licencia.pais']}:" for="selPais"/>
+			   		<p:selectOneMenu id="selPais" value="#{licenciaBB.licencia.ciudad.departamento.pais.id}" title="#{msg['licencia.licencia.pais']}" 
+			   				label="#{msg['licencia.licencia.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{licenciaBB.cargarListasDependientes}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['licencia.licencia.departamento']}:" for="seldepartamento"/>
+			   		<p:selectOneMenu id="seldepartamento" value="#{licenciaBB.licencia.ciudad.departamento.id}" title="#{msg['licencia.licencia.departamento']}" 
+			   				label="#{msg['licencia.licencia.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{licenciaBB.cargarListasDependientes}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['licencia.licencia.ciudad']}:" for="selciudad"/>
+			   		<p:selectOneMenu id="selciudad" value="#{licenciaBB.licencia.ciudad.id}" title="#{msg['licencia.licencia.ciudad']}" 
+			   				label="#{msg['licencia.licencia.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
+				
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" >
+		   				<p:ajax process="dlgAgregar" listener="#{licenciaBB.addEntity}"/>
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+
+		<p:dialog header="#{msg['licencia.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel value="#{msg['licencia']}:"/>
+			   		<p:selectOneMenu id="sellicenciau" value="#{licenciaBB.selectedLicencia.nombre}" title="#{msg['licencia']}" 
+			   				label="#{msg['licencia']}" required="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listasGenericas.listaLicencias}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   		</p:selectOneMenu>
+		    
+		    		<h:outputLabel value="#{msg['licencia.empresa']}:"/>
+		    		<p:selectOneMenu id="selEmpresau" value="#{licenciaBB.selectedLicencia.empresa.id}" title="#{msg['licencia.empresa']}" 
+			   				label="#{msg['licencia.empresa']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaEmpresas}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   		</p:selectOneMenu>
+		 
+		    		<h:outputLabel value="#{msg['licencia.ultimo.pago']}:"/>
+		        	<p:calendar value="#{licenciaBB.selectedLicencia.ultimoPago}" label="#{msg['licencia.ultimo.pago']}"
+		        			title="#{msg['licencia.ultimo.pago']}" required="true"
+		        			navigator="true" pattern="yyyy-MM-dd"/>
+		    
+		    		<h:outputLabel value="#{msg['licencia.fecha.expiracion']}:"/>
+		        	<p:calendar value="#{licenciaBB.selectedLicencia.fechaExpiracion}" label="#{msg['licencia.fecha.expiracion']}"
+		        			title="#{msg['licencia.fecha.expiracion']}" required="true"
+		        			navigator="true" pattern="yyyy-MM-dd"/>
+		        	
+		        	<h:outputLabel value="#{msg['licencia.pais']}:" for="selPaisu"/>
+			   		<p:selectOneMenu id="selPaisu" value="#{licenciaBB.selectedLicencia.ciudad.departamento.pais.id}" 
+			   				title="#{msg['licencia.pais']}" 
+			   				label="#{msg['licencia.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{licenciaBB.cargarListasDependientesUpdate}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['licencia.departamento']}:" for="seldepartamentou"/>
+			   		<p:selectOneMenu id="seldepartamentou" value="#{licenciaBB.selectedLicencia.ciudad.departamento.id}" 
+			   				title="#{msg['licencia.departamento']}" 
+			   				label="#{msg['licencia.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{licenciaBB.cargarListasDependientesUpdate}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['licencia.ciudad']}:" for="selciudadu"/>
+			   		<p:selectOneMenu id="selciudadu" value="#{licenciaBB.selectedLicencia.ciudad.id}" title="#{msg['licencia.ciudad']}" 
+			   				label="#{msg['licencia.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{licenciaBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton id="btnActualizarLicencia" value="#{msg['btn.actualizar']}" type="button">
+					<p:ajax event="click" listener="#{licenciaBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+		
+		<p:dialog header="#{msg['licencia.eliminar']}" id="dlgEliminar" widgetVar="dlgEliminar" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{licenciaBB.deleteEntity}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
+		
+		
+   </ui:define>
+</ui:composition>

@@ -6,15 +6,15 @@ import co.com.avaluo.model.entity.Empresa;
 
 
 public interface IEmpresaDAO {
-	void addEntity(Empresa entity);
+	void addEmpresa(Empresa entity);
 
-	void updateEntity(Empresa entity);
+	void updateEmpresa(Empresa entity);
 	
-	void deleteEntity(Empresa entity);
+	void deleteEmpresa(Empresa entity);
 	
-	Empresa getEntity(int id);
+	Empresa getEmpresaById(int id);
 
-	List<Empresa> getEntities();
+	List<Empresa> getEmpresas();
 	
 
 }

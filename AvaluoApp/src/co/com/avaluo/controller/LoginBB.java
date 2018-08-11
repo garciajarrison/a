@@ -78,8 +78,6 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 		
 		try {
 			if(validar(true, true)) {
-				String claveEncript = Util.getInstance().encriptarClave(usuario.getContrasena());
-				usuario.setContrasena(claveEncript);
 				usuario = this.getUsuarioService().login(usuario);
 
 				if(usuario != null) {

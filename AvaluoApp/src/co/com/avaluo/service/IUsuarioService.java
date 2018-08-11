@@ -8,15 +8,15 @@ import co.com.avaluo.model.entity.Usuario;
 
 public interface IUsuarioService {
 	
-	void addEntity(Usuario entity);
+	void addUsuario(Usuario entity);
 	
-	void updateEntity(Usuario entity);
+	void updateUsuario(Usuario entity);
 
-	void deleteEntity(Usuario entity);
+	void deleteUsuario(Usuario entity);
 	
-	Usuario getEntityById(int id);
+	Usuario getUsuarioById(int id);
 	
-	List<Usuario> getEntities();
+	List<Usuario> getUsuarios();
 
 	Usuario login(Usuario usuario);
 

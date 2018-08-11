@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
@@ -27,46 +28,46 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	public Usuario login(Usuario users) {
 		Session session = getSessionFactory().getCurrentSession();
-		return (Usuario)session.createQuery("from Usuario where correo=? and contrasena = ? and estado = true")
-				.setParameter(0, users.getCorreo())
-				.setParameter(1, users.getContrasena())
+		Usuario usuarioTmp = (Usuario)session.createQuery("from Usuario where correo=:correo and estado = true")
+				.setParameter("correo", users.getCorreo())
 				.uniqueResult();
+		
+		if(usuarioTmp != null &&
+			Util.getInstance().verificarContrasenna(users.getContrasena(), usuarioTmp.getContrasena())) {
+			
+			return usuarioTmp;
+		}else {
+			return null;
+		}
 	}
 	
-	public void addEntity(Usuario entity) {
+	public void addUsuario(Usuario entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
 
-	public void deleteEntity(Usuario entity) {
+	public void deleteUsuario(Usuario entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Usuario entity) {
+	public void updateUsuario(Usuario entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Usuario getEntityById(int id) {
+	public Usuario getUsuarioById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		List<?> list = session
+		return (Usuario) session
 				.createQuery("from Usuario where id=?").setParameter(0, id)
-				.list();
-		
-		return (Usuario) list.get(0);
+				.uniqueResult();
 	}
 
-	public List<Usuario> getEntities() {
+	public List<Usuario> getUsuarios() {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		@SuppressWarnings("unchecked")
-		List<Usuario> list = (List<Usuario>) session.createQuery("from Usuario").list();
-		
-		return list;
+		return session.createQuery("from Usuario").list();
 	}
-
+	
 	public Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {
 		
 		Session session = getSessionFactory().getCurrentSession();

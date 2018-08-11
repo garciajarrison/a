@@ -13,6 +13,12 @@
 	</properties>
 
 	<dependencies>
+	
+		<dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+	    	<version>0.3m</version>
+        </dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/black-tie -->
 		<dependency>
@@ -20,7 +26,6 @@
 		    <artifactId>black-tie</artifactId>
 		    <version>1.0.10</version>
 		</dependency>
-
 		
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
 		<dependency>

@@ -19,8 +19,9 @@ import javax.persistence.Transient;
 @Table(name = "ciudad", schema = "avalsoft")
 public class Ciudad implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
-	private Departamento departamento;
+	private Departamento departamento = new Departamento();
 	private String nombre;
 	private String codigo;
 	private Boolean estado;
@@ -59,7 +60,7 @@ public class Ciudad implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "departamento_id", nullable = false)
 	public Departamento getDepartamento() {
 		return this.departamento;

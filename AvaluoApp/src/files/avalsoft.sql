@@ -534,7 +534,7 @@ ALTER SEQUENCE avalsoft.direcciones_id_seq
     
 CREATE TABLE avalsoft.direcciones
 (
-   id                         INTEGER NOT NULL DEFAULT nextval ('direcciones_id_seq'::regclass),
+   id                         INTEGER NOT NULL DEFAULT nextval ('avalsoft.direcciones_id_seq'::regclass),
    propiedad_id               INTEGER NOT NULL,
    tipo_via                   CHARACTER VARYING (20) NULL,
    numero_via                 INTEGER NULL,

@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -29,14 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import co.com.avaluo.common.CalcularCoordenadas;
-
-
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
@@ -60,6 +51,7 @@ import co.com.avaluo.service.IDepartamentoService;
 import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.IEstratoService;
 import co.com.avaluo.service.IPropiedadService;
+import co.com.avaluo.service.IReporteService;
 import co.com.avaluo.service.ITablasService;
 import co.com.avaluo.service.ITipoPropiedadService;
 import co.com.avaluo.service.IUsuarioService;
@@ -73,6 +65,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	@Autowired
 	private ICotizacionService cotizacionService;
+	@Autowired
+	private IReporteService reporteService;
 	
 	@Autowired
 	private ITipoPropiedadService propertyService;
@@ -212,7 +206,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByClienteId().getTipoDocumento(), cotizacion.getUsuarioByClienteId().getIdentificacion(), usuario.getEmpresa().getId(), 3);
 			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
 				guardar = false;
-				getUsuarioService().updateEntity(cotizacion.getUsuarioByClienteId());
+				getUsuarioService().updateUsuario(cotizacion.getUsuarioByClienteId());
 				util.mostrarErrorKey("cotizacion.cliente.ya.existe");
 			}
 			
@@ -223,7 +217,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 				cotizacion.getUsuarioByClienteId().setRol(rol);
 				cotizacion.getUsuarioByClienteId().setEstado(true);
 				cotizacion.getUsuarioByClienteId().setLenguaje("ES");
-				getUsuarioService().addEntity(cotizacion.getUsuarioByClienteId());
+				getUsuarioService().addUsuario(cotizacion.getUsuarioByClienteId());
 				util.mostrarMensajeKey("exito.guardar"); 
 				util.actualizarPF(bloque);
 			}else {
@@ -254,7 +248,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 				cotizacion.getUsuarioByRemitenteId().setRol(rol);
 				cotizacion.getUsuarioByRemitenteId().setEstado(true);
 				cotizacion.getUsuarioByRemitenteId().setLenguaje("ES");
-				getUsuarioService().addEntity(cotizacion.getUsuarioByRemitenteId());
+				getUsuarioService().addUsuario(cotizacion.getUsuarioByRemitenteId());
 				util.mostrarMensajeKey("exito.guardar"); 
 				util.actualizarPF(bloque);
 			}else {
@@ -452,7 +446,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	//TODO borrar o mover
 	public void generarReporteCotizacion() {
 		
-		RCotizacion reporte = new RCotizacion();
+		RCotizacion reporte = new RCotizacion(reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa()));
 		ByteArrayOutputStream docExport = reporte.generarReporte(cotizacion);
 		InputStream targetStream = new ByteArrayInputStream(docExport.toByteArray());
         file = new DefaultStreamedContent(targetStream, "application/pdf", "cotización.pdf");
@@ -998,4 +992,12 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void setDirec(String direc) {
 		this.direc = direc;
 	}	
+	
+	public IReporteService getReporteService() {
+		return reporteService;
+	}
+
+	public void setReporteService(IReporteService reporteService) {
+		this.reporteService = reporteService;
+	}
  }

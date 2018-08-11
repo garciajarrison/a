@@ -12,14 +12,12 @@
 	<br /><br />
 	<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
 	
-	<p:commandButton value="#{msg['btn.descargar']}" ajax="false" 
-			onclick="PrimeFaces.monitorDownload(start, stop);" 
-			icon="ui-icon-arrowthick-1-s" immediate="true">
-        <p:fileDownload value="#{tablaBB.file}" />
-    </p:commandButton>
-		
 		<p:dataTable id="dtTablas" widgetVar="dtTablas" var="tables" value="#{tablaBB.entityList}" emptyMessage="#{msg['no.registros']}"
-				selectionMode="single" selection="#{tablaBB.detalleList}" rowKey="#{tables.id}">
+				selectionMode="single" selection="#{tablaBB.detalleList}" rowKey="#{tables.id}"
+				scrollable="false" paginatorPosition="bottom"
+				rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+				currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+				paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
 		 
 		 	<p:ajax event="rowSelect" update="@form" listener="#{tablaBB.verDetalle}" />
 		 

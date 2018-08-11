@@ -17,26 +17,26 @@ public class EmpresaService implements IEmpresaService {
 	private IEmpresaDAO entityDAO;
 
 	@Transactional(readOnly = false)
-	public void addEntity(Empresa entity) {
-		getEntityDAO().addEntity(entity);
+	public void addEmpresa(Empresa entity) {
+		getEntityDAO().addEmpresa(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Empresa entity) {
-		getEntityDAO().deleteEntity(entity);
+	public void deleteEmpresa(Empresa entity) {
+		getEntityDAO().deleteEmpresa(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Empresa entity) {
-		getEntityDAO().updateEntity(entity);
+	public void updateEmpresa(Empresa entity) {
+		getEntityDAO().updateEmpresa(entity);
 	}
 
-	public Empresa getEntityById(int id) {
-		return getEntityDAO().getEntity(id);
+	public Empresa getEmpresaById(int id) {
+		return getEntityDAO().getEmpresaById(id);
 	}
 
-	public List<Empresa> getEntitys() {	
-		return getEntityDAO().getEntities();
+	public List<Empresa> getEmpresas() {	
+		return getEntityDAO().getEmpresas();
 	}
 	
 	public IEmpresaDAO getEntityDAO() {
