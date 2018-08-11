@@ -46,7 +46,7 @@ import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.DetalleCotizacion;
 import co.com.avaluo.model.entity.DetalleTabla;
-import co.com.avaluo.model.entity.Direcciones;
+//import co.com.avaluo.model.entity.Direcciones;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Propiedad;
@@ -107,7 +107,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String departamento;
 	private String identificacion;
 	private List<Tablas> tablas;
-	private Direcciones direccion;
+	//private Direcciones direccion;
 
 
 	private Propiedad selectedPropiedad;
@@ -871,13 +871,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.cotizacion = cotizacion;
 	}
 
-	public Direcciones getDireccion() {
+	/*public Direcciones getDireccion() {
 		return direccion;
 	}
 
 	public void setDireccion(Direcciones direccion) {
 		this.direccion = direccion;
-	}
+	}*/
 
 	public List<Tablas> getTablas() {
 		return tablas;

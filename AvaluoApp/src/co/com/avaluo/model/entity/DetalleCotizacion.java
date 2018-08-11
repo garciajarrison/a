@@ -2,6 +2,7 @@ package co.com.avaluo.model.entity;
 // Generated 4/08/2018 01:54:18 PM by Hibernate Tools 4.0.1.Final
 
 import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
