@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ICiudadDAO;
 import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.Pais;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,6 +17,14 @@ public class CiudadService implements ICiudadService {
 
 	@Autowired
 	private ICiudadDAO entityDAO;
+	
+	public ICiudadDAO getEntityDAO() {
+		return entityDAO;
+	}
+
+	public void setEntityDAO(ICiudadDAO entityDAO) {
+		this.entityDAO = entityDAO;
+	}
 
 	@Transactional(readOnly = false)
 	public void addEntity(Ciudad entity) {
@@ -39,11 +49,15 @@ public class CiudadService implements ICiudadService {
 		return getEntityDAO().getEntities();
 	}
 
-	public ICiudadDAO getEntityDAO() {
-		return entityDAO;
+	public List<Pais> getPaises() {
+		return getEntityDAO().getPaises();
 	}
 
-	public void setEntityDAO(ICiudadDAO entityDAO) {
-		this.entityDAO = entityDAO;
+	public List<Departamento> getDepartamentos(int idPais) {
+		return getEntityDAO().getDepartamentos(idPais);
+	}
+
+	public List<Ciudad> getCiudades(int idDepartamento) {
+		return getEntityDAO().getCiudades(idDepartamento);
 	}
 }

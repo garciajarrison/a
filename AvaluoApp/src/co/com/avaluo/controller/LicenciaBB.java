@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import co.com.avaluo.common.EnumSessionAttributes;
+import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
+import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Licencia;
-import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.model.entity.Pais;
+import co.com.avaluo.service.ICiudadService;
+import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.ILicenciaService;
 
 @ManagedBean(name = "licenciaBB")
@@ -26,15 +31,25 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 	
 	@Autowired
 	private ILicenciaService licenciaService;
+	@Autowired
+	private ICiudadService ciudadService;
+	@Autowired
+	private IEmpresaService empresaService;
 	private List<Licencia> listaLicencias;
+	private List<Pais> listaPaises;
+	private List<Departamento> listaDepartamentos;
+	private List<Ciudad> listaCiudades;
+	private List<Empresa> listaEmpresas;
 	private Licencia licencia = new Licencia();
-	private Licencia selectedLicencia;
+	private ListasGenericas listasGenericas;
+	private Licencia selectedLicencia = new Licencia();
 	private Util util;
-	private Usuario usuario;
 	
 	public LicenciaBB() {
 		util = Util.getInstance();
-		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
+		listasGenericas = ListasGenericas.getInstance();
+		listaPaises = ciudadService.getPaises();
+		listaEmpresas = empresaService.getEmpresas();
 		cargarListaLicencias();
 	}
 	
@@ -101,6 +116,32 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 		} 	
 		
 	}
+	
+	public void cargarListasDependientesUpdate() {
+		cargarListasDependientes(selectedLicencia.getCiudad().getDepartamento().getPais().getId(), 
+				selectedLicencia.getCiudad().getDepartamento().getId());
+	}
+	
+	public void cargarListasDependientes() {
+		cargarListasDependientes(licencia.getCiudad().getDepartamento().getPais().getId(), 
+				licencia.getCiudad().getDepartamento().getId());
+	}
+	
+	public void cargarListasDependientes(int pais, int departamento) {
+		//Cargar departamentos
+		if(pais > 0) {
+			listaDepartamentos = ciudadService.getDepartamentos(pais);
+		}else{
+			listaDepartamentos = new ArrayList<>();
+		}
+		
+		//Cargar ciudades
+		if(departamento > 0) {
+			listaCiudades = ciudadService.getCiudades(departamento);
+		}else{
+			listaCiudades = new ArrayList<>();
+		}
+	}
 
 	public ILicenciaService getLicenciaService() {
 		return licenciaService;
@@ -132,6 +173,63 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 
 	public void setSelectedLicencia(Licencia selectedLicencia) {
 		this.selectedLicencia = selectedLicencia;
+		cargarListasDependientesUpdate();
+	}
+
+	public ICiudadService getCiudadService() {
+		return ciudadService;
+	}
+
+	public void setCiudadService(ICiudadService ciudadService) {
+		this.ciudadService = ciudadService;
+	}
+
+	public List<Pais> getListaPaises() {
+		return listaPaises;
+	}
+
+	public void setListaPaises(List<Pais> listaPaises) {
+		this.listaPaises = listaPaises;
+	}
+
+	public List<Departamento> getListaDepartamentos() {
+		return listaDepartamentos;
+	}
+
+	public void setListaDepartamentos(List<Departamento> listaDepartamentos) {
+		this.listaDepartamentos = listaDepartamentos;
+	}
+
+	public List<Ciudad> getListaCiudades() {
+		return listaCiudades;
+	}
+
+	public void setListaCiudades(List<Ciudad> listaCiudades) {
+		this.listaCiudades = listaCiudades;
+	}
+
+	public IEmpresaService getEmpresaService() {
+		return empresaService;
+	}
+
+	public void setEmpresaService(IEmpresaService empresaService) {
+		this.empresaService = empresaService;
+	}
+
+	public List<Empresa> getListaEmpresas() {
+		return listaEmpresas;
+	}
+
+	public void setListaEmpresas(List<Empresa> listaEmpresas) {
+		this.listaEmpresas = listaEmpresas;
+	}
+
+	public ListasGenericas getListasGenericas() {
+		return listasGenericas;
+	}
+
+	public void setListasGenericas(ListasGenericas listasGenericas) {
+		this.listasGenericas = listasGenericas;
 	}
 
 	

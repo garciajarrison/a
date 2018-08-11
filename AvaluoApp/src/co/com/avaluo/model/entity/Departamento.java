@@ -18,8 +18,9 @@ import javax.persistence.Table;
 @Table(name = "departamento", schema = "avalsoft")
 public class Departamento implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
-	private Pais pais;
+	private Pais pais = new Pais();
 	private String nombre;
 	private String codigo;
 	private boolean estado;
@@ -54,7 +55,7 @@ public class Departamento implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pais_id", nullable = false)
 	public Pais getPais() {
 		return this.pais;

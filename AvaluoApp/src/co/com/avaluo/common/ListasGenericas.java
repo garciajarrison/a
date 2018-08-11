@@ -21,7 +21,6 @@ public class ListasGenericas {
 		return instance;
 	}
 	
-	
 	private ListasGenericas(){
 		
 		listaTiposDocumento = this.consultarListas(EnumListas.TIPOS_DOCUMENTO);
@@ -29,19 +28,24 @@ public class ListasGenericas {
 		listaIdiomas = this.consultarListas(EnumListas.LISTA_IDIOMAS);
 		listaTipoPropiedad = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD);
 		listaUnidadMedida = this.consultarListas(EnumListas.LISTA_UNIDAD_MEDIDA);
-		listaEstados = new ArrayList<>();
-		listaEstados.add(new SelectItem(true, "Activo"));
-		listaEstados.add(new SelectItem(false, "Inactivo"));
+		listaEstados = this.consultarListas(EnumListas.LISTA_ESTADOS, true);
+	}
+	
+	private List<SelectItem> consultarListas(EnumListas lista){
+		return consultarListas(lista, false);
 	}
 
-	public List<SelectItem> consultarListas(EnumListas lista){
+	private List<SelectItem> consultarListas(EnumListas lista, boolean manejoBoolean){
 		List<SelectItem> retorno = new ArrayList<SelectItem>();
 		try {
 			int i = 1;
 			while(true) {
 				String dato = Util.getInstance().getMessage(lista.toString() + i);
 				String[] valor = dato.split("-");
-				retorno.add(new SelectItem(valor[0], valor[1]));
+				if(manejoBoolean)
+					retorno.add(new SelectItem("true".equals(valor[0]), valor[1]));
+				else
+					retorno.add(new SelectItem(valor[0], valor[1]));
 				i++;
 			}
 		}catch(Exception e) {}

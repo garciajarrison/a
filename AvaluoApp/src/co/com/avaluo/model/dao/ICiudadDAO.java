@@ -3,6 +3,8 @@ package co.com.avaluo.model.dao;
 import java.util.List;
 
 import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.Pais;
 
 
 public interface ICiudadDAO {
@@ -15,4 +17,10 @@ public interface ICiudadDAO {
 	Ciudad getEntity(int id);
 
 	List<Ciudad> getEntities();
+
+	List<Pais> getPaises();
+
+	List<Departamento> getDepartamentos(int idPais);
+
+	List<Ciudad> getCiudades(int idDepartamento);
 }

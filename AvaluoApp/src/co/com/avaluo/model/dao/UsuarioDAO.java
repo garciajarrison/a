@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
 
@@ -27,10 +28,17 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	public Usuario login(Usuario users) {
 		Session session = getSessionFactory().getCurrentSession();
-		return (Usuario)session.createQuery("from Usuario where correo=? and contrasena = ? and estado = true")
-				.setParameter(0, users.getCorreo())
-				.setParameter(1, users.getContrasena())
+		Usuario usuarioTmp = (Usuario)session.createQuery("from Usuario where correo=:correo and estado = true")
+				.setParameter("correo", users.getCorreo())
 				.uniqueResult();
+		
+		if(usuarioTmp != null &&
+			Util.getInstance().verificarContrasenna(users.getContrasena(), usuarioTmp.getContrasena())) {
+			
+			return usuarioTmp;
+		}else {
+			return null;
+		}
 	}
 	
 	public void addUsuario(Usuario entity) {

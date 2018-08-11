@@ -20,12 +20,12 @@ public class Empresa implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Ciudad ciudad;
+	private Ciudad ciudad = new Ciudad();
 	private String tipoIdentificacion;
 	private String identificacion;
 	private String nombre;
 	private String descripcion;
-	private boolean estado;
+	private boolean estado = true;
 	private List<TipoPropiedad> tipoPropiedads = new ArrayList<>(0);
 	private List<Cotizacion> cotizacions = new ArrayList<Cotizacion>(0);
 	

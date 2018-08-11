@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.primefaces.PrimeFaces;
 import org.primefaces.util.ComponentUtils;
 
@@ -241,7 +242,14 @@ public class Util {
 	}
 
 	public String encriptarClave(String clave) {
-		return clave;
+		return BCrypt.hashpw(clave, BCrypt.gensalt());
 	}
-
+	
+	public boolean verificarContrasenna(String plainPassword, String hashedPassword) {
+		if (BCrypt.checkpw(plainPassword, hashedPassword))
+			return true;
+		else
+			return false;
+	}
+	
 }

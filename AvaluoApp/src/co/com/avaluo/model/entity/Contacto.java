@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "contacto", schema = "avalsoft")
 public class Contacto implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Usuario usuario;
 

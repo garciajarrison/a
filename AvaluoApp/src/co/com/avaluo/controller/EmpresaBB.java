@@ -12,8 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
+import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.Empresa;
+import co.com.avaluo.model.entity.Pais;
+import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.IEmpresaService;
 
 @ManagedBean(name = "empresaBB")
@@ -24,13 +29,23 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 	
 	@Autowired
 	private IEmpresaService empresaService;
+	@Autowired
+	private ICiudadService ciudadService;
 	private List<Empresa> listaEmpresas;
+	private List<Pais> listaPaises;
+	private List<Departamento> listaDepartamentos;
+	private List<Ciudad> listaCiudades;
 	private Empresa empresa = new Empresa();
-	private Empresa selectedEmpresa;
+	private Empresa selectedEmpresa = new Empresa();
 	private Util util;
+	private ListasGenericas listasGenericas;
 	
 	public EmpresaBB() {
 		util = Util.getInstance();
+		listaPaises = ciudadService.getPaises();
+		listaDepartamentos = new ArrayList<>();
+		listaCiudades = new ArrayList<>();
+		listasGenericas = ListasGenericas.getInstance();
 		cargarListaEmpresas();
 	}
 	
@@ -50,8 +65,10 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 			boolean guardar = true;
 			//Validamos que no exista un estrato con esa configuracion
 			for(Empresa estr : listaEmpresas) {
-				empresa.setNombre(empresa.getNombre().trim());
-				if(estr.getNombre().equals(empresa.getNombre())) {
+				empresa.setIdentificacion(empresa.getIdentificacion().trim());
+				empresa.setTipoIdentificacion(empresa.getTipoIdentificacion().trim());
+				if(estr.getTipoIdentificacion().equals(empresa.getTipoIdentificacion()) &&
+						estr.getIdentificacion().equals(empresa.getIdentificacion()) ) {
 					guardar = false;
 					util.mostrarErrorKey("empresa.ya.existe");
 				}
@@ -97,6 +114,32 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 		} 	
 		
 	}
+	
+	public void cargarListasDependientesUpdate() {
+		cargarListasDependientes(selectedEmpresa.getCiudad().getDepartamento().getPais().getId(), 
+				selectedEmpresa.getCiudad().getDepartamento().getId());
+	}
+	
+	public void cargarListasDependientes() {
+		cargarListasDependientes(empresa.getCiudad().getDepartamento().getPais().getId(), 
+				empresa.getCiudad().getDepartamento().getId());
+	}
+	
+	public void cargarListasDependientes(int pais, int departamento) {
+		//Cargar departamentos
+		if(pais > 0) {
+			listaDepartamentos = ciudadService.getDepartamentos(pais);
+		}else{
+			listaDepartamentos = new ArrayList<>();
+		}
+		
+		//Cargar ciudades
+		if(departamento > 0) {
+			listaCiudades = ciudadService.getCiudades(departamento);
+		}else{
+			listaCiudades = new ArrayList<>();
+		}
+	}
 
 	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
@@ -128,6 +171,47 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 
 	public void setSelectedEmpresa(Empresa selectedEmpresa) {
 		this.selectedEmpresa = selectedEmpresa;
+		cargarListasDependientesUpdate();
+	}
+
+	public ListasGenericas getListasGenericas() {
+		return listasGenericas;
+	}
+
+	public void setListasGenericas(ListasGenericas listasGenericas) {
+		this.listasGenericas = listasGenericas;
+	}
+
+	public List<Pais> getListaPaises() {
+		return listaPaises;
+	}
+
+	public void setListaPaises(List<Pais> listaPaises) {
+		this.listaPaises = listaPaises;
+	}
+
+	public List<Departamento> getListaDepartamentos() {
+		return listaDepartamentos;
+	}
+
+	public void setListaDepartamentos(List<Departamento> listaDepartamentos) {
+		this.listaDepartamentos = listaDepartamentos;
+	}
+
+	public List<Ciudad> getListaCiudades() {
+		return listaCiudades;
+	}
+
+	public void setListaCiudades(List<Ciudad> listaCiudades) {
+		this.listaCiudades = listaCiudades;
+	}
+
+	public ICiudadService getCiudadService() {
+		return ciudadService;
+	}
+
+	public void setCiudadService(ICiudadService ciudadService) {
+		this.ciudadService = ciudadService;
 	}
 	
  }

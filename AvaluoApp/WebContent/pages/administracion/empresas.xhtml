@@ -18,24 +18,23 @@
 					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
 					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
 					
-
-		    <p:column headerText="#{msg['empresa']}" sortBy="#{empresa.nombre}">
+		    <p:column width="40%" headerText="#{msg['empresa']}" sortBy="#{empresa.nombre}">
 		        <h:outputText value="#{empresa.tipoIdentificacion} - #{empresa.identificacion} #{empresa.nombre}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['empresa.descripcion']}" sortBy="#{empresa.descripcion}">
+		    <p:column width="20%" headerText="#{msg['empresa.descripcion']}" sortBy="#{empresa.descripcion}">
 		        <h:outputText value="#{empresa.descripcion}" />
 		    </p:column>
 		 
-		    <p:column headerText="#{msg['empresa.estado']}" sortBy="#{empresa.estado}">
-		        <h:outputText value="#{empresa.estado}" />
+		    <p:column width="10%" headerText="#{msg['empresa.estado']}" sortBy="#{empresa.estado}">
+		        <h:outputText value="#{empresa.estado ? 'Activo' : 'Inactivo'}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['empresa.ciudad']}" sortBy="#{empresa.ciudad.nombre}">
+		    <p:column width="15%" headerText="#{msg['empresa.ciudad']}" sortBy="#{empresa.ciudad.nombre}">
 		        <h:outputText value="#{empresa.ciudad.nombre}" />
 		    </p:column>
 		    
-		    <p:column headerText="#{msg['acciones']}">
+		    <p:column width="15%" headerText="#{msg['acciones']}">
 		    	<center>
 			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
 			       		<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}" 
@@ -54,21 +53,61 @@
 		<p:dialog header="#{msg['empresa.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
 			<div align="center">
+			
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-					<h:outputLabel id="lName" value="#{msg['empresa']}:" for="txtName"/>
-					<p:inputText id="txtName" value="#{empresaBB.empresa.nombre}" title="#{msg['empresa']}" 
-			   			label="#{msg['empresa']}" required="true" maxlength="50" />
+					<h:outputLabel id="lTipoIdentificacion" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacion"/>
+					<p:selectOneMenu id="selTipoIdentificacion" value="#{empresaBB.empresa.tipoIdentificacion}" 
+								title="#{msg['empresa.tipo.identificacion']}" 
+			   					label="#{msg['empresa.tipo.identificacion']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
+			   		</p:selectOneMenu>
+					
+					<h:outputLabel id="lIdentificacion" value="#{msg['empresa.identificacion']}:" for="txtIdentificacion"/>
+					<p:inputText id="txtIdentificacion" value="#{empresaBB.empresa.nombre}" title="#{msg['empresa.identificacion']}" 
+			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
+					
+					<h:outputLabel id="lNombre" value="#{msg['empresa.nombre']}:" for="txtName"/>
+					<p:inputText id="txtName" value="#{empresaBB.empresa.nombre}" title="#{msg['empresa.nombre']}" 
+			   				label="#{msg['empresa.nombre']}" required="true" maxlength="50" />
 			   		
-			   		<h:outputLabel id="lPorcentaje" value="#{msg['empresa.porcentaje']}:" for="txtPorcentaje"/>
-			   		<p:inputNumber id="txtPorcentaje" value="#{empresaBB.empresa.porcentaje}" 
-			   				decimalPlaces="2" title="#{msg['empresa.porcentaje']}" label="#{msg['empresa.porcentaje']}" 
-			   				 required="true"
-			   				maxValue="100" symbol="%" symbolPosition="s" />  
+			   		<h:outputLabel id="lDescripcion" value="#{msg['empresa.descripcion']}:" for="txtDescripcion"/>
+			   		<p:inputTextarea id="txtDescripcion" value="#{empresaBB.empresa.descripcion}" 
+			   				title="#{msg['empresa.descripcion']}" label="#{msg['empresa.descripcion']}" 
+			   				required="true" maxlength="100"/>
+			   				
+			   		<h:outputLabel value="#{msg['empresa.estado']}:" for="selEstado"/>
+			   		<p:selectOneMenu id="selEstado" value="#{empresaBB.empresa.estado}" title="#{msg['empresa.estado']}" 
+			   				label="#{msg['empresa.estado']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listasGenericas.listaEstados}"  />
+			   		</p:selectOneMenu>
 			   		
-			   		<h:outputLabel id="lValue" value="#{msg['empresa.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputNumber id="txtValue" value="#{empresaBB.empresa.valor}" required="true"
-			   				decimalPlaces="2" title="#{msg['empresa.valor.minimo.cotizacion']}" 
-			   				label="#{msg['empresa.valor.minimo.cotizacion']}" minValue="0"/>  
+			   		<h:outputLabel value="#{msg['empresa.pais']}:" for="selPais"/>
+			   		<p:selectOneMenu id="selPais" value="#{empresaBB.empresa.ciudad.departamento.pais.id}" title="#{msg['empresa.pais']}" 
+			   				label="#{msg['empresa.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{empresaBB.cargarListasDependientes}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['empresa.departamento']}:" for="seldepartamento"/>
+			   		<p:selectOneMenu id="seldepartamento" value="#{empresaBB.empresa.ciudad.departamento.id}" title="#{msg['empresa.departamento']}" 
+			   				label="#{msg['empresa.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{empresaBB.cargarListasDependientes}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['empresa.ciudad']}:" for="selciudad"/>
+			   		<p:selectOneMenu id="selciudad" value="#{empresaBB.empresa.ciudad.id}" title="#{msg['empresa.ciudad']}" 
+			   				label="#{msg['empresa.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
 			   		
 			   	</h:panelGrid>
 			   	<br /><br />
@@ -81,17 +120,59 @@
 		<p:dialog header="#{msg['empresa.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
 			<div align="center">
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-					<h:outputLabel id="lNameU" value="#{msg['empresa']}:"/>
-					<h:outputLabel id="txtNameU" value="#{empresaBB.selectedEmpresa.nombre}"/>
-		
-			   		<h:outputLabel id="lporcentajeU" value="#{msg['empresa.porcentaje']}:" for="txtPorcentajeU"/>
-			   		<p:inputNumber id="txtPorcentajeU" value="#{empresaBB.selectedEmpresa.porcentaje}" required="true" 
-			   				decimalPlaces="2" title="#{msg['empresa.porcentaje']}" label="#{msg['empresa.porcentaje']}" minValue="0"
-			   				maxValue="100" symbol="%" symbolPosition="s" />  
-
-			   		<h:outputLabel id="lValueU" value="#{msg['empresa.valor.minimo.cotizacion']}:" for="txtValue"/>
-			   		<p:inputText id="txtValueU" value="#{empresaBB.selectedEmpresa.valor}" required="true"
-			   				label="#{msg['empresa.valor.minimo.cotizacion']}" title="#{msg['empresa.valor.minimo.cotizacion']}"/>
+					<h:outputLabel id="lTipoIdentificacionu" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacionu"/>
+					<p:selectOneMenu id="selTipoIdentificacionu" value="#{empresaBB.selectedEmpresa.tipoIdentificacion}" 
+								title="#{msg['empresa.tipo.identificacion']}" 
+			   					label="#{msg['empresa.tipo.identificacion']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
+			   		</p:selectOneMenu>
+					
+					<h:outputLabel id="lIdentificacionu" value="#{msg['empresa.identificacion']}:" for="txtIdentificacionu"/>
+					<p:inputText id="txtIdentificacionu" value="#{empresaBB.selectedEmpresa.nombre}" title="#{msg['empresa.identificacion']}" 
+			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
+					
+					<h:outputLabel id="lNombreu" value="#{msg['empresa.nombre']}:" for="txtNameu"/>
+					<p:inputText id="txtNameu" value="#{empresaBB.selectedEmpresa.nombre}" title="#{msg['empresa.nombre']}" 
+			   				label="#{msg['empresa.nombre']}" required="true" maxlength="50" />
+			   		
+			   		<h:outputLabel id="lDescripcionu" value="#{msg['empresa.descripcion']}:" for="txtDescripcionu"/>
+			   		<p:inputTextarea id="txtDescripcionu" value="#{empresaBB.selectedEmpresa.descripcion}" 
+			   				title="#{msg['empresa.descripcion']}" label="#{msg['empresa.descripcion']}" 
+			   				required="true" maxlength="100"/>
+			   				
+			   		<h:outputLabel value="#{msg['empresa.estado']}:" for="selEstadou"/>
+			   		<p:selectOneMenu id="selEstadou" value="#{empresaBB.selectedEmpresa.estado}" title="#{msg['empresa.estado']}" 
+			   				label="#{msg['empresa.estado']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listasGenericas.listaEstados}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['empresa.pais']}:" for="selPaisu"/>
+			   		<p:selectOneMenu id="selPaisu" value="#{empresaBB.selectedEmpresa.ciudad.departamento.pais.id}" title="#{msg['empresa.pais']}" 
+			   				label="#{msg['empresa.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{empresaBB.cargarListasDependientesUpdate}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['empresa.departamento']}:" for="seldepartamentou"/>
+			   		<p:selectOneMenu id="seldepartamentou" value="#{empresaBB.selectedEmpresa.ciudad.departamento.id}" title="#{msg['empresa.departamento']}" 
+			   				label="#{msg['empresa.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{empresaBB.cargarListasDependientesUpdate}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['empresa.ciudad']}:" for="selciudadu"/>
+			   		<p:selectOneMenu id="selciudadu" value="#{empresaBB.selectedEmpresa.ciudad.id}" title="#{msg['empresa.ciudad']}" 
+			   				label="#{msg['empresa.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{empresaBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton id="btnActualizarEmpresa" value="#{msg['btn.actualizar']}" type="button">
