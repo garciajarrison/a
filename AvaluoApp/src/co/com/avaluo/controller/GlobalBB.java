@@ -8,22 +8,35 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import co.com.avaluo.common.EnumLenguajes;
 import co.com.avaluo.common.EnumSessionAttributes;
+import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.service.IUsuarioService;
 
 @ManagedBean(name = "globalBB")
 @SessionScoped
-public class GlobalBB implements Serializable {
+public class GlobalBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	@Autowired
+	private IUsuarioService usuarioService;
 	private Usuario usuario;
 	private Licencia licencia;
 	private Locale locale;
 	private Util util;
+	private UploadedFile foto;
+	private String urlFotoPerfil;
+	private ListasGenericas listasGenericas;
 	
 	// TODO poner todos en false
 	//Permisos
@@ -38,6 +51,7 @@ public class GlobalBB implements Serializable {
 		usuario = (Usuario) Util.getInstance().getSessionAttribute(EnumSessionAttributes.USUARIO);
 		if(usuario != null) {
 			licencia = (Licencia) Util.getInstance().getSessionAttribute(EnumSessionAttributes.LICENCIA);
+			listasGenericas = ListasGenericas.getInstance();
 			EnumLenguajes lenguaje = (EnumLenguajes)Util.getInstance().getSessionAttribute(EnumSessionAttributes.LENGUAJE);
 			if(lenguaje == null && usuario != null) {
 				util.cambiarIdioma(usuario.getLenguaje());
@@ -46,6 +60,7 @@ public class GlobalBB implements Serializable {
 	    	locale = lenguaje.getLocale();
 	        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	        cargarPermisos();
+	        cargarFotoPerfil();
 		}
 	}
 	
@@ -66,6 +81,54 @@ public class GlobalBB implements Serializable {
 			shark = true;	
 		if(util.getMessage("permiso.eagle").equals(licencia.getNombre().trim()))
 			eagle = true;
+	}
+	
+	public void actualizarIdioma(){
+		
+		try {
+			usuarioService.updateUsuario(usuario);
+			util.mostrarMensajeKey("exito.idioma.actualizar");
+			util.cambiarIdioma(usuario.getLenguaje());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public void upload(FileUploadEvent event) {
+		foto = event.getFile();
+        if(foto != null) {
+        	urlFotoPerfil = util.crearFoto(usuario.getIdentificacion() + usuario.getId(), foto.getContents());
+            util.mostrarMensajeKey("exito.foto.actualizar");
+        }
+    }
+	
+	private void cargarFotoPerfil() {
+		
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		StringBuilder url = new StringBuilder(servletContext.getRealPath("/").replace("/", util.SEPARADOR_CARPETA))
+				.append(util.SEPARADOR_CARPETA)
+				.append(util.URL_FOTO_PERFIL)
+				.append(usuario.getIdentificacion()).append(usuario.getId()).append(".jpg");
+		
+		try {
+			if(util.existeArchivo(url.toString())) {
+				url = new StringBuilder(servletContext.getContextPath().replace("/", util.SEPARADOR_CARPETA))
+						.append(util.SEPARADOR_CARPETA)
+						.append(util.URL_FOTO_PERFIL)
+						.append(usuario.getIdentificacion()).append(usuario.getId()).append(".jpg");
+				urlFotoPerfil = url.toString();
+			}else {
+				url = new StringBuilder(servletContext.getContextPath().replace("/", util.SEPARADOR_CARPETA)) 
+						.append(util.SEPARADOR_CARPETA)
+						.append("resources").append(util.SEPARADOR_CARPETA)
+						.append("images").append(util.SEPARADOR_CARPETA)
+						.append("user.png");
+				urlFotoPerfil = url.toString();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -127,6 +190,38 @@ public class GlobalBB implements Serializable {
 
 	public void setEagle(boolean eagle) {
 		this.eagle = eagle;
+	}
+
+	public UploadedFile getFoto() {
+		return foto;
+	}
+
+	public void setFoto(UploadedFile foto) {
+		this.foto = foto;
+	}
+
+	public String getUrlFotoPerfil() {
+		return urlFotoPerfil;
+	}
+
+	public void setUrlFotoPerfil(String urlFotoPerfil) {
+		this.urlFotoPerfil = urlFotoPerfil;
+	}
+
+	public IUsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuarioService(IUsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public ListasGenericas getListasGenericas() {
+		return listasGenericas;
+	}
+
+	public void setListasGenericas(ListasGenericas listasGenericas) {
+		this.listasGenericas = listasGenericas;
 	}
 
  }

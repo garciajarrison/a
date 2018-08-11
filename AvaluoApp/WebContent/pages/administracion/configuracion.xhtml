@@ -9,11 +9,51 @@
 	<ui:define name="content">
 	
 		<h1>#{msg['configuracion']}</h1>
-		<br /><br />
+		<br /><br /><br />
+		<center>	
+			<h:outputLabel id="lTipoIdentificacion" value="#{msg['idioma']}:" for="selIdioma"/>
+			<p:spacer width="20px" height="0px" />
+			<p:selectOneMenu id="selIdioma" value="#{globalBB.usuario.lenguaje}" 
+						title="#{msg['idioma']}" 
+	   					label="#{msg['idioma']}">
+	   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+	   			<f:selectItems value="#{globalBB.listasGenericas.listaIdiomas}"  />
+	   			<p:ajax listener="#{globalBB.actualizarIdioma}" update=":#{p:component('formulario')} :#{p:component('growl')}" />
+	   		</p:selectOneMenu>
+		</center>
+		<br /><br /><br />
+		
 		<p:accordionPanel multiple="false">
 		 	<p:tab title="#{msg['configuracion.foto.perfil']}">
-	          	<p:panel id="pnFotoPerfil" >
-				</p:panel>
+		 		<h:form id="formFotom" enctype="multipart/form-data">
+	          		<p:panel id="pnFotoPerfil" >
+	          		
+	          			<div class="ui-g">
+	          			
+	          				<div class="ui-g-6">
+	          				
+	          				 <img id="idFotoPerfilTmp" src="#{globalBB.urlFotoPerfil}"/>
+	          					
+	          				</div>
+	          				<div class="ui-g-6">
+	          					<center>
+		          					<p:fileUpload value="#{globalBB.foto}" mode="advanced" skinSimple="true"
+		          							cancelLabel="#{msg['btn.cancelar']}" label="#{msg['foto.perfil']}" 
+		          							update=":#{p:component('growl')} :#{p:component('idFotoPerfil')} :#{p:component('formFotom')}" 
+		          							sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(jpe?g|png)$/"
+		          							fileUploadListener="#{globalBB.upload}"
+		          							invalidFileMessage="#{msg['foto.perfil.invalid.file']}"  
+		          							invalidSizeMessage="#{msg['foto.perfil.invalid.size']}" 
+		          							fileLimitMessage="#{msg['foto.perfil.limit']}" 
+		          							uploadLabel="#{msg['btn.guardar']}" dragDropSupport="false"
+		          							requiredMessage="#{msg['foto.perfil.requerido']}" required="true"/>
+    							</center>
+	          				</div>
+	          			
+	          			</div>
+	          	
+					</p:panel>
+				</h:form>
 			</p:tab>
 		</p:accordionPanel>
 		

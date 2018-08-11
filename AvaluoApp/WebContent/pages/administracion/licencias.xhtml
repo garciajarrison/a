@@ -71,45 +71,45 @@
 			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		    
-		    		<h:outputLabel value="#{msg['licencia.licencia.empresa']}:"/>
-		    		<p:selectOneMenu id="selEmpresa" value="#{licenciaBB.licencia.empresa.id}" title="#{msg['licencia.licencia.empresa']}" 
-			   				label="#{msg['licencia.licencia.empresa']}" required="true" filter="true">
+		    		<h:outputLabel value="#{msg['licencia.empresa']}:"/>
+		    		<p:selectOneMenu id="selEmpresa" value="#{licenciaBB.licencia.empresa.id}" title="#{msg['licencia.empresa']}" 
+			   				label="#{msg['licencia.empresa']}" required="true" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{licenciaBB.listaEmpresas}" var="dp" 
 			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		 
-		    		<h:outputLabel value="#{msg['licencia.licencia.ultimo.pago']}:"/>
-		        	<p:calendar value="#{licenciaBB.licencia.ultimoPago}" label="#{msg['licencia.licencia.ultimo.pago']}"
-		        			title="#{msg['licencia.licencia.ultimo.pago']}" required="true"
+		    		<h:outputLabel value="#{msg['licencia.ultimo.pago']}:"/>
+		        	<p:calendar value="#{licenciaBB.licencia.ultimoPago}" label="#{msg['licencia.ultimo.pago']}"
+		        			title="#{msg['licencia.ultimo.pago']}" required="true"
 		        			navigator="true" pattern="yyyy-MM-dd"/>
 		    
-		    		<h:outputLabel value="#{msg['licencia.licencia.fecha.expiracion']}:"/>
-		        	<p:calendar value="#{licenciaBB.licencia.fechaExpiracion}" label="#{msg['licencia.licencia.fecha.expiracion']}"
-		        			title="#{msg['licencia.licencia.fecha.expiracion']}" required="true"
+		    		<h:outputLabel value="#{msg['licencia.fecha.expiracion']}:"/>
+		        	<p:calendar value="#{licenciaBB.licencia.fechaExpiracion}" label="#{msg['licencia.fecha.expiracion']}"
+		        			title="#{msg['licencia.fecha.expiracion']}" required="true"
 		        			navigator="true" pattern="yyyy-MM-dd"/>
 		        	
-		        	<h:outputLabel value="#{msg['licencia.licencia.pais']}:" for="selPais"/>
-			   		<p:selectOneMenu id="selPais" value="#{licenciaBB.licencia.ciudad.departamento.pais.id}" title="#{msg['licencia.licencia.pais']}" 
-			   				label="#{msg['licencia.licencia.pais']}" filter="true">
+		        	<h:outputLabel value="#{msg['licencia.pais']}:" for="selPais"/>
+			   		<p:selectOneMenu id="selPais" value="#{licenciaBB.licencia.ciudad.departamento.pais.id}" title="#{msg['licencia.pais']}" 
+			   				label="#{msg['licencia.pais']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{licenciaBB.listaPaises}" var="pais" 
 			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
 			   			<p:ajax listener="#{licenciaBB.cargarListasDependientes}" update=":#{p:component('seldepartamento')}"/>
 			   		</p:selectOneMenu>
 			   		
-			   		<h:outputLabel value="#{msg['licencia.licencia.departamento']}:" for="seldepartamento"/>
-			   		<p:selectOneMenu id="seldepartamento" value="#{licenciaBB.licencia.ciudad.departamento.id}" title="#{msg['licencia.licencia.departamento']}" 
-			   				label="#{msg['licencia.licencia.departamento']}" filter="true">
+			   		<h:outputLabel value="#{msg['licencia.departamento']}:" for="seldepartamento"/>
+			   		<p:selectOneMenu id="seldepartamento" value="#{licenciaBB.licencia.ciudad.departamento.id}" title="#{msg['licencia.departamento']}" 
+			   				label="#{msg['licencia.departamento']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{licenciaBB.listaDepartamentos}" var="dp" 
 			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
 			   			<p:ajax listener="#{licenciaBB.cargarListasDependientes}" update=":#{p:component('selciudad')}"/>
 			   		</p:selectOneMenu>
 			   		
-			   		<h:outputLabel value="#{msg['licencia.licencia.ciudad']}:" for="selciudad"/>
-			   		<p:selectOneMenu id="selciudad" value="#{licenciaBB.licencia.ciudad.id}" title="#{msg['licencia.licencia.ciudad']}" 
-			   				label="#{msg['licencia.licencia.ciudad']}" required="true" filter="true">
+			   		<h:outputLabel value="#{msg['licencia.ciudad']}:" for="selciudad"/>
+			   		<p:selectOneMenu id="selciudad" value="#{licenciaBB.licencia.ciudad.id}" title="#{msg['licencia.ciudad']}" 
+			   				label="#{msg['licencia.ciudad']}" required="true" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{licenciaBB.listaCiudades}" var="cd" 
 			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />

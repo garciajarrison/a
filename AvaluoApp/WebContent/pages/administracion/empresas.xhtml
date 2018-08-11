@@ -18,7 +18,7 @@
 					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
 					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
 					
-		    <p:column width="40%" headerText="#{msg['empresa']}" sortBy="#{empresa.nombre}">
+		    <p:column width="35%" headerText="#{msg['empresa']}" sortBy="#{empresa.nombre}">
 		        <h:outputText value="#{empresa.tipoIdentificacion} - #{empresa.identificacion} #{empresa.nombre}" />
 		    </p:column>
 		    
@@ -34,7 +34,7 @@
 		        <h:outputText value="#{empresa.ciudad.nombre}" />
 		    </p:column>
 		    
-		    <p:column width="15%" headerText="#{msg['acciones']}">
+		    <p:column width="20%" headerText="#{msg['acciones']}">
 		    	<center>
 			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
 			       		<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}" 
@@ -53,7 +53,7 @@
 		<p:dialog header="#{msg['empresa.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
 			<div align="center">
-			
+				<h:form>
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 					<h:outputLabel id="lTipoIdentificacion" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacion"/>
 					<p:selectOneMenu id="selTipoIdentificacion" value="#{empresaBB.empresa.tipoIdentificacion}" 
@@ -111,9 +111,10 @@
 			   		
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{empresaBB.addEntity}"/>
+		   		<p:commandButton value="#{msg['btn.agregar']}">
+		   				<p:ajax process="dlgAgregar" listener="#{empresaBB.addEntity}" />
 		   		</p:commandButton>
+		   		</h:form>
 	   		</div>
 		</p:dialog>		
 
