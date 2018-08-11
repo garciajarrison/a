@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.Pais;
 
 @Repository
 public class CiudadDAO implements ICiudadDAO {
@@ -39,20 +41,35 @@ public class CiudadDAO implements ICiudadDAO {
 
 	public Ciudad getEntity(int id) {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		List<?> list = session
+		return (Ciudad)  session
 				.createQuery("from Ciudad where id=? order by nombre").setParameter(0, id)
-				.list();
-		
-		return (Ciudad) list.get(0);
+				.uniqueResult();
 	}
 
-	public List<Ciudad > getEntities() {
+	public List<Ciudad> getEntities() {
 		Session session = getSessionFactory().getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Ciudad> list = (List<Ciudad>) session.createQuery("from Ciudad ")
+		return (List<Ciudad>) session.createQuery("from Ciudad ")
 				.list();
-		return list;
+	}
+
+	public List<Pais> getPaises() {
+		Session session = getSessionFactory().getCurrentSession();
+		return (List<Pais>) session.createQuery("from Pais ")
+				.list();
+	}
+
+	public List<Departamento> getDepartamentos(int idPais) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (List<Departamento>) session.createQuery("from Departamento where pais.id = :paisId")
+				.setParameter("paisId", idPais)
+				.list();
+	}
+
+	public List<Ciudad> getCiudades(int idDepartamento) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (List<Ciudad>) session.createQuery("from Ciudad where departamento.id = :departamentoId")
+				.setParameter("departamentoId", idDepartamento)
+				.list();
 	}
 
 }

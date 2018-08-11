@@ -22,35 +22,30 @@ public class LicenciaDAO implements ILicenciaDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addEntity(Licencia entity) {
+	public void addLicencia(Licencia entity) {
 		getSessionFactory().getCurrentSession().save(entity);
 	}
 
-	public void deleteEntity(Licencia entity) {
+	public void deleteLicencia(Licencia entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
-	public void updateEntity(Licencia entity) {
+	public void updateLicencia(Licencia entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
 	}
 
-	public Licencia getEntity(int id) {
+	public Licencia getLicenciaById(int id) {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		List<?> list = session
+		return (Licencia) session
 				.createQuery("from Licencia where id=?").setParameter(0, id)
-				.list();
-		
-		return (Licencia) list.get(0);
+				.uniqueResult();
 	}
 
-	public List<Licencia> getEntities() {
+	public List<Licencia> getLicencias() {
 		Session session = getSessionFactory().getCurrentSession();
-		List<Licencia> list = (List<Licencia>) session.createQuery("from Licencia").list();
-		
-		return list;
+		return session.createQuery("from Licencia").list();
 	}
 
 }

@@ -25,9 +25,13 @@ public class GlobalBB implements Serializable {
 	private Locale locale;
 	private Util util;
 	
+	// TODO poner todos en false
 	//Permisos
-	private boolean configuracion = true;
-	private boolean cotizacion = true;
+	private boolean administrador = true;
+	private boolean camel = true;
+	private boolean ant = true;
+	private boolean shark = true;
+	private boolean eagle = true;
 	
 	public GlobalBB() {
 		util = Util.getInstance();
@@ -52,14 +56,16 @@ public class GlobalBB implements Serializable {
 	
 	public void cargarPermisos() {
 		
-		if("CAMEL".equals(licencia.getNombre()) || 
-				"AVALSOFT".equals(licencia.getNombre()) ||
-				"ANT".equals(licencia.getNombre()) ||
-				"SHARK".equals(licencia.getNombre()) ||
-				"EAGLE".equals(licencia.getNombre())){
-			configuracion = true;
-			cotizacion = true;
-		}
+		if(util.getMessage("permiso.avalsoft").equals(licencia.getNombre().trim()))
+			administrador = true;
+		if(util.getMessage("permiso.camel").equals(licencia.getNombre().trim()))
+			camel = true;
+		if(util.getMessage("permiso.ant").equals(licencia.getNombre().trim()))
+			ant = true;
+		if(util.getMessage("permiso.shark").equals(licencia.getNombre().trim()))
+			shark = true;	
+		if(util.getMessage("permiso.eagle").equals(licencia.getNombre().trim()))
+			eagle = true;
 	}
 	
 	/**
@@ -83,20 +89,44 @@ public class GlobalBB implements Serializable {
 	    return locale;
 	}
 
-	public boolean isConfiguracion() {
-		return configuracion;
+	public boolean isAdministrador() {
+		return administrador;
 	}
 
-	public void setConfiguracion(boolean configuracion) {
-		this.configuracion = configuracion;
+	public void setAdministrador(boolean administrador) {
+		this.administrador = administrador;
 	}
 
-	public boolean isCotizacion() {
-		return cotizacion;
+	public boolean isCamel() {
+		return camel;
 	}
 
-	public void setCotizacion(boolean cotizacion) {
-		this.cotizacion = cotizacion;
+	public void setCamel(boolean camel) {
+		this.camel = camel;
+	}
+
+	public boolean isAnt() {
+		return ant;
+	}
+
+	public void setAnt(boolean ant) {
+		this.ant = ant;
+	}
+
+	public boolean isShark() {
+		return shark;
+	}
+
+	public void setShark(boolean shark) {
+		this.shark = shark;
+	}
+
+	public boolean isEagle() {
+		return eagle;
+	}
+
+	public void setEagle(boolean eagle) {
+		this.eagle = eagle;
 	}
 
  }

@@ -2,9 +2,8 @@ package co.com.avaluo.model.entity;
 // Generated 9/08/2018 05:55:20 PM by Hibernate Tools 4.0.1.Final
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

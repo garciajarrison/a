@@ -10,15 +10,15 @@ public interface IUsuarioDAO {
 	
 	Usuario login(Usuario users);
 	
-	void addEntity(Usuario entity);
+	void addUsuario(Usuario entity);
 
-	void deleteEntity(Usuario entity);
+	void deleteUsuario(Usuario entity);
 
-	void updateEntity(Usuario entity);
+	void updateUsuario(Usuario entity);
 
-	Usuario getEntityById(int id);
+	Usuario getUsuarioById(int id);
 
-	List<Usuario> getEntities();
+	List<Usuario> getUsuarios();
 	
 	Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id);
 

@@ -10,6 +10,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
                     
     <context:component-scan base-package="co.com.avaluo.controller" />
+    <context:component-scan base-package="co.com.avaluo.controller.reporte" />
 	<context:component-scan base-package="co.com.avaluo.service" />
 	<context:component-scan base-package="co.com.avaluo.model.dao" />
 	

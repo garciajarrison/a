@@ -16,7 +16,7 @@ public interface IReporteService {
 	
 	Reporte getReporteById(int id);
 	
-	List<Reporte> getReportes(String codigo, int idEmpresa);
+	List<Reporte> getReportes(String codigo, Empresa empresa);
 
 	List<Reporte> datosReporteCotizacion(String codigo, Empresa empresa);
 }

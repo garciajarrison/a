@@ -31,26 +31,26 @@ public class UsuarioService implements IUsuarioService {
 	}
 	
 	@Transactional(readOnly = false)
-	public void addEntity(Usuario entity) {
-		getEntityDAO().addEntity(entity);
+	public void addUsuario(Usuario entity) {
+		getEntityDAO().addUsuario(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void deleteEntity(Usuario entity) {
-		getEntityDAO().deleteEntity(entity);
+	public void deleteUsuario(Usuario entity) {
+		getEntityDAO().deleteUsuario(entity);
 	}
 
 	@Transactional(readOnly = false)
-	public void updateEntity(Usuario entity) {
-		getEntityDAO().updateEntity(entity);
+	public void updateUsuario(Usuario entity) {
+		getEntityDAO().updateUsuario(entity);
 	}
 
-	public Usuario getEntityById(int id) {
-		return getEntityDAO().getEntityById(id);
+	public Usuario getUsuarioById(int id) {
+		return getEntityDAO().getUsuarioById(id);
 	}
 
-	public List<Usuario> getEntities() {	
-		return getEntityDAO().getEntities();
+	public List<Usuario> getUsuarios() {	
+		return getEntityDAO().getUsuarios();
 	}
 
 	public Usuario  consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {

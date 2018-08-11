@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<ui:composition template="../common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+	
+		<h1>#{msg['usuario.lista']}</h1>
+		<br /><br /><br />
+		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
+		<p:dataTable var="usuario" value="#{usuarioBB.listaUsuarios}" 
+					emptyMessage="#{msg['no.registros']}"
+					scrollable="false" paginatorPosition="bottom"
+					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
+					
+
+		    <p:column width="40%" headerText="#{msg['usuario']}" sortBy="#{usuario.nombre}">
+		        <h:outputText value="#{usuario.tipoIdentificacion} - #{usuario.identificacion} #{usuario.nombre}" />
+		    </p:column>
+		    
+		    <p:column width="20%" headerText="#{msg['usuario.descripcion']}" sortBy="#{usuario.descripcion}">
+		        <h:outputText value="#{usuario.descripcion}" />
+		    </p:column>
+		 
+		    <p:column width="10%" headerText="#{msg['usuario.estado']}" sortBy="#{usuario.estado}">
+		        <h:outputText value="#{usuario.estado ? 'Activo' : 'Inactivo'}" />
+		    </p:column>
+		    
+		    <p:column width="15%" headerText="#{msg['usuario.ciudad']}" sortBy="#{usuario.ciudad.nombre}">
+		        <h:outputText value="#{usuario.ciudad.nombre}" />
+		    </p:column>
+		    
+		    <p:column width="15%" headerText="#{msg['acciones']}">
+		    	<center>
+			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
+			       		<p:ajax event="click" listener="#{usuarioBB.setSelectedUsuario(usuario)}" 
+			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
+			       </p:commandButton>
+			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
+						<p:ajax event="click" listener="#{usuarioBB.setSelectedUsuario(usuario)}"
+								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
+					</p:commandButton>
+				</center>
+		    </p:column>
+		    
+		</p:dataTable>
+		
+		
+		<p:dialog header="#{msg['usuario.agregar']}" id="dlgAgregar" 
+				widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+			
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel id="lTipoIdentificacion" value="#{msg['usuario.tipo.identificacion']}:" for="selTipoIdentificacion"/>
+					<p:selectOneMenu id="selTipoIdentificacion" value="#{usuarioBB.usuario.tipoIdentificacion}" 
+								title="#{msg['usuario.tipo.identificacion']}" 
+			   					label="#{msg['usuario.tipo.identificacion']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
+			   		</p:selectOneMenu>
+					
+					<h:outputLabel id="lIdentificacion" value="#{msg['usuario.identificacion']}:" for="txtIdentificacion"/>
+					<p:inputText id="txtIdentificacion" value="#{usuarioBB.usuario.nombre}" title="#{msg['usuario.identificacion']}" 
+			   				label="#{msg['usuario.identificacion']}" required="true" maxlength="20" />
+					
+					<h:outputLabel id="lNombre" value="#{msg['usuario.nombre']}:" for="txtName"/>
+					<p:inputText id="txtName" value="#{usuarioBB.usuario.nombre}" title="#{msg['usuario.nombre']}" 
+			   				label="#{msg['usuario.nombre']}" required="true" maxlength="50" />
+			   		
+			   		<h:outputLabel id="lDescripcion" value="#{msg['usuario.descripcion']}:" for="txtDescripcion"/>
+			   		<p:inputTextarea id="txtDescripcion" value="#{usuarioBB.usuario.descripcion}" 
+			   				title="#{msg['usuario.descripcion']}" label="#{msg['usuario.descripcion']}" 
+			   				required="true" maxlength="100"/>
+			   				
+			   		<h:outputLabel value="#{msg['usuario.estado']}:" for="selEstado"/>
+			   		<p:selectOneMenu id="selEstado" value="#{usuarioBB.usuario.estado}" title="#{msg['usuario.estado']}" 
+			   				label="#{msg['usuario.estado']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listasGenericas.listaEstados}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.pais']}:" for="selPais"/>
+			   		<p:selectOneMenu id="selPais" value="#{usuarioBB.pais}" title="#{msg['usuario.pais']}" 
+			   				label="#{msg['usuario.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{usuarioBB.cargarListasDependientes}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.departamento']}:" for="seldepartamento"/>
+			   		<p:selectOneMenu id="seldepartamento" value="#{usuarioBB.departamento}" title="#{msg['usuario.departamento']}" 
+			   				label="#{msg['usuario.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{usuarioBB.cargarListasDependientes}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.ciudad']}:" for="selciudad"/>
+			   		<p:selectOneMenu id="selciudad" value="#{usuarioBB.usuario.ciudad.id}" title="#{msg['usuario.ciudad']}" 
+			   				label="#{msg['usuario.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
+			   		
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" >
+		   				<p:ajax process="dlgAgregar" listener="#{usuarioBB.addEntity}"/>
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+
+		<p:dialog header="#{msg['usuario.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel id="lTipoIdentificacionu" value="#{msg['usuario.tipo.identificacion']}:" for="selTipoIdentificacionu"/>
+					<p:selectOneMenu id="selTipoIdentificacionu" value="#{usuarioBB.selectedUsuario.tipoIdentificacion}" 
+								title="#{msg['usuario.tipo.identificacion']}" 
+			   					label="#{msg['usuario.tipo.identificacion']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
+			   		</p:selectOneMenu>
+					
+					<h:outputLabel id="lIdentificacionu" value="#{msg['usuario.identificacion']}:" for="txtIdentificacionu"/>
+					<p:inputText id="txtIdentificacionu" value="#{usuarioBB.selectedUsuario.nombre}" title="#{msg['usuario.identificacion']}" 
+			   				label="#{msg['usuario.identificacion']}" required="true" maxlength="20" />
+					
+					<h:outputLabel id="lNombreu" value="#{msg['usuario.nombre']}:" for="txtNameu"/>
+					<p:inputText id="txtNameu" value="#{usuarioBB.selectedUsuario.nombre}" title="#{msg['usuario.nombre']}" 
+			   				label="#{msg['usuario.nombre']}" required="true" maxlength="50" />
+			   		
+			   		<h:outputLabel id="lDescripcionu" value="#{msg['usuario.descripcion']}:" for="txtDescripcionu"/>
+			   		<p:inputTextarea id="txtDescripcionu" value="#{usuarioBB.selectedUsuario.descripcion}" 
+			   				title="#{msg['usuario.descripcion']}" label="#{msg['usuario.descripcion']}" 
+			   				required="true" maxlength="100"/>
+			   				
+			   		<h:outputLabel value="#{msg['usuario.estado']}:" for="selEstadou"/>
+			   		<p:selectOneMenu id="selEstadou" value="#{usuarioBB.selectedUsuario.estado}" title="#{msg['usuario.estado']}" 
+			   				label="#{msg['usuario.estado']}" required="true" >
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listasGenericas.listaEstados}"  />
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.pais']}:" for="selPaisu"/>
+			   		<p:selectOneMenu id="selPaisu" value="#{usuarioBB.pais}" title="#{msg['usuario.pais']}" 
+			   				label="#{msg['usuario.pais']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaPaises}" var="pais" 
+			   					itemLabel="#{pais.nombre}" itemValue="#{pais.id}" />
+			   			<p:ajax listener="#{usuarioBB.cargarListasDependientes}" update=":#{p:component('seldepartamento')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.departamento']}:" for="seldepartamentou"/>
+			   		<p:selectOneMenu id="seldepartamentou" value="#{usuarioBB.departamento}" title="#{msg['usuario.departamento']}" 
+			   				label="#{msg['usuario.departamento']}" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaDepartamentos}" var="dp" 
+			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<p:ajax listener="#{usuarioBB.cargarListasDependientes}" update=":#{p:component('selciudad')}"/>
+			   		</p:selectOneMenu>
+			   		
+			   		<h:outputLabel value="#{msg['usuario.ciudad']}:" for="selciudadu"/>
+			   		<p:selectOneMenu id="selciudadu" value="#{usuarioBB.selectedUsuario.ciudad.id}" title="#{msg['usuario.ciudad']}" 
+			   				label="#{msg['usuario.ciudad']}" required="true" filter="true">
+			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   			<f:selectItems value="#{usuarioBB.listaCiudades}" var="cd" 
+			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
+			   		</p:selectOneMenu>
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton id="btnActualizarUsuario" value="#{msg['btn.actualizar']}" type="button">
+					<p:ajax event="click" listener="#{usuarioBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+		
+		<p:dialog header="#{msg['usuario.eliminar']}" id="dlgEliminar" widgetVar="dlgEliminar" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{usuarioBB.deleteEntity}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
+		
+		
+   </ui:define>
+</ui:composition>

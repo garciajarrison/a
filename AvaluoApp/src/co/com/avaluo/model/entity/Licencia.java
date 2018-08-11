@@ -18,9 +18,10 @@ import javax.persistence.TemporalType;
 @Table(name = "licencia", schema = "avalsoft")
 public class Licencia implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
-	private Empresa empresa;
-	private Ciudad ciudad;
+	private Empresa empresa = new Empresa();
+	private Ciudad ciudad = new Ciudad();
 	private String nombre;
 	private Date ultimoPago;
 	private Date fechaExpiracion;
@@ -57,7 +58,7 @@ public class Licencia implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "empresa_id", nullable = false)
 	public Empresa getEmpresa() {
 		return this.empresa;
@@ -67,7 +68,7 @@ public class Licencia implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ciudad_id", nullable = false)
 	public Ciudad getCiudad() {
 		return this.ciudad;

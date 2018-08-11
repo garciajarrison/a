@@ -12,7 +12,11 @@
 		<br /><br /><br />
 		
 		<p:dataTable var="reporte" value="#{reporteBB.entityList}" 
-						emptyMessage="#{msg['no.registros']}">
+					emptyMessage="#{msg['no.registros']}"
+					scrollable="false" paginatorPosition="bottom"
+					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
 		    
 		    <p:column width="90%" headerText="#{msg['reporte.contenido']}" sortBy="#{reporte.contenido}">
 		        <h:outputText value="#{reporteBB.contenidoKey(reporte.idContenido)}" escape="false"/>

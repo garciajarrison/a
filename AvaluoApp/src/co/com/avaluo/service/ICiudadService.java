@@ -3,6 +3,8 @@ package co.com.avaluo.service;
 import java.util.List;
 
 import co.com.avaluo.model.entity.Ciudad;
+import co.com.avaluo.model.entity.Departamento;
+import co.com.avaluo.model.entity.Pais;
 
 
 public interface ICiudadService {
@@ -16,4 +18,10 @@ public interface ICiudadService {
 	Ciudad getEntityById(int id);
 	
 	List<Ciudad> getEntitys();
+	
+	List<Pais> getPaises();
+	
+	List<Departamento> getDepartamentos(int idPais);
+	
+	List<Ciudad> getCiudades(int idDepartamento);
 }

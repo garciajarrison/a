@@ -16,7 +16,7 @@ public class Reporte implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Empresa empresa;
+	private Empresa empresa = new Empresa();
 	private String codigo;
 	private String idContenido;
 	private boolean visible;

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "pais", schema = "avalsoft")
 public class Pais implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nombre;
 	private String codigo;

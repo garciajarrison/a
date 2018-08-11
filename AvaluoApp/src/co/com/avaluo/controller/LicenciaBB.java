@@ -17,36 +17,40 @@ import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.Empresa;
+import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.IEmpresaService;
+import co.com.avaluo.service.ILicenciaService;
 
-@ManagedBean(name = "empresaBB")
+@ManagedBean(name = "licenciaBB")
 @ViewScoped
-public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializable {
+public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private IEmpresaService empresaService;
+	private ILicenciaService licenciaService;
 	@Autowired
 	private ICiudadService ciudadService;
-	private List<Empresa> listaEmpresas;
+	@Autowired
+	private IEmpresaService empresaService;
+	private List<Licencia> listaLicencias;
 	private List<Pais> listaPaises;
 	private List<Departamento> listaDepartamentos;
 	private List<Ciudad> listaCiudades;
-	private Empresa empresa = new Empresa();
-	private Empresa selectedEmpresa = new Empresa();
-	private Util util;
+	private List<Empresa> listaEmpresas;
+	private Licencia licencia = new Licencia();
 	private ListasGenericas listasGenericas;
+	private Licencia selectedLicencia = new Licencia();
+	private Util util;
 	
-	public EmpresaBB() {
+	public LicenciaBB() {
 		util = Util.getInstance();
-		listaPaises = ciudadService.getPaises();
-		listaDepartamentos = new ArrayList<>();
-		listaCiudades = new ArrayList<>();
 		listasGenericas = ListasGenericas.getInstance();
-		cargarListaEmpresas();
+		listaPaises = ciudadService.getPaises();
+		listaEmpresas = empresaService.getEmpresas();
+		cargarListaLicencias();
 	}
 	
 	@PostConstruct
@@ -54,31 +58,29 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 		util.validarSession();
 	}
 	
-	private void cargarListaEmpresas() {
-		listaEmpresas = getEmpresaService().getEmpresas();
-		if(listaEmpresas == null)
-			listaEmpresas = new ArrayList<>();
+	private void cargarListaLicencias() {
+		listaLicencias = getLicenciaService().getLicencias();
+		if(listaLicencias == null)
+			listaLicencias = new ArrayList<>();
 	}
 	
 	public void addEntity() {
 		try {
 			boolean guardar = true;
 			//Validamos que no exista un estrato con esa configuracion
-			for(Empresa estr : listaEmpresas) {
-				empresa.setIdentificacion(empresa.getIdentificacion().trim());
-				empresa.setTipoIdentificacion(empresa.getTipoIdentificacion().trim());
-				if(estr.getTipoIdentificacion().equals(empresa.getTipoIdentificacion()) &&
-						estr.getIdentificacion().equals(empresa.getIdentificacion()) ) {
+			for(Licencia estr : listaLicencias) {
+				licencia.setNombre(licencia.getNombre().trim());
+				if(estr.getNombre().equals(licencia.getNombre())) {
 					guardar = false;
-					util.mostrarErrorKey("empresa.ya.existe");
+					util.mostrarErrorKey("licencia.ya.existe");
 				}
 			}
 			
 			if(guardar) {
-				getEmpresaService().addEmpresa(empresa);
-				this.cargarListaEmpresas();
+				getLicenciaService().addLicencia(licencia);
+				this.cargarListaLicencias();
 				util.mostrarMensajeKey("exito.guardar"); 
-				empresa = new Empresa();
+				licencia = new Licencia();
 				util.actualizarPF("formulario");
 			}else {
 				util.actualizarPF("growl");
@@ -92,9 +94,9 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 
 	public void updateEntity() {
 		try {
-			getEmpresaService().updateEmpresa(selectedEmpresa);
+			getLicenciaService().updateLicencia(selectedLicencia);
 			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaEmpresas();
+			cargarListaLicencias();
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -104,9 +106,9 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 	
 	public void deleteEntity() {
 		try {
-			getEmpresaService().deleteEmpresa(selectedEmpresa);
+			getLicenciaService().deleteLicencia(selectedLicencia);
 			util.mostrarMensajeKey("exito.eliminar");
-			cargarListaEmpresas();
+			cargarListaLicencias();
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -116,13 +118,13 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 	}
 	
 	public void cargarListasDependientesUpdate() {
-		cargarListasDependientes(selectedEmpresa.getCiudad().getDepartamento().getPais().getId(), 
-				selectedEmpresa.getCiudad().getDepartamento().getId());
+		cargarListasDependientes(selectedLicencia.getCiudad().getDepartamento().getPais().getId(), 
+				selectedLicencia.getCiudad().getDepartamento().getId());
 	}
 	
 	public void cargarListasDependientes() {
-		cargarListasDependientes(empresa.getCiudad().getDepartamento().getPais().getId(), 
-				empresa.getCiudad().getDepartamento().getId());
+		cargarListasDependientes(licencia.getCiudad().getDepartamento().getPais().getId(), 
+				licencia.getCiudad().getDepartamento().getId());
 	}
 	
 	public void cargarListasDependientes(int pais, int departamento) {
@@ -141,45 +143,45 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 		}
 	}
 
-	public List<Empresa> getListaEmpresas() {
-		return listaEmpresas;
+	public ILicenciaService getLicenciaService() {
+		return licenciaService;
 	}
 
-	public void setListaEmpresas(List<Empresa> listaEmpresas) {
-		this.listaEmpresas = listaEmpresas;
+	public void setLicenciaService(ILicenciaService licenciaService) {
+		this.licenciaService = licenciaService;
 	}
 
-	public IEmpresaService getEmpresaService() {
-		return empresaService;
+	public List<Licencia> getListaLicencias() {
+		return listaLicencias;
 	}
 
-	public void setEmpresaService(IEmpresaService empresaService) {
-		this.empresaService = empresaService;
+	public void setListaLicencias(List<Licencia> listaLicencias) {
+		this.listaLicencias = listaLicencias;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
+	public Licencia getLicencia() {
+		return licencia;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setLicencia(Licencia licencia) {
+		this.licencia = licencia;
 	}
 
-	public Empresa getSelectedEmpresa() {
-		return selectedEmpresa;
+	public Licencia getSelectedLicencia() {
+		return selectedLicencia;
 	}
 
-	public void setSelectedEmpresa(Empresa selectedEmpresa) {
-		this.selectedEmpresa = selectedEmpresa;
+	public void setSelectedLicencia(Licencia selectedLicencia) {
+		this.selectedLicencia = selectedLicencia;
 		cargarListasDependientesUpdate();
 	}
 
-	public ListasGenericas getListasGenericas() {
-		return listasGenericas;
+	public ICiudadService getCiudadService() {
+		return ciudadService;
 	}
 
-	public void setListasGenericas(ListasGenericas listasGenericas) {
-		this.listasGenericas = listasGenericas;
+	public void setCiudadService(ICiudadService ciudadService) {
+		this.ciudadService = ciudadService;
 	}
 
 	public List<Pais> getListaPaises() {
@@ -206,12 +208,29 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 		this.listaCiudades = listaCiudades;
 	}
 
-	public ICiudadService getCiudadService() {
-		return ciudadService;
+	public IEmpresaService getEmpresaService() {
+		return empresaService;
 	}
 
-	public void setCiudadService(ICiudadService ciudadService) {
-		this.ciudadService = ciudadService;
+	public void setEmpresaService(IEmpresaService empresaService) {
+		this.empresaService = empresaService;
 	}
+
+	public List<Empresa> getListaEmpresas() {
+		return listaEmpresas;
+	}
+
+	public void setListaEmpresas(List<Empresa> listaEmpresas) {
+		this.listaEmpresas = listaEmpresas;
+	}
+
+	public ListasGenericas getListasGenericas() {
+		return listasGenericas;
+	}
+
+	public void setListasGenericas(ListasGenericas listasGenericas) {
+		this.listasGenericas = listasGenericas;
+	}
+
 	
  }

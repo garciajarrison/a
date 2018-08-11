@@ -7,15 +7,14 @@ import co.com.avaluo.model.entity.Empresa;
 
 public interface IEmpresaService {
 	
-	void addEntity(Empresa entity);
+	void addEmpresa(Empresa entity);
 	
-	void updateEntity(Empresa entity);
+	void updateEmpresa(Empresa entity);
 
-	void deleteEntity(Empresa entity);
+	void deleteEmpresa(Empresa entity);
 	
-	Empresa getEntityById(int id);
+	Empresa getEmpresaById(int id);
 	
-	List<Empresa> getEntitys();
-	
+	List<Empresa> getEmpresas();
 
 }
