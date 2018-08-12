@@ -44,6 +44,7 @@ public class ReporteService implements IReporteService {
 		return getEntityDAO().getReporteById(id);
 	}
 
+	@Transactional(readOnly = false)
 	public List<Reporte> getReportes(String codigo, Empresa empresa) {	
 		return getEntityDAO().getReportes(codigo, empresa);
 	}
