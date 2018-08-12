@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
     
     <div class="col-md-3 left_col" style="background-color:black !important;" >
           <div class="left_col scroll-view" style="background-color:black !important;">
@@ -18,7 +19,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <h:graphicImage library="images" name="img.jpg" styleClass="img-circle profile_img"/>
+           
               </div>
               <div class="profile_info">
                 <span>#{msg['bienvenido']}</span>
@@ -98,7 +99,10 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                     <h:graphicImage library="images" name="img.jpg"/>
+                     
+                      <img jsf:id="idFotoPerfil" src="#{globalBB.urlFotoPerfil}"
+		                        	style="border-radius: 50%;width:35px;height:35px;"/>
+                     
                     #{globalBB.usuario.nombre}
                     <span class=" fa fa-angle-down"></span>
                   </a>

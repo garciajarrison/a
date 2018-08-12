@@ -30,7 +30,7 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	private IEstratoService estratoService;
 	
 	private Estrato estrato = new Estrato();
-	private Estrato selectedEstrato;
+	private Estrato selectedEstrato = new Estrato();
 	private List<Estrato> entityList;
 	private Usuario usuario;
 	private Util util;
