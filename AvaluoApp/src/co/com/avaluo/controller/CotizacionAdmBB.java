@@ -37,6 +37,7 @@ import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.DetalleCotizacion;
 import co.com.avaluo.model.entity.DetalleTabla;
+import co.com.avaluo.model.entity.Direcciones;
 //import co.com.avaluo.model.entity.Direcciones;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
@@ -48,6 +49,7 @@ import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.ICotizacionService;
 import co.com.avaluo.service.IDepartamentoService;
+import co.com.avaluo.service.IDireccionesService;
 import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.IEstratoService;
 import co.com.avaluo.service.IPropiedadService;
@@ -84,6 +86,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private IDepartamentoService DepartamentoService;
 	@Autowired
 	private IPropiedadService propiedadService;
+	@Autowired
+	private IDireccionesService direccionService;
 	
 	private Cotizacion cotizacion = new Cotizacion();
 	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
@@ -94,6 +98,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private Usuario cliente = new Usuario();
 	//private Empresa empresa = new Usuario();
 	private List<SelectItem> listaTipoDocumentos;
+	private List<SelectItem> listaTipoVia;
+	private List<SelectItem> listaPosicionVia;
 	private String tabla;
 	private String propiedad;
 	private String estrato;
@@ -101,7 +107,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String departamento;
 	private String identificacion;
 	private List<Tablas> tablas;
-	//private Direcciones direccion;
+	private Direcciones direccion;
 
 
 	private Propiedad selectedPropiedad;
@@ -148,6 +154,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaPropiedades =  new ArrayList<Propiedad>();
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
+		listaTipoVia=ListasGenericas.getInstance().getListaTiposVia();
+		listaPosicionVia=ListasGenericas.getInstance().getListaPosicionVia();
 		//direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
 		if(entityList == null)
@@ -179,6 +187,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setTablas(tabla);
 		infPropiedad.setCiudad(ciud);
 		infPropiedad.setEstrato(est);
+		direccion= new Direcciones();
+		infPropiedad.setDirecciones(direccion);
+		
 	}
 	
 	public void guardar() {
@@ -279,6 +290,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setEstrato(est);
 		infPropiedad.setTipoPropiedad(tprop);
 		infPropiedad.setTablas(tablas);
+		infPropiedad.setDirecciones(direccion);
 		listaPropiedades.add(infPropiedad);
 		limpiarPropiedad();
 		
@@ -302,6 +314,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setEstrato(est);
 		infPropiedad.setTipoPropiedad(tprop);
 		infPropiedad.setTablas(tablas);
+		infPropiedad.setDirecciones(direccion);
 		int i = 0;
 		for (Propiedad p: listaPropiedades) {
 			if (infPropiedad.getId()==p.getId() ) {
@@ -329,8 +342,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		
 		Ciudad ciud = new Ciudad();
 		Estrato est = new Estrato();
+		Direcciones dir = new Direcciones();
 		infPropiedad.setCiudad(ciud);
 		infPropiedad.setEstrato(est);	
+		infPropiedad.setDirecciones(dir);
 		
 		
 	}
@@ -483,7 +498,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		cliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 3);
 		if (cliente != null) {
 			cotizacion.setUsuarioByClienteId(cliente);
-			cotizacion.setUsuarioByRemitenteId(cliente);
+			//cotizacion.setUsuarioByRemitenteId(cliente);
 		}
 		else {
 			Rol rol = new Rol();
@@ -632,6 +647,22 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaTipoDocumentos = listaTipoDocumentos;
 	}
 
+	public List<SelectItem> getListaTipoVia() {
+		return listaTipoVia;
+	}
+
+	public void setListaTipoVia(List<SelectItem> listaTipoVia) {
+		this.listaTipoVia = listaTipoVia;
+	}
+
+	public List<SelectItem> getListaPosicionVia() {
+		return listaPosicionVia;
+	}
+
+	public void setListaPosicionVia(List<SelectItem> listaPosicionVia) {
+		this.listaPosicionVia = listaPosicionVia;
+	}
+
 	public SortedMap<String, Integer> getListaTipoPropiedad() {
 		return listaTipoPropiedad;
 	}
@@ -733,6 +764,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setPropiedadService(IPropiedadService propiedadService) {
 		this.propiedadService = propiedadService;
+	}
+
+	public IDireccionesService getDireccionService() {
+		return direccionService;
+	}
+
+	public void setDireccionService(IDireccionesService direccionService) {
+		this.direccionService = direccionService;
 	}
 
 	public void setListaCiudades(List<Ciudad> listaCiudades) {
@@ -865,13 +904,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.cotizacion = cotizacion;
 	}
 
-	/*public Direcciones getDireccion() {
+	public Direcciones getDireccion() {
 		return direccion;
 	}
 
 	public void setDireccion(Direcciones direccion) {
 		this.direccion = direccion;
-	}*/
+	}
 
 	public List<Tablas> getTablas() {
 		return tablas;
@@ -961,6 +1000,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void editarPropiedad(Propiedad selectedPropiedad) {
 		limpiarPropiedad();
 		infPropiedad = selectedPropiedad;
+		direccion = getDireccionService().getDireccionesById(infPropiedad.getDirecciones().getId());
 		onTableChange(infPropiedad.getTablas().getId());
 	}
 

@@ -3,6 +3,8 @@ package co.com.avaluo.common;
 public enum EnumListas {
 
 	TIPOS_DOCUMENTO,
+	TIPOS_VIA,
+	LISTA_POSICION_VIA,
 	LISTA_LICENCIAS,
 	LISTA_IDIOMAS,
 	LISTA_UNIDAD_MEDIDA,

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -49,8 +51,8 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue( strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial", name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -61,7 +63,7 @@ public class Cotizacion implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cliente_id", nullable = false)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	
 	public Usuario getUsuarioByClienteId() {
 		return this.usuarioByClienteId;
 	}
@@ -72,7 +74,7 @@ public class Cotizacion implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "remitente_id", nullable = false)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	
 	public Usuario getUsuarioByRemitenteId() {
 		return this.usuarioByRemitenteId;
 	}
