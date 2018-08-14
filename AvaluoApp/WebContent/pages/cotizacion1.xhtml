@@ -63,7 +63,49 @@
 		<!-- 	<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
 			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText> -->
 		<p:accordionPanel id="aCotizacion">
-	        <p:tab title="#{msg['cotizacion.tab.cotizacion']}">
+			<p:tab title="#{msg['cotizacion.tab.cotizacion']}">
+	          	<p:panel id="infCoti" style="background:none;" >
+
+	          		<div class="ui-g">
+	          			
+	          			
+				   		
+			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+				 			<p:outputLabel id="lFecha" value="#{msg['cotizacion.fecha']}" for="txtFecha" styleClass="aval-label" /><font/>
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:calendar id="txtFecha" value="#{cotizacionAdmBB.cotizacion.fecha}" showOn="button"
+					   				styleClass="form-control col-md-7 col-xs-12">
+					   			
+					   		</p:inputText>
+				   		</div>
+				   		
+				   					        <p:outputLabel id="lCiudad" value="#{msg['cotizacion.ciudad']}" for="selCiudad" ></p:outputLabel>			
+			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
+			   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
+			   						label="#{msg['cotizacion.ciudad']}">
+			   			
+			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
+			        </p:selectOneMenu> 
+				   		
+				   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
+				   			<p:outputLabel id="lcCiudad" value="#{msg['cotizacion.ciudad']}" for="selcCiudad" ></p:outputLabel>
+					   	</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.cotizacion.ciudad.id}" style="width:180px"
+					   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
+					   						label="#{msg['cotizacion.ciudad']}">					   		
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
+					        </p:selectOneMenu> 		
+				   		</div>
+				   	</div>
+		   			
+   				</p:panel>
+	        </p:tab>		
+	        <p:tab title="#{msg['cotizacion.tab.cliente']}">
 	          	<p:panel id="infCLie" style="background:none;" >
 
 	          		<div class="ui-g">
