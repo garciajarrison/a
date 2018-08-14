@@ -23,8 +23,8 @@
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['estrato.porcentaje']}" sortBy="#{estrato.porcentaje}">
-		        <h:outputText value="#{estrato.porcentaje}" >
-		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
+		        <h:outputText value="#{estrato.porcentaje}%" >
+		        	<f:convertNumber pattern="#0.00" currencySymbol="%" />		
 		   		</h:outputText>
 		    </p:column>
 		 

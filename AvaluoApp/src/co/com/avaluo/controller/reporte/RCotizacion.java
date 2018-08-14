@@ -1,6 +1,8 @@
 package co.com.avaluo.controller.reporte;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,7 @@ import co.com.avaluo.common.ReporteUtil;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.common.bo.ReporteLista;
 import co.com.avaluo.model.entity.Cotizacion;
+import co.com.avaluo.model.entity.DetalleCotizacion;
 import co.com.avaluo.model.entity.Reporte;
 
 public class RCotizacion {
@@ -71,14 +74,15 @@ public class RCotizacion {
 	private void addContenido(Document document, Cotizacion cotizacion) throws DocumentException {
 
 		// Anexo de ciudad y fecha (debe obtenerse de la cotizacion)
-		document.add(reporteUtil.addTexto("Ciudad, Fecha correspondencia", NORMAL_14, 0));
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		document.add(reporteUtil.addTexto(cotizacion.getCiudad().getNombre()+", "+dateFormat.format(cotizacion.getFecha()), NORMAL_14, 0));
 
 		document.add(reporteUtil.addTexto("Señor(a)", NORMAL_14, 4));
-		document.add(reporteUtil.addTexto(cotizacion.getUsuarioByClienteId().getNombre(), NORMAL_14, 0));
+		document.add(reporteUtil.addTexto(cotizacion.getUsuarioByClienteId().getNombre()+" "+cotizacion.getUsuarioByClienteId().getApellido1()+" "+cotizacion.getUsuarioByClienteId().getApellido2(), NORMAL_14, 0));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.solicitante.contratante"), NORMAL_12, 0));
 
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido1"), NORMAL_12, Element.ALIGN_JUSTIFIED, 4));
-		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido2", "<MOTIVO DEL AVALUO>."),NORMAL_12, 1));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido2", cotizacion.getMotivo()),NORMAL_12, 1));
 
 		if (permisos.get(EnumReporteCotizacion.CONTRATO_ORDEN_COMPRA.toString())) {
 			document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido3"), BOLD_14, 1));
@@ -255,7 +259,17 @@ public class RCotizacion {
 		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo6"));
 
 		List<String> contenidoTabla = new ArrayList<String>();
-		contenidoTabla.add("A");
+		int i = 1;
+		for (DetalleCotizacion det: cotizacion.getDetalleCotizacions()) {
+			contenidoTabla.add(String.valueOf(i));
+			contenidoTabla.add(det.getPropiedad().getTipoPropiedad().getTipoVivienda());
+			contenidoTabla.add(det.getPropiedad().getRegistro());
+			contenidoTabla.add(det.getPropiedad().getCiudad().getNombre());
+			contenidoTabla.add(det.getPropiedad().getValorMedida().toString());
+			contenidoTabla.add(det.getPropiedad().getValorMedida().toString());
+			i = i + 1;
+		}
+		/*contenidoTabla.add("A");
 		contenidoTabla.add("B");
 		contenidoTabla.add("C");
 		contenidoTabla.add("D");
@@ -266,7 +280,7 @@ public class RCotizacion {
 		contenidoTabla.add("C");
 		contenidoTabla.add("D");
 		contenidoTabla.add("E");
-		contenidoTabla.add("F");
+		contenidoTabla.add("F");*/
 
 		// Agregamos la tabla
 		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
@@ -459,105 +473,129 @@ public class RCotizacion {
 		document.add(reporteUtil.addEmptyLine(1));
 
 		// Tabla categorias de avaluos
-		titulosTabla = new ArrayList<String>();
-		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo1"));
-		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo2"));
-		titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo3"));
+		List<String> titulosTablaA = new ArrayList<String>();
+		titulosTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo1"));
+		titulosTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo2"));
+		titulosTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.titulo3"));
 
-		contenidoTabla = new ArrayList<String>();
-		int indiceTabla = 0;
+		List<String> contenidoTablaA = new ArrayList<String>();
+		int indiceTabla = 1;
 		
 		if (permisos.get(EnumReporteCotizacion.TBL1_INMUEBLES_URBANOS.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido11"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido12"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido11"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido12"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_INMUEBLES_RURALES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido21"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido22"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido21"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido22"));
 		}
 		
 		if (permisos.get(EnumReporteCotizacion.TBL1_RECURSOS_NATURALES_SUELOS_PROTECCION.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido31"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido32"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido31"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido32"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_OBRAS_INFRAESTRUCTURA.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido41"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido42"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido41"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido42"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_EDIFICACIONES_CONSERVACION_ARQUEOLOGIA_MONUMENTOS_HISTORICOS.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido51"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido52"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido51"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido52"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_INMUEBLES_ESPECIALES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido61"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido62"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido61"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido62"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_MAQUINARIA_FIJA_EQUIPOS_MAQUINARIO_MOVIL.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido71"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido72"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido71"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido72")+util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73")+util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
+			//contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido73"));
+			//contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido74"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_MAQUINARIA_EQUIPOS_ESPECIALES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido81"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido82"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido81"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido82"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_OBRAS_ARTE_ORFEBRERIA_PATRIMONIALES_SIMILARES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido91"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido92"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido91"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido92"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_SEMOVIEMTES_ANIMALES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido101"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido102"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido101"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido102"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_ACTIVOS_OPERACIONALES_ESTABLECIMIENTOS_COMERCIO.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido111"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido112"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido111"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido112"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_INTANGIBLES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido121"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido122"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido121"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido122"));
 		}
 
 		if (permisos.get(EnumReporteCotizacion.TBL1_INTANGIBLES_ESPECIALES.toString())) {
-			contenidoTabla.add((indiceTabla++)+"");
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido131"));
-			contenidoTabla.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido132"));
+			contenidoTablaA.add((indiceTabla++)+"");
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido131"));
+			contenidoTablaA.add(util.getMessage("reporte.cotizacion.tabla.categoria.avaluos.contenido132"));
 		}
 
 		// Agregamos la tabla de categorias de avaluos
-		document.add(reporteUtil.createdTable(titulosTabla, contenidoTabla));
+		document.add(reporteUtil.createdTable(titulosTablaA, contenidoTablaA));
 
 		contenidos = new ArrayList<>();
+		binnetas  = new ArrayList<>();
 		titulo = util.getMessage("reporte.cotizacion.contenido180");
-		contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido181"));
+		//contenidos.add(util.getMessage("reporte.cotizacion.contenido181"));
+		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido181"), NORMAL_12,
+				Element.ALIGN_JUSTIFIED, 1));
 		binnetas.add(new ReporteLista(titulo, BOLD_14, null, NORMAL_12));
 		document.add(reporteUtil.addBinneta(binnetas, 17));
 		
 		// Tabla cotizaciones
 		document.add(reporteUtil.addEmptyLine(1));
+		List<String> titulosTabla2 = new ArrayList<String>();
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo1"));
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo2"));
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo3"));
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo4"));
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo5"));
+		titulosTabla2.add(util.getMessage("reporte.cotizacion.tabla.avaluos.titulo6"));
+
+		List<String> contenidoTabla2 = new ArrayList<String>();
+		i = 1;
+		for (DetalleCotizacion det: cotizacion.getDetalleCotizacions()) {
+			contenidoTabla2.add(String.valueOf(i));
+			contenidoTabla2.add(det.getPropiedad().getTipoPropiedad().getTipoVivienda());
+			contenidoTabla2.add(det.getPropiedad().getRegistro());
+			contenidoTabla2.add(det.getPropiedad().getCiudad().getNombre());
+			contenidoTabla2.add(det.getPropiedad().getValorMedida().toString());
+			contenidoTabla2.add(det.getPropiedad().getValorMedida().toString());
+			i = i + 1;
+		}
+		
+		document.add(reporteUtil.createdTable(titulosTabla2, contenidoTabla2));		
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido182"), BOLD_14, 1));
 		document.add(reporteUtil.addTexto(util.getMessage("reporte.cotizacion.contenido183"), NORMAL_12,
 				Element.ALIGN_JUSTIFIED, 1));
@@ -587,7 +625,7 @@ public class RCotizacion {
 			titulosTabla.add(util.getMessage("reporte.cotizacion.tabla.bibliografia.titulo2"));
 	
 			contenidoTabla = new ArrayList<String>();
-			indiceTabla = 0;
+			indiceTabla = 1;
 			contenidoTabla.add((indiceTabla++)+"");
 			contenidoTabla.add(util.getMessage("reporte.cotizacion.contenido192"));
 			contenidoTabla.add((indiceTabla++)+"");

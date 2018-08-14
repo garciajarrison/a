@@ -66,3 +66,13 @@ AvaluoApp/target/m2e-wtp/web-resources/META-INF/maven/AvaluoApp/co.com.avaluo/po
 Servers/Tomcat v9.0 Server at localhost-config/server.xml
 AvaluoApp/.settings/org.eclipse.wst.common.project.facet.core.xml
 AvaluoApp/.classpath
+AvaluoApp/.settings/org.eclipse.wst.common.project.facet.core.xml
+AvaluoApp/.classpath
+AvaluoApp/target/classes/co/com/avaluo/controller/CotizacionAdmBB.class
+AvaluoApp/target/classes/co/com/avaluo/model/entity/Cotizacion.class
+AvaluoApp/target/classes/co/com/avaluo/model/entity/DetalleCotizacion.class
+AvaluoApp/target/classes/co/com/avaluo/model/entity/Empresa.class
+AvaluoApp/target/classes/co/com/avaluo/model/entity/Propiedad.class
+AvaluoApp/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+AvaluoApp/target/m2e-wtp/web-resources/META-INF/maven/AvaluoApp/co.com.avaluo/pom.properties
+Servers/Tomcat v9.0 Server at localhost-config/catalina.policy

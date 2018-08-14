@@ -14,6 +14,8 @@ public class ListasGenericas {
 	private List<SelectItem> listaTipoPropiedad;
 	private List<SelectItem> listaUnidadMedida;
 	private List<SelectItem> listaEstados;
+	private List<SelectItem> listaTiposVia;
+	private List<SelectItem> listaPosicionVia;
 	
 	public static ListasGenericas getInstance() {
 		if(instance == null)
@@ -29,6 +31,8 @@ public class ListasGenericas {
 		listaTipoPropiedad = this.consultarListas(EnumListas.LISTA_TIPO_PROPIEDAD);
 		listaUnidadMedida = this.consultarListas(EnumListas.LISTA_UNIDAD_MEDIDA);
 		listaEstados = this.consultarListas(EnumListas.LISTA_ESTADOS, true);
+		listaTiposVia = this.consultarListas(EnumListas.TIPOS_VIA);
+		listaPosicionVia = this.consultarListas(EnumListas.LISTA_POSICION_VIA);
 	}
 	
 	private List<SelectItem> consultarListas(EnumListas lista){
@@ -85,6 +89,14 @@ public class ListasGenericas {
 
 	public void setListaUnidadMedida(List<SelectItem> listaUnidadMedida) {
 		this.listaUnidadMedida = listaUnidadMedida;
+	}
+
+	public List<SelectItem> getListaTiposVia() {
+		return listaTiposVia;
+	}
+
+	public List<SelectItem> getListaPosicionVia() {
+		return listaPosicionVia;
 	}
 
 }

@@ -71,10 +71,19 @@ public class UsuarioDAO implements IUsuarioDAO {
 	public Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {
 		
 		Session session = getSessionFactory().getCurrentSession();
-		return (Usuario) session
-				.createQuery("from Usuario u where u.tipoDocumento=? and u.identificacion=? and u.empresa.id = ? and u.rol.id=?")
-				.setParameter(0, tipoIdentificacion).setParameter(1, identificacion).setParameter(2, id).setParameter(3, rol_Id) 
-				.uniqueResult();
+		if (rol_Id == 0) {
+			return (Usuario) session
+					.createQuery("from Usuario u where u.tipoDocumento=? and u.identificacion=? and u.empresa.id = ?")
+					.setParameter(0, tipoIdentificacion).setParameter(1, identificacion).setParameter(2, id) 
+					.uniqueResult();
+			
+		}
+		else {
+			return (Usuario) session
+					.createQuery("from Usuario u where u.tipoDocumento=? and u.identificacion=? and u.empresa.id = ? and u.rol.id=?")
+					.setParameter(0, tipoIdentificacion).setParameter(1, identificacion).setParameter(2, id).setParameter(3, rol_Id) 
+					.uniqueResult();
+		}
 	}
 
 	public void actualizarUltimaConn(Licencia licencia) {

@@ -26,9 +26,11 @@ public class ReporteUtil {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
 		parrafo.setIndentationLeft(25);
+		parrafo.setIndentationRight(25);
 		Paragraph contenido = new Paragraph(texto, fuente);
 		contenido.setAlignment(align);
 		contenido.setIndentationLeft(25);
+		contenido.setIndentationRight(25);
 		parrafo.add(contenido);
 		return parrafo;
 	}
@@ -37,9 +39,11 @@ public class ReporteUtil {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
 		parrafo.setIndentationLeft(25);
+		parrafo.setIndentationRight(25);
 		Paragraph contenido = new Paragraph();
 		contenido.setAlignment(align);
 		contenido.setIndentationLeft(25);
+		contenido.setIndentationRight(25);
 		contenido.add(new Chunk(texto1+" ", font1));
 		contenido.add(new Chunk(texto2, font2));
 		parrafo.add(contenido);
@@ -51,10 +55,11 @@ public class ReporteUtil {
 		Paragraph parrafo = new Paragraph();
 		parrafo.add(addEmptyLine(espacios));
 		parrafo.setIndentationLeft(25);
-
+		parrafo.setIndentationRight(25);
 		Paragraph contenido = new Paragraph();
 		contenido.setAlignment(align);
 		contenido.setIndentationLeft(25);
+		contenido.setIndentationRight(25);
 		contenido.add(new Chunk(texto1+" ", font1));
 		contenido.add(new Chunk(texto2+" ", font2));
 		contenido.add(new Chunk(texto3, font3));
@@ -80,7 +85,7 @@ public class ReporteUtil {
 		for(String conten : contenido) {
 			table.addCell(conten);
 		}
-
+		table.setWidthPercentage(95);
 		return table;
 	}
 	
@@ -108,6 +113,8 @@ public class ReporteUtil {
 					itemContenido = new com.itextpdf.text.ListItem(" " + contenido, binneta.getFontContenido());
 					itemContenido.setAlignment(Element.ALIGN_JUSTIFIED);
 					itemContenido.setLeading(25f);
+					itemContenido.setIndentationLeft(30);
+					itemContenido.setIndentationRight(25);
 				//	Paragraph parrafo = new Paragraph();
 				//	parrafo.SetLeading(fixed, multiplied);
 					listContenido.add(itemContenido);

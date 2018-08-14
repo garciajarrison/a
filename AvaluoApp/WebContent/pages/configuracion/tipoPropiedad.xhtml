@@ -23,14 +23,13 @@
 		    </p:column>
 		    
 		    <p:column headerText="#{msg['tipo.propiedad.tipo.vivienda']}" sortBy="#{tp.tipoVivienda}">
-		        <h:outputText value="#{tp.tipoVivienda}" >
-		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />		
+		        <h:outputText value="#{tp.tipoVivienda}" >		        	
 		   		</h:outputText>
 		    </p:column>
 		 
 		    <p:column headerText="#{msg['tipo.propiedad.incremento']}" sortBy="#{tp.incremento}">
-		        <h:outputText value="#{tp.incremento}" >
-		        	<f:convertNumber pattern="$#0.00" currencySymbol="%" />
+		        <h:outputText value="#{tp.incremento}%" >
+		        	<f:convertNumber pattern="#0.00" currencySymbol="%" />
 		   		</h:outputText>
 		    </p:column>
 		    
