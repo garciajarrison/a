@@ -139,7 +139,7 @@ public class Empresa implements java.io.Serializable {
 		this.tipoPropiedads = tipoPropiedads;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
 	public List<Cotizacion> getCotizacions() {
 		return this.cotizacions;
 	}
@@ -149,7 +149,7 @@ public class Empresa implements java.io.Serializable {
 	}
 
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
 	public List<Tablas> getTablases() {
 		return this.tablases;
 	}

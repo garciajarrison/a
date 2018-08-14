@@ -63,7 +63,7 @@
 		<!-- 	<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
 			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText> -->
 		<p:accordionPanel id="aCotizacion">
-	        <p:tab title="#{msg['cotizacion.tab.cliente']}">
+	        <p:tab title="#{msg['cotizacion.tab.cotizacion']}">
 	          	<p:panel id="infCLie" style="background:none;" >
 
 	          		<div class="ui-g">
@@ -89,7 +89,7 @@
 	          			</div>
 				   		
 			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
-				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PNATUR')?  msg['cotizacion.identificacion'] : msg['cotizacion.rut']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
+				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}"
@@ -99,7 +99,7 @@
 				   		</div>
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PNATUR')?  msg['cotizacion.nombre'] : msg['cotizacion.razon']}" for="txtName" styleClass="aval-label"/>
+				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}"
@@ -300,7 +300,7 @@
 				<p:dataTable  rows="15" var="detalle" value="#{cotizacionAdmBB.listaDetCotizacion}" 
 							editable="true" editMode="cell"
 								emptyMessage="#{msg['no.registros']}">
-					<p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}" process=":formulario:aCotizacion:infResult" />			
+					<p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}" process=":formulario:aCotizacion:infResult :formulario:txtTotalCot" />			
 						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
 						        <h:outputText value="#{detalle.propiedad.tablas.nombre}" />
 						    </p:column>
@@ -337,30 +337,38 @@
 	              
     	</p:accordionPanel>  
 
-		<p:dialog header="#{msg['cotizacion.dialog.Propiedad']}" id="dlgPropiedad" widgetVar="dlgPropiedad" minHeight="40" >
-				<h:panelGrid columns="6" >
+		<p:dialog header="#{msg['cotizacion.dialog.Propiedad']}" id="dlgPropiedad" widgetVar="dlgPropiedad" minHeight="40" width="50%">
+				<h:panelGrid columns="2" width="95%" >
 					<p:outputLabel id="lTable" value="#{msg['cotizacion.tabla']}" for="selTables" ></p:outputLabel>
-			   		<p:selectOneMenu tabindex="" id="selTables" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px !import"
-			   						title="#{msg['cotizacion.tabla']}" 
+			   		<p:selectOneMenu tabindex="" id="selTables" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px"
+			   						title="#{msg['cotizacion.tabla']}" required="true" filter="true"
 			   						label="#{msg['cotizacion.tabla']}">
 			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.infPropiedad.tablas.id)}" process="selTables,selProperty" update="selProperty" />
-			            <f:selectItem itemLabel="Select One" itemValue="" />  
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" /> 
 			            <f:selectItems  value="#{cotizacionAdmBB.listaTablas}" />
 			        </p:selectOneMenu>
 		
 			   		<p:outputLabel id="lProperty" value="#{msg['cotizacion.tipo.vivienda']}" for="selProperty" ></p:outputLabel>
 			   		<p:selectOneMenu id="selProperty" value="#{cotizacionAdmBB.infPropiedad.tipoPropiedad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.tipo.vivienda']}" 
+			   						 title="#{msg['cotizacion.tipo.vivienda']}" required="true" filter="true"
 			   						label="#{msg['cotizacion.tipo.vivienda']}">			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
 			        </p:selectOneMenu>		        	
 			 		
 			 		<p:outputLabel id="lMatricula" value="#{msg['cotizacion.registro']}" for="txtMatricula" ></p:outputLabel>	
 			 		<p:inputText id="txtMatricula" value="#{cotizacionAdmBB.infPropiedad.registro}"
-			   						 title="#{msg['cotizacion.registro']}" 
+			   						 title="#{msg['cotizacion.registro']}" required="true" 
 			   						label="#{msg['cotizacion.registro']}"></p:inputText>	 
-			       </h:panelGrid>			   						
+			 		<p:outputLabel id="lEstrato" value="#{msg['cotizacion.estrato']}" for="selEstrato" ></p:outputLabel>			   		
+			   		<p:selectOneMenu id="selEstrato" value="#{cotizacionAdmBB.infPropiedad.estrato.id}" style="width:180px"
+			   						 title="#{msg['cotizacion.estrato']}" required="true" filter="true"
+			   						label="#{msg['cotizacion.estrato']}">
+			   			
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
+			        </p:selectOneMenu>  				        						
+			       </h:panelGrid>			  
 					<br/>
 			    <p:dataTable id="tDireccion" var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="cellDir">
 			 
@@ -374,7 +382,6 @@
 			            <p:row>
 			            
 			                <p:column colspan="7" headerText="Informacion via" />
-			                <p:column colspan="7" headerText="Informacion interseccion" />
 			            </p:row>
 			            <p:row>
 			                <p:column headerText="Tipo" />
@@ -383,13 +390,6 @@
 			                <p:column headerText="Letra" />
 			                <p:column headerText="Prefijo" />
 			                <p:column headerText="Letra" />
-			                <p:column headerText="Posicion" />
-			                <p:column headerText="#" />
-			                <p:column headerText="Letra" />
-			                <p:column headerText="Sufijo" />
-			                <p:column headerText="Letra" />
-			                <p:column headerText="Posicion" />
-			                <p:column headerText="#" />
 			                <p:column headerText="Posicion" />
 			            </p:row>
 			            
@@ -400,7 +400,8 @@
 			           <p:cellEditor>
 			               <f:facet name="output"><h:outputText value="#{dir.tipoVia}" /></f:facet>
 			               <f:facet name="input">                   
-			                   <h:selectOneMenu value="#{dir.tipoVia}" style="width:100%">
+			                   <h:selectOneMenu value="#{dir.tipoVia}" >
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			                       <f:selectItems value="#{cotizacionAdmBB.listaTipoVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
 			                   </h:selectOneMenu>
 			               </f:facet>
@@ -453,16 +454,44 @@
 			           </p:cellEditor>
 			       </p:column>       
 			
-			       <p:column headerText="Posicion via">
+			       <p:column headerText="Posicion via" style="heigth:20px">
 			           <p:cellEditor>
 			               <f:facet name="output"><h:outputText value="#{dir.posicionVia}" /></f:facet>
 			               <f:facet name="input">                   
 			                   <h:selectOneMenu value="#{dir.posicionVia}" style="width:100%">
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
 			                   </h:selectOneMenu>
 			               </f:facet>
 			           </p:cellEditor>
 			       </p:column>
+			
+			</p:dataTable>
+			    <p:dataTable id="tDireccion2"  var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="tDireccion2">
+			 
+			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
+			
+					<f:facet name="header">
+			            Direccion
+			        </f:facet>
+					<p:columnGroup type="header">
+			
+			            <p:row>
+			            
+			                <p:column colspan="7" headerText="Informacion interseccion" />
+			            </p:row>
+			            <p:row>
+			                <p:column headerText="#" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Sufijo" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Posicion" />
+			                <p:column headerText="#" />
+			                <p:column headerText="Posicion" />
+			            </p:row>
+			            
+			        </p:columnGroup> 
+			
 			
 			       <p:column headerText="Nro. intersec">
 			           <p:cellEditor>
@@ -538,11 +567,11 @@
 			   						label="#{msg['cotizacion.direccion']}"></p:inputText>	 
 			 		
 				 			   						
-				<h:panelGrid columns="6" >
+				<h:panelGrid columns="2" width="100%">
 
 			        <p:outputLabel id="lCiudad" value="#{msg['cotizacion.ciudad']}" for="selCiudad" ></p:outputLabel>			
 			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.ciudad']}" 
+			   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
 			   						label="#{msg['cotizacion.ciudad']}">
 			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
@@ -550,29 +579,22 @@
 			        </p:selectOneMenu> 
 			        <p:outputLabel id="lDepartamento" value="#{msg['cotizacion.departamento']}" for="selDepartamento" ></p:outputLabel>	    				
 			   		<p:selectOneMenu id="selDepartamento" value="#{cotizacionAdmBB.departamento}" style="width:180px"
-			   						 title="#{msg['cotizacion.departamento']}" 
+			   						 title="#{msg['cotizacion.departamento']}"  filter="true"
 			   						label="#{msg['cotizacion.departamento']}">			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaDepartamento}" />
 			        </p:selectOneMenu>
-			 		<p:outputLabel id="lEstrato" value="#{msg['cotizacion.estrato']}" for="selEstrato" ></p:outputLabel>			   		
-			   		<p:selectOneMenu id="selEstrato" value="#{cotizacionAdmBB.infPropiedad.estrato.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.estrato']}" 
-			   						label="#{msg['cotizacion.estrato']}">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
-			        </p:selectOneMenu>  	
+
 			 		<p:outputLabel id="lUMedidad" value="#{msg['cotizacion.unidad']}" for="selUMedida" ></p:outputLabel>	
-				   		<p:selectOneMenu id="selUMedida" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" autoWidth="true" 
-			   						 title="#{msg['cotizacion.unidad']}" 
+				   		<p:selectOneMenu id="selUMedida" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" style="width:180px"
+			   						 title="#{msg['cotizacion.unidad']}" required="true" filter="true"
 			   						label="#{msg['cotizacion.unidad']}">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaUnidadMedida}" />			
 			        	</p:selectOneMenu> 
 			        <p:outputLabel id="lValorMedida" value="#{msg['cotizacion.area']}" for="txtValorMedida" ></p:outputLabel>	
 			 		<p:inputText id="txtValorMedida" value="#{cotizacionAdmBB.infPropiedad.valorMedida}"
-			   						 title="#{msg['cotizacion.area']}" 
+			   						 title="#{msg['cotizacion.area']}" required="true" filter="true"
 			   						label="#{msg['cotizacion.area']}"></p:inputText>	 			 					        	        
 			</h:panelGrid>
 								<br/>

@@ -80,7 +80,7 @@ public class ReporteUtil {
 		for(String conten : contenido) {
 			table.addCell(conten);
 		}
-
+		table.setWidthPercentage(95);
 		return table;
 	}
 	

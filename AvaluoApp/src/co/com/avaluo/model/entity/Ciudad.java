@@ -25,6 +25,7 @@ public class Ciudad implements java.io.Serializable {
 	private String nombre;
 	private String codigo;
 	private Boolean estado;
+	private List<Cotizacion> cotizacions = new ArrayList<>();
 	private List<Licencia> licencias = new ArrayList<>();
 	private List<Propiedad> propiedads = new ArrayList<>();
 	private List<Empresa> empresas = new ArrayList<>();
@@ -136,4 +137,14 @@ public class Ciudad implements java.io.Serializable {
 	public void setDpto(String dpto) {
 		this.dpto = dpto;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ciudad")
+	public List<Cotizacion> getCotizacions() {
+		return this.cotizacions;
+	}
+
+	public void setCotizacions(List<Cotizacion> cotizacions) {
+		this.cotizacions = cotizacions;
+	}
+	
 }
