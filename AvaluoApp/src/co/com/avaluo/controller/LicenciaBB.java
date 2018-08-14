@@ -80,8 +80,9 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 				getLicenciaService().addLicencia(licencia);
 				this.cargarListaLicencias();
 				util.mostrarMensajeKey("exito.guardar"); 
-				licencia = new Licencia();
+				util.ejecutarPF("PF('dlgAgregar').hide();");
 				util.actualizarPF("formulario");
+				licencia = new Licencia();
 			}else {
 				util.actualizarPF("growl");
 			}

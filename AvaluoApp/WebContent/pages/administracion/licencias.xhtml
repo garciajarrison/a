@@ -117,9 +117,7 @@
 				
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{licenciaBB.addEntity}"/>
-		   		</p:commandButton>
+		   		<p:commandButton value="#{msg['btn.agregar']}" actionListener="#{licenciaBB.addEntity}" />
 	   		</div>
 		</p:dialog>		
 

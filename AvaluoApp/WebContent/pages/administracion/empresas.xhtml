@@ -53,7 +53,6 @@
 		<p:dialog header="#{msg['empresa.agregar']}" id="dlgAgregar" 
 				widgetVar="dlgAgregar" minHeight="40">
 			<div align="center">
-				<h:form>
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 					<h:outputLabel id="lTipoIdentificacion" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacion"/>
 					<p:selectOneMenu id="selTipoIdentificacion" value="#{empresaBB.empresa.tipoIdentificacion}" 
@@ -64,7 +63,7 @@
 			   		</p:selectOneMenu>
 					
 					<h:outputLabel id="lIdentificacion" value="#{msg['empresa.identificacion']}:" for="txtIdentificacion"/>
-					<p:inputText id="txtIdentificacion" value="#{empresaBB.empresa.nombre}" title="#{msg['empresa.identificacion']}" 
+					<p:inputText id="txtIdentificacion" value="#{empresaBB.empresa.identificacion}" title="#{msg['empresa.identificacion']}" 
 			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
 					
 					<h:outputLabel id="lNombre" value="#{msg['empresa.nombre']}:" for="txtName"/>
@@ -111,10 +110,7 @@
 			   		
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton value="#{msg['btn.agregar']}">
-		   				<p:ajax process="dlgAgregar" listener="#{empresaBB.addEntity}" />
-		   		</p:commandButton>
-		   		</h:form>
+		   		<p:commandButton value="#{msg['btn.agregar']}" actionListener="#{empresaBB.addEntity}"/>
 	   		</div>
 		</p:dialog>		
 
@@ -130,7 +126,7 @@
 			   		</p:selectOneMenu>
 					
 					<h:outputLabel id="lIdentificacionu" value="#{msg['empresa.identificacion']}:" for="txtIdentificacionu"/>
-					<p:inputText id="txtIdentificacionu" value="#{empresaBB.selectedEmpresa.nombre}" title="#{msg['empresa.identificacion']}" 
+					<p:inputText id="txtIdentificacionu" value="#{empresaBB.selectedEmpresa.identificacion}" title="#{msg['empresa.identificacion']}" 
 			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
 					
 					<h:outputLabel id="lNombreu" value="#{msg['empresa.nombre']}:" for="txtNameu"/>
