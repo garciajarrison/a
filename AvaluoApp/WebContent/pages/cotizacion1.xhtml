@@ -77,28 +77,35 @@
 					   		<p:calendar id="txtFecha" value="#{cotizacionAdmBB.cotizacion.fecha}" showOn="button"
 					   				styleClass="form-control col-md-7 col-xs-12">
 					   			
-					   		</p:inputText>
+					   		</p:calendar>
 				   		</div>
 				   		
-				   					        <p:outputLabel id="lCiudad" value="#{msg['cotizacion.ciudad']}" for="selCiudad" ></p:outputLabel>			
-			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
-			   						label="#{msg['cotizacion.ciudad']}">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
-			        </p:selectOneMenu> 
+
 				   		
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
 				   			<p:outputLabel id="lcCiudad" value="#{msg['cotizacion.ciudad']}" for="selcCiudad" ></p:outputLabel>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.cotizacion.ciudad.id}" style="width:180px"
+					   		<p:selectOneMenu id="selcCiudad" value="#{cotizacionAdmBB.cotizacion.ciudad.id}" style="width:180px"
 					   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
 					   						label="#{msg['cotizacion.ciudad']}">					   		
 					            <f:selectItem itemLabel="Select One" itemValue="" />
 					            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
+					        </p:selectOneMenu> 		
+				   		</div>
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
+				   			<p:outputLabel id="lEstado" value="#{msg['cotizacion.estado']}" for="selEstado" ></p:outputLabel>
+					   	</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:selectOneMenu id="selEstado" value="#{cotizacionAdmBB.cotizacion.estado}" style="width:180px"
+					   						 title="#{msg['cotizacion.estado']}" required="true" filter="true"
+					   						label="#{msg['cotizacion.estado']}">					   		
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItem itemLabel="Aprobado" itemValue="" />
+					            <f:selectItem itemLabel="Rechazado" itemValue="" />
+					            <f:selectItem itemLabel="Pendiente" itemValue="" />
+					            <f:selectItem itemLabel="Inactiva" itemValue="" />
 					        </p:selectOneMenu> 		
 				   		</div>
 				   	</div>

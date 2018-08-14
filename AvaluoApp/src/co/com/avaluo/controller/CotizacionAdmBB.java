@@ -145,8 +145,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		cotizacion = new Cotizacion();
 		Empresa empresa =new Empresa();
 		Usuario clien = new Usuario();
+		Ciudad ciudad = new Ciudad();
 		cotizacion.setEmpresa(empresa);
 		cotizacion.setUsuarioByClienteId(clien);
+		cotizacion.setCiudad(ciudad);
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
@@ -170,9 +172,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void nuevaCotizacion() {
 		this.cotizacion = new Cotizacion();
 		Usuario usu = new Usuario();
+		Ciudad ciudad = new Ciudad();
 		cotizacion.setEmpresa(usuario.getEmpresa());
 		cotizacion.setUsuarioByClienteId(usu);
 		cotizacion.setUsuarioByRemitenteId(usu);
+		cotizacion.setCiudad(ciudad);
 		this.detCotizacion = new DetalleCotizacion();
 		detCotizacion.setCotizacion(cotizacion);
 		Tablas tabla = new Tablas();

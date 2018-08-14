@@ -34,6 +34,7 @@ public class Cotizacion implements java.io.Serializable {
 	private BigDecimal valor;
 	private Date fecha;
 	private String motivo;
+	private String estado;
 	
 	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
 
@@ -48,12 +49,14 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	public Cotizacion(int id, Usuario usuarioByClienteId, Usuario usuarioByRemitenteId, Empresa empresa,
-			BigDecimal valor, List<DetalleCotizacion> detalleCotizacions) {
+			BigDecimal valor, String motivo, String estado, List<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
 		this.usuarioByClienteId = usuarioByClienteId;
 		this.usuarioByRemitenteId = usuarioByRemitenteId;
 		this.empresa = empresa;
 		this.valor = valor;
+		this.motivo = motivo;
+		this.estado = estado;		
 		this.detalleCotizacions = detalleCotizacions;
 	}
 
@@ -147,6 +150,14 @@ public class Cotizacion implements java.io.Serializable {
 
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 

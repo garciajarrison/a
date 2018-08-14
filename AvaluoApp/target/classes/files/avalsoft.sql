@@ -1,5 +1,6 @@
 ------CAMBIOS------
---USUARIO
+--COTIZACION
+--CIUDAD
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -94,17 +95,23 @@ ALTER SEQUENCE avalsoft.ciudad_seq
     OWNER TO postgres; 
 
 -- DROP TABLE avalsoft.ciudad ;
-CREATE TABLE avalsoft.ciudad (
-  id integer NOT NULL DEFAULT nextval('avalsoft.ciudad_seq'::regclass),
-  nombre VARCHAR(100) NULL,
-  codigo VARCHAR(10) NULL,
-  estado boolean NULL,
-  departamento_id integer NOT NULL,
-  CONSTRAINT pk_ciudad PRIMARY KEY (id),
-  CONSTRAINT fk_ciudad_departamento FOREIGN KEY (departamento_id)
+CREATE TABLE avalsoft.ciudad
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.ciudad_seq'::regclass),
+    nombre character varying(100) COLLATE pg_catalog."default",
+    codigo character varying(10) COLLATE pg_catalog."default",
+    estado boolean,
+    departamento_id integer NOT NULL,
+    CONSTRAINT pk_ciudad PRIMARY KEY (id),
+    CONSTRAINT fk_ciudad_departamento FOREIGN KEY (departamento_id)
         REFERENCES avalsoft.departamento (id) MATCH SIMPLE
         ON UPDATE CASCADE
-        ON DELETE CASCADE);
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.ciudad
     OWNER to postgres;
@@ -353,7 +360,15 @@ CREATE TABLE avalsoft.cotizacion
     cliente_id integer NOT NULL,
     valor numeric,
     remitente_id integer NOT NULL,
+    ciudad_id integer NOT NULL,
+    fecha date NOT NULL,
+    motivo character varying COLLATE pg_catalog."default",
+    estado character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT cotizacion_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_cotizacion_ciudad FOREIGN KEY (ciudad_id)
+        REFERENCES avalsoft.ciudad (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
     CONSTRAINT fk_cotizacion_cliente FOREIGN KEY (cliente_id)
         REFERENCES avalsoft.usuario (id) MATCH SIMPLE
         ON UPDATE NO ACTION
