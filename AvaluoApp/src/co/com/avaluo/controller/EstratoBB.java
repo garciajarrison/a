@@ -71,8 +71,9 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 				getEstratoService().addEntity(estrato);
 				util.mostrarMensajeKey("exito.guardar"); 
 				cargarListaEstratos();
-				estrato = new Estrato();
+				util.ejecutarPF("PF('dlgAgregar').hide();");
 				util.actualizarPF("formulario");
+				estrato = new Estrato();
 			}else {
 				util.actualizarPF("growl");
 			}

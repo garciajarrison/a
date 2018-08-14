@@ -17,6 +17,7 @@ import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.Empresa;
+import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.IEmpresaService;
@@ -78,8 +79,10 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 				getEmpresaService().addEmpresa(empresa);
 				this.cargarListaEmpresas();
 				util.mostrarMensajeKey("exito.guardar"); 
-				empresa = new Empresa();
+				util.ejecutarPF("PF('dlgAgregar').hide();");
 				util.actualizarPF("formulario");
+				empresa = new Empresa();
+				
 			}else {
 				util.actualizarPF("growl");
 			}
