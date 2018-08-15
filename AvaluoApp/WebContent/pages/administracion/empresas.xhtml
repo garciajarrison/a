@@ -57,27 +57,27 @@
 					<h:outputLabel id="lTipoIdentificacion" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacion"/>
 					<p:selectOneMenu id="selTipoIdentificacion" value="#{empresaBB.empresa.tipoIdentificacion}" 
 								title="#{msg['empresa.tipo.identificacion']}" 
-			   					label="#{msg['empresa.tipo.identificacion']}" required="true" >
+			   					label="#{msg['empresa.tipo.identificacion']}"  >
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
 			   		</p:selectOneMenu>
 					
 					<h:outputLabel id="lIdentificacion" value="#{msg['empresa.identificacion']}:" for="txtIdentificacion"/>
 					<p:inputText id="txtIdentificacion" value="#{empresaBB.empresa.identificacion}" title="#{msg['empresa.identificacion']}" 
-			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
+			   				label="#{msg['empresa.identificacion']}" maxlength="20" />
 					
 					<h:outputLabel id="lNombre" value="#{msg['empresa.nombre']}:" for="txtName"/>
 					<p:inputText id="txtName" value="#{empresaBB.empresa.nombre}" title="#{msg['empresa.nombre']}" 
-			   				label="#{msg['empresa.nombre']}" required="true" maxlength="50" />
+			   				label="#{msg['empresa.nombre']}" maxlength="50" />
 			   		
 			   		<h:outputLabel id="lDescripcion" value="#{msg['empresa.descripcion']}:" for="txtDescripcion"/>
 			   		<p:inputTextarea id="txtDescripcion" value="#{empresaBB.empresa.descripcion}" 
 			   				title="#{msg['empresa.descripcion']}" label="#{msg['empresa.descripcion']}" 
-			   				required="true" maxlength="100"/>
+			   				maxlength="100"/>
 			   				
 			   		<h:outputLabel value="#{msg['empresa.estado']}:" for="selEstado"/>
 			   		<p:selectOneMenu id="selEstado" value="#{empresaBB.empresa.estado}" title="#{msg['empresa.estado']}" 
-			   				label="#{msg['empresa.estado']}" required="true" >
+			   				label="#{msg['empresa.estado']}" >
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{empresaBB.listasGenericas.listaEstados}"  />
 			   		</p:selectOneMenu>
@@ -102,7 +102,7 @@
 			   		
 			   		<h:outputLabel value="#{msg['empresa.ciudad']}:" for="selciudad"/>
 			   		<p:selectOneMenu id="selciudad" value="#{empresaBB.empresa.ciudad.id}" title="#{msg['empresa.ciudad']}" 
-			   				label="#{msg['empresa.ciudad']}" required="true" filter="true">
+			   				label="#{msg['empresa.ciudad']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{empresaBB.listaCiudades}" var="cd" 
 			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
@@ -120,28 +120,27 @@
 					<h:outputLabel id="lTipoIdentificacionu" value="#{msg['empresa.tipo.identificacion']}:" for="selTipoIdentificacionu"/>
 					<p:selectOneMenu id="selTipoIdentificacionu" value="#{empresaBB.selectedEmpresa.tipoIdentificacion}" 
 								title="#{msg['empresa.tipo.identificacion']}" 
-			   					label="#{msg['empresa.tipo.identificacion']}" required="true" >
+			   					label="#{msg['empresa.tipo.identificacion']}" >
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{tablaBB.listasGenericas.listaTiposDocumento}"  />
 			   		</p:selectOneMenu>
 					
 					<h:outputLabel id="lIdentificacionu" value="#{msg['empresa.identificacion']}:" for="txtIdentificacionu"/>
 					<p:inputText id="txtIdentificacionu" value="#{empresaBB.selectedEmpresa.identificacion}" title="#{msg['empresa.identificacion']}" 
-			   				label="#{msg['empresa.identificacion']}" required="true" maxlength="20" />
+			   				label="#{msg['empresa.identificacion']}" maxlength="20" />
 					
 					<h:outputLabel id="lNombreu" value="#{msg['empresa.nombre']}:" for="txtNameu"/>
 					<p:inputText id="txtNameu" value="#{empresaBB.selectedEmpresa.nombre}" title="#{msg['empresa.nombre']}" 
-			   				label="#{msg['empresa.nombre']}" required="true" maxlength="50" />
+			   				label="#{msg['empresa.nombre']}" maxlength="50" />
 			   		
 			   		<h:outputLabel id="lDescripcionu" value="#{msg['empresa.descripcion']}:" for="txtDescripcionu"/>
 			   		<p:inputTextarea id="txtDescripcionu" value="#{empresaBB.selectedEmpresa.descripcion}" 
 			   				title="#{msg['empresa.descripcion']}" label="#{msg['empresa.descripcion']}" 
-			   				required="true" maxlength="100"/>
+			   				maxlength="100"/>
 			   				
 			   		<h:outputLabel value="#{msg['empresa.estado']}:" for="selEstadou"/>
 			   		<p:selectOneMenu id="selEstadou" value="#{empresaBB.selectedEmpresa.estado}" title="#{msg['empresa.estado']}" 
-			   				label="#{msg['empresa.estado']}" required="true" >
-			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			   				label="#{msg['empresa.estado']}">
 			   			<f:selectItems value="#{empresaBB.listasGenericas.listaEstados}"  />
 			   		</p:selectOneMenu>
 			   		
@@ -165,7 +164,7 @@
 			   		
 			   		<h:outputLabel value="#{msg['empresa.ciudad']}:" for="selciudadu"/>
 			   		<p:selectOneMenu id="selciudadu" value="#{empresaBB.selectedEmpresa.ciudad.id}" title="#{msg['empresa.ciudad']}" 
-			   				label="#{msg['empresa.ciudad']}" required="true" filter="true">
+			   				label="#{msg['empresa.ciudad']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{empresaBB.listaCiudades}" var="cd" 
 			   					itemLabel="#{cd.nombre}" itemValue="#{cd.id}" />
@@ -173,7 +172,7 @@
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton id="btnActualizarEmpresa" value="#{msg['btn.actualizar']}" type="button">
-					<p:ajax event="click" listener="#{empresaBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+					<p:ajax event="click" listener="#{empresaBB.updateEntity}" process="dlgActualizar"/>   		
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>		

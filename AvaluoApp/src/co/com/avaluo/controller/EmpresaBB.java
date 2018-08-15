@@ -17,7 +17,6 @@ import co.com.avaluo.common.Util;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.Empresa;
-import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.IEmpresaService;
@@ -63,26 +62,30 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 	
 	public void addEntity() {
 		try {
-			boolean guardar = true;
-			//Validamos que no exista un estrato con esa configuracion
-			for(Empresa estr : listaEmpresas) {
-				empresa.setIdentificacion(empresa.getIdentificacion().trim());
-				empresa.setTipoIdentificacion(empresa.getTipoIdentificacion().trim());
-				if(estr.getTipoIdentificacion().equals(empresa.getTipoIdentificacion()) &&
-						estr.getIdentificacion().equals(empresa.getIdentificacion()) ) {
-					guardar = false;
-					util.mostrarErrorKey("empresa.ya.existe");
+			if(validar(empresa)){
+				boolean guardar = true;
+				//Validamos que no exista un estrato con esa configuracion
+				for(Empresa estr : listaEmpresas) {
+					empresa.setIdentificacion(empresa.getIdentificacion().trim());
+					empresa.setTipoIdentificacion(empresa.getTipoIdentificacion().trim());
+					if(estr.getTipoIdentificacion().equals(empresa.getTipoIdentificacion()) &&
+							estr.getIdentificacion().equals(empresa.getIdentificacion()) ) {
+						guardar = false;
+						util.mostrarErrorKey("empresa.ya.existe");
+					}
 				}
-			}
-			
-			if(guardar) {
-				getEmpresaService().addEmpresa(empresa);
-				this.cargarListaEmpresas();
-				util.mostrarMensajeKey("exito.guardar"); 
-				util.ejecutarPF("PF('dlgAgregar').hide();");
-				util.actualizarPF("formulario");
-				empresa = new Empresa();
 				
+				if(guardar) {
+					getEmpresaService().addEmpresa(empresa);
+					this.cargarListaEmpresas();
+					util.mostrarMensajeKey("exito.guardar"); 
+					util.ejecutarPF("PF('dlgAgregar').hide();");
+					util.actualizarPF("formulario");
+					empresa = new Empresa();
+					
+				}else {
+					util.actualizarPF("growl");
+				}
 			}else {
 				util.actualizarPF("growl");
 			}
@@ -95,10 +98,14 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 
 	public void updateEntity() {
 		try {
-			getEmpresaService().updateEmpresa(selectedEmpresa);
-			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaEmpresas();
-			util.actualizarPF("formulario");
+			if(validar(selectedEmpresa)){
+				getEmpresaService().updateEmpresa(selectedEmpresa);
+				util.mostrarMensajeKey("exito.actualizar");  
+				cargarListaEmpresas();
+				util.actualizarPF("formulario");
+			}else {
+				util.actualizarPF("growl");
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			util.mostrarErrorKey("error.actualizar"); 
@@ -113,9 +120,39 @@ public class EmpresaBB extends SpringBeanAutowiringSupport implements Serializab
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarErrorKey("error.eliminando");
+			util.mostrarErrorKey("empresa.error.eliminando");
 		} 	
+	}
+	
+	private boolean validar(Empresa emp) {
+		boolean continuar = true;
 		
+		if(util.validaNuloVacio(emp.getTipoIdentificacion())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("empresa.tipo.identificacion"));
+			continuar = false;
+		}
+		
+		if(util.validaNuloVacio(emp.getIdentificacion())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("empresa.identificacion"));
+			continuar = false;
+		}
+		
+		if(util.validaNuloVacio(emp.getNombre())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("empresa.nombre"));
+			continuar = false;
+		}
+		
+		if(util.validaNuloVacio(emp.getDescripcion())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("empresa.descripcion"));
+			continuar = false;
+		}
+		
+		if(emp.getCiudad().getId() <= 0) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("empresa.ciudad"));
+			continuar = false;
+		}
+		
+		return continuar;
 	}
 	
 	public void cargarListasDependientesUpdate() {

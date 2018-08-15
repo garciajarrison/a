@@ -1,6 +1,7 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,24 +57,28 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 	
 	public void addEntity() {
 		try {
-			boolean guardar = true;
-			//Validamos que no exista un estrato con esa configuracion
-			for(Estrato estr : entityList) {
-				estrato.setNombre(estrato.getNombre().trim());
-				if(estr.getNombre().equals(estrato.getNombre())) {
-					guardar = false;
-					util.mostrarErrorKey("estrato.ya.existe");
+			if(validar(estrato)){
+				boolean guardar = true;
+				//Validamos que no exista un estrato con esa configuracion
+				for(Estrato estr : entityList) {
+					estrato.setNombre(estrato.getNombre().trim());
+					if(estr.getNombre().equals(estrato.getNombre())) {
+						guardar = false;
+						util.mostrarErrorKey("estrato.ya.existe");
+					}
 				}
-			}
-			
-			if(guardar) {
-				estrato.setEmpresa(usuario.getEmpresa());
-				getEstratoService().addEntity(estrato);
-				util.mostrarMensajeKey("exito.guardar"); 
-				cargarListaEstratos();
-				util.ejecutarPF("PF('dlgAgregar').hide();");
-				util.actualizarPF("formulario");
-				estrato = new Estrato();
+				
+				if(guardar) {
+					estrato.setEmpresa(usuario.getEmpresa());
+					getEstratoService().addEntity(estrato);
+					util.mostrarMensajeKey("exito.guardar"); 
+					cargarListaEstratos();
+					util.ejecutarPF("PF('dlgAgregar').hide();");
+					util.actualizarPF("formulario");
+					estrato = new Estrato();
+				}else {
+					util.actualizarPF("growl");
+				}
 			}else {
 				util.actualizarPF("growl");
 			}
@@ -86,10 +91,14 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 
 	public void updateEntity() {
 		try {
-			getEstratoService().updateEntity(selectedEstrato);
-			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaEstratos();
-			util.actualizarPF("formulario");
+			if(validar(selectedEstrato)){
+				getEstratoService().updateEntity(selectedEstrato);
+				util.mostrarMensajeKey("exito.actualizar");  
+				cargarListaEstratos();
+				util.actualizarPF("formulario");
+			}else {
+				util.actualizarPF("growl");
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			util.mostrarErrorKey("error.actualizar"); 
@@ -104,9 +113,29 @@ public class EstratoBB extends SpringBeanAutowiringSupport implements Serializab
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarErrorKey("error.eliminando");
+			util.mostrarErrorKey("estrato.error.eliminando");
 		} 	
+	}
+	
+	private boolean validar(Estrato est) {
+		boolean continuar = true;
 		
+		if(util.validaNuloVacio(est.getNombre())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("estrato"));
+			continuar = false;
+		}
+		
+		if(est.getPorcentaje() == null || est.getPorcentaje().compareTo(BigDecimal.ZERO) == -1) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("estrato.porcentaje"));
+			continuar = false;
+		}
+		
+		if(est.getValor() == null || est.getValor().compareTo(BigDecimal.ZERO) == -1) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("estrato.valor.minimo.cotizacion"));
+			continuar = false;
+		}
+		
+		return continuar;
 	}
 
 	public Estrato getEstrato() {
