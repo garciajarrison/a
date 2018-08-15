@@ -12,13 +12,13 @@
 		<br />
 		
 		<div class="ui-g">
-			<p:commandButton value="#{msg['cotizacion.btn.nueva']}" id="btnNuevo"   styleClass="ui-priority-primary" process="@this" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult">
+			<p:commandButton value="#{msg['cotizacion.btn.nueva']}" id="btnNuevo"   styleClass="ui-priority-primary" process="@this" update=":formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult">
 				<p:ajax event="click" listener="#{cotizacionAdmBB.nuevaCotizacion}"/>
 			</p:commandButton>
 
-			<p:commandButton id="btnConsulta" value="#{msg['cotizacion.btn.consulta']}" onclick="PF('dlgCotizaciones').show();" process="@this" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult"/>
+			<p:commandButton id="btnConsulta" value="#{msg['cotizacion.btn.consulta']}" onclick="PF('dlgCotizaciones').show();" process="@this, dlgCotizaciones" update=":formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult"/>
          		<p:commandButton value="#{msg['cotizacion.btn.calcular']}" type="button"  >	          				          		
-					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult"/>
+					 <p:ajax  listener="#{cotizacionAdmBB.cotizar}"  process="@all" update=" :formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit,  :formulario:aCotizacion:infResult"/>
 				</p:commandButton>
 				<p:commandButton value="#{msg['btn.guardar']}" type="button"  >	          				          		
 					 <p:ajax  listener="#{cotizacionAdmBB.guardar}"  process="@all" update="aCotizacion"/>
@@ -33,31 +33,8 @@
 
 		</div>
 		
-		<div class="ui-g">
-        	<div class="ui-g-12 ui-md-6 ui-lg-3">
-	 			<p:outputLabel id="lId" value="#{msg['cotizacion.id']}" for="txtId" styleClass="aval-label"/><font/>
-	   		</div>
-   			<div class="ui-g-12 ui-md-6 ui-lg-3">
-		   		<p:inputText id="txtId" value="#{cotizacionAdmBB.cotizacion.id}"
-		   				styleClass="form-control col-md-7 col-xs-12">
-		   		</p:inputText>
-	   		</div>
-	   		        	<div class="ui-g-12 ui-md-6 ui-lg-3">
-	 			<p:outputLabel id="lTotal" value="#{msg['cotizacion.total']}" for="txtTotalCot" styleClass="aval-label"/><font/>
-	   		</div>
-   			<div class="ui-g-12 ui-md-6 ui-lg-3">
-		   		<p:inputText id="txtTotalCot" value="#{cotizacionAdmBB.cotizacion.valor}"
-		   				styleClass="form-control col-md-7 col-xs-12">
-		   		</p:inputText>
-		   	</div>	
 
-		   	
-		   	   			<div class="ui-g-12 ui-md-6 ui-lg-3">
-		   		<p:inputText id="txtTotalCot2" value="#{cotizacionAdmBB.direc}"
-		   				styleClass="form-control col-md-7 col-xs-12">
-		   		</p:inputText>
-		   	</div>	
-	   	</div>	
+
 
 
 		<!-- 	<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
@@ -66,10 +43,17 @@
 			<p:tab title="#{msg['cotizacion.tab.cotizacion']}">
 	          	<p:panel id="infCoti" style="background:none;" >
 
-	          		<div class="ui-g">
-	          			
-	          			
-				   		
+					<div class="ui-g">
+			        	<div class="ui-g-12 ui-md-6 ui-lg-3">
+				 			<p:outputLabel id="lId" value="#{msg['cotizacion.id']}" for="txtId" styleClass="aval-label"/><font/>
+				   		</div>
+			   			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtId" value="#{cotizacionAdmBB.cotizacion.id}"
+					   				styleClass="form-control col-md-7 col-xs-12">
+					   		</p:inputText>
+				   		</div>
+	   				
+	          		
 			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
 				 			<p:outputLabel id="lFecha" value="#{msg['cotizacion.fecha']}" for="txtFecha" styleClass="aval-label" /><font/>
 				   		</div>
@@ -99,7 +83,7 @@
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:selectOneMenu id="selEstado" value="#{cotizacionAdmBB.cotizacion.estado}" style="width:180px"
-					   						 title="#{msg['cotizacion.estado']}" required="true" filter="true"
+					   						 title="#{msg['cotizacion.estado']}"  filter="true"
 					   						label="#{msg['cotizacion.estado']}">					   		
 					            <f:selectItem itemLabel="Select One" itemValue="" />
 					            <f:selectItem itemLabel="Aprobado" itemValue="" />
@@ -117,6 +101,15 @@
 					   				styleClass="form-control col-md-7 col-xs-12">					   			
 					   		</p:inputTextarea>
 				   		</div>
+				   		        	<div class="ui-g-12 ui-md-6 ui-lg-3">
+				 			<p:outputLabel id="lTotal" value="#{msg['cotizacion.total']}" for="txtTotalCot" styleClass="aval-label"/><font/>
+				   		</div>
+			   			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtTotalCot" value="#{cotizacionAdmBB.cotizacion.valor}"
+					   				styleClass="form-control col-md-7 col-xs-12">
+					   		</p:inputText>
+					   	</div>	
+
 				   	</div>
 		   			
    				</p:panel>
@@ -358,7 +351,7 @@
 				<p:dataTable  rows="15" var="detalle" value="#{cotizacionAdmBB.listaDetCotizacion}" 
 							editable="true" editMode="cell"
 								emptyMessage="#{msg['no.registros']}">
-					<p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}" process=":formulario:aCotizacion:infResult :formulario:txtTotalCot" />			
+					<p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}" process=":formulario:aCotizacion:infCoti, :formulario:aCotizacion:infResult"  update=":formulario:aCotizacion:infCoti" />			
 						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
 						        <h:outputText value="#{detalle.propiedad.tablas.nombre}" />
 						    </p:column>
@@ -399,7 +392,7 @@
 				<h:panelGrid columns="2" width="95%" >
 					<p:outputLabel id="lTable" value="#{msg['cotizacion.tabla']}" for="selTables" ></p:outputLabel>
 			   		<p:selectOneMenu tabindex="" id="selTables" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px"
-			   						title="#{msg['cotizacion.tabla']}" required="true" filter="true"
+			   						title="#{msg['cotizacion.tabla']}"  filter="true"
 			   						label="#{msg['cotizacion.tabla']}">
 			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.infPropiedad.tablas.id)}" process="selTables,selProperty" update="selProperty" />
 			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" /> 
@@ -408,7 +401,7 @@
 		
 			   		<p:outputLabel id="lProperty" value="#{msg['cotizacion.tipo.vivienda']}" for="selProperty" ></p:outputLabel>
 			   		<p:selectOneMenu id="selProperty" value="#{cotizacionAdmBB.infPropiedad.tipoPropiedad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.tipo.vivienda']}" required="true" filter="true"
+			   						 title="#{msg['cotizacion.tipo.vivienda']}"  filter="true"
 			   						label="#{msg['cotizacion.tipo.vivienda']}">			   			
 			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
@@ -416,11 +409,11 @@
 			 		
 			 		<p:outputLabel id="lMatricula" value="#{msg['cotizacion.registro']}" for="txtMatricula" ></p:outputLabel>	
 			 		<p:inputText id="txtMatricula" value="#{cotizacionAdmBB.infPropiedad.registro}"
-			   						 title="#{msg['cotizacion.registro']}" required="true" 
+			   						 title="#{msg['cotizacion.registro']}" 
 			   						label="#{msg['cotizacion.registro']}"></p:inputText>	 
 			 		<p:outputLabel id="lEstrato" value="#{msg['cotizacion.estrato']}" for="selEstrato" ></p:outputLabel>			   		
 			   		<p:selectOneMenu id="selEstrato" value="#{cotizacionAdmBB.infPropiedad.estrato.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.estrato']}" required="true" filter="true"
+			   						 title="#{msg['cotizacion.estrato']}"  filter="true"
 			   						label="#{msg['cotizacion.estrato']}">
 			   			
 			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
@@ -629,7 +622,7 @@
 
 			        <p:outputLabel id="lCiudad" value="#{msg['cotizacion.ciudad']}" for="selCiudad" ></p:outputLabel>			
 			   		<p:selectOneMenu id="selCiudad" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
+			   						 title="#{msg['cotizacion.ciudad']}"  filter="true"
 			   						label="#{msg['cotizacion.ciudad']}">
 			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
@@ -645,14 +638,14 @@
 
 			 		<p:outputLabel id="lUMedidad" value="#{msg['cotizacion.unidad']}" for="selUMedida" ></p:outputLabel>	
 				   		<p:selectOneMenu id="selUMedida" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" style="width:180px"
-			   						 title="#{msg['cotizacion.unidad']}" required="true" filter="true"
+			   						 title="#{msg['cotizacion.unidad']}"  filter="true"
 			   						label="#{msg['cotizacion.unidad']}">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaUnidadMedida}" />			
 			        	</p:selectOneMenu> 
 			        <p:outputLabel id="lValorMedida" value="#{msg['cotizacion.area']}" for="txtValorMedida" ></p:outputLabel>	
 			 		<p:inputText id="txtValorMedida" value="#{cotizacionAdmBB.infPropiedad.valorMedida}"
-			   						 title="#{msg['cotizacion.area']}" required="true" filter="true"
+			   						 title="#{msg['cotizacion.area']}"  filter="true"
 			   						label="#{msg['cotizacion.area']}"></p:inputText>	 			 					        	        
 			</h:panelGrid>
 								<br/>
@@ -765,7 +758,7 @@
 				<p:dataTable  rows="15" var="cotizacion" value="#{cotizacionAdmBB.entityList}" 
 							  selectionMode="single" selection="#{cotizacionAdmBB.selectedCotizacion}" rowKey="#{cotizacion.id}"
 								emptyMessage="#{msg['no.registros']}"> 
-					<p:ajax event="rowSelect" listener="#{cotizacionAdmBB.onRowSelect}" oncomplete="PF('dlgCotizaciones').hide();" update=":formulario:txtTotalCot, :formulario:txtId, :formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult" />		
+					<p:ajax event="rowSelect" listener="#{cotizacionAdmBB.onRowSelect}" oncomplete="PF('dlgCotizaciones').hide();" update=":formulario:aCotizacion:infCoti, :formulario:aCotizacion:infCLie, :formulario:aCotizacion:infRemit, :formulario:aCotizacion:jnfProp, :formulario:aCotizacion:infResult" />		
 								
 						    <p:column headerText="#{msg['cotizacion.id']}">
 						        <h:outputText value="#{cotizacion.id}" />

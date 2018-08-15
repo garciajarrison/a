@@ -201,11 +201,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	}
 	public void guardar() {
 		try {
-	        BigDecimal total = new BigDecimal(0);
-	        for (DetalleCotizacion d: listaDetCotizacion) {
-	        	total = total.add(d.getValor());
-	        }
-	        cotizacion.setValor(total);
 	        //cotizacion.setDetalleCotizacions(listaDetCotizacion);
 			if (cotizacion.getId() == 0) {
 				getCotizacionService().addEntity(cotizacion);
@@ -556,6 +551,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public List<Cotizacion> getEntityList() {
+		entityList = new ArrayList<Cotizacion>();
 		entityList = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
 		return entityList;
 	}
@@ -1001,7 +997,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
          
-
+        BigDecimal total = new BigDecimal(0);
+        for (DetalleCotizacion d: listaDetCotizacion) {
+        	total = total.add(d.getValor());
+        }
+        cotizacion.setValor(total);
 
     }
     public void onRowUnselect(UnselectEvent event) {

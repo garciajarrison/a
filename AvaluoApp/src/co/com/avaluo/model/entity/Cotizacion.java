@@ -133,7 +133,7 @@ public class Cotizacion implements java.io.Serializable {
 		this.fecha = fecha;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ciudad_id", nullable = false)
 	public Ciudad getCiudad() {
 		return this.ciudad;
