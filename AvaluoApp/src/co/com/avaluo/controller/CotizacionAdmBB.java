@@ -551,6 +551,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public List<Cotizacion> getEntityList() {
+		entityList = new ArrayList<Cotizacion>();
 		entityList = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
 		return entityList;
 	}
