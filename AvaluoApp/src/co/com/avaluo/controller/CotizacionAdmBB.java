@@ -262,7 +262,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			
 			if(guardar) {
 				Rol rol = new Rol();
-				rol.setId(5);
+				rol.setId(2);
 				cotizacion.getUsuarioByRemitenteId().setEmpresa(usuario.getEmpresa());
 				cotizacion.getUsuarioByRemitenteId().setRol(rol);
 				cotizacion.getUsuarioByRemitenteId().setEstado(true);
@@ -983,7 +983,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void onRowSelect(SelectEvent event) {
 		cotizacion = (Cotizacion) event.getObject();
-		listaDetCotizacion = cotizacion.getDetalleCotizacions();
+		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		//listaDetCotizacion = getCotizacionService().getDetCotizacion(cotizacion.getId());
 		//cotizacion.setDetalleCotizacions(listaDetCotizacion);
 		listaPropiedades = new ArrayList<Propiedad>();
