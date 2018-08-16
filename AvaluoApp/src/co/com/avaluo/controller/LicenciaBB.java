@@ -66,23 +66,27 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 	
 	public void addEntity() {
 		try {
-			boolean guardar = true;
-			//Validamos que no exista un estrato con esa configuracion
-			for(Licencia estr : listaLicencias) {
-				licencia.setNombre(licencia.getNombre().trim());
-				if(estr.getNombre().equals(licencia.getNombre())) {
-					guardar = false;
-					util.mostrarErrorKey("licencia.ya.existe");
+			if(validar(licencia)){
+				boolean guardar = true;
+				//Validamos que no exista un estrato con esa configuracion
+				for(Licencia estr : listaLicencias) {
+					licencia.setNombre(licencia.getNombre().trim());
+					if(estr.getNombre().equals(licencia.getNombre())) {
+						guardar = false;
+						util.mostrarErrorKey("licencia.ya.existe");
+					}
 				}
-			}
-			
-			if(guardar) {
-				getLicenciaService().addLicencia(licencia);
-				this.cargarListaLicencias();
-				util.mostrarMensajeKey("exito.guardar"); 
-				util.ejecutarPF("PF('dlgAgregar').hide();");
-				util.actualizarPF("formulario");
-				licencia = new Licencia();
+				
+				if(guardar) {
+					getLicenciaService().addLicencia(licencia);
+					this.cargarListaLicencias();
+					util.mostrarMensajeKey("exito.guardar"); 
+					util.ejecutarPF("PF('dlgAgregar').hide();");
+					util.actualizarPF("formulario");
+					licencia = new Licencia();
+				}else {
+					util.actualizarPF("growl");
+				}
 			}else {
 				util.actualizarPF("growl");
 			}
@@ -95,10 +99,14 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 
 	public void updateEntity() {
 		try {
-			getLicenciaService().updateLicencia(selectedLicencia);
-			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaLicencias();
-			util.actualizarPF("formulario");
+			if(validar(selectedLicencia)){
+				getLicenciaService().updateLicencia(selectedLicencia);
+				util.mostrarMensajeKey("exito.actualizar");  
+				cargarListaLicencias();
+				util.actualizarPF("formulario");
+			}else {
+				util.actualizarPF("growl");
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			util.mostrarErrorKey("error.actualizar"); 
@@ -113,9 +121,40 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarErrorKey("error.eliminando");
+			util.mostrarErrorKey("licencia.error.eliminando");
 		} 	
 		
+	}
+	
+	private boolean validar(Licencia lic) {
+		boolean continuar = true;
+		
+		if(util.validaNuloVacio(lic.getNombre())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia"));
+			continuar = false;
+		}
+		
+		if(lic.getEmpresa().getId() <= 0) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.empresa"));
+			continuar = false;
+		}
+		
+		if(lic.getUltimoPago() == null) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.ultimo.pago"));
+			continuar = false;
+		}
+		
+		if(lic.getFechaExpiracion() == null) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.fecha.expiracion"));
+			continuar = false;
+		}
+		
+		if(lic.getCiudad().getId() <= 0) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.ciudad"));
+			continuar = false;
+		}
+		
+		return continuar;
 	}
 	
 	public void cargarListasDependientesUpdate() {

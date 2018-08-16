@@ -19,7 +19,7 @@ public class DetalleTabla implements java.io.Serializable {
 	private Tablas tablas;
 	private Long desde;
 	private Long hasta;
-	private Double porcentajeAplicar;
+	private Long porcentajeAplicar;
 
 	public DetalleTabla() {
 	}
@@ -28,7 +28,7 @@ public class DetalleTabla implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public DetalleTabla(int id, Tablas tablas, Long desde, Long hasta, Double porcentajeAplicar) {
+	public DetalleTabla(int id, Tablas tablas, Long desde, Long hasta, Long porcentajeAplicar) {
 		this.id = id;
 		this.tablas = tablas;
 		this.desde = desde;
@@ -76,11 +76,11 @@ public class DetalleTabla implements java.io.Serializable {
 	}
 
 	@Column(name = "porcentaje_aplicar", precision = 17, scale = 17)
-	public Double getPorcentajeAplicar() {
+	public Long getPorcentajeAplicar() {
 		return this.porcentajeAplicar;
 	}
 
-	public void setPorcentajeAplicar(Double porcentajeAplicar) {
+	public void setPorcentajeAplicar(Long porcentajeAplicar) {
 		this.porcentajeAplicar = porcentajeAplicar;
 	}
 

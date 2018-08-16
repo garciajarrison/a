@@ -28,7 +28,7 @@ public class Tablas implements java.io.Serializable {
 	private BigDecimal conversion;
 	private BigDecimal base;
 	private BigDecimal gastos;
-	private Boolean estado;
+	private Boolean estado = true;
 	private String uom;
 	private String uomAlt;
 	private Long diasDeTrabajo;

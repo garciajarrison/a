@@ -55,7 +55,7 @@
 				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 					<h:outputLabel id="lName" value="#{msg['tipo.propiedad']}:" for="txtName"/>
 			   		<p:selectOneMenu id="txtName" value="#{tipoPropiedadBB.tipoPropiedad.tipoPropiedad}" title="#{msg['tipo.propiedad']}" 
-			   			label="#{msg['tipo.propiedad']}" required="true" >
+			   			label="#{msg['tipo.propiedad']}">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			   			<f:selectItems value="#{tipoPropiedadBB.listaTipoPropiedad}"  />
 			   		</p:selectOneMenu>
@@ -63,19 +63,17 @@
 			   		<h:outputLabel id="lName2" value="#{msg['tipo.propiedad.tipo.vivienda']}:" for="selTipoVivienda"/>
 			   		<p:inputText id="selTipoVivienda" value="#{tipoPropiedadBB.tipoPropiedad.tipoVivienda}" 
 			   			title="#{msg['tipo.propiedad.tipo.vivienda']}" maxlength="100"
-			   			label="#{msg['tipo.propiedad.tipo.vivienda']}" required="true" />
+			   			label="#{msg['tipo.propiedad.tipo.vivienda']}"/>
 			   		
 			   		<h:outputLabel id="lPorcentaje" value="#{msg['tipo.propiedad.incremento']}:" for="txtPorcentaje"/>
 			   		<p:inputNumber id="txtPorcentaje" value="#{tipoPropiedadBB.tipoPropiedad.incremento}" 
-			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}"  required="true"
+			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
 			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
 			   				maxValue="100" symbol="%" symbolPosition="s" />  
 			   		
 			   	</h:panelGrid>
 			   	<br /><br />
-		   		<p:commandButton value="#{msg['btn.agregar']}" >
-		   				<p:ajax process="dlgAgregar" listener="#{tipoPropiedadBB.addEntity}"/>
-		   		</p:commandButton>
+			   	<p:commandButton value="#{msg['btn.agregar']}" actionListener="#{tipoPropiedadBB.addEntity}"/>
 	   		</div>
 		</p:dialog>		
 
@@ -92,12 +90,12 @@
 			   		<p:inputNumber id="txtPorcentajeU" value="#{tipoPropiedadBB.selectedTipoPropiedad.incremento}" 
 			   				decimalPlaces="2" title="#{msg['tipo.propiedad.incremento']}" 
 			   				label="#{msg['tipo.propiedad.incremento']}" minValue="0"
-			   				maxValue="100" symbol="%" symbolPosition="s"  required="true"/>  
+			   				maxValue="100" symbol="%" symbolPosition="s" />  
 
 			   	</h:panelGrid>
 			   	<br /><br />
 		   		<p:commandButton id="btnActualizarEstrato" value="#{msg['btn.actualizar']}" type="button">
-					<p:ajax event="click" listener="#{tipoPropiedadBB.updateEntity}" process="dlgActualizar" update="formulario"/>   		
+					<p:ajax event="click" listener="#{tipoPropiedadBB.updateEntity}" process="dlgActualizar" />   		
 		   		</p:commandButton>
 	   		</div>
 		</p:dialog>		

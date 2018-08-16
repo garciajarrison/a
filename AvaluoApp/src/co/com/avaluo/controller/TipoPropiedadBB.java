@@ -1,6 +1,7 @@
 package co.com.avaluo.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 	private IPropiedadService propiedadService;
 	
 	private TipoPropiedad tipoPropiedad = new TipoPropiedad();
-	private TipoPropiedad selectedTipoPropiedad;
+	private TipoPropiedad selectedTipoPropiedad = new TipoPropiedad();
 	private List<TipoPropiedad> entityList;
 	private Usuario usuario;
 	private Util util;
@@ -56,23 +57,27 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 	
 	public void addEntity() {
 		try {
-			boolean guardar = true;
-			//Validamos que no exista un estrato con esa configuracion
-			for(TipoPropiedad estr : entityList) {
-				if(estr.getTipoPropiedad().equals(tipoPropiedad.getTipoPropiedad()) &&
-						estr.getTipoVivienda().equals(tipoPropiedad.getTipoVivienda())) {
-					guardar = false;
-					util.mostrarErrorKey("tipo.propiedad.ya.existe");
+			if(validar(tipoPropiedad)){
+				boolean guardar = true;
+				//Validamos que no exista un estrato con esa configuracion
+				for(TipoPropiedad estr : entityList) {
+					if(estr.getTipoPropiedad().equals(tipoPropiedad.getTipoPropiedad()) &&
+							estr.getTipoVivienda().equals(tipoPropiedad.getTipoVivienda())) {
+						guardar = false;
+						util.mostrarErrorKey("tipo.propiedad.ya.existe");
+					}
 				}
-			}
-			
-			if(guardar) {
-				tipoPropiedad.setEmpresa(usuario.getEmpresa());
-				getPropiedadService().addTipoPropiedad(tipoPropiedad);
-				this.cargarListaTipoPropiedad();
-				util.mostrarMensajeKey("exito.guardar"); 
-				tipoPropiedad = new TipoPropiedad();
-				util.actualizarPF("formulario");
+				
+				if(guardar) {
+					tipoPropiedad.setEmpresa(usuario.getEmpresa());
+					getPropiedadService().addTipoPropiedad(tipoPropiedad);
+					this.cargarListaTipoPropiedad();
+					util.mostrarMensajeKey("exito.guardar"); 
+					tipoPropiedad = new TipoPropiedad();
+					util.actualizarPF("formulario");
+				}else {
+					util.actualizarPF("growl");
+				}
 			}else {
 				util.actualizarPF("growl");
 			}
@@ -85,10 +90,14 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void updateEntity() {
 		try {
-			getPropiedadService().updateTipoPropiedad(selectedTipoPropiedad);
-			util.mostrarMensajeKey("exito.actualizar");  
-			cargarListaTipoPropiedad();
-			util.actualizarPF("formulario");
+			if(validar(selectedTipoPropiedad)){
+				getPropiedadService().updateTipoPropiedad(selectedTipoPropiedad);
+				util.mostrarMensajeKey("exito.actualizar");  
+				cargarListaTipoPropiedad();
+				util.actualizarPF("formulario");
+			}else {
+				util.actualizarPF("growl");
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			util.mostrarErrorKey("error.actualizar"); 
@@ -103,9 +112,29 @@ public class TipoPropiedadBB extends SpringBeanAutowiringSupport implements Seri
 			util.actualizarPF("formulario");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
-			util.mostrarErrorKey("error.eliminando");
+			util.mostrarErrorKey("tipo.propiedad.error.eliminando");
 		} 	
+	}
+	
+	private boolean validar(TipoPropiedad tp) {
+		boolean continuar = true;
 		
+		if(util.validaNuloVacio(tp.getTipoPropiedad())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("tipo.propiedad"));
+			continuar = false;
+		}
+		
+		if(util.validaNuloVacio(tp.getTipoVivienda())) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("tipo.propiedad.tipo.vivienda"));
+			continuar = false;
+		}
+		
+		if(tp.getIncremento() == null || tp.getIncremento().compareTo(BigDecimal.ZERO) == -1) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("tipo.propiedad.incremento"));
+			continuar = false;
+		}
+		
+		return continuar;
 	}
 
 	public IPropiedadService getPropiedadService() {
