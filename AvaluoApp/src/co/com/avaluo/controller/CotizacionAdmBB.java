@@ -200,12 +200,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		
 	}
 	
-	@SuppressWarnings("deprecation")
+
 	public void consultar() {
 		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		PrimeFaces.current().executeScript("PF('dlgCotizaciones').show();");		
 		PrimeFaces.current().ajax().update(":formulario:tCoti");
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('dlgCotizaciones').show();");		
 	}
 	
 	public void guardar() {
