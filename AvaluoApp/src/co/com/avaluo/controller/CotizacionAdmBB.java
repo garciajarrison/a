@@ -203,8 +203,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void consultar() {
 		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
-		PrimeFaces.current().executeScript("PF('dlgCotizaciones').show();");		
-		PrimeFaces.current().ajax().update(":formulario:tCoti");
+		util.ejecutarPF("PF('dlgCotizaciones').show();");
+		util.actualizarPF(util.findComponentClientIdPF("tCoti"));
 	}
 	
 	public void guardar() {
@@ -995,9 +995,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		//listaDetCotizacion = getCotizacionService().getDetCotizacion(cotizacion.getId());
 		//cotizacion.setDetalleCotizacions(listaDetCotizacion);
 		listaPropiedades = new ArrayList<Propiedad>();
+		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		for (DetalleCotizacion detalle: cotizacion.getDetalleCotizacions()) {
 			listaPropiedades.add(detalle.getPropiedad());
+			listaDetCotizacion.add(detalle);
 		}
     }
 
