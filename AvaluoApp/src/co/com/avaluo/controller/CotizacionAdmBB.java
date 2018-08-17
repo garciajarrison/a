@@ -17,6 +17,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.PrimeFaces;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
@@ -93,7 +95,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
 	private DetalleCotizacion selectedDetalle = new DetalleCotizacion();
-	private List<Cotizacion> entityList;
+	private List<Cotizacion> listaCotizaciones;
 	private Usuario usuario;
 	private Usuario cliente = new Usuario();
 	//private Empresa empresa = new Usuario();
@@ -160,8 +162,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaPosicionVia=ListasGenericas.getInstance().getListaPosicionVia();
 		//direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
-		if(entityList == null)
-			entityList = new ArrayList<>();
+		if(listaCotizaciones == null)
+			listaCotizaciones = new ArrayList<>();
 	}
 	
 	@PostConstruct
@@ -193,12 +195,18 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setEstrato(est);
 		direccion= new Direcciones();
 		infPropiedad.setDirecciones(direccion);
+		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
+		listaPropiedades = new ArrayList<Propiedad>();
 		
 	}
 	
+
 	public void consultar() {
-		entityList = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		PrimeFaces.current().executeScript("PF('dlgCotizaciones').show();");		
+		PrimeFaces.current().ajax().update(":formulario:tCoti");
 	}
+	
 	public void guardar() {
 		try {
 	        //cotizacion.setDetalleCotizacions(listaDetCotizacion);
@@ -550,10 +558,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	}
 
 	
-	public List<Cotizacion> getEntityList() {
-		entityList = new ArrayList<Cotizacion>();
-		entityList = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
-		return entityList;
+	public List<Cotizacion> getlistaCotizaciones() {
+		//listaCotizaciones = new ArrayList<Cotizacion>();
+		//listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		return listaCotizaciones;
 	}
 	
 	public ICotizacionService getCotizacionService() {
@@ -620,8 +628,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.selectedCotizacion = selectedCotizacion;
 	}
 
-	public void setEntityList(List<Cotizacion> entityList) {
-		this.entityList = entityList;
+	public void setlistaCotizaciones(List<Cotizacion> listaCotizaciones) {
+		this.listaCotizaciones = listaCotizaciones;
 	}
 
 	public Usuario getUsuario() {
