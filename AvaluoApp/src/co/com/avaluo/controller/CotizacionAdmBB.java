@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -41,6 +42,7 @@ import co.com.avaluo.model.entity.Direcciones;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Propiedad;
+import co.com.avaluo.model.entity.Reporte;
 import co.com.avaluo.model.entity.Rol;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.TipoPropiedad;
@@ -473,6 +475,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void generarReporteCotizacion() {
 		RCotizacionHtml reporteHtml = new RCotizacionHtml();
 		try {
+			HashMap<String, String> permisos = new HashMap<>();
+			List<Reporte> listaPermisosReporte = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
+			for(Reporte rp: listaPermisosReporte) {
+				permisos.put(rp.getIdContenido().trim(), 
+						("style='display:" +  (rp.isVisible() ? "block;'" : "none;'")));
+			}
+			cotizacion.setPermisos(permisos);
 			String urlFile = reporteHtml.generatePdf(cotizacion);
 			
 			File fil = new File(urlFile);

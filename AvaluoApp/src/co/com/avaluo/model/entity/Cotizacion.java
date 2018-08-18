@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ public class Cotizacion implements java.io.Serializable {
 	private Date fecha;
 	private String motivo;
 	private String estado;
+	private HashMap<String, String> permisos;
 	
 	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
 
@@ -220,6 +222,15 @@ public class Cotizacion implements java.io.Serializable {
 			}
 		}
 		return retorno.toString();
+	}
+
+	@Transient
+	public HashMap<String, String> getPermisos() {
+		return permisos;
+	}
+
+	public void setPermisos(HashMap<String, String> permisos) {
+		this.permisos = permisos;
 	}
 	
 

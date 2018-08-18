@@ -47,7 +47,7 @@ public class RCotizacionHtml {
 		String xHtml = convertToXhtml(renderedHtmlContent);
 
 		ITextRenderer renderer = new ITextRenderer();
-		renderer.getFontResolver().addFont("Code39.ttf", IDENTITY_H, EMBEDDED);
+		//renderer.getFontResolver().addFont("Code39.ttf", IDENTITY_H, EMBEDDED);
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		StringBuilder realPath = new StringBuilder(((String) servletContext.getRealPath("/"))).append(util.SEPARADOR_CARPETA);
