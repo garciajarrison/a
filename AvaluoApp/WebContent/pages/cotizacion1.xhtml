@@ -57,13 +57,14 @@
 	   				
 	          		
 			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
-				 			<p:outputLabel id="lFecha" value="#{msg['cotizacion.fecha']}" for="txtFecha" styleClass="aval-label" /><font/>
+				 			<p:outputLabel id="lFecha" value="#{msg['cotizacion.fecha']}" for="txtFecha" styleClass="aval-label" required="true" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:calendar id="txtFecha" value="#{cotizacionAdmBB.cotizacion.fecha}" showOn="button"
-					   				>
+					   		<p:calendar id="txtFecha" value="#{cotizacionAdmBB.cotizacion.fecha}" showOn="button" title="#{msg['licencia.ultimo.pago']}"
+					   			navigator="true" pattern="yyyy-MM-dd"	required="true" >
 					   			
 					   		</p:calendar>
+					   		
 				   		</div>
 				   		
 
@@ -76,7 +77,7 @@
 					   		<p:selectOneMenu id="selcCiudad" value="#{cotizacionAdmBB.cotizacion.ciudad.id}" style="width:180px"
 					   						 title="#{msg['cotizacion.ciudad']}" required="true" filter="true"
 					   						label="#{msg['cotizacion.ciudad']}">					   		
-					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 					            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
 					        </p:selectOneMenu> 		
 				   		</div>
@@ -84,14 +85,14 @@
 				   			<p:outputLabel id="lEstado" value="#{msg['cotizacion.estado']}" for="selEstado" styleClass="aval-label"></p:outputLabel>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:selectOneMenu id="selEstado" value="#{cotizacionAdmBB.cotizacion.estado}" style="width:180px"
+					   		<p:selectOneMenu id="selEstado" value="#{cotizacionAdmBB.cotizacion.estado}" style="width:180px" required="true" 
 					   						 title="#{msg['cotizacion.estado']}"  filter="true"
 					   						label="#{msg['cotizacion.estado']}">					   		
-					            <f:selectItem itemLabel="Select One" itemValue="" />
-					            <f:selectItem itemLabel="Aprobado" itemValue="" />
-					            <f:selectItem itemLabel="Rechazado" itemValue="" />
-					            <f:selectItem itemLabel="Pendiente" itemValue="" />
-					            <f:selectItem itemLabel="Inactiva" itemValue="" />
+					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+					            <f:selectItem itemLabel="Aprobado" itemValue="APROBA" />
+					            <f:selectItem itemLabel="Rechazado" itemValue="RECHAZ" />
+					            <f:selectItem itemLabel="Pendiente" itemValue="PENDIE" />
+					            <f:selectItem itemLabel="Inactiva" itemValue="INACTI" />
 					        </p:selectOneMenu> 		
 				   		</div>
 				   		
@@ -99,16 +100,17 @@
 				 			<p:outputLabel id="lMotivo" value="#{msg['cotizacion.motivo']}" for="txtMotivo" styleClass="aval-label" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputTextarea id="txtMotivo" value="#{cotizacionAdmBB.cotizacion.motivo}"
+					   		<p:inputTextarea id="txtMotivo" value="#{cotizacionAdmBB.cotizacion.motivo}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12">					   			
 					   		</p:inputTextarea>
 				   		</div>
 				   		        	<div class="ui-g-12 ui-md-6 ui-lg-3">
-				 			<p:outputLabel id="lTotal" value="#{msg['cotizacion.total']}" for="txtTotalCot" styleClass="aval-label"/><font/>
+				 			<p:outputLabel id="lTotal"  value="#{msg['cotizacion.total']}" for="txtTotalCot"  styleClass="aval-label"/><font/>
 				   		</div>
 			   			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtTotalCot" value="#{cotizacionAdmBB.cotizacion.valor}" disabled="true"
+					   		<p:inputText id="txtTotalCot" value="#{cotizacionAdmBB.cotizacion.valor}" disabled="true" style="align:rigth"
 					   				styleClass="form-control col-md-7 col-xs-12">
+					   				<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />
 					   		</p:inputText>
 					   	</div>	
 
@@ -124,7 +126,7 @@
 	          				<p:outputLabel id="tipoPersona" value="#{msg['cotizacion.tipo.persona']}" for="selTipoPers" styleClass="aval-label"/>
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-	          				<p:selectOneMenu id="selTipoPers" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona}" style="width:180px">
+	          				<p:selectOneMenu id="selTipoPers" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona}" required="true" style="width:180px">
 								<p:ajax event="change" update="infCLie" process="infCLie" />
 								<f:selectItem itemLabel="Seleccione" itemValue="" />
 					            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
@@ -135,7 +137,7 @@
 	          				<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent" styleClass="aval-label"/>
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px">
+	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px" required="true" >
 					            <f:selectItem itemLabel="Seleccione" itemValue="" />
 					            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 				        	</p:selectOneMenu>
@@ -145,7 +147,7 @@
 				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}"
+					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12">
 					   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie" ></p:ajax>
 					   		</p:inputText>
@@ -155,7 +157,7 @@
 				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}"
+					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
@@ -163,7 +165,7 @@
 				   			<p:outputLabel id="lApellido1" value="#{msg['cotizacion.apellido1']}" for="txtApell1" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}"
+					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 				   						   		
@@ -171,7 +173,7 @@
 				   			<p:outputLabel id="lApellido2" value="#{msg['cotizacion.apellido2']}" for="txtApell2" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}"
+					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
@@ -179,7 +181,7 @@
 			 	   			<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone" styleClass="aval-label" />
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}"
+					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  	
 				   		</div>
 				   		
@@ -195,7 +197,7 @@
 			 	   			<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress" styleClass="aval-label"/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}"
+					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}" required="true" 
 					   				styleClass="form-control col-md-7 col-xs-12"/> 
 				   		</div>
 				   		
@@ -204,7 +206,10 @@
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.correo}"
-					   			styleClass="form-control col-md-7 col-xs-12"/>  
+					   			styleClass="form-control col-md-7 col-xs-12">
+					   			<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					   		</p:inputText>  
 				   		</div>
 				   		
 				   		<div class="ui-g-12" align="center">
@@ -223,7 +228,7 @@
 				   		<p:outputLabel id="tipoIdenR" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdentR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:selectOneMenu id="selTipoIdentR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento}" style="width:180px">
+				   		<p:selectOneMenu id="selTipoIdentR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento}" required="true"  style="width:180px">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 			        	</p:selectOneMenu> 
@@ -251,14 +256,14 @@
 			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" required="true"/> 
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" /> 
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 			 	   		<p:outputLabel id="lCelularR" value="#{msg['cotizacion.celular']}" for="txtCelularR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
+				   		<p:inputText id="txtCelularR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.celular}" styleClass="form-control col-md-7 col-xs-12" />  
 				   	</div>
 	          			
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">		
@@ -272,7 +277,11 @@
 			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR" styleClass="aval-label"/>
 			 	   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">	
-				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
+				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" styleClass="form-control col-md-7 col-xs-12" >
+				   							   			<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					   		</p:inputText>  
+				   		  
 				   	</div>
 				   		
 				   	<div class="ui-g-12" align="center">	
@@ -374,8 +383,14 @@
 						    <p:column headerText="#{msg['cotizacion.valor']}">
 						        
 						        <p:cellEditor>
-					               <f:facet name="output"><h:outputText value="#{detalle.valor}" /></f:facet>
-					               <f:facet name="input"><p:inputText value="#{detalle.valor}" style="width:96%" label="Valor"/></f:facet>
+					               <f:facet name="output"><h:outputText value="#{detalle.valor}" >
+					               			<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />
+					               </h:outputText>
+					               </f:facet>
+					               <f:facet name="input"><p:inputText value="#{detalle.valor}" style="width:96%" label="Valor">
+					               					<f:convertNumber pattern="$#,##0.00" currencySymbol="$" />
+					               </p:inputText>
+					               </f:facet>
 					           </p:cellEditor>
 						    </p:column>						    
 						    
@@ -614,11 +629,6 @@
 			       </p:column>
 			   </p:dataTable>			       
 									<br/>
-			 		<p:outputLabel id="lDireccion" value="#{msg['cotizacion.direccion']}" for="txtDireccion" ></p:outputLabel>	
-			 		<p:inputText id="txtDireccion" value="#{cotizacionAdmBB.infPropiedad.direccion}"
-			   						 title="#{msg['cotizacion.direccion']}" 
-			   						label="#{msg['cotizacion.direccion']}"></p:inputText>	 
-			 		
 				 			   						
 				<h:panelGrid columns="2" width="100%">
 
@@ -666,82 +676,275 @@
 		</p:dialog>
 
 		<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgActualizarP" widgetVar="dlgActualizarP" minHeight="40">
-			<div align="center">
-				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-					<p:outputLabel id="lTableD" value="#{msg['cotizacion.tabla']}" for="selTablesD" ></p:outputLabel>
-			   		<p:selectOneMenu id="selTablesD" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px"
-			   						title="#{msg['cotizacion.tabla']}" 
+				<h:panelGrid columns="2" width="95%" >
+					<p:outputLabel id="lTableA" value="#{msg['cotizacion.tabla']}" for="selTablesA" ></p:outputLabel>
+			   		<p:selectOneMenu tabindex="" id="selTablesA" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px"
+			   						title="#{msg['cotizacion.tabla']}"  filter="true"
 			   						label="#{msg['cotizacion.tabla']}">
 			   			<p:ajax listener="#{cotizacionAdmBB.onTableChange(cotizacionAdmBB.infPropiedad.tablas.id)}" process="selTables,selProperty" update="selProperty" />
-			            <f:selectItem itemLabel="Select One" itemValue="" />  
-			            <f:selectItems value="#{cotizacionAdmBB.listaTablas}" />
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" /> 
+			            <f:selectItems  value="#{cotizacionAdmBB.listaTablas}" />
 			        </p:selectOneMenu>
 		
-			   		<p:outputLabel id="lPropertyD" value="#{msg['cotizacion.tipo.vivienda']}" for="selPropertyD" ></p:outputLabel>
-			   		<p:selectOneMenu id="selPropertyD" value="#{cotizacionAdmBB.infPropiedad.tipoPropiedad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.tipo.vivienda']}" 
+			   		<p:outputLabel id="lPropertyA" value="#{msg['cotizacion.tipo.vivienda']}" for="selPropertyA" ></p:outputLabel>
+			   		<p:selectOneMenu id="selPropertyA" value="#{cotizacionAdmBB.infPropiedad.tipoPropiedad.id}" style="width:180px"
+			   						 title="#{msg['cotizacion.tipo.vivienda']}"  filter="true"
 			   						label="#{msg['cotizacion.tipo.vivienda']}">			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaTipoPropiedad}" />
 			        </p:selectOneMenu>		        	
 			 		
-			 		<p:outputLabel id="lMatriculaD" value="#{msg['cotizacion.registro']}" for="txtMatriculaD" ></p:outputLabel>	
-			 		<p:inputText id="txtMatriculaD" value="#{cotizacionAdmBB.infPropiedad.registro}"
+			 		<p:outputLabel id="lMatriculaA" value="#{msg['cotizacion.registro']}" for="txtMatriculaA" ></p:outputLabel>	
+			 		<p:inputText id="txtMatriculaA" value="#{cotizacionAdmBB.infPropiedad.registro}"
 			   						 title="#{msg['cotizacion.registro']}" 
 			   						label="#{msg['cotizacion.registro']}"></p:inputText>	 
+			 		<p:outputLabel id="lEstratoA" value="#{msg['cotizacion.estrato']}" for="selEstratoA" ></p:outputLabel>			   		
+			   		<p:selectOneMenu id="selEstratoA" value="#{cotizacionAdmBB.infPropiedad.estrato.id}" style="width:180px"
+			   						 title="#{msg['cotizacion.estrato']}"  filter="true"
+			   						label="#{msg['cotizacion.estrato']}">
+			   			
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
+			        </p:selectOneMenu>  				        						
+			       </h:panelGrid>			  
+					<br/>
+			    <p:dataTable id="tDireccionA" var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="cellDir">
+			 
+			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
+			
+					<f:facet name="header">
+			            Direccion
+			        </f:facet>
+					<p:columnGroup type="header">
+			
+			            <p:row>
+			            
+			                <p:column colspan="7" headerText="Informacion via" />
+			            </p:row>
+			            <p:row>
+			                <p:column headerText="Tipo" />
+			                <p:column headerText="Nombre" />
+			                <p:column headerText="#" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Prefijo" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Posicion" />
+			            </p:row>
+			            
+			        </p:columnGroup> 
+			
+			 
+			       <p:column headerText="Tipo">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.tipoVia}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.tipoVia}" >
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			                       <f:selectItems value="#{cotizacionAdmBB.listaTipoVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			 
+			        <p:column headerText="Nombre">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.nombreVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iNombreVA" value="#{dir.nombreVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			       
+			       <p:column headerText="Nro. via">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.numeroVia}" /></f:facet>
+			               <f:facet name="input">
+			               	   <p:inputText id="iNumeroViaA" value="#{dir.numeroVia}" style="width:96%"/>	
+			                   
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			 
+			       <p:column headerText="Letra">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraViaA" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			       <p:column headerText="Prefijo">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iPrefijoViaA" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			       
+			       <p:column headerText="Letra">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraVia2A" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>       
+			
+			       <p:column headerText="Posicion via" style="heigth:20px">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.posicionVia}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.posicionVia}" style="width:100%">
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			</p:dataTable>
+			    <p:dataTable id="tDireccion2A"  var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="tDireccion2">
+			 
+			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
+			
+					<f:facet name="header">
+			            Direccion
+			        </f:facet>
+					<p:columnGroup type="header">
+			
+			            <p:row>
+			            
+			                <p:column colspan="7" headerText="Informacion interseccion" />
+			            </p:row>
+			            <p:row>
+			                <p:column headerText="#" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Sufijo" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Posicion" />
+			                <p:column headerText="#" />
+			                <p:column headerText="Posicion" />
+			            </p:row>
+			            
+			        </p:columnGroup> 
+			
+			
+			       <p:column headerText="Nro. intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.numeroInterseccion}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iNumInterA" value="#{dir.numeroInterseccion}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			       <p:column headerText="Letra intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraInterseccion}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraInterA" value="#{dir.letraInterseccion}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			       <p:column headerText="sufijo">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.posicionInterseccion}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.posicionInterseccion}" style="width:100%">
+			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			 
+			        <p:column headerText="Letra intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraInterseccion}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraInt" value="#{dir.letraInterseccion}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>      
+			       <p:column headerText="Posicion intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.posicionInterseccion}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.posicionInterseccion}" style="width:100%">
+			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			       <p:column headerText="Nro. intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.numeroInterseccion}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iNumIntA" value="#{dir.numeroInterseccion}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			       <p:column headerText="Posicion intersec">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.posicionInterseccion}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.posicionInterseccion}" style="width:100%">
+			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			   </p:dataTable>			       
+									<br/>
+				 			   						
+				<h:panelGrid columns="2" width="100%">
 
-
-
-			 		<p:outputLabel id="lDireccionD" value="#{msg['cotizacion.direccion']}" for="txtDireccionD" ></p:outputLabel>	
-			 		<p:inputText id="txtDireccionD" value="#{cotizacionAdmBB.infPropiedad.direccion}"
-			   						 title="#{msg['cotizacion.direccion']}" 
-			   						label="#{msg['cotizacion.direccion']}"></p:inputText>	 
-			 		
-
-			        <p:outputLabel id="lCiudadD" value="#{msg['cotizacion.ciudad']}" for="selCiudadD" ></p:outputLabel>			
-			   		<p:selectOneMenu id="selCiudadD" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.ciudad']}" 
+			        <p:outputLabel id="lCiudadA" value="#{msg['cotizacion.ciudad']}" for="selCiudadA" ></p:outputLabel>			
+			   		<p:selectOneMenu id="selCiudadA" value="#{cotizacionAdmBB.infPropiedad.ciudad.id}" style="width:180px"
+			   						 title="#{msg['cotizacion.ciudad']}"  filter="true"
 			   						label="#{msg['cotizacion.ciudad']}">
 			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaCiudad}" />
 			        </p:selectOneMenu> 
-			        <p:outputLabel id="lDepartamentoD" value="#{msg['cotizacion.departamento']}" for="selDepartamentoD" ></p:outputLabel>	    				
-			   		<p:selectOneMenu id="selDepartamentoD" value="#{cotizacionAdmBB.departamento}" style="width:180px"
-			   						 title="#{msg['cotizacion.departamento']}" 
+			        <p:outputLabel id="lDepartamentoA" value="#{msg['cotizacion.departamento']}" for="selDepartamentoA" ></p:outputLabel>	    				
+			   		<p:selectOneMenu id="selDepartamentoA" value="#{cotizacionAdmBB.departamento}" style="width:180px"
+			   						 title="#{msg['cotizacion.departamento']}"  filter="true"
 			   						label="#{msg['cotizacion.departamento']}">			   			
 			            <f:selectItem itemLabel="Select One" itemValue="" />
 			            <f:selectItems value="#{cotizacionAdmBB.listaDepartamento}" />
 			        </p:selectOneMenu>
-			 		<p:outputLabel id="lEstratoD" value="#{msg['cotizacion.estrato']}" for="selEstratoD" ></p:outputLabel>			   		
-			   		<p:selectOneMenu id="selEstratoD" value="#{cotizacionAdmBB.infPropiedad.estrato.id}" style="width:180px"
-			   						 title="#{msg['cotizacion.estrato']}" 
-			   						label="#{msg['cotizacion.estrato']}">
-			   			
-			            <f:selectItem itemLabel="Select One" itemValue="" />
-			            <f:selectItems value="#{cotizacionAdmBB.listaEstrato}" />
-			        </p:selectOneMenu>  	
-			 		<p:outputLabel id="lUMedidadD" value="#{msg['cotizacion.unidad']}" for="selUMedidaD" ></p:outputLabel>	
-				   		<p:selectOneMenu id="selUMedidaD" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" autoWidth="true" 
-			   						 title="#{msg['cotizacion.unidad']}" 
+
+			 		<p:outputLabel id="lUMedidadA" value="#{msg['cotizacion.unidad']}" for="selUMedidaA" ></p:outputLabel>	
+				   		<p:selectOneMenu id="selUMedidaA" value="#{cotizacionAdmBB.infPropiedad.unidadMedida}" style="width:180px"
+			   						 title="#{msg['cotizacion.unidad']}"  filter="true"
 			   						label="#{msg['cotizacion.unidad']}">
 				            <f:selectItem itemLabel="Seleccione" itemValue="" />
 				            <f:selectItems value="#{cotizacionAdmBB.listaUnidadMedida}" />			
 			        	</p:selectOneMenu> 
-			        <p:outputLabel id="lValorMedidaD" value="#{msg['cotizacion.area']}" for="txtValorMedidaD" ></p:outputLabel>	
-			 		<p:inputText id="txtValorMedidaD" value="#{cotizacionAdmBB.infPropiedad.valorMedida}"
-			   						 title="#{msg['cotizacion.area']}" 
+			        <p:outputLabel id="lValorMedidaA" value="#{msg['cotizacion.area']}" for="txtValorMedidaA" ></p:outputLabel>	
+			 		<p:inputText id="txtValorMedidaA" value="#{cotizacionAdmBB.infPropiedad.valorMedida}"
+			   						 title="#{msg['cotizacion.area']}"  filter="true"
 			   						label="#{msg['cotizacion.area']}"></p:inputText>	 			 					        	        
+			</h:panelGrid>
+								<br/>
+			
+			       <h:panelGrid columns="3" >
+			       
+			       
+					
+					<p:commandButton id="btnActPropiedadCot" value="#{msg['btn.actualizar']}" type="button"  >
+					<p:ajax event="click" listener="#{cotizacionAdmBB.actualizarPropiedad}" process="dlgPropiedad" update=":formulario:aCotizacion:jnfProp, dlgPropiedad"/>
+					</p:commandButton>
+		       </h:panelGrid>
+			  
 
-			   	</h:panelGrid>
-			   	<br /><br />
-		   		<p:commandButton id="btnActPropiedadCot" value="#{msg['btn.actualizar']}" type="button">
-					<p:ajax event="click" listener="#{cotizacionAdmBB.actualizarPropiedad}" process="dlgActualizarP" update="formulario"/>   		
-		   		</p:commandButton>
-	   		</div>
 		</p:dialog>		
 				
-		<p:dialog header="#{msg['estrato.eliminar.estrato']}" id="dlgEliminarP" widgetVar="dlgEliminarP" minHeight="40">
+		<p:dialog header="#{msg['estrato.eliminar.propiedad']}" id="dlgEliminarP" widgetVar="dlgEliminarP" minHeight="40">
 			<div align="center">
 				
 				<strong>#{msg['confirmarcion.borrar']}</strong>
@@ -755,7 +958,7 @@
 		</p:dialog>	
 		
 		
-		<p:dialog header="#{msg['cotizacion.dialog.Propiedad']}" id="dlgCotizaciones" widgetVar="dlgCotizaciones" minHeight="40" >
+		<p:dialog header="#{msg['cotizacion.dialog.cotizaciones']}" id="dlgCotizaciones" widgetVar="dlgCotizaciones" minHeight="40" >
 				<h:panelGrid columns="2" >
 				<p:dataTable id="tCoti" rows="15" var="cotizacion" value="#{cotizacionAdmBB.listaCotizaciones}" widgetVar="tCoti"
 							  selectionMode="single" selection="#{cotizacionAdmBB.selectedCotizacion}" rowKey="#{cotizacion.id}"
@@ -777,7 +980,9 @@
 						    </p:column>
 						 
 						    <p:column headerText="#{msg['cotizacion.valor']}">
-						        <h:outputText value="#{cotizacion.valor}" />
+						        <h:outputText value="#{cotizacion.valor}" >
+						        	<f:convertNumber pattern="$###,###,##0.00" currencySymbol="$" />
+						        </h:outputText>
 						    </p:column>
 						    
 				    

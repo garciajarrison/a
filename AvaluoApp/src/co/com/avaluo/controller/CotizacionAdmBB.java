@@ -993,9 +993,11 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		//listaDetCotizacion = getCotizacionService().getDetCotizacion(cotizacion.getId());
 		//cotizacion.setDetalleCotizacions(listaDetCotizacion);
 		listaPropiedades = new ArrayList<Propiedad>();
+		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		for (DetalleCotizacion detalle: cotizacion.getDetalleCotizacions()) {
 			listaPropiedades.add(detalle.getPropiedad());
+			listaDetCotizacion.add(detalle);
 		}
     }
 
