@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+		<style>
+			.arial14{
+				font-size:14.0pt;mso-bidi-font-size:11.0pt;line-height:107%;font-family:"Arial",sans-serif;
+			}
+			.arial12{
+				font-size:12.0pt;mso-bidi-font-size:11.0pt;line-height:107%;font-family:"Arial",sans-serif;
+			}
+			.arial12justify{
+				margin-top:16.0pt;
+				text-align:justify;
+				font-size:12.0pt;
+				mso-bidi-font-size:11.0pt;
+				line-height:107%;
+				font-family:"Arial",sans-serif';
+			}
+			.arial14Bold{
+				font-size:14.0pt;mso-bidi-font-size:11.0pt;line-height:107%;font-family:"Arial",sans-serif;font-weight:bold;
+			}
+			.cordial{
+				font-size:14.0pt;mso-bidi-font-size:11.5pt;font-family:"Arial",sans-serif;color:#444444;
+			}
+			ul {
+				text-align: justify
+				font-size:12.0pt;
+				font-family:"Arial",sans-serif';
+			}
+			li {
+				text-align: justify
+				font-size:12.0pt;
+				font-family:"Arial",sans-serif';
+			}
+		</style>
+	</head>
+    <body>
+
+	<br/>
+	<p class="arial14">
+		[[${cotizacion.getCiudad().getNombre()}]], [[${cotizacion.getFechaFormato()}]]
+	</p>
+	<br/><br/><br/><br/>
+	<p class="arial14" style='margin-bottom:0cm;margin-bottom:.0001pt'>
+		Señor(a)<br/>
+		[[${cotizacion.getUsuarioByClienteId().getNombreCompleto()}]]<br/>
+		SOLICITANTE/CONTRATANTE
+	</p>
+	<br/><br/><br/><br/>
+
+	<p align="justify" class="arial12justify">
+		De acuerdo la solicitud de Interés se precisa cotizar el servicio Avalúo Comercial, avalado por la competencia que otorga el Registro Abierto de Avaluadores- RAA-de cada miembro de la comisión valuatoria, sujeto a las normas metodológicas vigentes en Colombia sujeto normas urbanísticas en el municipio en donde se encuentran los bienes inmuebles relacionados. 
+	</p>	
+			
+	<p class="arial12justify">
+		El motivo tácito del Avalúo es [[${cotizacion.getMotivo()}]].
+	</p>	
+
+	<p class='arial14Bold' style='margin-top:16.0pt'>
+		CONTRATO/ORDEN DE COMPRA:
+	</p>
+	<p class="arial12justify" align="justify">
+		Para efecto de referencia y comunicación con el SOLICITANTE/CONTRATANTE, esta cotización se relaciona directamente con el contrato u orden de compra No: [[${cotizacion.getId()}]]
+	</p>
+	
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		COMPETENCIA.
+	</p>
+	<p align="justify" class="arial12justify">
+		Para poder establecer la Valoración de dicho inmueble se hace indispensable contratar la realización de un avalúo comercial que podrá ser adelantado por el INSTITUTO GEOGRÁFICO AGUSTÍN CODAZZI, (Decreto 1420 de 1998, Artículos 8° al 14°) o cualquier Persona Natural o Jurídica de carácter privado que se encuentre registrada en el Registro Nacional de Avaluadores y ampliamente acreditada en esas actividades, teniendo en cuenta el valor del contrato a celebrar con las especificaciones y requisitos que se describen más adelante. 
+	</p>
+	
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		DEFINICIONES BASICAS
+	</p>
+	<p align="center" class="arial14Bold">
+		VALOR COMERCIAL-DEFINICIÓN-
+	</p>
+	<p align="justify" class="arial12justify">
+		<b>DECRETO 1420 DE 1998, ARTICULO 2o.</b> Se entiende por valor comercial de un inmueble el precio más probable por el cual éste se transaría en un mercado donde el comprador y el vendedor actuarían libremente, con el conocimiento de las condiciones físicas y jurídicas que afectan el bien.
+	</p>
+	
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		PREDIO
+	</p>
+	<p align="justify" class="arial12justify">
+		Es un inmueble no separado por otro predio público o privado, con o sin construcciones y/o edificaciones, perteneciente a personas naturales o jurídicas. El predio mantiene su unidad aunque esté atravesado por corrientes de agua pública. (Artículo 9°, Resolución IGAC 70 DE 2011). 
+		<br/><br/>Se incluyen en esta definición los baldíos, los ejidos, los vacantes, los resguardos indígenas, las reservas naturales, las tierras de las comunidades negras, la propiedad horizontal, los condominios (unidades inmobiliarias cerradas), las multipropiedades, las parcelaciones, los parques cementerios, los bienes de uso público y todos aquellos otros que se encuentren individualizados con una matrícula inmobiliaria, así como las mejoras por edificaciones en terreno ajeno. (Parágrafo único, Artículo 9°, Resolución IGAC 70 DE 2011).
+	</p>
+		
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		PREDIO RURAL.
+	</p>
+	<p align="justify" class="arial12justify">
+		Es el ubicado fuera de los perímetros urbanos y delimitados en el Ordenamiento Territorial: cabecera, corregimientos y otros núcleos aprobados por el Plan de Ordenamiento Territorial. (Artículo 10°, Resolución IGAC 70 DE 2011).
+
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		PREDIO URBANO.
+	</p>
+	<p align="justify" class="arial12justify">
+		Es el ubicado dentro del perímetro urbano, definido en el Ordenamiento Territorial del municipio. (Artículo 11°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		URBANIZACIÓN
+	</p>
+	<p align="justify" class="arial12justify">
+		Se entiende por urbanización el fraccionamiento del inmueble o conjunto de inmuebles en suelos urbanos o de expansión urbana, pertenecientes a una o varias personas jurídicas o naturales, autorizada según las normas y reglamentos. (Artículo 15°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		PARCELACIÓN
+	</p>
+	<p align="justify" class="arial12justify">
+		Se entiende por parcelación, el fraccionamiento del inmueble o conjunto de inmuebles rurales pertenecientes a una o varias personas jurídicas o naturales, autorizada según las normas y reglamentos. (Artículo 16°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		PROPIEDAD HORIZONTAL
+	</p>
+	<p align="justify" class="arial12justify">
+		Forma especial de dominio en la que concurren derechos de propiedad exclusiva sobre bienes privados y derechos de copropiedad sobre el terreno y los demás bienes comunes. (Artículo 17°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		REGIMEN DE PROPIEDAD HORIZONTAL.
+	</p>
+	<p align="justify" class="arial12justify">
+		Sistema jurídico que regula el sometimiento a propiedad horizontal de un edificio o conjunto, construido o por construirse.  (Artículo 17°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		EDIFICIO
+	</p>
+	<p align="justify" class="arial12justify">
+		Construcción de uno o varios pisos levantados sobre un lote o terreno, cuya estructura comprende un número plural de unidades independientes, aptas para ser usadas de acuerdo con su destino natural o convencional, además de áreas y servicios de uso y utilidad general. (Artículo 17°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		CONJUNTO
+	</p>
+	<p align="justify" class="arial12justify">
+		Desarrollo inmobiliario conformado por varios edificios levantados sobre uno o varios lotes de terreno, que comparten, áreas y servicios de uso y utilidad general, como vías internas, estacionamientos, zonas verdes, muros de cerramiento, porterías, entre otros. Puede conformarse también por varias unidades de vivienda, comercio o industria, estructuralmente independientes. (Artículo 17°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		CONDOMINIO
+	</p>
+	<p align="justify" class="arial12justify">
+		Propiedad horizontal en cuyo reglamento se define para cada unidad predial un área privada de terreno, adicional a la participación en el terreno común, según el coeficiente allí determinado. (Artículo 17°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		MEJORA POR CONSTRUCCIONES Y/O EDIFICACIONES EN PREDIO AJENO
+	</p>
+	<p align="justify" class="arial12justify">
+		Es la construcción o edificación instalada por una persona natural o jurídica sobre un predio que no le pertenece. (Artículo 20°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		CONSTRUCCIÓN O EDIFICACIÓN
+	</p>
+	<p align="justify" class="arial12justify">
+		Es la unión de materiales adheridos al terreno, con carácter de permanente, cualesquiera sean los elementos que la constituyan. (Artículo 21°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		TERRENO
+	</p>
+	<p align="justify" class="arial12justify">
+		Es la porción de tierra con una extensión geográfica definida. (Artículo 22°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		NORMA DE USO DEL SUELO
+	</p>
+	<p align="justify" class="arial12justify">
+		Es la indicación normativa sobre la actividad que se puede desarrollar en un determinado espacio geográfico de conformidad con lo planificado y reglamentado por la respectiva autoridad de la unidad orgánica catastral. Se constituye en una variable del estudio de zonas homogéneas físicas para la determinación de valores unitarios del terreno. (Artículo 45°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		TIPOLOGIA DE LAS CONSTRUCCIONES Y/O EDIFICACIONES.
+	</p>
+	<p align="justify" class="arial12justify">
+		Son las características de diseño y constructivas especiales de las construcciones y/o edificaciones. (Artículo 47°, Resolución IGAC 70 DE 2011).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		AREA BRUTA
+	</p>
+	<p align="justify" class="arial12justify">
+		Es el área total del predio o predios objeto de la licencia de urbanización o sujetos a plan parcial. (Artículo 1° Decreto 4259 de 2007)
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		AREA NETA URBANIZABLE.
+	</p>
+	<p align="justify" class="arial12justify">
+		Es el área resultante de descontar del área bruta, las áreas para la localización de la infraestructura para el sistema vial principal y de transporte, las redes primarias de servicios públicos y las áreas de conservación y protección de los recursos naturales y paisajísticos. (Artículo 1° Decreto 4259 de 2007).
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		REVISION DE LA EDIFICACIÓN.
+	</p>
+	<p align="justify" class="arial12justify">
+		El Avaluador no es el profesional  idóneo  que tiene la responsabilidad de revisar los diseños estructurales y estudios geotécnicos ni revisar los diseños de elementos no estructurales, para constatar que la edificación, sujeta a valuación,  cumple con los requisitos exigidos por Ley y sus reglamentos. (Artículo 4° Ley 400 de 1997)
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		ESCRITURA PÚBLICA.
+	</p>
+	<p align="justify" class="arial12justify">
+		Es un documento íntegro que no precisa ninguna comprobación o contraste y que tiene, por sí mismo, la plena eficacia que le da la ley desde el mismo momento en que el notario lo autoriza. Es un instrumento ejecutivo que posee fuerza probatoria de las fechas, de los hechos y de las declaraciones que contiene. (Artículo 21 y 22 del CODIGO CIVIL)
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		E.R.A. ENTIDAD RECONOCIDA DE AUTOREGULACIÓN. (Artículo 3° Ley 1673 de 2013)
+	</p>
+	<p align="justify" class="arial12justify">
+		Entidad que Auto regula la actividad de los Avaluadores en Colombia. Actualmente existe solo una E.R.A. <b>CORPORACIÓN AUTOREGULADOR NACIONAL DE AVALUADORES –ANA-,</b>  con oficina en Bogotá, CALLE 99 # 71-51 OF-303 y contacto en 57 1 6370810
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold'>
+		R.A.A. REGISTRO ABIERTO DE AVALUADORES.
+	</p>
+	<p align="justify" class="arial12justify">
+		Protocolo a cargo de la Entidad Reconocida de Autorregulación de Avaluadores, en donde se inscribe., conserva y actualiza la información de los avaluadores. (Ley 1673 de 2013, Artículo 3°, artículo 5°)
+	</p>
+	<p style='margin-top:16.0pt' class='arial14Bold' align="justify">
+		DESCRIPCIÓN DEL OBJETO A CONTRATAR, CON SUS ESPECIFICACIONES ESENCIALES Y LA IDENTIFICACIÓN DEL CONTRATO A CELEBRAR.
+	</p>
+	
+	<dl> 
+		<dt style='margin-top:16.0pt' class='arial14Bold'>1.	DESCRIPCIÓN DEL OBJETO: </dt> 
+		<dd><p align="justify" class="arial12justify">
+			Determinar el Valor Comerciales de los bienes inmuebles ubicados en el municipio de su emplazamiento y relacionados en este documento, específicamente los metros cuadrados que haya al momento de la visita del bien (área lote o terreno y área de construcción y área de construcción de las mejoras) conociendo previamente la información establecida en la documentación  suministrada por el SOLICITANTE/CONTRATANTE. 
+			<br/><br/>
+			Si el bien inmueble tiene cultivos, se precisa el suministro actualizado de áreas de cultivo, edades vegetativas, densidades y producción actual y futura de cada lote, fuera de información pertinente para establecer los costos de mantenimiento del cultivo 
+			</p>
+		</dd> 
+		<dt style='margin-top:16.0pt' class='arial14Bold'>2.	ESPECIFICACIONES ESENCIALES: </dt>
+		<dd><p align="justify" class="arial12justify">
+			Efectuar el proceso técnico, que permita determinar y/o actualizar el valor comercial en términos monetarios y en un mercado libre y abierto del bien inmueble, atendiendo las siguientes especificaciones técnicas
+ 			</p>
+			<div align="center">
+				<b>REQUERIMIENTOS: AVALUOS COMERCIAL DE INMUEBLES</b>
+				<b>Escritura Publica 3397 de 09-09-2015. Notaria 7ª Medellín</b>
+				<table border="1">
+					<tr>
+						<th><b>No</b></th>
+						<th><b>TIPO DE INMUEBLE</b></th>
+						<th><b>FOLIO MATRICULA INMOBILIARIA</b></th>
+						<th><b>MUNICIPIO</b></th>
+						<th><b>ARA LIBRE m2</b></th>
+						<th><b>AREA CONSTRUCCIÓN m2</b></th>
+					</tr>
+					[[${cotizacion.getDetalleCotizacionsTabla()}]]
+				</table>
+				<p align="justify" class="arial12justify">
+					<b>NOTA No 1.</b> Las áreas relacionadas son las que están registradas en las escrituras públicas y/o Certificado de Tradición y Libertad. 
+				</p>
+			</div>
+		</dd> 
+		<dt style='margin-top:16.0pt' class='arial14Bold'>3.	IDENTIFICACIÓN DEL CONTRATO A CELEBRAR: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				Contrato de prestación de servicios. (Articulo1495 del Código Civil)
+			</p>
+		</dd> 
+		<dt style='margin-top:16.0pt' class='arial14Bold'>4.	VIGENCIA DE LA COTIZACIÓN: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				La vigencia de la Cotización será por el término de diez (10) días o una vez se firme el contrato de servicios y cumplimiento con los requisitos de ejecución. (Artículo 13 Parágrafo 2. Decreto 1420 de 1998).
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>5.	PLAZO DE EJECUCIÓN:</dt> 
+		<dd><p align="justify" class="arial12justify">
+				El plazo para entregar el informe de avalúo es de treinta (30) días hábiles después de la recepción de toda la documentación y visita al bien, (Artículo 13° del Decreto 1420 de 1998)
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>6.	METODOLOGIA: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				<ul class="menu">
+					<li class="arial12justify">En todo momento se aplicarán los lineamientos esforzados en la Resolución IGAC 620 de 2008, en cuanto a métodos valuatorios a utilizar.</li>
+					<li class="arial12justify">Se practicará visita de inspección ocular para verificar estado del inmueble, su existencia, localización, topografía, área, uso actual del suelo, vías de comunicación, infraestructura disponible y su estado, además de todos los demás datos que tengan que ver con el valor de dichos activos.</li>
+					<li class="arial12justify">Se analizarán los documentos de propiedad, listados y demás información, para comparar con los datos obtenidos en la visita de inspección ocular.</li>
+					<li class="arial12justify">El método Valuatorio en ese caso está indicado en el artículo 1, 2, 10, 11, además del 3°, 4°, 13°, 14° Y 15° de la Resolución (IGAC) 620 de 2008, Método de Mercado o comparación y de Renta además del Método de Costo de Reposición y Método (Técnica) Residual en el caso que sea necesario.</li>
+					<li class="arial12justify">Se elaborará y entregará un informe que contenga los datos obtenidos, consideraciones y valores hallados, y un informe Valuatorio bajo norma ICONTEC NTS I01, incluyendo un registro fotográfico ilustrativo que apoye la comprensión de los informes escritos (Articulo 6, numeral 6 Resolución IGAC. 620 de 2008).</li>
+				</ul>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>7.	FORMA DE PAGO: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				SOLICITANTE/CONTRATANTE, pagará al AVALUADOR el valor del 50% del Valor total pactado como anticipo de todos los ítems aquí cotizados o por cada ítem por separado, una vez se concilie y se perfeccione la propuesta, esto con lo que corresponda a servicios Valuatorios, y el Porcentaje restante de lo contratado cuando se entregue el Avalúo del bien en un Informe Técnico de Avalúo en forma física firmado o refrendado y en medio digital (no firmado o refrendado), previo cumplimiento de la presentación de la cuenta de cobro, validado al entregar una copia del respectivo RUT, (Art. 2º de la Ley 1231 de 2008). El valor aquí pactado es antes de IVA (Impuesto de valor Agregado) en cuyo caso se liquida siempre y cuando el Valuador sea responsable de ello (Decreto 2702 de 2013 o Estatuto Tributario)
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>8.	R.A.A. REGISTRO ABIERTO DE AVALUADOR: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				Se Anexa, documento actualizado que certifica pertenecer al Registro Abierto de Avaluador.
+				<br/><br/>
+				Artículo 7° Territorio. El avaluador inscrito ante el Registro Abierto de Avaluadores podrá ejercer su actividad en todo el territorio nacional
+				<br/>
+				<p align="right" >
+					LEY 1673 DEL 2013
+				</p>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>9.	OBLIGACIONES DEL AVALUADOR:  </dt> 
+		<dd><p align="justify" class="arial12justify">
+				En cumplimiento del objeto descrito anteriormente, se considera necesario el desarrollo de las siguientes actividades como requisito mínimo de carácter técnico: 
+				<br/><br/>
+				<ul class="menu">
+					<li class="arial12justify">Garantizar los derechos expuestos en el Estatuto del Consumidor al SOLICITANTE/CONTRATANTE. (Ley 1480 de 2011).</li>
+					<li class="arial12justify">Efectuar el avalúo comercial del predio objeto de estudio.</li>
+					<li class="arial12justify">Indicar el método valuatorio a utilizar según el tipo de inmueble y uso del suelo. (Artículo 20 del Decreto 1420 de 1998), independizando el valor del suelo, el de las edificaciones y las mejoras si fuere el caso, y las consideraciones que llevaron a tal estimación.</li>
+					<li class="arial12justify">Tener en cuenta los parámetros para la determinación del valor comercial del inmueble a valuar. (Artículo 21 del Decreto 1420 de 1998).</li>
+					<li class="arial12justify">Tener en cuenta las características básicas para la determinación del valor comercial de los inmuebles. (Artículo 22 del Decreto 1420 de 1998).</li>
+					<li class="arial12justify">Definir si se puede aplicar varios métodos valuatorios, en dicho caso deberá el avaluador hacer las estimaciones pertinentes y sustentar el valor adoptado. (Artículo 26 del Decreto 1420 de 1998).</li>
+					<li class="arial12justify">No Realizar El avalúo si el inmueble cuente con obras de urbanización o construcciones adelantadas sin los permisos pertinentes. (Artículo 30 del Decreto 1420 de 1998).</li>
+					<li class="arial12justify">Guardar la reserva de la información a la que tenga acceso y no podrá facilitar copia de los avalúos comerciales (salvo a las entidades de fiscalización, vigilancia y control), ni utilizarlos para fines de terceros sin la autorización expresa del SOLICITANTE/CONTRATANTE y responder por ellos de conformidad con las normas vigentes. (Artículo 4°, Ley 1581 de 2012).</li>
+					<li class="arial12justify">Defender en todas las actuaciones los intereses del SOLICITANTE/CONTRATANTE y obrar con lealtad y buena fe en todas las etapas contractuales. (Artículo 18° Ley 1581 de 2012).</li>
+					<li class="arial12justify">Informar oportunamente de cualquier petición o amenaza de quien actuando por fuera de la Ley pretenda obligarlo a hacer u omitir algún acto u ocultar hechos que afecten los intereses del SOLICITANTE/CONTRATANTE. (Ley 1581 de 2012).</li>
+					<li class="arial12justify">Se asume los costos y demás gastos ocasionados en la ejecución del contrato en esta diligencia Valuatorias siempre y cuando el predio esté en la Ciudad de trabajo del Avaluador, en caso contrario el SOLICITANTE/CONTRATANTE, reconocerá los gastos razonables suministrados por el Avaluador.</li>
+					<li class="arial12justify">Entregar el informe correspondiente en medio físico y en medio digital, sujeto a los estándares de calidad exigidos en el Estatuto del Consumidor (Ley 1480 de 2011).</li>
+					<li class="arial12justify">Cumplir con las técnicas Valuatorias establecidas en la Resolución IGAC 620 de 2008. </li>
+					<li class="arial12justify">Consultar y Referenciar la Norma Urbanística del Municipio respectivo, según pertenezca el inmueble. (Resolución IGAC 620 DE 2008)</li>
+					<li class="arial12justify">Reclamar indemnización de perjuicios por el no pago de sus servicios de honorarios (Artículo 1546 de Código Civil).</li>
+					<li class="arial12justify">Entregar junto a la cuenta de cobro, el pago de la Seguridad Social so pena de ser retenido su pago definitivo. (Ley 789 del 2002, Decreto 1703 de 2002, Ley 1393 de 2010, Decreto 2702 de 2013 o Estatuto Tributario). </li>
+					<li class="arial12justify">Las demás que se deriven del objeto contractual y todas aquellas que de acuerdo con la naturaleza del contrato establezca la Ley y las demás establecidas en la invitación a cotizar y la oferta presentada, los cuales hacen parte integrante del contrato. </li>
+				</ul>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>10.	OBLIGACIONES DEL CONTRATANTE: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				<ul class="menu">
+					<li class="arial12justify">Exigir al AVALUADOR la ejecución idónea y oportuna del objeto contratado, así como la información que considere necesaria para el desarrollo del mismo. (Artículo 13° del Decreto 1420 1998)</li>
+					<li class="arial12justify">No solicitar el mismo Avalúo salvo cuando haya vencido el plazo legal del Avalúo contratado. Artículo 12° y 19° y el parágrafo único del Decreto 1420 de 1998.</li>
+					<li class="arial12justify">Adelantar las acciones conducentes a obtener las indemnizaciones por los daños que sufra el SOLICITANTE/CONTRATANTE en desarrollo o con ocasión del servicio prestado. Artículo 11° del Decreto 1420 de 1998.</li>
+					<li class="arial12justify">Requerir al AVALUADOR para que adopte las medidas pertinentes cuando surjan faltas en el cumplimiento del contrato. </li>
+					<li class="arial12justify">Pagar cumplidamente los valores pactados.</li>
+					<li class="arial12justify">Facilitar desplazamientos a los lugares en donde se encuentran los inmuebles, autorizaciones de acceso si es el caso y cubrir con gastos no presupuestados si estos no estuvieron contemplados con anterioridad.</li>
+					<li class="arial12justify">Retener el Pago de honorarios hasta tanto el AVALUADOR no demuestre el pago de su Seguridad Social. (Ley 789 del 2002, Decreto 1703 de 2002, Ley 1393 de 2010, Decreto 2702 de 2013 o Estatuto Tributario).</li>
+					<li class="arial12justify">Pagar las obligaciones pactadas en los términos establecidos (Articulo 1602 del Código Civil. Artículo 864 del Código de Comercio.).</li>
+					<li class="arial12justify">Elevar queja ante la Super intendencia de Industria y Comercio por infracciones a la ley de hábeas data (Ley 1581 de 2012).</li>
+					<li class="arial12justify">Ejercer los derechos expuestos en el Estatuto del Consumidor. (Ley 1480 de 2011)</li>
+					<li class="arial12justify">Las demás que se deriven del objeto contractual y todas aquellas que de acuerdo con la naturaleza del contrato establezca la Ley y las demás establecidas en la invitación a cotizar y la oferta presentada, los cuales hacen parte integrante del contrato. </li>
+				<ul>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>11.	DISPOSICIONES GENERALES: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				<ul class="menu">
+					<li class="arial12justify"><b>VERACIDAD DE LA INFORMACIÓN. EL AVALUADOR,</b> no es responsable de la veracidad de la información urbanística que afecte o haya afectado al inmueble objeto del predio en el momento de la realización del avalúo. Artículo 14° del Decreto 1420 de 1998. En caso de encontrar infracciones urbanísticas simplemente hará la anotación como posible infracción urbanística.</li>
+					<li class="arial12justify"><b>NO VÍNCULO LABORAL.</b> EL AVALUADOR bajo este documento hace constar que no es vinculante laboralmente con el SOLICITANTE/CONTRATANTE por ello el AVALUADOR reconoce y renuncia a cualquier Vínculo Laboral que a partir de la firma de este contrato se pudiera establecer. (Artículo 86 del Decreto 510 de 1999).</li>
+					<li class="arial12justify"><b>INDEPENDENCIA.</b> Los Avalúos deben ser realizados por personas que directa o indirectamente carezcan de cualquier interés en el resultado del avalúo en sus posibles utilizaciones, así como de cualquier vinculación con las partes que se afectarían. Los avaluadores no podrán tener con los establecimientos de crédito, los deudores o acreedores ninguna relación de subordinación, dependencia o parentesco, ni estar incurso en las causales de recusación a las que refiere el artículo 72 de la Ley 550 de 1999, no pudiendo existir, en ningún evento conflicto de intereses (artículo 1 numeral 5 Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>OBJETIVIDAD.</b> Se basarán en criterios objetivos y datos comprobables, cuyas fuentes sean verificables y comprobables. (Artículo 1° Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>CERTEZA DE FUENTES.</b> La información, índices, precios unitarios, curvas de depreciación o proyecciones que se utilicen deben provenir de fuentes de reconocida profesionalidad y, en todo caso se revelarán. (Artículo 1° Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>TRANSPARENCIA.</b> Expresarán todas las limitaciones y posibles fuentes de error y revelarán todos los supuestos que se hayan tomado en cuenta. (Artículo 1° Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>INTEGRIDAD Y SUFICIENCIA.</b> Los avalúos deben contener toda la información que permita a un tercero concluir el valor total del avalúo, sin necesidad de recurrir a fuentes externas al texto. Adicionalmente, debe ser posible verificar todos los cálculos que soporten el resultado final y los intermedios. (Artículo 1° Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>PROFESIONALISMO.</b> Los avalúos deben realizarse por personas inscritas para la especialidad respectiva, en la lista correspondiente o en el Registro Abierto de Avaluadores. (Artículo 1° Decreto 422 de 2000).</li>
+					<li class="arial12justify"><b>REVISIÓN DEL AVALÚO.</b> La revisión del Avalúo la hará el AVALUADOR, una vez el SOLICITANTE/CONTRATANTE fundamentado en consideraciones técnicas así lo solicite. Artículo 16° Decreto 1420 de 1998.</li>
+				</ul>
+				<br/><br/>
+				<p align="justify" class="arial12justify">Al decidirse la revisión o la impugnación, la entidad correspondiente podrá confirmar, aumentar o disminuir el monto del avalúo. (Artículo 17 parágrafo 1. Decreto 1420 de 1998)</p>
+				<br/><br/>
+				<ul class="menu">
+					<li class="arial12justify"><b>OBJECIONES Y ACLARACIONES.</b> Dentro de los quince (15) días siguientes, hará su pronunciamiento sobre la revisión planteada. Artículo 17° Decreto 1420 de 1998.</li>
+					<li class="arial12justify"><b>IGAC.</b> La impugnación del Avalúo, lo hará el SOLICITANTE/CONTRATANTE ante el INSTITUTO GEOGRÁFICO AGUSTÍN CODAZZI, una vez el mismo SOLICITANTE se fundamente en consideraciones técnicas al respecto. Artículo 16° y 17° parágrafo 1° y 2°, del Decreto 1420 de 1998.</li>
+					<li class="arial12justify"><b>IMPUGNACIÓN Y/O REVISIÓN DEL AVALÚO.</b> El SOLICITANTE/CONTRATANTE, podrá pedir la revisión y/o la impugnación al avalúo dentro de los cinco (5) días siguientes a la fecha de entrega del informe de Avalúo. Artículo 15° Decreto 1420 de 1998.</li>
+					<li class="arial12justify"><b>SUSTENTACIÓN/DEFENSA.</b> Una vez se exponga y se explique y sustente el valor del avalúo ante el SOLICITANTE/CONTRATANTE, se dará por entregado dicho mandato de servicios. Para Sustentaciones posteriores, de requerirse se pactará el valor de dicho Servicio Adicional, aun siendo solicitado por Autoridad Competente. De todas maneras, el valor mínimo, por hora, a pactar será del 15% de un SMLVM. (múltiplos de 10.000).</li>
+					<li class="arial12justify"><b>APLICACIÓN DE VARIAS METODOLOGIA VALUATORIAS.</b> Cuando las condiciones del inmueble objeto del análisis permitan la aplicación de uno o más de los métodos enunciados en el artículo anterior, el valuador debe realizar las estimaciones correspondientes y sustentar el valor que se determine. (Artículo 26° Decreto 1420 de 1998)</li>
+					<li class="arial12justify"><b>OBRAS EN PROCESO.</b> Cuando el inmueble objeto del avalúo cuente con obras de urbanización o construcción adelantadas sin el lleno de los requisitos legales, estas no se tendrán en consideración para la determinación del valor comercial y deberá dejarse expresa constancia de tal situación en el avalúo (Artículo 30° Decreto 1420 de 1998).</li>
+					<li class="arial12justify"><b>DOCUMENTO DIGITAL.</b> Este documento en forma digital no está firmado, solo estará firmado el documento físico que se entrega al SOLICITANTE/CONTRATANTE.</li>
+				</ul>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>12.	DOCUMENTACIÓN SUMINISTRADA POR CADA INMUEBLE. (Artículo 13° Decreto 1420 de 1998): </dt> 
+		<dd><p align="justify" class="arial12justify">
+				<dl>
+					<dt class='arial14Bold'><p style='margin-top:16.0pt' class='arial14Bold'>A.	AVALUO POR NORMA.</p></dt> 
+					<dd class="arial12justify">
+						<p align="justify" class="arial12justify">
+							<ul class="menu">
+								<li class="arial12justify">Escritura Publica Notariada</li>
+								<li class="arial12justify">Ficha Catastral del Lote </li>
+								<li class="arial12justify">Certificado de Libertad de las matrículas a la fecha de aceptación del mandato Valuatorio.</li>
+								<li class="arial12justify">Licencia de Construcción.</li>
+								<li class="arial12justify">Plano de Construcciones</li>
+								<li class="arial12justify">Reglamento de propiedad Horizontal si es pertinente.</li>
+								<li class="arial12justify">Copia del Pago de Zonas comunes si aplica Régimen de Propiedad Horizontal </li>
+								<li class="arial12justify">Copia de especificaciones urbanísticas vigentes (uso del suelo POT vigente).</li>
+								<li class="arial12justify">Copia de Impuesto Predial, año en curso.</li>
+								<li class="arial12justify">Certificado de estratificación (o copia servicios públicos)</li>
+								<li class="arial12justify">Contratos de Arrendamiento si los hubiera.</li>
+							</ul>
+						</p>
+					</dd>
+					<dt style='margin-top:16.0pt' class='arial14Bold'>NOTA:</dt> 
+					<dd class="arial12justify">
+						<ol>
+							<li class="arial12justify"><b>PROYECTO DE INFRAESTRUCTURA.</b> En vista de que los avalúos para predios con afectación de Obras de Infraestructura tienen una Metodología particular, debe indicar además qué compañía adelanta dicho proyecto de infraestructura y aportar el Avalúo Comercial que la Empresa hizo para el sistema de negociación de predios. (Resolución IGAC 898 y 1044 de 2014)</li>
+							<li class="arial12justify"><b>PLUSVALIA.</b> Si el municipio ha adelantado la socialización del cobro de Plusvalía, favor aportar documentación pertinente entregada por la Oficina de Planeación Municipal. (decreto 1420 de 1998)</li>
+							<li class="arial12justify"><b>VALORIZACIÓN.</b> Se el inmueble está gravado por cobro de Valorización, favor aportar documentación que la Secretaria de Planeación Municipal ha socializado con el propietario. (Decreto 1604 de 1966).</li>
+							<li class="arial12justify"><b>NORMAS NIIF/NIC-SP</b> (Decretos 2706/2784 de 2012; Leyes 1314 del 2009, ley 1450 del 2011 y demás). Si el Objeto valuatorio es la de realizar los avalúos según las Normas Internacionales de Información Financiera, tanto para el sector privado como para el sector público (SP) adicional a la documentación arriba detallados se necesitan:</li>
+								<ul>
+									<li class="arial12justify">Política Contable de  la Empresa específica para lo que se requiere valuar.</li>
+									<li class="arial12justify">Avalúos realizados para la Implementación de los mismos</li>
+									<li class="arial12justify">Clasificación de los Activos</li>
+								</ul>
+							</li>
+							<li class="arial12justify">
+								<b>CONTRATACIÓN CON EL ESTADO.</b> Las distintas modalidades de contratación con Recursos Públicos se presenta bajo las siguientes figuras contractuales:
+								<ul>
+									<li class="arial12justify"><b>Licitación Pública:</b> que cumpla no los términos de referencia exigidos por la Ley 80 de 1993 y la Ley 1150 de 2007.</li>
+									<li class="arial12justify">Selección Abreviada </li>
+									<li class="arial12justify"><b>Mínima Cuantía:</b> Artículo 2° inciso 5 Ley 1150 de 2007</li>
+									<li class="arial12justify"><b>Contratación Directa:</b> Artículo 2° inciso 4 Ley 1150 de 2007</li>
+									<li class="arial12justify"><b>Concurso de Méritos:</b> Ley 1150 de 2007</li>
+									<li class="arial12justify"><b>Selección abreviada:</b> ley 1150 de 2007</li>
+								</ul>
+							</li>
+						</ol>
+					</dd>				
+				</dl>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>13.	INCONGLUENCIA DE LINDEROS Y CABIDA: </dt> 
+		<dd><p align="justify" class="arial12justify">
+				<ul>
+					<li class="arial12justify">Un Folio de matrícula inmobiliaria debe indicar una única unidad Catastral de acuerdo al Artículo 8 de la Ley 1579 de 2012 (Estatuto Registral vigente).</li>
+					<li class="arial12justify">En el caso de que hubiere incongruencia de linderos y Cabida detectado en la documentación suministrada, se debe acudir ante un Juez para adelantar un “PROCESO DE DESLINDE Y AMOJONAMIENTO” (Artículo 400 y siguientes de la Ley 1564 de 2014) el que establecerá cuáles son los linderos y el área del Predio.</li>
+					<li class="arial12justify">A criterio del valuador se hará o no el avalúo, de hacerlo, éste se debe ceñirse únicamente a lo que indica como área y linderos en el folio de matrícula Inmobiliaria suministrada y vigente. El certificado de libertad y traición debe ser de fecha no mayor a tres días a la fecha de recepción de documentación. (Nota del Avaluador)</li>
+				</ul>
+			</p>
+		</dd>
+		<dt style='margin-top:16.0pt' class='arial14Bold'>14.	PROCESOS JUDICIALES</dt> 
+		<dd><p align="justify" class="arial12justify">
+				En aplicación de los procedimientos expuestos en la ley 1564 de 2014, Código General de Proceso, se hacen las siguientes observaciones a tener en cuenta:
+				<br/><br/>
+				<ul>
+					<li class="arial12justify">Acudir a la Audiencia. Artículo 48°, Ley 1564 de 2014.</li>
+					<li class="arial12justify">Prueba Pericial. Artículo 226° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Contradicción del Dictamen: Artículo 228° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Dictamen decretado de Oficio: Artículo 230° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Colaboración de las partes. Artículo 233°, Ley 1564 de 2014, </li>
+					<li class="arial12justify">Imparcialidad del perito: Artículo 235° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Pago de expensas y honorarios. Artículo 364° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Audiencia de instrucción y juzgamiento (interrogatorio al perito): Artículo 373° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Avalúos. Artículo 444° de la Ley 1564 de 2014</li>
+					<li class="arial12justify">Beneficio de Competencia. Artículo 445° de la Ley 1564 de 2014</li>
+				</ul>
+				<center><b>HONORARIOS ADICIONALES</b></center>
+				<br/>
+				De todas maneras tanto el perito como las partes se pondrán en mutuo acuerdo por el pago de Honorarios además de los cotizados en este documento a raíz de Servicios Prestados por Avalúos según Categoría a Aplicar. 
+				<br/><br/>
+				Los honorarios se cobraran por hora desde el momento de la citación a la audiencia hasta la terminación de la intervención del perito o terminación de la misma aun el perito no haya intervenido en el proceso. El Monto total no podrá superar el valor de Un (1) Salario Mínimo Legar Vigente Mensual (SMLVM), por día citado, (antes de iva, si aplica) y facturados al día siguiente a la Audiencia. (Tarifa establecida por el Valuador)
+				<br/><br/>
+				Estos honorarios Valor por cada hora es el resultado de aplicar el  20% a UN (1) SMLVM.
+			</p>
+		</dd>
+		<dt class='arial14Bold' style='margin-top:16.0pt'>15.	PROCESOS POR LEY DE INSOLVENCIA. (Ley 1380 de 2010 y Decreto 3274 de 2011)</dt> 
+		<dd><p align="justify" class="arial12justify">
+				A solicitud del Liquidador pertinente se eleva Cotización según el requerimiento. Dicha Cotización es sometida a subasta inversa ante la Superintendencia de Sociedades la cual designa Perito Valuador.
+				<br/><br/>
+				Esta Cotización se ajusta a lo pactado con el liquidador pertinente en cuanto a la presentación de la cotización y el convenio mutuo sobre el pago de honorarios. 
+			</p>
+		</dd>
+		<dt class='arial14Bold' style='margin-top:16.0pt'>16.	CATEGORIAS DE AVALUOS (Ley 1673 de 2013):</dt> 
+		<dd><p align="justify" class="arial12justify">
+				<table border="1">
+					<tr>
+						<th><b>No</b></th>
+						<th><b>CATEGORIA</b></th>
+						<th><b>ALCANCE</b></th>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center">INMUEBLES URBANOS</td>
+						<td align="justify">Casas, apartamentos, edificios, oficinas, locales comerciales, terrenos y bodegas situados total o parcialmente en áreas urbanas, lotes no c:asificados en la estructura ecológica principal, lotes en suelo de expansión con plan parcial adoptado</td>
+					</tr>
+					<tr>
+						<td align="center">2</td>
+						<td align="center">INMUEBLES RURALES</td>
+						<td align="justify">Terrenos rurales con o sin construcciones, como viviendas, edificios, establos, galpones, cercas, sistemas de riego, drenaje, vías, adecuación de suelos, pozos, cultivos, plantaciones, lotes en suelo de expansión sin plan parcial adoptado, lotes para” el aprovechamiento agropecuario y demás infraestructura de explotación situados totalmente en áreas rurales</td>
+					</tr>
+					<tr>
+						<td align="center">3	</td>
+						<td align="center">RECURSOS NATURALES Y SUELOS DE PROTECCIÓN</td>	
+						<td align="justify">Bienes Ambientales, minas, yacimientos y explotaciones minerales. Lotes incluidos en la estructura ecológica principal, lotes definidos o contemplados en el Código de Recursos Naturales Renovables y daños ambientales.</td>
+					</tr>
+					<tr>
+						<td align="center">4	</td>
+						<td align="center">OBRAS DE INFRAESTRUCTURA	</td>
+						<td align="justify">Estructuras especiales para proceso, puentes, túneles, acueductos y conducciones, presas, aeropuertos, muelles y demás construcciones civiles de infraestructura similar.</td>
+					</tr>
+					<tr>
+						<td align="center">5	</td>
+						<td align="center">EDIFICACIONES DE CONSERVACIÓN ARQUEOLOGIA Y MONUMENTOS HISTORICOS</td>	
+						<td align="justify">Edificaciones de conservación arquitectónica y monumentos históricos</td>
+					</tr>
+					<tr>
+						<td align="center">6	</td>
+						<td align="center">INMUEBLES ESPECIALES	</td>
+						<td align="justify">Incluye centros comerciales, hoteles, colegios, hospitales, clínicas y avance de obras. Incluye ¡ todos los inmuebles que no se clasifiquen dentro de los numerales anteriores</td>
+					</tr>
+					<tr>
+						<td align="center">7	</td>
+						<td align="center">MAQUINARIA FIJA, EQUIPOS Y MAQUINARIO MOVIL	</td>
+						<td align="justify">Equipos eléctricos y mecánicos de uso en la industria, motores, subestaciones de planta, tableros eléctricos, equipos de generación, subestaciones de transmisión y distribución, equipos e infraestructura de transmisión y distribución, maquinaria de construcción, movimiento de tierra, y maquinaria para producción y proceso.
+							<br/><br/>Equipos de cómputo: Microcomputadores, impresoras, monitores, módems y otros accesorios de estos equipos, redes, main frames, periféricos especiales y otros equipos accesorios de “éstos. Equipos de telefonía, electromedicina y radiocomunicación
+							<br/><br/>Transporte Automotor: Vehículos de transporte terrestre como automóviles, camperos, camiones, buses, tractores, camiones y remolques, motocicletas, motociclos, mototriciclos, cuatrimotos, bicicletas y similares.
+						</td>
+					</tr>
+					<tr>
+						<td align="center">8	</td>
+						<td align="center">MAQUINARIA Y EQUIPOS ESPECIALES	</td>
+						<td align="justify">Naves, aeronaves, trenes, locomotoras, vagones, teleféricos y cualquier medio de transporte diferente del automotor descrito en la clase anterior.</td>
+					</tr>
+					<tr>
+						<td align="center">9	</td>
+						<td align="center">OBRAS DE ARTE, ORFEBRERIA, PATRIMONIALES Y SIMILARES	</td>
+						<td align="justify">Arte, joyas, orfebrería, artesanías, muebles con valor histórico, cultural, arqueológico, paleontológico y similares</td>
+					</tr>
+					<tr>
+						<td align="center">10	</td>
+						<td align="center">SEMOVIEMTES Y ANIMALES	</td>
+						<td align="justify">Semovientes, animales y muebles no clasificados en otra especialidad.</td>
+					</tr>
+					<tr>
+						<td align="center">11	</td>
+						<td align="center">ACTIVOS OPERACIONALES Y ESTABLECIMIENTOS DE COMERCIO	</td>
+						<td align="justify">Revalorización de activos, inventarios, materia prima, producto en proceso y producto terminado. Establecimientos de comercio.</td>
+					</tr>
+					<tr>
+						<td align="center">12	</td>
+						<td align="center">INTANGIBLES	</td>
+						<td align="justify">Marcas, patentes, secretos empresariales, derechos autor, nombres comerciales, derechos deportivos, espectro radioeléctrico, fondo de comercio, prima comercial y otros similares</td>
+					</tr>
+					<tr>
+						<td align="center">13	</td>
+						<td align="center">INTANGIBLES ESPECIALES	</td>
+						<td align="justify">Daño emergente, lucro cesante, daño moral, servidumbres, derechos herencia les y litigiosos Y demás derechos de indemnización o cálculos compensatorios y cualquier otro derecho no contemplado en las clases anteriores.</td>
+					</tr>
+				</table>
+			</p>
+		</dd>
+		<dt class='arial14Bold'><p style='margin-top:16.0pt' class='arial14Bold'>17.	PROPUESTA ECONOMICA: </p></dt> 
+		<dd><p align="justify" class="arial12justify">
+				El valor de los Honorarios del Servicio de Avalúos resulta de la suma del valor valuatorio de los bienes a valuar y que se detalla en la siguiente tabla y tienen como base de cálculo la metodología expuesta en el Decreto 466 de 2000 para avalúos urbano y rural, y al Acuerdo 1852 de 2003 de la Sala Administrativa del Consejo Superior de la Judicatura.
+				<br/><br/>
+				<b>A.	TARIFA POR INMUEBLE Y POR CADA INFORME VALUATORIO</b>
+				<br/>
+				<center><b>LIQUIDACIÓN DE HONORARIOS POR SERVICIOS VALUATORIOS</b></center>
+				
+				<table border="1">
+					<tr>
+						<th><b>No</b></th>
+						<th><b>TIPO DE INMUEBLE</b></th>
+						<th><b>FOLIO MATRICULA INMOBILIARIA</b></th>
+						<th><b>MUNICIPIO</b></th>
+						<th><b>ARA LIBRE m2</b></th>
+						<th><b>AREA CONSTRUCCIÓN m2</b></th>
+						<th><b>HONORARIO</b></th>
+					</tr>
+					[[${cotizacion.getDetalleCotizacionsTabla2()}]]
+					<tr>
+						<td colspan="5"></td>
+						<td>Total</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="2">En Letras</td>
+						<td colspan="5"></td>
+					</tr>
+				</table>
+				<br/><br/>
+				
+					<b>B.	TARIFA POR CITACION A AUDIENCIA</b>
+					<br/>&nbsp;&nbsp;&nbsp;1.	Tarifa máxima por día por asistencia a audiencia: Un (1) Salario Mínimo Legal Vigente Mensual (SMLVM), 
+					<br/>&nbsp;&nbsp;&nbsp;2.	Tarifa por Horas: 20% SMLVM
+				
+			</p>
+		</dd>
+	</dl>
+	<br/><br/>
+	<p align="justify" class="cordial">
+		Cordialmente, 
+	</p>
+	<br/><br/>
+	
+	<p align="justify" class="arial12justify">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________________________________________________________________	<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre del Avaluador configurado como usuario en el aplicativo<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CC: 9999999 de<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAA AVAL-99999999 según la LEY 1673 DE 2013<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avaluador profesional <br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tarjeta Profesional: 99999
+	</p>
+
+
+	<div class="next-page">
+	
+		<p style='margin-top:16.0pt' class='arial14Bold'>
+			BIBLIOGRAFIA
+		</p>
+		<br/><br/>
+		<table border="1">
+			<tr>
+				<th><b>No</b></th>
+				<th><b>SOPORTE JURIDICO/NORMATIVIDAD</b></th>
+				<th><b>No</b></th>
+				<th><b>SOPORTE JURIDICO/NORMATIVIDAD</b></th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Ley 400 de 1997, Ley Sismo Resistente</td>		
+				<td>2</td>
+				<td>Ley 550 de 1999</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Ley 1231 de 2008</td>
+				<td>4</td>
+				<td>Ley 1673 de 2013 Ley Avaluador</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Decreto 1420 de 1998,</td>		
+				<td>6</td>
+				<td>Decreto 510 de 1999</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>Decreto 422 de 2000</td>	
+				<td>8</td>
+				<td>Decreto 4259 de 2007</td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td>Decreto 2702 de 2013, Estatuto Tributario</td>		
+				<td>10</td>
+				<td>Decreto 556 de 2014</td>
+			</tr>
+			<tr>
+				<td>11</td>
+				<td>Resolución IGAC 620 DE 2008	</td>
+				<td>12</td>
+				<td>Resolución IGAC 70 DE 2011</td>
+			</tr>
+			<tr>
+				<td>13</td>
+				<td>Acuerdo 1852 de 2003 Consejo Superior de la Judicatura.</td>	
+				<td>14</td>
+				<td>Código Civil Articulos:21, 22, 756, 1495, 1602, 1546</td>
+			</tr>
+			<tr>
+				<td>15</td>
+				<td>Articulo 864 Código de Comercio</td>	
+				<td>16</td>
+				<td>Ley 789 del 2002</td>
+			</tr>
+			<tr>
+				<td>17</td>
+				<td>Decreto 1703 de 2002</td>	
+				<td>18</td>
+				<td>Ley 1393 de 2010</td>
+			</tr>
+			<tr>
+				<td>19</td>
+				<td>Ley 1579 de 2012 Estatuto Registral</td>	
+				<td>20</td>
+				<td>Ley 1564 de 2014 Código General de Proceso</td>
+			</tr>
+			<tr>
+				<td>21</td>
+				<td>Ley 1581 de 2012 ley Hábeas Data</td>	
+				<td>22</td>
+				<td>Ley 1480 de 2011, Estatuto del Consumidor</td>
+			</tr>
+			<tr>
+				<td>23</td>
+				<td>Resolución IGAC 898 y 1044de 2014. Avalúos infraestructura</td>	
+				<td>24</td>
+				<td>Decreto 1604 de 1966 la valorización.</td>
+			</tr>
+			<tr>
+				<td>25</td>
+				<td>Decreto 2784/2706 de 2012 Normas NIIF.</td>	
+				<td>26</td>
+				<td>Leyes 1314 del 2009, ley 1450 del 2011, Normas NIC-SP</td>
+			</tr>
+			<tr>
+				<td>27</td>
+				<td>Ley 80 de 1993, Ley de Contratación Publica</td>
+				<td>28</td>
+				<td>Ley 1150 de 2007, Contratación Publica</td>
+			</tr>
+			<tr>
+				<td>29</td>
+				<td>Ley 1380 de 2010 y Decreto 3274 de 2011. Ley de Insolvencia</td>
+				<td>30</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+    </body>
+
+</html>

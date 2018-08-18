@@ -16,6 +16,8 @@ import co.com.avaluo.common.bo.ReporteLista;
 
 public class ReporteUtil {
 	
+	private static final Font BOLD_12 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+	
 	public ReporteUtil(){}
 
 	public Paragraph addTexto(String texto, Font fuente, int espacios) {
@@ -110,6 +112,21 @@ public class ReporteUtil {
 				listContenido.setListSymbol("\u2022");
 				
 				for(String contenido: binneta.getContenidos()) {
+					/*if(contenido.contains("%STRONG%")) {
+						String[] tmp = contenido.split("%STRONG%"); 
+						
+						Paragraph parrafo = new Paragraph();
+						parrafo.setIndentationLeft(25);
+						parrafo.setIndentationRight(25);
+						Paragraph conten = new Paragraph();
+						conten.setAlignment(Element.ALIGN_JUSTIFIED);
+						conten.setIndentationLeft(30);
+						conten.setIndentationRight(25);
+						conten.add(new Chunk(tmp[1]+" ", BOLD_12));
+						conten.add(new Chunk(tmp[2]+" ", binneta.getFontContenido()));
+						parrafo.add(contenido);
+						
+					}*/
 					itemContenido = new com.itextpdf.text.ListItem(" " + contenido, binneta.getFontContenido());
 					itemContenido.setAlignment(Element.ALIGN_JUSTIFIED);
 					itemContenido.setLeading(25f);

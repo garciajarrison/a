@@ -1,8 +1,7 @@
 package co.com.avaluo.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
@@ -33,7 +30,7 @@ import co.com.avaluo.common.CalcularCoordenadas;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacion;
+import co.com.avaluo.controller.reporte.RCotizacionHtml;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
@@ -138,7 +135,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private CalcularCoordenadas calc = new CalcularCoordenadas();
 	private String direc;
 
-	//TODO Borrar o mover
 	private StreamedContent file;
 	
 	
@@ -203,8 +199,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void consultar() {
 		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
-		PrimeFaces.current().executeScript("PF('dlgCotizaciones').show();");		
-		PrimeFaces.current().ajax().update(":formulario:tCoti");
+		util.ejecutarPF("PF('dlgCotizaciones').show();");
+		util.actualizarPF(util.findComponentClientIdPF("tCoti"));
 	}
 	
 	public void guardar() {
@@ -474,14 +470,16 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		cotizacion.setValor(totalCotizacion);
     }
 
-	//TODO borrar o mover
 	public void generarReporteCotizacion() {
-		
-		RCotizacion reporte = new RCotizacion(reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa()));
-		ByteArrayOutputStream docExport = reporte.generarReporte(cotizacion);
-		InputStream targetStream = new ByteArrayInputStream(docExport.toByteArray());
-        file = new DefaultStreamedContent(targetStream, "application/pdf", "cotización.pdf");
-
+		RCotizacionHtml reporteHtml = new RCotizacionHtml();
+		try {
+			String urlFile = reporteHtml.generatePdf(cotizacion);
+			
+			File fil = new File(urlFile);
+			file = new DefaultStreamedContent(new FileInputStream(fil), "application/pdf", "cotización.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	} 
 
 	

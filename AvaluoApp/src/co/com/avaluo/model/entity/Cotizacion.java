@@ -1,6 +1,8 @@
 package co.com.avaluo.model.entity;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -128,7 +131,7 @@ public class Cotizacion implements java.io.Serializable {
 	public Date getFecha() {
 		return this.fecha;
 	}
-
+	
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
@@ -158,6 +161,65 @@ public class Cotizacion implements java.io.Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	@Transient
+	public String getFechaFormato() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(this.getFecha());
+	}
+	
+	@Transient
+	public String getDetalleCotizacionsTabla() {
+		StringBuilder retorno =  new StringBuilder();
+		if(this.getDetalleCotizacions() != null && !this.getDetalleCotizacions().isEmpty()) {
+			int i = 1;
+			for (DetalleCotizacion det: this.getDetalleCotizacions()) {
+				
+				retorno.append("<tr><td>")
+					.append(i)
+					.append("</td><td>")
+					.append(det.getPropiedad().getTipoPropiedad().getTipoVivienda())
+					.append("</td><td>")
+					.append(det.getPropiedad().getRegistro())
+					.append("</td><td>")
+					.append(det.getPropiedad().getCiudad().getNombre())
+					.append("</td><td>")
+					.append(det.getPropiedad().getValorMedida().toString())
+					.append("</td><td>")
+					.append(det.getPropiedad().getValorMedida().toString())
+					.append("</td></tr>");
+				i++;
+			}
+		}
+		return retorno.toString();
+	}
+	
+	@Transient
+	public String getDetalleCotizacionsTabla2() {
+		StringBuilder retorno =  new StringBuilder();
+		if(this.getDetalleCotizacions() != null && !this.getDetalleCotizacions().isEmpty()) {
+			int i = 1;
+			for (DetalleCotizacion det: this.getDetalleCotizacions()) {
+				
+				retorno.append("<tr><td>")
+					.append(i)
+					.append("</td><td>")
+					.append(det.getPropiedad().getTipoPropiedad().getTipoVivienda())
+					.append("</td><td>")
+					.append(det.getPropiedad().getRegistro())
+					.append("</td><td>")
+					.append(det.getPropiedad().getCiudad().getNombre())
+					.append("</td><td>")
+					.append(det.getPropiedad().getValorMedida().toString())
+					.append("</td><td>")
+					.append(det.getPropiedad().getValorMedida().toString())
+					.append("</td><td>0")
+					.append("</td></tr>");
+				i++;
+			}
+		}
+		return retorno.toString();
 	}
 	
 
