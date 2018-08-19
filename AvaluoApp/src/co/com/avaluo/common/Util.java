@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -357,6 +358,39 @@ public class Util {
 			}
 		}
 		return url.toString();
+	}
+	
+	 /**
+     * Borrar archivos de un directorio
+     */
+    public void borrarArchivos(String rutaArchivo, String... archivosBorrar){
+    	File archivo = null;
+		for (String imagen : archivosBorrar) {
+			archivo = new File(rutaArchivo + imagen);
+			if (archivo.exists()){
+				archivo.delete();
+			}
+		}
+    }
+    
+	/**
+	 * Elimina los archivos del servidor
+	 * @param path
+	 */
+	public void borrarArchivos(String path){
+		File file = new File(path);
+		try {
+			Files.deleteIfExists(file.toPath());
+			if(!file.exists() && !file.isDirectory()) 
+				Files.createDirectories(file.toPath().getParent());
+				file.mkdirs();
+				
+		} catch (IOException e) {
+			//Si falla la eliminacion de la carpeta se elimina archivo por archivo
+			String[] filesD = file.list();
+			if(filesD != null && filesD.length > 0)
+				borrarArchivos(path, filesD);
+		}
 	}
 
 }
