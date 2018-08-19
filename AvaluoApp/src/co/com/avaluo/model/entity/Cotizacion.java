@@ -39,7 +39,7 @@ public class Cotizacion implements java.io.Serializable {
 	private Date fecha;
 	private String motivo;
 	private String estado;
-	private HashMap<String, String> permisos;
+	private HashMap<String, Boolean> permisos;
 	
 	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
 
@@ -225,11 +225,11 @@ public class Cotizacion implements java.io.Serializable {
 	}
 
 	@Transient
-	public HashMap<String, String> getPermisos() {
+	public HashMap<String, Boolean> getPermisos() {
 		return permisos;
 	}
 
-	public void setPermisos(HashMap<String, String> permisos) {
+	public void setPermisos(HashMap<String, Boolean> permisos) {
 		this.permisos = permisos;
 	}
 	
