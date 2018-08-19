@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Ossa
 Build-Jdk: 1.8.0_144
+=======
+Built-By: Jarrison
+Build-Jdk: 1.8.0_181
+>>>>>>> 75ad4006cf6a1cc33e434029245313228776d943
 Created-By: Maven Integration for Eclipse
 
