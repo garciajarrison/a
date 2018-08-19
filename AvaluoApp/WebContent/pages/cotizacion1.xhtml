@@ -182,7 +182,7 @@
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" required="true" 
-					   				styleClass="form-control col-md-7 col-xs-12"/>  	
+					   				styleClass="form-control col-md-7 col-xs-12" validator="#{cotizacionAdmBB.telefonoFijo}"/>  	
 				   		</div>
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">			
@@ -256,7 +256,7 @@
 			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" /> 
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" validator="#{cotizacionAdmBB.telefonoFijo}"/> 
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">

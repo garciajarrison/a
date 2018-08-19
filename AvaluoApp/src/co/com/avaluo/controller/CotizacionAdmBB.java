@@ -14,8 +14,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
 
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
@@ -232,7 +234,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
 				guardar = false;
 				getUsuarioService().updateUsuario(cotizacion.getUsuarioByClienteId());
-				util.mostrarErrorKey("cotizacion.cliente.ya.existe");
+				util.mostrarMensajeKey("cotizacion.cliente.ya.existe");
 			}
 			
 			if(guardar) {
@@ -263,7 +265,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			usuarioExiste = getUsuarioService().consultaIdentificacion(cotizacion.getUsuarioByRemitenteId().getTipoDocumento(), cotizacion.getUsuarioByRemitenteId().getIdentificacion(), usuario.getEmpresa().getId(), 0);
 			if (usuarioExiste != null && usuarioExiste.getNombre() != null) {
 				guardar = false;
-				util.mostrarErrorKey("cotizacion.remitente.ya.existe");
+				util.mostrarMensajeKey("cotizacion.remitente.actualizado");
 			}
 			
 			if(guardar) {
@@ -287,7 +289,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		} 	
 		
 	}
-	
+
+   public void telefonoFijo(FacesContext arg0, UIComponent arg1, Object arg2)
+	         throws ValidatorException {
+	      if (((String)arg2).length()<8) {
+	         throw new ValidatorException(new FacesMessage("El número de telédno debe ser máximo de 7. "));
+	      }
+	   }
 	
 	public void addPropiedad() {
 		
@@ -490,6 +498,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			e.printStackTrace();
 		}
 	} 
+
+
 
 	
 	public void updateEntity() {
