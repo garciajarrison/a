@@ -206,8 +206,8 @@
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 					   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.correo}"
-					   			styleClass="form-control col-md-7 col-xs-12">
-					   			<f:validateRegex
+					   			validatorMessage="Correo electronico incorrecto ..." styleClass="form-control col-md-7 col-xs-12">
+					   			<f:validateRegex 
 										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					   		</p:inputText>  
 				   		</div>
@@ -277,7 +277,8 @@
 			 	   		<p:outputLabel id="lEmailR" value="#{msg['cotizacion.correo']}" for="txtEmailR" styleClass="aval-label"/>
 			 	   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">	
-				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" styleClass="form-control col-md-7 col-xs-12" >
+				   		<p:inputText id="txtEmailR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.correo}" styleClass="form-control col-md-7 col-xs-12" 
+				   						validatorMessage="Correo electronico incorrecto ..." >
 				   							   			<f:validateRegex
 										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					   		</p:inputText>  
