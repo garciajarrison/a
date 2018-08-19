@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "usuario", schema = "avalsoft")
@@ -285,6 +286,11 @@ public class Usuario implements java.io.Serializable {
 
 	public void setPropiedads(List<Propiedad> propiedads) {
 		this.propiedads = propiedads;
+	}
+	
+	@Transient
+	public String getNombreCompleto(){
+		return this.getNombre()+" "+this.getApellido1()+" "+this.getApellido2();
 	}
 
 }
