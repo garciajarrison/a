@@ -155,7 +155,7 @@ ALTER SEQUENCE avalsoft.usuario_seq
 -- DROP TABLE avalsoft.usuario ;
 CREATE TABLE avalsoft.usuario
 (
-   id                  INTEGER NOT NULL DEFAULT nextval ('usuario_seq'::regclass),
+   id                  INTEGER NOT NULL DEFAULT nextval ('avalsoft.usuario_seq'::regclass),
    tipo_documento      CHARACTER VARYING (10) NULL,
    identificacion      CHARACTER VARYING NULL,
    nombre              CHARACTER VARYING (50) NULL,
@@ -189,7 +189,7 @@ CREATE TABLE avalsoft.usuario
       NOT DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT pk_usuario PRIMARY KEY (id) NOT DEFERRABLE INITIALLY IMMEDIATE
 )
-WITH (OIDS = FALSE)
+WITH (OIDS = FALSE);
 
 ALTER TABLE avalsoft.usuario
     OWNER to postgres;	
@@ -285,6 +285,54 @@ TABLESPACE pg_default;
 ALTER TABLE avalsoft.tipo_propiedad
     OWNER to postgres;    
 
+
+-- -----------------------------------------------------
+-- Table Avalsoft.direcciones
+-- -----------------------------------------------------
+CREATE SEQUENCE avalsoft.direcciones_id_seq AS INTEGER
+                                   INCREMENT 1
+                                   MINVALUE 1
+                                   MAXVALUE 2147483647
+                                   START 1
+                                   CACHE 1
+                                   NO CYCLE;
+                                   
+ALTER SEQUENCE avalsoft.direcciones_id_seq
+    OWNER TO postgres;    
+    
+CREATE TABLE avalsoft.direcciones
+(
+   id                         INTEGER NOT NULL DEFAULT nextval ('avalsoft.direcciones_id_seq'::regclass),
+   propiedad_id               INTEGER NOT NULL,
+   tipo_via                   CHARACTER VARYING (20) NULL,
+   numero_via                 INTEGER NULL,
+   letra_via                  CHARACTER VARYING (20) NULL,
+   nombre_via                 CHARACTER VARYING (20) NULL,
+   posicion_via               CHARACTER VARYING (20) NULL,
+   numero_interseccion        INTEGER NULL,
+   letra_interseccion         CHARACTER VARYING (20) NULL,
+   posicion_interseccion      CHARACTER VARYING (20) NULL,
+   componente_interseccion    CHARACTER VARYING (20) NULL,
+   tipo_ubicacion             CHARACTER VARYING (20) NULL,
+   numero_ubicacion           INTEGER NULL,
+   lugar_ubicacion            CHARACTER VARYING (20) NULL,
+   numero_lugar               INTEGER NULL,
+   apendice                   CHARACTER VARYING (500) NULL,
+   aregio_id                  INTEGER NULL,
+   tipo_urbanizacion          CHARACTER VARYING (20) NULL,
+   descrip_urbanizacion       CHARACTER VARYING (20) NULL,
+   tipo_manzana               CHARACTER VARYING (20) NULL,
+   descrip_manzana            CHARACTER VARYING (20) NULL,
+   tipo_prefijo               CHARACTER VARYING (20) NULL,
+   tipo_componente            CHARACTER VARYING (20) NULL,
+   descrip_componente         CHARACTER VARYING (20) NULL,
+   CONSTRAINT direcciones_pkey PRIMARY KEY (id)
+      NOT DEFERRABLE INITIALLY IMMEDIATE
+)
+WITH (OIDS = FALSE);    
+
+ALTER TABLE avalsoft.direcciones
+    OWNER to postgres; 
 
 -- -----------------------------------------------------
 -- Table avalsoft.propiedad
@@ -529,54 +577,4 @@ CREATE TABLE avalsoft.reporte (
         ON DELETE CASCADE);
 
 ALTER TABLE avalsoft.reporte
-    OWNER to postgres; 
-
-
-    
--- -----------------------------------------------------
--- Table Avalsoft.reporte
--- -----------------------------------------------------
-CREATE SEQUENCE avalsoft.direcciones_id_seq AS INTEGER
-                                   INCREMENT 1
-                                   MINVALUE 1
-                                   MAXVALUE 2147483647
-                                   START 1
-                                   CACHE 1
-                                   NO CYCLE;
-                                   
-ALTER SEQUENCE avalsoft.direcciones_id_seq
-    OWNER TO postgres;    
-    
-CREATE TABLE avalsoft.direcciones
-(
-   id                         INTEGER NOT NULL DEFAULT nextval ('avalsoft.direcciones_id_seq'::regclass),
-   propiedad_id               INTEGER NOT NULL,
-   tipo_via                   CHARACTER VARYING (20) NULL,
-   numero_via                 INTEGER NULL,
-   letra_via                  CHARACTER VARYING (20) NULL,
-   nombre_via                 CHARACTER VARYING (20) NULL,
-   posicion_via               CHARACTER VARYING (20) NULL,
-   numero_interseccion        INTEGER NULL,
-   letra_interseccion         CHARACTER VARYING (20) NULL,
-   posicion_interseccion      CHARACTER VARYING (20) NULL,
-   componente_interseccion    CHARACTER VARYING (20) NULL,
-   tipo_ubicacion             CHARACTER VARYING (20) NULL,
-   numero_ubicacion           INTEGER NULL,
-   lugar_ubicacion            CHARACTER VARYING (20) NULL,
-   numero_lugar               INTEGER NULL,
-   apendice                   CHARACTER VARYING (500) NULL,
-   aregio_id                  INTEGER NULL,
-   tipo_urbanizacion          CHARACTER VARYING (20) NULL,
-   descrip_urbanizacion       CHARACTER VARYING (20) NULL,
-   tipo_manzana               CHARACTER VARYING (20) NULL,
-   descrip_manzana            CHARACTER VARYING (20) NULL,
-   tipo_prefijo               CHARACTER VARYING (20) NULL,
-   tipo_componente            CHARACTER VARYING (20) NULL,
-   descrip_componente         CHARACTER VARYING (20) NULL,
-   CONSTRAINT direcciones_pkey PRIMARY KEY (id)
-      NOT DEFERRABLE INITIALLY IMMEDIATE
-)
-WITH (OIDS = FALSE);    
-
-ALTER TABLE avalsoft.direcciones
     OWNER to postgres; 

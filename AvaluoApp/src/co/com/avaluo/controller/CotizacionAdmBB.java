@@ -475,11 +475,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public void generarReporteCotizacion() {
 		RCotizacionHtml reporteHtml = new RCotizacionHtml();
 		try {
-			HashMap<String, String> permisos = new HashMap<>();
+			HashMap<String, Boolean> permisos = new HashMap<>();
 			List<Reporte> listaPermisosReporte = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
 			for(Reporte rp: listaPermisosReporte) {
-				permisos.put(rp.getIdContenido().trim(), 
-						("style='display:" +  (rp.isVisible() ? "block;'" : "none;'")));
+				permisos.put(rp.getIdContenido().trim(), rp.isVisible());
 			}
 			cotizacion.setPermisos(permisos);
 			String urlFile = reporteHtml.generatePdf(cotizacion);
