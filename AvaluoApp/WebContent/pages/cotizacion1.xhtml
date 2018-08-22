@@ -26,7 +26,7 @@
 					 <p:ajax  listener="#{cotizacionAdmBB.guardar}"  process="@all" update="aCotizacion"/>
 				</p:commandButton>
 				
-								<p:commandButton value="#{msg['btn.descargar']}" ajax="false" 
+				<p:commandButton value="#{msg['btn.descargar']}" ajax="false" 
 						onclick="PrimeFaces.monitorDownload(start, stop);" 
 						actionListener="#{cotizacionAdmBB.generarReporteCotizacion}"
 						icon="ui-icon-arrowthick-1-s" immediate="true">
@@ -35,12 +35,6 @@
 
 		</div>
 		
-
-
-
-
-		<!-- 	<p:outputLabel value="Id cotizacion:" for="txtIdCotizacion"></p:outputLabel>
-			<p:inputText id="txtIdCotizacion" value="#{cotizacionAdmBB.cotizacion.id}"></p:inputText> -->
 		<p:accordionPanel id="aCotizacion">
 			<p:tab title="#{msg['cotizacion.tab.cotizacion']}">
 	          	<p:panel id="infCoti" style="background:none;" >
@@ -66,9 +60,6 @@
 					   		</p:calendar>
 					   		
 				   		</div>
-				   		
-
-				   		
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
 				   			<p:outputLabel id="lcCiudad" value="#{msg['cotizacion.ciudad']}" for="selcCiudad" styleClass="aval-label"></p:outputLabel>
@@ -127,7 +118,7 @@
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 	          				<p:selectOneMenu id="selTipoPers" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona}" required="true" style="width:180px">
-								<p:ajax event="change" update="infCLie" process="infCLie" />
+								<p:ajax event="change" update="infCLie" process="infCLie"/>
 								<f:selectItem itemLabel="Seleccione" itemValue="" />
 					            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
 					            <f:selectItem itemLabel="Juridica" itemValue="PJURID" />			
@@ -137,7 +128,7 @@
 	          				<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent" styleClass="aval-label"/>
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px" required="true" >
+	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px"  >
 					            <f:selectItem itemLabel="Seleccione" itemValue="" />
 					            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
 				        	</p:selectOneMenu>
@@ -147,9 +138,9 @@
 				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}" required="true" 
+					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}" 
 					   				styleClass="form-control col-md-7 col-xs-12">
-					   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie" ></p:ajax>
+					   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie"  ></p:ajax>
 					   		</p:inputText>
 				   		</div>
 				   		
@@ -157,15 +148,15 @@
 				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}" required="true" 
+					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
-				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3" >
 				   			<p:outputLabel id="lApellido1" value="#{msg['cotizacion.apellido1']}" for="txtApell1" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}" required="true" 
+					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 				   						   		
@@ -173,7 +164,7 @@
 				   			<p:outputLabel id="lApellido2" value="#{msg['cotizacion.apellido2']}" for="txtApell2" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}" required="true" 
+					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
@@ -181,8 +172,8 @@
 			 	   			<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone" styleClass="aval-label" />
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" required="true" 
-					   				styleClass="form-control col-md-7 col-xs-12" validator="#{cotizacionAdmBB.telefonoFijo}"/>  	
+					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" 
+					   				styleClass="form-control col-md-7 col-xs-12" />  	
 				   		</div>
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">			
@@ -197,7 +188,7 @@
 			 	   			<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress" styleClass="aval-label"/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}" required="true" 
+					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}"  
 					   				styleClass="form-control col-md-7 col-xs-12"/> 
 				   		</div>
 				   		
@@ -239,7 +230,7 @@
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 				   		<p:inputText id="txtIdentificacionR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion}"
-				   					 styleClass="form-control col-md-7 col-xs-12" required="true">
+				   					 styleClass="form-control col-md-7 col-xs-12" >
 				   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaRemitente(cotizacionAdmBB.cotizacion.usuarioByRemitenteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByRemitenteId.identificacion)}" update="infRemit" process="@this" ></p:ajax>
 
 				   		</p:inputText>
@@ -249,14 +240,14 @@
 				   		<p:outputLabel id="lNameR" value="#{msg['cotizacion.nombre']}" for="txtNameR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}" required="true" styleClass="form-control col-md-7 col-xs-12" />  		
+				   		<p:inputText id="txtNameR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.nombre}"  styleClass="form-control col-md-7 col-xs-12" />  		
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
 			 	   		<p:outputLabel id="lPhoneR" value="#{msg['cotizacion.telefono']}" for="txtPhoneR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" validator="#{cotizacionAdmBB.telefonoFijo}"/> 
+				   		<p:inputText id="txtPhoneR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.telefono}" styleClass="form-control col-md-7 col-xs-12" /> 
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -270,7 +261,7 @@
 			 	   		<p:outputLabel id="lAddressR" value="#{msg['cotizacion.direccion']}" for="txtAddressR" styleClass="aval-label"/>
 				   	</div>
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" styleClass="form-control col-md-7 col-xs-12" required="true"/>  
+				   		<p:inputText id="txtAddressR" value="#{cotizacionAdmBB.cotizacion.usuarioByRemitenteId.direccion}" styleClass="form-control col-md-7 col-xs-12" />  
 				   	</div>
 				   	
 	          		<div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -303,8 +294,7 @@
 	          			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgPropiedad').show();" >	          				          		
 							 <p:ajax event="click" listener="#{cotizacionAdmBB.limpiarPropiedad}"  process="jnfProp"/>
 						</p:commandButton>
-	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" selectionMode="single" 
-								selection="#{cotizacionAdmBB.selectedPropiedad}"  rowKey="#propiedad.id}"
+	          			<p:dataTable  rows="15" var="propiedad" value="#{cotizacionAdmBB.listaPropiedades}" 
 								emptyMessage="#{msg['no.registros']}">
 						    <p:column headerText="#{msg['cotizacion.tipo.propiedad']}">
 						        <h:outputText value="#{propiedad.tablas.nombre}" />
@@ -338,15 +328,18 @@
 						    </p:column>			
 						    <p:column headerText="#{msg['acciones']}">
 						    	<center>
-							       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-							       		<p:ajax event="click" listener="#{cotizacionAdmBB.editarPropiedad(propiedad)}" 
-							       				update=":#{p:component('dlgActualizarP')}" oncomplete="PF('dlgActualizarP').show();"/>
-							       </p:commandButton>
-											    
-							       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
-										<p:ajax event="click" listener="#{cotizacionAdmBB.setSelectedPropiedad(propiedad)}"
-												update=":#{p:component('dlgEliminarP')}" oncomplete="PF('dlgEliminarP').show();"/>
-									</p:commandButton>
+							    	<p:splitButton value="#{msg['btn.actualizar']}" icon="ui-icon-disk">
+								        <p:menuitem value="#{msg['btn.actualizar']}" actionListener="#{cotizacionAdmBB.editarPropiedad(propiedad)}"  
+								        			update=":#{p:component('dlgActualizarP')}" oncomplete="PF('dlgActualizarP').show();"
+								        			icon="ui-icon-arrowrefresh-1-w" >
+								        	
+								        </p:menuitem>
+								        <p:menuitem value="#{msg['btn.borrar']}" actionListener="#{cotizacionAdmBB.editarPropiedad(propiedad)}" 
+								        			update=":#{p:component('dlgEliminarP')}" oncomplete="PF('dlgEliminarP').show();"
+								        			icon="ui-icon-close" >
+								        </p:menuitem>
+								    </p:splitButton>
+						    	
 								</center>
 						    </p:column>			    
 						    
@@ -665,18 +658,16 @@
 			
 			       <h:panelGrid columns="3" >
 			       
-			       
+			     <div align="center">  
 					
 					<p:commandButton value="Agregar" type="button"  >
 					<p:ajax event="click" listener="#{cotizacionAdmBB.addPropiedad}" process="dlgPropiedad" update=":formulario:aCotizacion:jnfProp, dlgPropiedad"/>
 					</p:commandButton>
-					<p:commandButton value="Borrar" type="button">
-						<p:ajax event="click"  process="@all" update="formulario"/>
-					</p:commandButton>
+				</div>
 			       </h:panelGrid>
 		</p:dialog>
 
-		<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgActualizarP" widgetVar="dlgActualizarP" minHeight="40">
+		<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgActualizarP" widgetVar="dlgActualizarP" minHeight="40" width="50%">
 				<h:panelGrid columns="2" width="95%" >
 					<p:outputLabel id="lTableA" value="#{msg['cotizacion.tabla']}" for="selTablesA" ></p:outputLabel>
 			   		<p:selectOneMenu tabindex="" id="selTablesA" value="#{cotizacionAdmBB.infPropiedad.tablas.id}" style="width:180px"
@@ -709,7 +700,7 @@
 			        </p:selectOneMenu>  				        						
 			       </h:panelGrid>			  
 					<br/>
-			    <p:dataTable id="tDireccionA" var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="cellDir">
+			    <p:dataTable id="tDireccionA" var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="tDireccionA">
 			 
 			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
 			
@@ -806,7 +797,7 @@
 			       </p:column>
 			
 			</p:dataTable>
-			    <p:dataTable id="tDireccion2A"  var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="tDireccion2">
+			    <p:dataTable id="tDireccion2A"  var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="tDireccion2A">
 			 
 			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
 			
@@ -938,7 +929,7 @@
 			       
 					
 					<p:commandButton id="btnActPropiedadCot" value="#{msg['btn.actualizar']}" type="button"  >
-					<p:ajax event="click" listener="#{cotizacionAdmBB.actualizarPropiedad}" process="dlgPropiedad" update=":formulario:aCotizacion:jnfProp, dlgPropiedad"/>
+					<p:ajax event="click" listener="#{cotizacionAdmBB.actualizarPropiedad}" process="dlgActualizarP" update=":formulario:aCotizacion:jnfProp, dlgActualizarP"/>
 					</p:commandButton>
 		       </h:panelGrid>
 			  

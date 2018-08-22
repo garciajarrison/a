@@ -61,14 +61,18 @@
 		    
 		    <p:column headerText="#{msg['acciones']}">
 		    	<center>
-			    	<p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-			       		<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}" 
-			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
-			       </p:commandButton>
-			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
-						<p:ajax event="click" listener="#{tablaBB.setSelectedTablas(tables)}"
-								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
-					</p:commandButton>
+		    	<p:splitButton icon="ui-icon-disk">
+			        <p:menuitem value="#{msg['btn.actualizar']}" actionListener="#{tablaBB.setSelectedTablas(tables)}"  
+			        			update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"
+			        			icon="ui-icon-arrowrefresh-1-w" >
+			        	
+			        </p:menuitem>
+			        <p:menuitem value="#{msg['btn.borrar']}" actionListener="#{tablaBB.setSelectedTablas(tables)}" 
+			        			update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"
+			        			icon="ui-icon-close" >
+			        </p:menuitem>
+			    </p:splitButton>
+
 				</center>
 		    </p:column>
 		    
@@ -102,14 +106,18 @@
 			    
 			    <p:column headerText="#{msg['acciones']}">
 			    	<center>
-				    	<p:commandButton id="btnActualizarDet" value="#{msg['btn.actualizar']}" type="button" >
-				       		<p:ajax event="click" listener="#{tablaBB.setSelectedDetalle(detalle)}" 
-				       				update=":#{p:component('dlgActualizarDet')}" oncomplete="PF('dlgActualizarDet').show();"/>
-				       </p:commandButton>
-				       <p:commandButton id="btnEliminarDet" value="#{msg['btn.borrar']}" type="button">
-							<p:ajax event="click" listener="#{tablaBB.setSelectedDetalle(detalle)}"
-									update=":#{p:component('dlgEliminarDet')}" oncomplete="PF('dlgEliminarDet').show();"/>
-						</p:commandButton>
+				    	<p:splitButton  icon="ui-icon-disk">
+					        <p:menuitem value="#{msg['btn.actualizar']}" actionListener="#{tablaBB.setSelectedDetalle(detalle)}"  
+					        			update=":#{p:component('dlgActualizarDet')}" oncomplete="PF('dlgActualizarDet').show();"
+					        			icon="ui-icon-arrowrefresh-1-w" >
+					        	
+					        </p:menuitem>
+					        <p:menuitem value="#{msg['btn.borrar']}" actionListener="#{tablaBB.setSelectedDetalle(detalle)}" 
+					        			update=":#{p:component('dlgEliminarDet')}" oncomplete="PF('dlgEliminarDet').show();"
+					        			icon="ui-icon-close" >
+					        </p:menuitem>
+					    </p:splitButton>
+
 					</center>
 			    </p:column>
 			    

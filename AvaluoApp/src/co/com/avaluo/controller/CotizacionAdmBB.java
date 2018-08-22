@@ -376,6 +376,12 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	
 	public void cotizar() {
+		if (listaPropiedades.size() <= 0) {
+			util.mostrarErrorKey("cotizacion.no.existen.propiedades");  
+		}
+		else {
+		
+		
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		BigDecimal resultado = new BigDecimal(0);
 		BigDecimal valorCotizacion = new BigDecimal(0);
@@ -478,6 +484,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			}
 		cotizacion.setDetalleCotizacions(listaDetCotizacion);
 		cotizacion.setValor(totalCotizacion);
+		}
     }
 
 	public void generarReporteCotizacion() {

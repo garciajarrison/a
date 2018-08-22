@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<ui:composition template="../common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+			    <p:dataTable id="tDireccion" var="dir" value="#{cotizacionAdmBB.direccion}" editable="true" editMode="cell" widgetVar="cellDir">
+			 
+			       <p:ajax event="cellEdit" listener="#{cotizacionAdmBB.onCellEdit}"  />
+			
+					<f:facet name="header">
+			            Direccion
+			        </f:facet>
+					<p:columnGroup type="header">
+			
+			            <p:row>
+			            
+			                <p:column colspan="7" headerText="Informacion via" />
+			            </p:row>
+			            <p:row>
+			                <p:column headerText="Tipo" />
+			                <p:column headerText="Nombre" />
+			                <p:column headerText="#" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Prefijo" />
+			                <p:column headerText="Letra" />
+			                <p:column headerText="Posicion" />
+			            </p:row>
+			            
+			        </p:columnGroup> 
+			
+			 
+			       <p:column headerText="Tipo">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.tipoVia}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.tipoVia}" >
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			                       <f:selectItems value="#{cotizacionAdmBB.listaTipoVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			 
+			        <p:column headerText="Nombre">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.nombreVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iNombreV" value="#{dir.nombreVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			       
+			       <p:column headerText="Nro. via">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.numeroVia}" /></f:facet>
+			               <f:facet name="input">
+			               	   <p:inputText id="iNumeroVia" value="#{dir.numeroVia}" style="width:96%"/>	
+			                   
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			 
+			       <p:column headerText="Letra">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraVia" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			       <p:column headerText="Prefijo">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iPrefijoVia" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			       
+			       <p:column headerText="Letra">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.letraVia}" /></f:facet>
+			               <f:facet name="input">
+			                   <p:inputText id="iLetraVia2" value="#{dir.letraVia}" style="width:96%"/>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>       
+			
+			       <p:column headerText="Posicion via" style="heigth:20px">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{dir.posicionVia}" /></f:facet>
+			               <f:facet name="input">                   
+			                   <h:selectOneMenu value="#{dir.posicionVia}" style="width:100%">
+			                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			                       <f:selectItems value="#{cotizacionAdmBB.listaPosicionVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			           </p:cellEditor>
+			       </p:column>
+			
+			</p:dataTable>
+		
+   </ui:define>
+</ui:composition>

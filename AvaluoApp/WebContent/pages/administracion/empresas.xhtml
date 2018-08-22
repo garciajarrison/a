@@ -36,14 +36,18 @@
 		    
 		    <p:column width="20%" headerText="#{msg['acciones']}">
 		    	<center>
-			       <p:commandButton id="btnActualizar" value="#{msg['btn.actualizar']}" type="button" >
-			       		<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}" 
-			       				update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"/>
-			       </p:commandButton>
-			       <p:commandButton id="btnEliminar" value="#{msg['btn.borrar']}" type="button">
-						<p:ajax event="click" listener="#{empresaBB.setSelectedEmpresa(empresa)}"
-								update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"/>
-					</p:commandButton>
+		    	<p:splitButton value="Actualizar" icon="ui-icon-disk">
+			        <p:menuitem value="#{msg['btn.actualizar']}" actionListener="#{empresaBB.setSelectedEmpresa(empresa)}"  
+			        			update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"
+			        			icon="ui-icon-arrowrefresh-1-w" >
+			        	
+			        </p:menuitem>
+			        <p:menuitem value="#{msg['btn.borrar']}" actionListener="#{empresaBB.setSelectedEmpresa(empresa)}" 
+			        			update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"
+			        			icon="ui-icon-close" >
+			        </p:menuitem>
+			    </p:splitButton>
+
 				</center>
 		    </p:column>
 		    

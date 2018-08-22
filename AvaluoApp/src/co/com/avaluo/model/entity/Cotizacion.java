@@ -216,7 +216,9 @@ public class Cotizacion implements java.io.Serializable {
 					.append(det.getPropiedad().getValorMedida().toString())
 					.append("</td><td>")
 					.append(det.getPropiedad().getValorMedida().toString())
-					.append("</td><td>0")
+					.append("</td><td>")
+					.append(det.getValor().toString())
+					.append("</td><td>")
 					.append("</td></tr>");
 				i++;
 			}
