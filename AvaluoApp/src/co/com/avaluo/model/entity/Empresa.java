@@ -31,7 +31,6 @@ public class Empresa implements java.io.Serializable {
 	
 	private List<Tablas> tablases = new ArrayList<Tablas>(0);
 	private List<Usuario> usuarios = new ArrayList<Usuario>(0);
-	private List<Licencia> licencias = new ArrayList<Licencia>(0);
 	private List<Estrato> estratos = new ArrayList<Estrato>(0);
 	private List<Reporte> reportes = new ArrayList<Reporte>(0);
 
@@ -47,7 +46,7 @@ public class Empresa implements java.io.Serializable {
 	public Empresa(int id, Ciudad ciudad, String tipoIdentificacion, String identificacion, String nombre,
 			String descripcion, boolean estado, List<TipoPropiedad> tipoPropiedads, List<Cotizacion> cotizacions,
 			List<Propiedad> propiedads, List<Tablas> tablases, List<Usuario> usuarios,
-			List<Licencia> licencias, List<Estrato> estratos) {
+			List<Estrato> estratos) {
 		this.id = id;
 		this.ciudad = ciudad;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -60,7 +59,6 @@ public class Empresa implements java.io.Serializable {
 		
 		this.tablases = tablases;
 		this.usuarios = usuarios;
-		this.licencias = licencias;
 		this.estratos = estratos;
 	}
 
@@ -167,15 +165,6 @@ public class Empresa implements java.io.Serializable {
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")
-	public List<Licencia> getLicencias() {
-		return this.licencias;
-	}
-
-	public void setLicencias(List<Licencia> licencias) {
-		this.licencias = licencias;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empresa")

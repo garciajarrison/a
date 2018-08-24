@@ -19,9 +19,10 @@ import co.com.avaluo.model.entity.Departamento;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Licencia;
 import co.com.avaluo.model.entity.Pais;
+import co.com.avaluo.model.entity.Usuario;
 import co.com.avaluo.service.ICiudadService;
-import co.com.avaluo.service.IEmpresaService;
 import co.com.avaluo.service.ILicenciaService;
+import co.com.avaluo.service.IUsuarioService;
 
 @ManagedBean(name = "licenciaBB")
 @ViewScoped
@@ -34,12 +35,13 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 	@Autowired
 	private ICiudadService ciudadService;
 	@Autowired
-	private IEmpresaService empresaService;
+	private IUsuarioService usuarioService;
+	
 	private List<Licencia> listaLicencias;
 	private List<Pais> listaPaises;
 	private List<Departamento> listaDepartamentos;
 	private List<Ciudad> listaCiudades;
-	private List<Empresa> listaEmpresas;
+	private List<Usuario> listaUsuarios;
 	private Licencia licencia = new Licencia();
 	private ListasGenericas listasGenericas;
 	private Licencia selectedLicencia = new Licencia();
@@ -49,7 +51,7 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 		util = Util.getInstance();
 		listasGenericas = ListasGenericas.getInstance();
 		listaPaises = ciudadService.getPaises();
-		listaEmpresas = empresaService.getEmpresas();
+		listaUsuarios = usuarioService.getUsuariosActivos();
 		cargarListaLicencias();
 	}
 	
@@ -134,8 +136,8 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 			continuar = false;
 		}
 		
-		if(lic.getEmpresa().getId() <= 0) {
-			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.empresa"));
+		if(lic.getUsuario().getId() <= 0) {
+			util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("licencia.usuario"));
 			continuar = false;
 		}
 		
@@ -248,20 +250,12 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 		this.listaCiudades = listaCiudades;
 	}
 
-	public IEmpresaService getEmpresaService() {
-		return empresaService;
+	public IUsuarioService getUsuarioService() {
+		return usuarioService;
 	}
 
-	public void setEmpresaService(IEmpresaService empresaService) {
-		this.empresaService = empresaService;
-	}
-
-	public List<Empresa> getListaEmpresas() {
-		return listaEmpresas;
-	}
-
-	public void setListaEmpresas(List<Empresa> listaEmpresas) {
-		this.listaEmpresas = listaEmpresas;
+	public void setUsuarioService(IUsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 	public ListasGenericas getListasGenericas() {
@@ -270,6 +264,14 @@ public class LicenciaBB extends SpringBeanAutowiringSupport implements Serializa
 
 	public void setListasGenericas(ListasGenericas listasGenericas) {
 		this.listasGenericas = listasGenericas;
+	}
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
 	

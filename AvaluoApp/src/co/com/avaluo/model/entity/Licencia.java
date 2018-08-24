@@ -20,7 +20,7 @@ public class Licencia implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Empresa empresa = new Empresa();
+	private Usuario usuario = new Usuario();
 	private Ciudad ciudad = new Ciudad();
 	private String nombre;
 	private Date ultimoPago;
@@ -30,16 +30,16 @@ public class Licencia implements java.io.Serializable {
 	public Licencia() {
 	}
 
-	public Licencia(int id, Empresa empresa, Ciudad ciudad) {
+	public Licencia(int id, Usuario usuario, Ciudad ciudad) {
 		this.id = id;
-		this.empresa = empresa;
+		this.usuario = usuario;
 		this.ciudad = ciudad;
 	}
 
-	public Licencia(int id, Empresa empresa, Ciudad ciudad, String nombre, Date ultimoPago, Date fechaExpiracion,
+	public Licencia(int id, Usuario usuario, Ciudad ciudad, String nombre, Date ultimoPago, Date fechaExpiracion,
 			Date fechaUltimaConn) {
 		this.id = id;
-		this.empresa = empresa;
+		this.usuario = usuario;
 		this.ciudad = ciudad;
 		this.nombre = nombre;
 		this.ultimoPago = ultimoPago;
@@ -59,13 +59,13 @@ public class Licencia implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "empresa_id", nullable = false)
-	public Empresa getEmpresa() {
-		return this.empresa;
+	@JoinColumn(name = "usuario_id", nullable = false)
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)

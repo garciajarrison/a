@@ -22,8 +22,8 @@
 		        <h:outputText value="#{licencia.nombre}" />
 		    </p:column>
 		    
-		    <p:column width="20%" headerText="#{msg['licencia.empresa']}" sortBy="#{licencia.empresa.nombre}">
-		        <h:outputText value="#{licencia.empresa.nombre}" />
+		    <p:column width="20%" headerText="#{msg['licencia.usuario']}" sortBy="#{licencia.empresa.nombre}">
+		        <h:outputText value="#{licencia.usuario.nombreCompleto}" />
 		    </p:column>
 		 
 		    <p:column width="15%" headerText="#{msg['licencia.ciudad']}" sortBy="#{licencia.ciudad.nombre}">
@@ -55,7 +55,6 @@
 			        			icon="ui-icon-close" >
 			        </p:menuitem>
 			    </p:splitButton>
-		    	
 
 				</center>
 		    </p:column>
@@ -76,12 +75,13 @@
 			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		    
-		    		<h:outputLabel value="#{msg['licencia.empresa']}:"/>
-		    		<p:selectOneMenu id="selEmpresa" value="#{licenciaBB.licencia.empresa.id}" title="#{msg['licencia.empresa']}" 
-			   				label="#{msg['licencia.empresa']}" filter="true">
+		    		<h:outputLabel value="#{msg['licencia.usuario']}:"/>
+		    		<p:selectOneMenu id="selEmpresa" value="#{licenciaBB.licencia.usuario.id}" 
+		    				title="#{msg['licencia.usuario']}" 
+			   				label="#{msg['licencia.usuario']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
-			   			<f:selectItems value="#{licenciaBB.listaEmpresas}" var="dp" 
-			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<f:selectItems value="#{licenciaBB.listaUsuarios}" var="dp" 
+			   					itemLabel="#{dp.nombreCompleto}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		 
 		    		<h:outputLabel value="#{msg['licencia.ultimo.pago']}:"/>
@@ -137,12 +137,13 @@
 			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		    
-		    		<h:outputLabel value="#{msg['licencia.empresa']}:"/>
-		    		<p:selectOneMenu id="selEmpresau" value="#{licenciaBB.selectedLicencia.empresa.id}" title="#{msg['licencia.empresa']}" 
-			   				label="#{msg['licencia.empresa']}" filter="true">
+		    		<h:outputLabel value="#{msg['licencia.usuario']}:"/>
+		    		<p:selectOneMenu id="selEmpresau" value="#{licenciaBB.selectedLicencia.usuario.id}" 
+		    				title="#{msg['licencia.usuario']}" 
+			   				label="#{msg['licencia.usuario']}" filter="true">
 			   			<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
-			   			<f:selectItems value="#{licenciaBB.listaEmpresas}" var="dp" 
-			   					itemLabel="#{dp.nombre}" itemValue="#{dp.id}" />
+			   			<f:selectItems value="#{licenciaBB.listaUsuarios}" var="dp" 
+			   					itemLabel="#{dp.nombreCompleto}" itemValue="#{dp.id}" />
 			   		</p:selectOneMenu>
 		 
 		    		<h:outputLabel value="#{msg['licencia.ultimo.pago']}:"/>

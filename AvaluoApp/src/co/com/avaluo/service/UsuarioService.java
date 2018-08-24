@@ -76,4 +76,8 @@ public class UsuarioService implements IUsuarioService {
 		return getEntityDAO().consultarUsuarioPorCorreo(correo);
 	}
 
+	public List<Usuario> getUsuariosActivos() {
+		return getEntityDAO().getUsuariosActivos();
+	}
+
 }

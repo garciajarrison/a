@@ -1,6 +1,5 @@
 ------CAMBIOS------
---COTIZACION
---CIUDAD
+--licencia
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -540,14 +539,14 @@ CREATE TABLE avalsoft.licencia (
   fecha_expiracion date NULL,
   fecha_ultima_conn date NULL,
   ciudad_id integer NOT NULL,
-  empresa_id integer NOT NULL,
+  usuario_id integer NOT NULL,
   CONSTRAINT pk_licencia PRIMARY KEY (id),
   CONSTRAINT fk_licencia_ciudad FOREIGN KEY (ciudad_id)
         REFERENCES avalsoft.ciudad (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-  CONSTRAINT fk_licencia_empresa FOREIGN KEY (empresa_id)
-        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+  CONSTRAINT fk_licencia_usuario FOREIGN KEY (usuario_id)
+        REFERENCES avalsoft.usuario (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE);
 

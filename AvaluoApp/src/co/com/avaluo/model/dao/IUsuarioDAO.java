@@ -30,4 +30,6 @@ public interface IUsuarioDAO {
 
 	Usuario consultarUsuarioPorCorreo(String correo);
 
+	List<Usuario> getUsuariosActivos();
+
 }
