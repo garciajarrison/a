@@ -116,6 +116,9 @@ public class UsuarioDAO implements IUsuarioDAO {
 				.uniqueResult();
 	}
 
-
+	public List<Usuario> getUsuariosActivos() {
+		Session session = getSessionFactory().getCurrentSession();
+		return session.createQuery("from Usuario where estado = true").list();
+	}
 
 }

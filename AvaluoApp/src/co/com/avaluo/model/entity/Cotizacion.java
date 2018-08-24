@@ -170,61 +170,6 @@ public class Cotizacion implements java.io.Serializable {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.format(this.getFecha());
 	}
-	
-	@Transient
-	public String getDetalleCotizacionsTabla() {
-		StringBuilder retorno =  new StringBuilder();
-		if(this.getDetalleCotizacions() != null && !this.getDetalleCotizacions().isEmpty()) {
-			int i = 1;
-			for (DetalleCotizacion det: this.getDetalleCotizacions()) {
-				
-				retorno.append("<tr><td>")
-					.append(i)
-					.append("</td><td>")
-					.append(det.getPropiedad().getTipoPropiedad().getTipoVivienda())
-					.append("</td><td>")
-					.append(det.getPropiedad().getRegistro())
-					.append("</td><td>")
-					.append(det.getPropiedad().getCiudad().getNombre())
-					.append("</td><td>")
-					.append(det.getPropiedad().getValorMedida().toString())
-					.append("</td><td>")
-					.append(det.getPropiedad().getValorMedida().toString())
-					.append("</td></tr>");
-				i++;
-			}
-		}
-		return retorno.toString();
-	}
-	
-	@Transient
-	public String getDetalleCotizacionsTabla2() {
-		StringBuilder retorno =  new StringBuilder();
-		if(this.getDetalleCotizacions() != null && !this.getDetalleCotizacions().isEmpty()) {
-			int i = 1;
-			for (DetalleCotizacion det: this.getDetalleCotizacions()) {
-				
-				retorno.append("<tr><td>")
-					.append(i)
-					.append("</td><td>")
-					.append(det.getPropiedad().getTipoPropiedad().getTipoVivienda())
-					.append("</td><td>")
-					.append(det.getPropiedad().getRegistro())
-					.append("</td><td>")
-					.append(det.getPropiedad().getCiudad().getNombre())
-					.append("</td><td>")
-					.append(det.getPropiedad().getValorMedida().toString())
-					.append("</td><td>")
-					.append(det.getPropiedad().getValorMedida().toString())
-					.append("</td><td>")
-					.append(det.getValor().toString())
-					.append("</td><td>")
-					.append("</td></tr>");
-				i++;
-			}
-		}
-		return retorno.toString();
-	}
 
 	@Transient
 	public HashMap<String, Boolean> getPermisos() {

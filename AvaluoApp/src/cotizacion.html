@@ -665,7 +665,16 @@
 						<th><b>AREA CONSTRUCCIÓN m2</b></th>
 						<th><b>HONORARIO</b></th>
 					</tr>
-					[[${cotizacion.getDetalleCotizacionsTabla2()}]]
+					<tr th:each="table: ${cotizacion.getDetalleCotizacions()}">
+						<td>1</td>
+						<td th:text = "${table.propiedad.tipoPropiedad.tipoVivienda != null ? table.propiedad.tipoPropiedad.tipoVivienda : 'NULL'}" />
+				        <td th:text = "${table.propiedad.ciudad.nombre != null ? table.propiedad.ciudad.nombre : 'NULL'}" />
+				        <td th:text = "${table.propiedad.registro != null ? table.propiedad.registro : 'NULL'}" />
+				        <td th:text = "${table.propiedad.ciudad.nombre != null ? table.propiedad.ciudad.nombre : 'NULL'}" />
+				        <td th:text = "${table.propiedad.valorMedida != null ? table.propiedad.valorMedida : 'NULL'}" />
+				        <td th:text = "${table.propiedad.valorMedida != null ? table.propiedad.valorMedida : 'NULL'}" />
+			        </tr>
+					
 					<tr>
 						<td colspan="5"></td>
 						<td>Total</td>

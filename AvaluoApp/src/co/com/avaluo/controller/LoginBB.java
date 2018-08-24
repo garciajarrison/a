@@ -84,7 +84,7 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 					
 					//Validamos la licencia
 					Licencia licenciaActual = null; 
-					for(Licencia licencia : usuario.getEmpresa().getLicencias()) {
+					for(Licencia licencia : usuario.getLicencias()) {
 						if(licencia.getFechaExpiracion().compareTo(new Date()) >= 0) {
 							licenciaActual = licencia;
 						}

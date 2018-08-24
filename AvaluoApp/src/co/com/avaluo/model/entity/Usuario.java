@@ -45,7 +45,8 @@ public class Usuario implements java.io.Serializable {
 	private List<Cotizacion> cotizacionsForRemitenteId = new ArrayList<Cotizacion>(0);
 	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>(0);
 	private List<Propiedad> propiedads = new ArrayList<Propiedad>(0);
-
+	private List<Licencia> licencias = new ArrayList<Licencia>(0);
+	
 	public Usuario() {
 	}
 
@@ -59,7 +60,7 @@ public class Usuario implements java.io.Serializable {
 	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre, String apellido1, String apellido2,
 			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
 			boolean estado, String lenguaje, String profesion, String tipoPersona, List<Contacto> contactos, List<Cotizacion> cotizacionsForRemitenteId,
-			List<Cotizacion> cotizacionsForClienteId, List<Propiedad> propiedads) {
+			List<Cotizacion> cotizacionsForClienteId, List<Licencia> licencias, List<Propiedad> propiedads) {
 		this.id = id;
 		this.rol = rol;
 		this.empresa = empresa;
@@ -82,6 +83,7 @@ public class Usuario implements java.io.Serializable {
 		this.cotizacionsForClienteId = cotizacionsForClienteId;
 		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
 		this.propiedads = propiedads;
+		this.licencias = licencias;
 	}
 
 	@Id
@@ -288,9 +290,25 @@ public class Usuario implements java.io.Serializable {
 		this.propiedads = propiedads;
 	}
 	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
+	public List<Licencia> getLicencias() {
+		return this.licencias;
+	}
+
+	public void setLicencias(List<Licencia> licencias) {
+		this.licencias = licencias;
+	}
+	
 	@Transient
 	public String getNombreCompleto(){
-		return this.getNombre()+" "+this.getApellido1()+" "+this.getApellido2();
+		StringBuilder name = new StringBuilder();
+		if(this.getNombre() != null)
+			name.append(this.getNombre()).append(" ");
+		if(this.getApellido1() != null)
+			name.append(this.getApellido1()).append(" ");
+		if(this.getApellido2() != null)
+			name.append(this.getApellido2()).append(" ");
+		return name.toString();
 	}
 
 }
