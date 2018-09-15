@@ -43,6 +43,7 @@ import co.com.avaluo.model.entity.Direcciones;
 //import co.com.avaluo.model.entity.Direcciones;
 import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
+import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.model.entity.Propiedad;
 import co.com.avaluo.model.entity.Reporte;
 import co.com.avaluo.model.entity.Rol;
@@ -108,9 +109,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private String estrato;
 	private String ciudad;
 	private String departamento;
+	private String pais;
 	private String identificacion;
 	private List<Tablas> tablas;
-	private Direcciones direccion;
+	private Direcciones direccion = new Direcciones();
 
 
 	private Propiedad selectedPropiedad;
@@ -126,6 +128,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<Ciudad> listaCiudades;
 	private SortedMap<String,Integer> listaDepartamento = new TreeMap<String, Integer>();
 	private List<Departamento> listaDepartamentos;
+	private SortedMap<String,Integer> listaPais = new TreeMap<String, Integer>();
+	private List<Pais> listaPaises;
 	private SortedMap<String,Integer> listaEstrato = new TreeMap<String, Integer>();
 	private List<Estrato> listaEstratos;
 	private List<DetalleCotizacion> listaDetCotizacion;
@@ -224,6 +228,10 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar la cotización. Intente mas tarde.", "Message: ")); 
 		} 	
 		
+	}
+	
+	public void almacenarDireccion() {
+		infPropiedad.setDireccion(direccion.getTipoVia()+" "+direccion.getNombreVia()+" "+direccion.getNumeroVia()+" "+direccion.getLetraVia()+" "+direccion.getPosicionVia()+" "+direccion.getNumeroInterseccion()+" "+direccion.getNumeroUbicacion());
 	}
 	
 	
@@ -368,7 +376,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		infPropiedad.setCiudad(ciud);
 		infPropiedad.setEstrato(est);	
 		infPropiedad.setDirecciones(dir);
-		
+		direccion = new Direcciones();
 		
 	}
 
@@ -743,36 +751,68 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	}
 
 	public SortedMap<String, Integer> getListaCiudad() {
-		listaCiudades = new ArrayList<Ciudad>();
-		listaCiudades.addAll(getCiudadService().getEntitys());
-		for (Ciudad ciudad : listaCiudades) {
-			listaCiudad.put(ciudad.getNombre(), ciudad.getId() );
-		}
-		
 		
 		
 		return listaCiudad;
 	}
 
-	public void setListaCiudad(SortedMap<String, Integer> listaCiudad) {
-		this.listaCiudad = listaCiudad;
+	public void setListaCiudad(int idDepartamento) {
+		
+		this.listaCiudad = listaCiudad;		
+		listaCiudades = new ArrayList<Ciudad>();
+		listaCiudades.addAll(getCiudadService().getCiudades(idDepartamento));
+		for (Ciudad ciudad : listaCiudades) {
+			listaCiudad.put(ciudad.getNombre(), ciudad.getId() );
+		}
+
 	}
 
+	public void onPaisChange(int idPais) {
+	  setListaDepartamento(idPais);
+	}
 
-	public SortedMap<String, Integer> getListaDepartamento() {
-		listaDepartamentos = new ArrayList<Departamento>();
-		listaDepartamentos.addAll(getDepartamentoService().getEntitys());
-		for (Departamento departamento : listaDepartamentos) {
-			listaDepartamento.put(departamento.getNombre(), departamento.getId() );
+	public void onDepartamentoChange(int idDepartamento) {
+		  setListaCiudad(idDepartamento);
 		}
+	
+	public SortedMap<String, Integer> getListaDepartamento() {
+		
 		
 		return listaDepartamento;
 	}
 
-	public void setListaDepartamento(SortedMap<String, Integer> listaDepartamento) {
+	public void setListaDepartamento(int idPais) {
+		listaDepartamentos = new ArrayList<Departamento>();
+		listaDepartamentos.addAll(getCiudadService().getDepartamentos(idPais));
+		for (Departamento departamento : listaDepartamentos) {
+			listaDepartamento.put(departamento.getNombre(), departamento.getId() );
+		}
 		this.listaDepartamento = listaDepartamento;
 	}
 
+
+	public SortedMap<String, Integer> getListaPais() {
+		listaPaises = new ArrayList<Pais>();
+		listaPaises.addAll(getCiudadService().getPaises());
+		for (Pais pais : listaPaises) {
+			listaPais.put(pais.getNombre(), pais.getId() );
+		}
+		
+		
+		return listaPais;
+	}
+
+	public void setListaPais(SortedMap<String, Integer> listaPais) {
+		this.listaPais = listaPais;
+	}
+
+	public List<Pais> getListaPaises() {
+		return listaPaises;
+	}
+
+	public void setListaPaises(List<Pais> listaPaises) {
+		this.listaPaises = listaPaises;
+	}
 
 	public List<Cotizacion> getListaCotizacion() {
 		return listaCotizacion;
@@ -860,6 +900,22 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
+	}
+
+	public List<Cotizacion> getListaCotizaciones() {
+		return listaCotizaciones;
+	}
+
+	public void setListaCotizaciones(List<Cotizacion> listaCotizaciones) {
+		this.listaCotizaciones = listaCotizaciones;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
 	public Usuario getCliente() {
@@ -1022,8 +1078,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		for (DetalleCotizacion detalle: cotizacion.getDetalleCotizacions()) {
 			listaPropiedades.add(detalle.getPropiedad());
-			listaDetCotizacion.add(detalle);
+			//listaDetCotizacion.add(detalle);
 		}
+		listaDetCotizacion = cotizacion.getDetalleCotizacions();
     }
 
 	public void onCellEdit(CellEditEvent event) {

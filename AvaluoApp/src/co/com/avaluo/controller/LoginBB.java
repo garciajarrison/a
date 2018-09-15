@@ -57,14 +57,14 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 		
 		if(correo) {
 			if(util.validaNuloVacio(usuario.getCorreo())) {
-				retorno = false;
+				retorno = true;
 				util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("login.correo"));
 			}
 		}
 		
 		if(clave) {
 			if(util.validaNuloVacio(usuario.getContrasena())) {
-				retorno = false;
+				retorno = true;
 				util.mostrarErrorKey("javax.faces.component.UIInput.REQUIRED", util.getMessage("login.contrasena"));
 			}
 		}
@@ -107,7 +107,7 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			util.mostrarErrorKey("login.datos.incorrectos");
+			util.mostrarErrorKey(e.getMessage());
 		} 	
 	}
 	

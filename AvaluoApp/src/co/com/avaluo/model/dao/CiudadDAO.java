@@ -71,5 +71,8 @@ public class CiudadDAO implements ICiudadDAO {
 				.setParameter("departamentoId", idDepartamento)
 				.list();
 	}
+	
+	
+	
 
 }
