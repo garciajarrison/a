@@ -156,11 +156,14 @@
 			<version>6.2</version>
 		</dependency>
 
-		<dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.1</version>
-        </dependency>
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.2.2</version>
+</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
 		<dependency>
 		    <groupId>com.google.maps</groupId>

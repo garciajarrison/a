@@ -14,7 +14,7 @@
 	
 		<p:dataTable id="dtTablas" widgetVar="dtTablas" var="tables" value="#{tablaBB.entityList}" emptyMessage="#{msg['no.registros']}"
 				selectionMode="single" selection="#{tablaBB.detalleList}" rowKey="#{tables.id}"
-				scrollable="false" paginatorPosition="bottom"
+				scrollable="false" paginatorPosition="bottom" reflow="true"
 				rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
 				currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
 				paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
@@ -86,7 +86,7 @@
 			<br />
 			<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregarDet').show();" />
 			<p:dataTable id="dtDetalle" widgetVar="dtDetalle" var="detalle" value="#{tablaBB.detalleList.detalleTablas}" 
-					emptyMessage="#{msg['no.registros']}" >
+					emptyMessage="#{msg['no.registros']}" reflow="true">
 			 
 			    <p:column headerText="#{msg['tabla.desde']}" sortBy="#{tables.desde}" filterBy="#{tables.desde}" filterMatchMode="contains">
 			        <h:outputText value="#{detalle.desde}" >

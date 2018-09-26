@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.avaluo.model.dao.ICotizacionDAO;
+import co.com.avaluo.model.entity.Avaluos;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.DetalleCotizacion;
 
@@ -24,8 +25,18 @@ public class CotizacionService implements ICotizacionService {
 	}
 
 	@Transactional(readOnly = false)
+	public void addAvaluo(Avaluos entity) {
+		getEntityDAO().addAvaluo(entity);
+	}
+	
+	@Transactional(readOnly = false)
 	public void deleteEntity(Cotizacion entity) {
 		getEntityDAO().deleteEntity(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void updateAvaluo(Avaluos entity) {
+		getEntityDAO().updateAvaluo(entity);
 	}
 
 	@Transactional(readOnly = false)

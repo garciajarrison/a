@@ -107,7 +107,10 @@ public class LoginBB extends SpringBeanAutowiringSupport implements Serializable
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			util.mostrarErrorKey(e.getLocalizedMessage());
 			util.mostrarErrorKey(e.getMessage());
+			util.mostrarErrorKey(e.getCause().getMessage());
+			util.mostrarErrorKey(e.getCause().toString());
 		} 	
 	}
 	

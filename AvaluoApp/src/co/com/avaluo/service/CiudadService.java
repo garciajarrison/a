@@ -44,6 +44,15 @@ public class CiudadService implements ICiudadService {
 	public Ciudad getEntityById(int id) {
 		return getEntityDAO().getEntity(id);
 	}
+	
+	public Departamento getDepartamento(int id) {
+		return getEntityDAO().getDepartamento(id);
+	}
+
+	public Pais getPais(int id) {
+		return getEntityDAO().getPais(id);
+	}
+
 
 	public List<Ciudad> getEntitys() {	
 		return getEntityDAO().getEntities();

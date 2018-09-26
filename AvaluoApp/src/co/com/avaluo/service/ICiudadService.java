@@ -17,6 +17,10 @@ public interface ICiudadService {
 	
 	Ciudad getEntityById(int id);
 	
+	Departamento getDepartamento(int id);
+	
+	Pais getPais(int id);
+	
 	List<Ciudad> getEntitys();
 	
 	List<Pais> getPaises();

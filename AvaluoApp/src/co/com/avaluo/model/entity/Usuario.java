@@ -18,6 +18,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name = "usuario", schema = "avalsoft")
 public class Usuario implements java.io.Serializable {
@@ -46,6 +49,7 @@ public class Usuario implements java.io.Serializable {
 	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>(0);
 	private List<Propiedad> propiedads = new ArrayList<Propiedad>(0);
 	private List<Licencia> licencias = new ArrayList<Licencia>(0);
+	private List<Avaluos> avaluoses = new ArrayList<Avaluos>(0);
 	
 	public Usuario() {
 	}
@@ -297,6 +301,16 @@ public class Usuario implements java.io.Serializable {
 
 	public void setLicencias(List<Licencia> licencias) {
 		this.licencias = licencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public List<Avaluos> getAvaluoses() {
+		return this.avaluoses;
+	}
+
+	public void setAvaluoses(List<Avaluos> avaluoses) {
+		this.avaluoses = avaluoses;
 	}
 	
 	@Transient

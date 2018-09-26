@@ -8,7 +8,7 @@
 
 	<ui:define name="content">
 	
-		<p:dataTable var="property" value="#{propertyBB.entityList}" selectionMode="single" selection="#{property.selectedProperty}" rowKey="#{property.id}">
+		<p:dataTable var="property" value="#{propertyBB.entityList}" reflow="true" selectionMode="single" selection="#{property.selectedProperty}" rowKey="#{property.id}">
 		    <f:facet name="header">
 		        List of Property type
 		    </f:facet>

@@ -34,6 +34,7 @@ import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
 import co.com.avaluo.controller.reporte.RCotizacionHtml;
+import co.com.avaluo.model.entity.Avaluos;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.Departamento;
@@ -93,6 +94,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	@Autowired
 	private IDireccionesService direccionService;
 	
+	private Avaluos avaluo = new Avaluos();
 	private Cotizacion cotizacion = new Cotizacion();
 	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
@@ -104,15 +106,20 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private List<SelectItem> listaTipoDocumentos;
 	private List<SelectItem> listaTipoVia;
 	private List<SelectItem> listaPosicionVia;
+	private List<SelectItem> listaUrbanizacion;
 	private String tabla;
 	private String propiedad;
 	private String estrato;
 	private String ciudad;
 	private String departamento;
 	private String pais;
+	private String dpto;
+	private String paisCot;
 	private String identificacion;
 	private List<Tablas> tablas;
 	private Direcciones direccion = new Direcciones();
+	private Departamento depart = new Departamento();
+	private Pais paisC = new Pais();
 
 
 	private Propiedad selectedPropiedad;
@@ -147,7 +154,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	
 	
 	public CotizacionAdmBB() {
-
+		avaluo = new Avaluos();
 		cotizacion = new Cotizacion();
 		Empresa empresa =new Empresa();
 		Usuario clien = new Usuario();
@@ -157,6 +164,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		cotizacion.setCiudad(ciudad);
 		util = Util.getInstance();
 		usuario = (Usuario) util.getSessionAttribute(EnumSessionAttributes.USUARIO);
+		
+		avaluo.setEmpresa(usuario.getEmpresa());
+		avaluo.setUsuario(usuario);
 		listaTipoDocumentos=ListasGenericas.getInstance().getListaTiposDocumento();
 		listaCiudades = ciudadService.getEntitys();
 		listaPropiedades =  new ArrayList<Propiedad>();
@@ -164,6 +174,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaUnidadMedida = ListasGenericas.getInstance().getListaUnidadMedida();
 		listaTipoVia=ListasGenericas.getInstance().getListaTiposVia();
 		listaPosicionVia=ListasGenericas.getInstance().getListaPosicionVia();
+		listaUrbanizacion=ListasGenericas.getInstance().getListaUrbanizacion();
 		//direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
 		if(listaCotizaciones == null)
@@ -176,6 +187,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	}
 	
 	public void nuevaCotizacion() {
+		this.avaluo = new Avaluos();
 		this.cotizacion = new Cotizacion();
 		Usuario usu = new Usuario();
 		Ciudad ciudad = new Ciudad();
@@ -202,11 +214,15 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		listaPropiedades = new ArrayList<Propiedad>();
 		
+		avaluo.setEmpresa(usuario.getEmpresa());
+		avaluo.setUsuario(usuario);
+		
 	}
 	
 
 	public void consultar() {
-		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());
+		listaCotizaciones = getCotizacionService().getEntitys(usuario.getEmpresa().getId());			
+		
 		util.ejecutarPF("PF('dlgCotizaciones').show();");
 		util.actualizarPF(util.findComponentClientIdPF("tCoti"));
 	}
@@ -480,6 +496,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
                 	 
                 	 totalCotizacion = totalCotizacion.add(valorCotizacion);
                 	 
+                	 avaluo.setPropiedad(p);
+                	 p.getAvaluoses().add(avaluo);
+                	 
                 	 this.detCotizacion = new DetalleCotizacion();
              		detCotizacion.setCotizacion(cotizacion);
              		detCotizacion.setPropiedad(p);
@@ -711,6 +730,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaPosicionVia = listaPosicionVia;
 	}
 
+	public List<SelectItem> getListaUrbanizacion() {
+		return listaUrbanizacion;
+	}
+
+	public void setListaUrbanizacion(List<SelectItem> listaUrbanizacion) {
+		this.listaUrbanizacion = listaUrbanizacion;
+	}
+
 	public SortedMap<String, Integer> getListaTipoPropiedad() {
 		return listaTipoPropiedad;
 	}
@@ -894,12 +921,44 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.ciudad = ciudad;
 	}
 
+	public String getPaisCot() {
+		return paisCot;
+	}
+
+	public void setPaisCot(String paisCot) {
+		this.paisCot = paisCot;
+	}
+
 	public String getDepartamento() {
 		return departamento;
 	}
 
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
+	}
+
+	public Departamento getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Departamento depart) {
+		this.depart = depart;
+	}
+
+	public String getDpto() {
+		return dpto;
+	}
+
+	public void setDpto(String dpto) {
+		this.dpto = dpto;
+	}
+
+	public Pais getPaisC() {
+		return paisC;
+	}
+
+	public void setPaisC(Pais paisC) {
+		this.paisC = paisC;
 	}
 
 	public List<Cotizacion> getListaCotizaciones() {
@@ -1000,6 +1059,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.cotizacion = cotizacion;
 	}
 
+	public Avaluos getAvaluo() {
+		return avaluo;
+	}
+
+	public void setAvaluo(Avaluos avaluo) {
+		this.avaluo = avaluo;
+	}
+
 	public Direcciones getDireccion() {
 		return direccion;
 	}
@@ -1081,6 +1148,13 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			//listaDetCotizacion.add(detalle);
 		}
 		listaDetCotizacion = cotizacion.getDetalleCotizacions();
+		
+		depart = getCiudadService().getDepartamento(cotizacion.getCiudad().getDepartamento().getId());
+		dpto = String.valueOf(depart.getId());
+		paisC = getCiudadService().getPais(depart.getPais().getId());
+		paisCot =String.valueOf(paisC.getId());
+		onPaisChange(paisC.getId());
+		onDepartamentoChange(cotizacion.getCiudad().getDepartamento().getId());
     }
 
 	public void onCellEdit(CellEditEvent event) {

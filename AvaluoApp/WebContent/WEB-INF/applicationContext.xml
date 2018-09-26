@@ -31,12 +31,12 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
 		<property name="password" value="12345678" />
 	</bean> -->
 	
-	<bean id="dataSource"
+<!--	--><bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/avalsoftco_avalsoft" />
-		<property name="username" value="avalsoftco_postgressql" />
-		<property name="password" value="Avalsoft12345678" />
+		<property name="username" value="avalsoftco_prueba" />
+		<property name="password" value="a123456a123456a123a" />
 	</bean>
 
 	<!--Hibernate session factory configuration -->

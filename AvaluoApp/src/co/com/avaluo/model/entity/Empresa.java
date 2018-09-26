@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name = "empresa", schema = "avalsoft")
 public class Empresa implements java.io.Serializable {
@@ -28,6 +31,7 @@ public class Empresa implements java.io.Serializable {
 	private boolean estado = true;
 	private List<TipoPropiedad> tipoPropiedads = new ArrayList<>(0);
 	private List<Cotizacion> cotizacions = new ArrayList<Cotizacion>(0);
+	private List<Avaluos> avaluoses = new ArrayList<Avaluos>(0);
 	
 	private List<Tablas> tablases = new ArrayList<Tablas>(0);
 	private List<Usuario> usuarios = new ArrayList<Usuario>(0);
@@ -146,7 +150,17 @@ public class Empresa implements java.io.Serializable {
 		this.cotizacions = cotizacions;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public List<Avaluos> getAvaluoses() {
+		return this.avaluoses;
+	}
 
+	public void setAvaluoses(List<Avaluos> avaluoses) {
+		this.avaluoses = avaluoses;
+	}
+
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
 	public List<Tablas> getTablases() {
 		return this.tablases;

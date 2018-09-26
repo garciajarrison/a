@@ -45,6 +45,20 @@ public class CiudadDAO implements ICiudadDAO {
 				.createQuery("from Ciudad where id=? order by nombre").setParameter(0, id)
 				.uniqueResult();
 	}
+	
+	public Departamento getDepartamento(int id) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (Departamento)  session
+				.createQuery("from Departamento where id=? order by nombre").setParameter(0, id)
+				.uniqueResult();
+	}
+	
+	public Pais getPais(int id) {
+		Session session = getSessionFactory().getCurrentSession();
+		return (Pais)  session
+				.createQuery("from Pais where id=? order by nombre").setParameter(0, id)
+				.uniqueResult();
+	}	
 
 	public List<Ciudad> getEntities() {
 		Session session = getSessionFactory().getCurrentSession();

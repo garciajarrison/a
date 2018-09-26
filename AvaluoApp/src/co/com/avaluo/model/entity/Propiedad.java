@@ -40,6 +40,7 @@ public class Propiedad implements java.io.Serializable {
 	private String unidadMedida;
 	private BigDecimal valorMedida;
 	private List<DetalleCotizacion> detalleCotizacions = new ArrayList<DetalleCotizacion>(0);
+	private List<Avaluos> avaluoses = new ArrayList<Avaluos>(0);
 
 	public Propiedad() {
 	}
@@ -200,4 +201,14 @@ public class Propiedad implements java.io.Serializable {
 		this.detalleCotizacions = detalleCotizacions;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "propiedad")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public List<Avaluos> getAvaluoses() {
+		return this.avaluoses;
+	}
+
+	public void setAvaluoses(List<Avaluos> avaluoses) {
+		this.avaluoses = avaluoses;
+	}
+	
 }

@@ -16,6 +16,7 @@ public class ListasGenericas {
 	private List<SelectItem> listaEstados;
 	private List<SelectItem> listaTiposVia;
 	private List<SelectItem> listaPosicionVia;
+	private List<SelectItem> listaUrbanizacion;
 	
 	public static ListasGenericas getInstance() {
 		if(instance == null)
@@ -33,6 +34,8 @@ public class ListasGenericas {
 		listaEstados = this.consultarListas(EnumListas.LISTA_ESTADOS, true);
 		listaTiposVia = this.consultarListas(EnumListas.TIPOS_VIA);
 		listaPosicionVia = this.consultarListas(EnumListas.LISTA_POSICION_VIA);
+		listaUrbanizacion = this.consultarListas(EnumListas.LISTA_URBANIZACION);
+		
 	}
 	
 	private List<SelectItem> consultarListas(EnumListas lista){
@@ -97,6 +100,10 @@ public class ListasGenericas {
 
 	public List<SelectItem> getListaPosicionVia() {
 		return listaPosicionVia;
+	}
+
+	public List<SelectItem> getListaUrbanizacion() {
+		return listaUrbanizacion;
 	}
 
 }

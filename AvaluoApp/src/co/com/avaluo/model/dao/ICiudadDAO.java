@@ -15,6 +15,10 @@ public interface ICiudadDAO {
 	void deleteEntity(Ciudad entity);
 	
 	Ciudad getEntity(int id);
+	
+	Departamento getDepartamento(int id);
+	
+	Pais getPais(int id);
 
 	List<Ciudad> getEntities();
 

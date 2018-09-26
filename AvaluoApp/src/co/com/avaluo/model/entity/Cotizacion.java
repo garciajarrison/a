@@ -53,7 +53,7 @@ public class Cotizacion implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	public Cotizacion(int id, Usuario usuarioByClienteId, Usuario usuarioByRemitenteId, Empresa empresa,
+	public Cotizacion(int id,Usuario usuarioByClienteId, Usuario usuarioByRemitenteId, Empresa empresa,
 			BigDecimal valor, String motivo, String estado, List<DetalleCotizacion> detalleCotizacions) {
 		this.id = id;
 		this.usuarioByClienteId = usuarioByClienteId;
@@ -76,6 +76,7 @@ public class Cotizacion implements java.io.Serializable {
 		this.id = id;
 	}
 
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cliente_id", nullable = false)
 	

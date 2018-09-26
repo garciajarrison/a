@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.com.avaluo.model.entity.Avaluos;
 import co.com.avaluo.model.entity.Cotizacion;
 import co.com.avaluo.model.entity.DetalleCotizacion;
 
@@ -27,12 +28,22 @@ public class CotizacionDAO implements ICotizacionDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		session.save(entity);
 	}
+	
+	public void addAvaluo(Avaluos entity) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.save(entity);
+	}
 
 	public void deleteEntity(Cotizacion entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.delete(entity);
 	}
 
+	public void updateAvaluo(Avaluos entity) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.update(entity);
+	}
+	
 	public void updateEntity(Cotizacion entity) {
 		Session session = getSessionFactory().getCurrentSession();
 		session.update(entity);
