@@ -48,6 +48,10 @@ public class CotizacionService implements ICotizacionService {
 		return getEntityDAO().getEntity(id);
 	}
 
+	public List<Avaluos> getAvaluos() {
+		return getEntityDAO().getAvaluos();
+	}
+	
 	public List<Cotizacion> getEntitys(int id) {	
 		return getEntityDAO().getEntities(id);
 	}

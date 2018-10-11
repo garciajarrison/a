@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<p:panel id="infCLie" style="background:none;" >
+
+	          		<div class="ui-g">
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+	          				<p:outputLabel id="tipoPersona" value="#{msg['cotizacion.tipo.persona']}" for="selTipoPers" styleClass="aval-label"/>
+	          			</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+	          				<p:selectOneMenu id="selTipoPers" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona}" required="true" style="width:180px">
+								<p:ajax event="change" update="infCLie" process="infCLie"/>
+								<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+					            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
+					            <f:selectItem itemLabel="Juridica" itemValue="PJURID" />			
+				        	</p:selectOneMenu>
+	          			</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+	          				<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent" styleClass="aval-label"/>
+	          			</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px"  >
+					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+					            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
+				        	</p:selectOneMenu>
+	          			</div>
+				   		
+			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}" 
+					   				styleClass="form-control col-md-7 col-xs-12">
+					   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie"  ></p:ajax>
+					   		</p:inputText>
+				   		</div>
+				   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
+				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
+					   	</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}" 
+					   				styleClass="form-control col-md-7 col-xs-12"/>  		
+				   		</div>
+
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3" >
+				   			<p:outputLabel id="lApellido1" value="#{msg['cotizacion.apellido1']}" for="txtApell1" styleClass="aval-label"/>
+					   	</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}" 
+					   				styleClass="form-control col-md-7 col-xs-12"/>  		
+				   		</div>
+				   						   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
+				   			<p:outputLabel id="lApellido2" value="#{msg['cotizacion.apellido2']}" for="txtApell2" styleClass="aval-label"/>
+					   	</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}" 
+					   				styleClass="form-control col-md-7 col-xs-12"/>  		
+				   		</div>
+
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3"> 
+			 	   			<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone" styleClass="aval-label" />
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" 
+					   				styleClass="form-control col-md-7 col-xs-12" />  	
+				   		</div>
+				   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">			
+			 	   			<p:outputLabel id="lCelular" value="#{msg['cotizacion.celular']}" for="txtCelular" styleClass="aval-label"/>
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.celular}"
+					   				styleClass="form-control col-md-7 col-xs-12"/>  
+				   		</div>
+				   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">				
+			 	   			<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress" styleClass="aval-label"/>
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}"  
+					   				styleClass="form-control col-md-7 col-xs-12"/> 
+				   		</div>
+				   		
+				   		<div class="ui-g-12 ui-md-6 ui-lg-3">		 		
+			 	   			<p:outputLabel id="lEmail" value="#{msg['cotizacion.correo']}" for="txtEmail" styleClass="aval-label"/>
+				   		</div>
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.correo}"
+					   			validatorMessage="Correo electronico incorrecto ..." styleClass="form-control col-md-7 col-xs-12">
+					   			<f:validateRegex 
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					   		</p:inputText>  
+				   		</div>
+				   		
+				   		<div class="ui-g-12" align="center">
+					   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
+					   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente('infCLie')}" process="infCLie" update="infCLie"/>
+					   		</p:commandButton>
+				   		</div>
+				   	</div>
+		   			
+   				</p:panel>
+</ui:composition>

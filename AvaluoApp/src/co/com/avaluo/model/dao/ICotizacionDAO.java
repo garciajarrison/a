@@ -19,6 +19,8 @@ public interface ICotizacionDAO {
 	void deleteEntity(Cotizacion entity);
 	
 	Cotizacion getEntity(int id);
+	
+	List<Avaluos> getAvaluos();
 
 	List<Cotizacion> getEntities(int id);
 	

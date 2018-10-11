@@ -59,6 +59,15 @@ public class CotizacionDAO implements ICotizacionDAO {
 		return (Cotizacion) list.get(0);
 	}
 	
+	public  List<Avaluos> getAvaluos() {
+		Session session = getSessionFactory().getCurrentSession();
+		
+		List<?> list = session
+				.createQuery("select a from Avaluos a, Propiedad p, DetalleCotizacion d, Cotizacion c where a.propiedad.id=p.id and p.id=d.propiedad.id and c.id=d.cotizacion.id ")
+				.list();
+		
+		return (List<Avaluos>) list;
+	}
 	
 	public Cotizacion getCustomer(String idCustomer) {
 		Session session = getSessionFactory().getCurrentSession();

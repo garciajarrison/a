@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<ui:composition template="common/template.xhtml"
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+
+		<h1>#{msg['ant.visita']}</h1>
+		<br />
+		
+		<div class="ui-g">
+			
+
+		</div>
+		 <p:wizard  flowListener="#{cotizacionAdmBB.onFlowProcess}" showNavBar="true" >
+			<p:tab title="#{msg['ant.avaluos']}">
+	          	<p:panel id="infCoti" style="background:none;" >
+	          		<h3>#{msg['ant.lista.avaluos']}</h3>
+					<br />
+					<p:dataTable var="avaluos" value="#{visitaBB.listaAvaluos}" 
+								emptyMessage="#{msg['no.registros']}" reflow="true"
+								scrollable="false" paginatorPosition="bottom"
+								selectionMode="single" selection="#{visitaBB.avaluoSelected}" rowKey="#{avaluos.id}"
+								rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+								currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+								paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
+						
+						<p:ajax event="rowSelect" update="@form" listener="#{visitaBB.verAvaluo}" />		
+								
+			    		<p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.id}" />
+					    </p:column>
+
+					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.tipoDocumento}" />
+					    </p:column>
+					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.nombre}" />
+					    </p:column>
+					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido1}" />
+					    </p:column>
+					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido2}" />
+					    </p:column>
+					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido2}" />
+					    </p:column>
+					    
+					    
+					</p:dataTable>
+								
+		   			
+   				</p:panel>
+	        </p:tab>		
+	        <p:tab title="#{msg['ant.datos.cliente']}">
+				<ui:include src="/pages/cliente.xhtml" />
+	        </p:tab>
+	        <p:tab title="#{msg['ant.datos.propietario']}">
+				<p:panel id="infRemit" style="background:none;" >
+	          		
+   				</p:panel>	        
+	        
+	        </p:tab>
+	        
+	        <p:tab title="#{msg['ant.documentos']}">
+	          	<p:panel id="jnfProp">
+	          	
+	          		
+			    </p:panel>
+			    
+			    
+	        </p:tab>
+	        <p:tab title="#{msg['ant.inmueble']}">
+				<p:panel id="infResult" style="background:none;" >
+	          		
+				
+				</p:panel>
+	        </p:tab>
+	        <p:tab title="#{msg['ant.construccion']}">
+				<p:panel id="infConstr" style="background:none;" >
+	          		
+				
+				</p:panel>
+	        </p:tab>
+	        <p:tab title="#{msg['ant.analisis']}">
+				<p:panel id="infAnalisis" style="background:none;" >
+	          		
+				
+				</p:panel>
+	        </p:tab>
+	              
+    	</p:wizard>  
+
+		
+   </ui:define>
+</ui:composition>

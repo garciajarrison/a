@@ -21,6 +21,8 @@ public interface ICotizacionService {
 	
 	public Cotizacion getEntityById(int id);
 	
+	public List<Avaluos> getAvaluos();
+	
 	public List<Cotizacion> getEntitys(int id);
 	
 	public List<DetalleCotizacion> getDetCotizacion(int id);

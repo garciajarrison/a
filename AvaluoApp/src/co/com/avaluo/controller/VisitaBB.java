@@ -64,25 +64,16 @@ import co.com.avaluo.service.ITipoPropiedadService;
 import co.com.avaluo.service.IUsuarioService;
 
 
-@ManagedBean(name = "cotizacionAdmBB")
+@ManagedBean(name = "visitaBB")
 @ViewScoped
-public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Serializable {
+public class VisitaBB extends SpringBeanAutowiringSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ICotizacionService cotizacionService;
 	@Autowired
-	private IReporteService reporteService;
-	
-	@Autowired
-	private ITipoPropiedadService propertyService;
-	@Autowired
-	private ITablasService tablasService;
-	@Autowired
 	private IUsuarioService usuarioService;
-	@Autowired
-	private IEstratoService estratoService;	
 	@Autowired
 	private IEmpresaService empresaService;
 	@Autowired
@@ -95,6 +86,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private IDireccionesService direccionService;
 	
 	private Avaluos avaluo = new Avaluos();
+	private Avaluos avaluoSelected = new Avaluos();
+	private List<Avaluos> listaAvaluos;
 	private Cotizacion cotizacion = new Cotizacion();
 	private DetalleCotizacion detCotizacion = new DetalleCotizacion();
 	private Cotizacion selectedCotizacion = new Cotizacion();
@@ -153,8 +146,9 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	private StreamedContent file;
 	
 	
-	public CotizacionAdmBB() {
+	public VisitaBB() {
 		avaluo = new Avaluos();
+		listaAvaluos = getCotizacionService().getAvaluos();
 		cotizacion = new Cotizacion();
 		Empresa empresa =new Empresa();
 		Usuario clien = new Usuario();
@@ -330,9 +324,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		TipoPropiedad tprop = new TipoPropiedad();
 		Tablas tablas = new Tablas();
 		
-		est=getEstratoService().getEntityById(infPropiedad.getEstrato().getId());
-		tprop=getPropertyService().getEntityById(infPropiedad.getTipoPropiedad().getId());
-		tablas = getTablasService().getTablaById(infPropiedad.getTablas().getId());
+
 		infPropiedad.setEstrato(est);
 		infPropiedad.setTipoPropiedad(tprop);
 		infPropiedad.setTablas(tablas);
@@ -353,10 +345,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		Estrato est = new Estrato();
 		TipoPropiedad tprop = new TipoPropiedad();
 		Tablas tablas = new Tablas();
-		
-		est=getEstratoService().getEntityById(infPropiedad.getEstrato().getId());
-		tprop=getPropertyService().getEntityById(infPropiedad.getTipoPropiedad().getId());
-		tablas = getTablasService().getTablaById(infPropiedad.getTablas().getId());
+
 		infPropiedad.setEstrato(est);
 		infPropiedad.setTipoPropiedad(tprop);
 		infPropiedad.setTablas(tablas);
@@ -514,24 +503,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		}
     }
 
-	public void generarReporteCotizacion() {
-		RCotizacionHtml reporteHtml = new RCotizacionHtml();
-		try {
-			HashMap<String, Boolean> permisos = new HashMap<>();
-			List<Reporte> listaPermisosReporte = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
-			for(Reporte rp: listaPermisosReporte) {
-				permisos.put(rp.getIdContenido().trim(), rp.isVisible());
-			}
-			cotizacion.setPermisos(permisos);
-			String urlFile = reporteHtml.generatePdf(cotizacion);
-			
-			File fil = new File(urlFile);
-			file = new DefaultStreamedContent(new FileInputStream(fil), "application/pdf", "cotización.pdf");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	} 
-
+	
 
 
 	
@@ -622,21 +594,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.cotizacionService = cotizacionService;
 	}
 
-	public ITipoPropiedadService getPropertyService() {
-		return propertyService;
-	}
 
-	public void setPropertyService(ITipoPropiedadService propertyService) {
-		this.propertyService = propertyService;
-	}
-
-	public ITablasService getTablasService() {
-		return tablasService;
-	}
-
-	public void setTablasService(ITablasService tablasService) {
-		this.tablasService = tablasService;
-	}
 
 	public IUsuarioService getUsuarioService() {
 		return usuarioService;
@@ -662,13 +620,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.empresaService = empresaService;
 	}
 
-	public IEstratoService getEstratoService() {
-		return estratoService;
-	}
 
-	public void setEstratoService(IEstratoService estratoService) {
-		this.estratoService = estratoService;
-	}
 
 	public Cotizacion getSelectedCotizacion() {
 		return selectedCotizacion;
@@ -754,16 +706,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.listaPropiedades = listaPropiedades;
 	}*/
 
-	public SortedMap<String, Integer> getListaEstrato() {
-		listaEstratos = new ArrayList<Estrato>();
-		listaEstratos.addAll(getEstratoService().getEntitys(usuario.getEmpresa().getId()));
-		for (Estrato estrato : listaEstratos) {
-			listaEstrato.put(estrato.getNombre(),estrato.getId());
-		}
-		
-
-		return listaEstrato;
-	}
 
 	public void setListaEstrato(SortedMap<String, Integer> listaEstrato) {
 		this.listaEstrato = listaEstrato;
@@ -1034,22 +976,8 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 		this.tabla = tabla;
 	}
 
-	public SortedMap<String, Integer> getListaTablas() {
-		tablas = new ArrayList<Tablas>();
-		tablas.addAll(getTablasService().getTablas(usuario.getEmpresa().getId()));
-		int i = 0;
-		for (Tablas tabla : tablas) {
-			listaTablas.put(tabla.getNombre(),tabla.getId());
-			
-		}
-		return listaTablas;
-	}
 	
 	
-
-	public void setListaTablas(SortedMap<String, Integer> listaTablas) {
-		this.listaTablas = listaTablas;
-	}
 
 	public Cotizacion getCotizacion() {
 		return cotizacion;
@@ -1065,6 +993,14 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setAvaluo(Avaluos avaluo) {
 		this.avaluo = avaluo;
+	}
+
+	public List<Avaluos> getListaAvaluos() {
+		return listaAvaluos;
+	}
+
+	public void setListaAvaluos(List<Avaluos> listaAvaluos) {
+		this.listaAvaluos = listaAvaluos;
 	}
 
 	public Direcciones getDireccion() {
@@ -1117,23 +1053,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
         }
     }
 
-	public void onTableChange(int idTabla) {
-		String tabla;
-		Tablas tablas = new Tablas();
-		tablas = getTablasService().getTablaById(idTabla);
-		tabla = tablas.getTipo();
-        if(tabla !=null && !tabla.equals("")) {
-        	listaTipoPropiedad.clear();
-        	listaTipoPropiedades = new ArrayList<TipoPropiedad>();
-        	listaTipoPropiedades.addAll(getPropertyService().getEntitys(tabla, usuario.getEmpresa().getId()));
-			for (TipoPropiedad property : listaTipoPropiedades) {
-				listaTipoPropiedad.put(property.getTipoVivienda(),property.getId());
-			}
-	    }
-        else
-        	listaTipoPropiedad =  new TreeMap<String,Integer>();
-        
-	}
 
 	public void onRowSelect(SelectEvent event) {
 		cotizacion = (Cotizacion) event.getObject();
@@ -1174,13 +1093,6 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 	public Propiedad getSelectedPropiedad() {
 		return selectedPropiedad;
 	}
-	
-	public void editarPropiedad(Propiedad selectedPropiedad) {
-		limpiarPropiedad();
-		infPropiedad = selectedPropiedad;
-		direccion = getDireccionService().getDireccionesById(infPropiedad.getDirecciones().getId());
-		onTableChange(infPropiedad.getTablas().getId());
-	}
 
 	public void setSelectedPropiedad(Propiedad selectedPropiedad) {
 		this.selectedPropiedad = selectedPropiedad;
@@ -1209,15 +1121,19 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 
 	public void setDirec(String direc) {
 		this.direc = direc;
-	}	
-	
-	public IReporteService getReporteService() {
-		return reporteService;
 	}
 
-	public void setReporteService(IReporteService reporteService) {
-		this.reporteService = reporteService;
+	public Avaluos getAvaluoSelected() {
+		return avaluoSelected;
 	}
-	
+
+	public void setAvaluoSelected(Avaluos avaluoSelected) {
+		this.avaluoSelected = avaluoSelected;
+	}	
+
+	public void verDetalle(SelectEvent event) {
+		avaluoSelected = (Avaluos) event.getObject();
+		//mostrarDetalle = true;
+	}
 	
  }

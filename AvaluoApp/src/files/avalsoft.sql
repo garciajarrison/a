@@ -1,5 +1,11 @@
 ------CAMBIOS------
---licencia
+--avaluos
+--categorias_avaluo
+--cotiacion
+--detalle_cotizacion
+--propiedad
+--usuario
+
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -172,21 +178,21 @@ CREATE TABLE avalsoft.usuario
    tipo_persona        CHARACTER VARYING (20) NULL,
    apellido1           CHARACTER VARYING (50) NULL,
    apellido2           CHARACTER VARYING (50) NULL,
-   CONSTRAINT fk_usuario_rol FOREIGN KEY
-      (rol_id)
-      REFERENCES avalsoft.rol (id)
-         MATCH SIMPLE
-         ON DELETE CASCADE
-         ON UPDATE CASCADE
-      NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT fk_usuario_empresa FOREIGN KEY
-      (empresa_id)
-      REFERENCES avalsoft.empresa (id)
-         MATCH SIMPLE
-         ON DELETE CASCADE
-         ON UPDATE CASCADE
-      NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT pk_usuario PRIMARY KEY (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+    "RAA" character varying(40) COLLATE pg_catalog."default",
+    categoria_id integer,
+    CONSTRAINT pk_usuario PRIMARY KEY (id),
+    CONSTRAINT fk_usuario_categorias_avaluo FOREIGN KEY (categoria_id)
+        REFERENCES avalsoft.categorias_avaluo (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id)
+        REFERENCES avalsoft.rol (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 WITH (OIDS = FALSE);
 
@@ -390,6 +396,66 @@ TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.propiedad
     OWNER to postgres;
+ 
+    
+    
+-- -----------------------------------------------------
+-- Table avalsoft.avaluos
+-- -----------------------------------------------------    
+CREATE SEQUENCE avalsoft.avaluos_avaluos_seq;
+
+ALTER SEQUENCE avalsoft.avaluos_avaluos_seq
+    OWNER TO postgres;
+    
+CREATE TABLE avalsoft.avaluos
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.avaluos_avaluos_seq'::regclass),
+    usuario_id integer NOT NULL,
+    empresa_id integer NOT NULL,
+    propiedad_id integer NOT NULL,
+    CONSTRAINT avaluos_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_avaluos_empresa_id FOREIGN KEY (empresa_id)
+        REFERENCES avalsoft.empresa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_avaluos_propiedad_id FOREIGN KEY (propiedad_id)
+        REFERENCES avalsoft.propiedad (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_avaluos_usuario_id FOREIGN KEY (usuario_id)
+        REFERENCES avalsoft.usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.avaluos
+    OWNER to postgres;    
+
+-- -----------------------------------------------------
+-- Table avalsoft.categorias_avaluo
+-- -----------------------------------------------------    
+CREATE SEQUENCE avalsoft.categorias_avaluo_id_seq;    
+ALTER SEQUENCE avalsoft.categorias_avaluo_id_seq
+    OWNER TO postgres;
+    
+
+CREATE TABLE avalsoft.categorias_avaluo
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.categorias_avaluo_id_seq'::regclass),
+    nombre character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT categorias_avaluo_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.categorias_avaluo
+    OWNER to postgres;    
     
 -- -----------------------------------------------------
 -- Table avalsoft.cotizacion
@@ -453,8 +519,8 @@ CREATE TABLE avalsoft.detalle_cotizacion
     cotizacion_id integer NOT NULL,
     propiedad_id integer NOT NULL,
     valor numeric,
-    CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_detalle_cotizacion FOREIGN KEY (cotizacion_id)
+   CONSTRAINT detalle_cotizacion_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_detalle_cotizacion_cotizacion FOREIGN KEY (cotizacion_id)
         REFERENCES avalsoft.cotizacion (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
