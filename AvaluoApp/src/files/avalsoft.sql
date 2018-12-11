@@ -150,6 +150,28 @@ ALTER TABLE avalsoft.empresa
     OWNER to postgres;
 	
 -- -----------------------------------------------------
+-- Table avalsoft.categorias_avaluo
+-- -----------------------------------------------------    
+CREATE SEQUENCE avalsoft.categorias_avaluo_id_seq;    
+ALTER SEQUENCE avalsoft.categorias_avaluo_id_seq
+    OWNER TO postgres;
+    
+
+CREATE TABLE avalsoft.categorias_avaluo
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.categorias_avaluo_id_seq'::regclass),
+    nombre character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT categorias_avaluo_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.categorias_avaluo
+    OWNER to postgres;   
+    
+-- -----------------------------------------------------
 -- Table avalsoft.usuario
 -- -----------------------------------------------------
 
@@ -434,29 +456,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.avaluos
-    OWNER to postgres;    
-
--- -----------------------------------------------------
--- Table avalsoft.categorias_avaluo
--- -----------------------------------------------------    
-CREATE SEQUENCE avalsoft.categorias_avaluo_id_seq;    
-ALTER SEQUENCE avalsoft.categorias_avaluo_id_seq
-    OWNER TO postgres;
-    
-
-CREATE TABLE avalsoft.categorias_avaluo
-(
-    id integer NOT NULL DEFAULT nextval('avalsoft.categorias_avaluo_id_seq'::regclass),
-    nombre character varying(200) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT categorias_avaluo_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE avalsoft.categorias_avaluo
-    OWNER to postgres;    
+    OWNER to postgres;       
     
 -- -----------------------------------------------------
 -- Table avalsoft.cotizacion

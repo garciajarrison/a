@@ -1421,7 +1421,10 @@ VALUES ('CC', '77777777', 'Empleado 1', 'empleado1@gmail.com', 'direccion 1',
 		'4444444', '3125456677', '123', true, 'ES', 'Ingenebrio', 1, 4);
 
 
-
+INSERT INTO avalsoft.licencia(
+	nombre, ultimo_pago, fecha_expiracion, fecha_ultima_conn, ciudad_id, usuario_id)
+	VALUES ('AVALSOFT', current_date, current_date+500, current_date, 1, 2),
+	('AVALSOFT', current_date, current_date+500, current_date, 1, 1);
 
 
 
