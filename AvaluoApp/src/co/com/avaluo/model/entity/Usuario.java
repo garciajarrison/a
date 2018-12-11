@@ -44,6 +44,8 @@ public class Usuario implements java.io.Serializable {
 	private String lenguaje;
 	private String profesion;
 	private String tipoPersona;
+	private String raa;
+	private CategoriasAvaluo categoriasAvaluo;
 	private List<Contacto> contactos = new ArrayList<Contacto>();
 	private List<Cotizacion> cotizacionsForRemitenteId = new ArrayList<Cotizacion>(0);
 	private List<Cotizacion> cotizacionsForClienteId = new ArrayList<Cotizacion>(0);
@@ -61,8 +63,8 @@ public class Usuario implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Usuario(int id, Rol rol, Empresa empresa, String tipoDocumento, String identificacion, String nombre, String apellido1, String apellido2,
-			String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
+	public Usuario(int id, Rol rol, Empresa empresa, CategoriasAvaluo categoriasAvaluo, String tipoDocumento, String identificacion, String nombre, String apellido1, String apellido2,
+			String raa, String correo, Date fechaNacimiento, String direccion, String telefono, String celular, String contrasena,
 			boolean estado, String lenguaje, String profesion, String tipoPersona, List<Contacto> contactos, List<Cotizacion> cotizacionsForRemitenteId,
 			List<Cotizacion> cotizacionsForClienteId, List<Licencia> licencias, List<Propiedad> propiedads) {
 		this.id = id;
@@ -88,6 +90,8 @@ public class Usuario implements java.io.Serializable {
 		this.cotizacionsForRemitenteId = cotizacionsForRemitenteId;
 		this.propiedads = propiedads;
 		this.licencias = licencias;
+		this.raa = raa;
+		this.categoriasAvaluo = categoriasAvaluo;
 	}
 
 	@Id
@@ -312,6 +316,26 @@ public class Usuario implements java.io.Serializable {
 	public void setAvaluoses(List<Avaluos> avaluoses) {
 		this.avaluoses = avaluoses;
 	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoria_id")
+	public CategoriasAvaluo getCategoriasAvaluo() {
+		return this.categoriasAvaluo;
+	}
+
+	public void setCategoriasAvaluo(CategoriasAvaluo categoriasAvaluo) {
+		this.categoriasAvaluo = categoriasAvaluo;
+	}
+
+	@Column(name = "RAA", length = 40)
+	public String getRaa() {
+		return this.raa;
+	}
+
+	public void setRaa(String raa) {
+		this.raa = raa;
+	}
+	
 	
 	@Transient
 	public String getNombreCompleto(){

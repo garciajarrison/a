@@ -5,7 +5,8 @@
 --detalle_cotizacion
 --propiedad
 --usuario
-
+--visitas
+--documentos
 
 -- -----------------------------------------------------
 -- Schema Avalsoft
@@ -643,3 +644,101 @@ CREATE TABLE avalsoft.reporte (
 
 ALTER TABLE avalsoft.reporte
     OWNER to postgres; 
+
+    
+-- Table: avalsoft.visitas
+
+-- DROP TABLE avalsoft.visitas;
+
+CREATE SEQUENCE avalsoft.visitas_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE avalsoft.visitas_id_seq
+    OWNER TO postgres;    
+    
+CREATE TABLE avalsoft.visitas
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.visitas_id_seq'::regclass),
+    avaluos_id integer NOT NULL,
+    fecha_programacion date,
+    avaluador_id integer,
+    CONSTRAINT visitas_pkey PRIMARY KEY (id),
+    CONSTRAINT visitas_avaluos_fk FOREIGN KEY (avaluos_id)
+        REFERENCES avalsoft.avaluos (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT visitas_usuarios_fk FOREIGN KEY (avaluador_id)
+        REFERENCES avalsoft.usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.visitas
+    OWNER to postgres;
+    
+    
+-- Table: avalsoft.documentos
+
+-- DROP TABLE avalsoft.documentos;
+
+CREATE SEQUENCE avalsoft.documentos_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE avalsoft.documentos_id_seq
+    OWNER TO postgres;    
+    
+CREATE TABLE avalsoft.documentos
+(
+    id integer NOT NULL DEFAULT nextval('avalsoft.documentos_id_seq'::regclass),
+    visitas_id integer NOT NULL,
+    latitud character varying(30) COLLATE pg_catalog."default",
+    longitud character varying(30) COLLATE pg_catalog."default",
+    numero_escritura numeric(30,0),
+    fecha_registro date,
+    numero_notaria numeric(6,0),
+    circuito_notarial integer,
+    escritura_objeto character varying COLLATE pg_catalog."default",
+    cedula_catastral numeric(30,0),
+    entrega_planos character varying(2) COLLATE pg_catalog."default",
+    licencia_construcc character varying(60) COLLATE pg_catalog."default",
+    afectaciones character varying(4000) COLLATE pg_catalog."default",
+    vetustez numeric(4,0),
+    avaluo_lote numeric(20,0),
+    avaluo_construccion numeric(20,0),
+    registro_catastral numeric(20,0),
+    regimen_ph character varying(2) COLLATE pg_catalog."default",
+    escritura_publica character varying COLLATE pg_catalog."default",
+    fecha_catastral date,
+    "certificado-libertad" character varying(2) COLLATE pg_catalog."default",
+    licencia_construccion character varying(2) COLLATE pg_catalog."default",
+    certificado_estratificacion character varying(2) COLLATE pg_catalog."default",
+    plano character varying(2) COLLATE pg_catalog."default",
+    reglamento_ph character varying(2) COLLATE pg_catalog."default",
+    pago_zonas_com character varying(2) COLLATE pg_catalog."default",
+    CONSTRAINT documentos_pkey PRIMARY KEY (id),
+    CONSTRAINT documentos_visitas_fk FOREIGN KEY (visitas_id)
+        REFERENCES avalsoft.visitas (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE avalsoft.documentos
+    OWNER to postgres;
+    
+    

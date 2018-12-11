@@ -15,7 +15,7 @@
 			
 
 		</div>
-		 <p:wizard  flowListener="#{cotizacionAdmBB.onFlowProcess}" showNavBar="true" >
+		 <p:tabView scrollable="true" activeIndex="#{visitaBB.tabIndex}">
 			<p:tab title="#{msg['ant.avaluos']}">
 	          	<p:panel id="infCoti" style="background:none;" >
 	          		<h3>#{msg['ant.lista.avaluos']}</h3>
@@ -30,70 +30,115 @@
 						
 						<p:ajax event="rowSelect" update="@form" listener="#{visitaBB.verAvaluo}" />		
 								
-			    		<p:column width="35%" headerText="#{msg['empresa']}" >
+			    		<p:column width="15%" headerText="#{msg['ant.id.avaluo']}" >
 					        <h:outputText value="#{avaluos.id}" />
 					    </p:column>
 
-					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					    <p:column width="15%" headerText="#{msg['ant.ti']}" >
 					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.tipoDocumento}" />
 					    </p:column>
-					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					    <p:column width="15%" headerText="#{msg['ant.identificacion']}" >
+					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.identificacion}" />
+					    </p:column>
+					    <p:column width="25%" headerText="#{msg['ant.nombres']}" >
 					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.nombre}" />
 					    </p:column>
-					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					    <p:column width="15%" headerText="#{msg['ant.apellido1']}" >
 					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido1}" />
 					    </p:column>
-					    <p:column width="35%" headerText="#{msg['empresa']}" >
+					    <p:column width="15%" headerText="#{msg['ant.apellido2']}" >
 					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido2}" />
 					    </p:column>
-					    <p:column width="35%" headerText="#{msg['empresa']}" >
-					        <h:outputText value="#{avaluos.propiedad.detalleCotizacions[0].cotizacion.usuarioByClienteId.apellido2}" />
+					    <p:column width="35%" headerText="#{msg['ant.direccion']}" >
+					        <h:outputText value="#{avaluos.propiedad.direccion}" />
 					    </p:column>
 					    
 					    
 					</p:dataTable>
+					<p:commandButton value="Nuevo avaluo" type="button"  >
+					<p:ajax event="click" listener="#{visitaBB.nuevoAvaluo}" update="@form" />
+					</p:commandButton>
 								
 		   			
    				</p:panel>
 	        </p:tab>		
 	        <p:tab title="#{msg['ant.datos.cliente']}">
-				<ui:include src="/pages/cliente.xhtml" />
+	        	<p:panel id="infCLie" style="background:none;" >
+					<ui:include src="/pages/cliente.xhtml" />
+			   	</p:panel>							
+	        </p:tab>
+	        <p:tab title="#{msg['ant.tab.visita']}">
+	        	<div class="ui-g">
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:outputLabel id="lFechaPrograma" value="#{msg['ant.fecha.programa']}:" for="txtFechaPrograma" styleClass="aval-label"></p:outputLabel>
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+ 
+					   		<p:calendar id="txtFechaPrograma" value="#{visitaBB.visita.fechaProgramacion}" showOn="button" title="#{msg['ant.fecha.programa']}"
+					   			navigator="true" pattern="yyyy-MM-dd"	required="true" >
+					   			
+					   		</p:calendar>				
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:outputLabel id="lavaluador" value="#{msg['ant.avaluador']}:" for="selAvaluador" styleClass="aval-label"></p:outputLabel>
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:selectOneMenu id="selAvaluador" value="#{visitaBB.visita.usuario.id}" style="width:180px"
+					   						 title="#{msg['ant.avaluador']}"  filter="true"
+					   						label="#{msg['ant.avaluador']}">			   			
+					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+					            <f:selectItems value="#{visitaBB.listAvaluadores}" />
+					        </p:selectOneMenu>  				        						
+					 	</div>		
+	        	</div>
 	        </p:tab>
 	        <p:tab title="#{msg['ant.datos.propietario']}">
-				<p:panel id="infRemit" style="background:none;" >
+				<p:panel id="infPropiet" style="background:none;" >
+					<ui:include src="/pages/propietarios.xhtml" />
 	          		
    				</p:panel>	        
 	        
 	        </p:tab>
 	        
 	        <p:tab title="#{msg['ant.documentos']}">
-	          	<p:panel id="jnfProp">
-	          	
+	          	<p:panel id="jnfDoc" style="background:none;">
+					<ui:include src="/pages/documentos.xhtml" />
+			    </p:panel>
+			    
+			    
+	        </p:tab>
+	        <p:tab title="#{msg['ant.documentos']}">
+	          	<p:panel id="jnfDoc2" style="background:none;">
+					<ui:include src="/pages/documentosContinue.xhtml" />
 	          		
 			    </p:panel>
 			    
 			    
 	        </p:tab>
+	        <p:tab title="#{msg['ant.sector']}">
+				<p:panel id="infSector" style="background:none;" >
+	          		<ui:include src="/pages/sector.xhtml" />	
+				</p:panel>
+	        </p:tab>
 	        <p:tab title="#{msg['ant.inmueble']}">
 				<p:panel id="infResult" style="background:none;" >
-	          		
-				
+					<ui:include src="/pages/inmueble.xhtml" /> 
 				</p:panel>
 	        </p:tab>
 	        <p:tab title="#{msg['ant.construccion']}">
 				<p:panel id="infConstr" style="background:none;" >
-	          		
-				
+					<ui:include src="/pages/inmueble.xhtml" /> 
 				</p:panel>
 	        </p:tab>
 	        <p:tab title="#{msg['ant.analisis']}">
 				<p:panel id="infAnalisis" style="background:none;" >
-	          		
-				
+					<ui:include src="/pages/inmueble.xhtml" /> 
 				</p:panel>
 	        </p:tab>
 	              
-    	</p:wizard>  
+    	</p:tabView>  
+
+
 
 		
    </ui:define>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lTipoInm" value="Tipo inmueble:" for="selTipoInm" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selTipInm"  label="Tipo inmueble"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Apartamento" itemValue="SI" />
+            <f:selectItem itemLabel="Casa/Lote" itemValue="NO" />
+            <f:selectItem itemLabel="Oficina" itemValue="SI" />
+            <f:selectItem itemLabel="Inm. del estado" itemValue="NO" />
+            <f:selectItem itemLabel="Parqueadero" itemValue="SI" />
+            <f:selectItem itemLabel="Lote Urb." itemValue="NO" />
+            <f:selectItem itemLabel="Bodega" itemValue="SI" />
+            <f:selectItem itemLabel="Especial" itemValue="NO" />
+            <f:selectItem itemLabel="Cuarto util" itemValue="SI" />
+            <f:selectItem itemLabel="Terraza" itemValue="NO" />
+            <f:selectItem itemLabel="Casa local" itemValue="SI" />
+            <f:selectItem itemLabel="Patriminio Urb." itemValue="NO" />
+            <f:selectItem itemLabel="Casa" itemValue="SI" />
+            <f:selectItem itemLabel="Local" itemValue="NO" />
+            <f:selectItem itemLabel="Parcelacion" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEstra" value="Estrato:" for="selEstra" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selEstra"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Unifamiliar" itemValue="SI" />
+            <f:selectItem itemLabel="Multifamiliar" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEstCons" value="Estado de la construccion:" for="selEstCons" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selEstCons"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="1. Nuevo" itemValue="SI" />
+            <f:selectItem itemLabel="1.5" itemValue="NO" />
+            <f:selectItem itemLabel="2. Normal" itemValue="SI" />
+            <f:selectItem itemLabel="2.5" itemValue="NO" />
+            <f:selectItem itemLabel="3. Reparaciones sencillas" itemValue="SI" />
+            <f:selectItem itemLabel="3.5" itemValue="NO" />
+            <f:selectItem itemLabel="4.	Reparaciones Importantes" itemValue="SI" />
+            <f:selectItem itemLabel="4.5" itemValue="NO" />
+            <f:selectItem itemLabel="5.	Demolicion" itemValue="SI" />
+            <f:selectItem itemLabel="5.5" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEstiCons" value="Estilo de la construccion:" for="selEstiCons" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selEstiCons"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Moderno" itemValue="SI" />
+            <f:selectItem itemLabel="Semi Noderno" itemValue="NO" />
+            <f:selectItem itemLabel="Antiguo" itemValue="SI" />
+            <f:selectItem itemLabel="Remodelado" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lSisCons" value="Sistema de construccion:" for="selSistCons" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selSistCons"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Muro" itemValue="SI" />
+            <f:selectItem itemLabel="Carguero" itemValue="NO" />
+            <f:selectItem itemLabel="Estructura" itemValue="SI" />
+        </p:selectOneMenu>
+	   	</div>		
+
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lALote" value="Area del lote mt2:" for="txtALote" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputNumber id="txtALote"  />
+	   	</div>		
+ 
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lAConst" value="Area Construida mt2:" for="txtAConst" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputNumber id="txtAConst"  />
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lALibre" value="Area Libre mt2:" for="txtALibre" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputNumber id="txtALibre"  />
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lProfun" value="Profundidad mt2:" for="txtProfun" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputNumber id="txtProfun"  />
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lValArr" value="Valor del arriendo:" for="txtValArr" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputNumber id="txtValArr"  />
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lObservSINm" value="Observaciones:" for="txtObservSINm" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputTextarea id="txtObservSINm"  />
+	   	</div>		
+   				
+</ui:composition>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	   	
+
+   				
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lAfec" value="Afectacion:" for="txtAfect" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtAfect"  title="Afectacion" 
+	   			label="Afectacion" maxlength="50" />
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lVetus" value="Vetustez:" for="txtVetus" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtVetus"  title="Vetustez" 
+	   			label="Vetustez" maxlength="50" />
+	   	</div>		
+   				
+ 	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lAvalCat" value="Avaluo catastral:" for="txtAvalCat" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<p:inputText id="txtAvalCat"  title="Lote" 
+	   			label="Lote" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<p:inputText id="txtAvalCatCon"  title="Construccion" 
+	   			label="Construccion" maxlength="50" />
+	   	</div>		
+ 	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lRegCat" value="Registro catastral:" for="txtRegCat" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<p:inputText id="txtRegCat"  title="Registro catastral" 
+	   			label="Registro catastral" maxlength="50" />
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lEscrN" value="Escritura publica notariada:" for="seleEscP" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="seleEscP" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lRPH" value="Reglamento de propiedad horizontal:" for="selRPH" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selRPH" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lEscrN1" value="Ficha catastral del lote:" for="seleEscP1" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="seleEscP1" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lRPH1" value="Pago de zonas comunes si aplica Regimen de Propiedad Horizontal:" for="selRPH1" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selRPH1" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+   				
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lEscrN2" value="Certificado de libertad original de las matriculas y actualizados a la fecha:" for="seleEscP2" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="seleEscP2" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lRPH2" value="Copia de especificacinnes urbanisticas vigentes (usu del suelo POT vigente):" for="selRPH2" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1	" >
+	   	<p:selectOneMenu id="selRPH2" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lLicCons" value="Licencia de construccion:" for="selLicCons" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selLicCons" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lImpPreA" value="Copia de impuesto predial ano en curso:" for="selImpPreA" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selImpPreA" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lCertEst" value="Certificacion de estratificacion (o copia servicios publicos):" for="selCertEst" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selCertEst" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lCA" value="Contratos de arrendamiento si los hubiera:" for="selCA" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selCA" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload  mode="simple" skinSimple="true"/>
+		</div>
+   				
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<h:outputLabel id="lPlaC" value="Plano de construcciones:" for="selePLaC" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-1" >
+	   	<p:selectOneMenu id="selePLaC" >
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:fileUpload   mode="simple" skinSimple="true"/>
+		</div>
+
+   				
+</ui:composition>

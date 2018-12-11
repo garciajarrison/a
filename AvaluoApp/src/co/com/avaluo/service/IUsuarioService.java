@@ -31,6 +31,8 @@ public interface IUsuarioService {
 	Usuario consultarUsuarioPorCorreo(String correo);
 
 	List<Usuario> getUsuariosActivos();
+	
+	List<Usuario> getAvaluadores();
 
 	
 }

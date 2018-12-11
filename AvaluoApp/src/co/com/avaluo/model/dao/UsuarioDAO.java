@@ -67,6 +67,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		return session.createQuery("from Usuario").list();
 	}
+
+	public List<Usuario> getAvaluadores() {
+		Session session = getSessionFactory().getCurrentSession();
+		return session.createQuery("from Usuario u where estado = true and u.rol.id=4").list();
+	}
+	
 	
 	public Usuario consultaIdentificacion(String tipoIdentificacion, String identificacion, int id, int rol_Id) {
 		

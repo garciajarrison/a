@@ -80,4 +80,8 @@ public class UsuarioService implements IUsuarioService {
 		return getEntityDAO().getUsuariosActivos();
 	}
 
+	public List<Usuario> getAvaluadores() {	
+		return getEntityDAO().getAvaluadores();
+	}
+	
 }

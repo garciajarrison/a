@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+
+		<p:commandButton value="#{msg['btn.agregar']}" type="button" onclick="PF('dlgAgregar').show();" />
+		<p:dataTable var="prop" value="#{visitaBB.listaPropietarios}" 
+					emptyMessage="#{msg['no.registros']}" reflow="true"
+					scrollable="false" paginatorPosition="bottom"
+					rows="10" rowsPerPageTemplate="#{msg['formato.rows.dataTable']}"
+					currentPageReportTemplate="#{msg['formato.encabezado.dataTable']}"
+					paginatorTemplate="#{msg['paginator.template.dataTable']}" paginator="true">
+		 
+		    <p:column headerText="#{msg['ant.prop.cedula']}" sortBy="#{estrato.nombre}">
+		        <h:outputText value="#{prop.cedula}" />
+		    </p:column>
+
+		    <p:column headerText="#{msg['ant.prop.nombre']}" sortBy="#{estrato.nombre}">
+		        <h:outputText value="#{prop.nombre}" />
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['ant.prop.telefono']}" >
+		        <h:outputText value="#{prop.telefono}" >
+		        			
+		   		</h:outputText>
+		    </p:column>
+		 
+		    <p:column headerText="#{msg['ant.prop.email']}" >
+		        <h:outputText value="#{prop.email}" >
+		   		</h:outputText>
+		    </p:column>
+
+		    <p:column headerText="#{msg['ant.prop.porcentaje']}" >
+		        <h:outputText value="#{prop.porcentaje}" >
+		   		</h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msg['acciones']}">
+		    	<center>
+		    	<p:splitButton value="#{msg['btn.actualizar']}" icon="ui-icon-disk">
+			        <p:menuitem value="#{msg['btn.actualizar']}" actionListener="#{visitaBB.setSelectedPropietario(prop)}"  
+			        			update=":#{p:component('dlgActualizar')}" oncomplete="PF('dlgActualizar').show();"
+			        			icon="ui-icon-arrowrefresh-1-w" >
+			        	
+			        </p:menuitem>
+			        <p:menuitem value="#{msg['btn.borrar']}" actionListener="#{visitaBB.setSelectedPropietario(prop)}" 
+			        			update=":#{p:component('dlgEliminar')}" oncomplete="PF('dlgEliminar').show();"
+			        			icon="ui-icon-close" >
+			        </p:menuitem>
+			    </p:splitButton>
+
+				</center>
+		    </p:column>
+		    
+		</p:dataTable>
+		
+		
+		<p:dialog header="#{msg['ant.agregar']}" id="dlgAgregar" 
+				widgetVar="dlgAgregar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputLabel id="lCedula" value="#{msg['ant.prop.cedula']}:" for="txtCedula"/>
+					<p:inputText id="txtCedula" value="#{visitaBB.propietario.nombre}" title="#{msg['ant.prop.cedula']}" 
+			   			label="#{msg['ant.prop.cedula']}" maxlength="50" />
+			   		
+			   		
+			   		<h:outputLabel id="lNombreP" value="#{msg['ant.prop.nombre']}:" for="txtNombreP"/>
+			   		<p:inputNumber id="txtNombreP" value="#{visitaBB.propietario.nombre}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.nombre']}" 
+			   				label="#{msg['ant.prop.nombre']}" minValue="0"/>  
+
+			   		<h:outputLabel id="lTelefonoP" value="#{msg['ant.prop.telefono']}:" for="txtTelefonoP"/>
+			   		<p:inputNumber id="txtTelefonoP" value="#{visitaBB.propietario.telefono}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.telefono']}" 
+			   				label="#{msg['ant.prop.telefono']}" minValue="0"/>  
+
+			   		<h:outputLabel id="lEmailP" value="#{msg['ant.prop.email']}:" for="txtEmailP"/>
+			   		<p:inputNumber id="txtEmailP" value="#{visitaBB.propietario.email}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.email']}" 
+			   				label="#{msg['ant.prop.email']}" minValue="0"/>  
+
+
+			   		<h:outputLabel id="lPorcentaje" value="#{msg['ant.prop.porcentaje']}:" for="txtPorcentaje"/>
+			   		<p:inputNumber id="txtPorcentaje" value="#{visitaBB.propietario.porcentaje}" 
+			   				decimalPlaces="2" title="#{msg['ant.prop.porcentaje']}" label="#{msg['ant.prop.porcentaje']}" 
+			   				maxValue="100" symbol="%" symbolPosition="s" />  
+			   		
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton value="#{msg['btn.agregar']}" actionListener="#{visitaBB.addPropietario}"/>
+	   		</div>
+		</p:dialog>		
+
+		<p:dialog header="#{msg['estrato.actualizar']}" id="dlgActualizar" widgetVar="dlgActualizar" minHeight="40">
+			<div align="center">
+				<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+			   		<h:outputLabel id="lNombre" value="#{msg['ant.prop.nombre']}:" for="txtNombrePD"/>
+			   		<p:inputNumber id="txtNombrePD" value="#{visitaBB.propietario.nombre}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.nombre']}" 
+			   				label="#{msg['ant.prop.nombre']}" minValue="0"/>  
+
+			   		<h:outputLabel id="lTelefonoPD" value="#{msg['ant.prop.telefono']}:" for="txtTelefonoPD"/>
+			   		<p:inputNumber id="txtTelefonoPD" value="#{visitaBB.propietario.telefono}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.telefono']}" 
+			   				label="#{msg['ant.prop.telefono']}" minValue="0"/>  
+
+			   		<h:outputLabel id="lEmailPD" value="#{msg['ant.prop.email']}:" for="txtEmailPD"/>
+			   		<p:inputNumber id="txtEmailPD" value="#{visitaBB.propietario.email}"
+			   				decimalPlaces="2" title="#{msg['ant.prop.email']}" 
+			   				label="#{msg['ant.prop.email']}" minValue="0"/>  
+
+
+			   		<h:outputLabel id="lPorcentajePD" value="#{msg['ant.prop.porcentaje']}:" for="txtPorcentajePD"/>
+			   		<p:inputNumber id="txtPorcentajePD" value="#{visitaBB.propietario.porcentaje}" 
+			   				decimalPlaces="2" title="#{msg['ant.prop.porcentaje']}" label="#{msg['ant.prop.porcentaje']}" 
+			   				maxValue="100" symbol="%" symbolPosition="s" />  
+			   	</h:panelGrid>
+			   	<br /><br />
+		   		<p:commandButton id="btnActualizarEstrato" value="#{msg['btn.actualizar']}" type="button">
+					<p:ajax event="click" listener="#{visitaBB.updatePropietario}" process="dlgActualizar"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>		
+		
+		<p:dialog header="#{msg['estrato.eliminar']}" id="dlgEliminar" widgetVar="dlgEliminar" minHeight="40">
+			<div align="center">
+				
+				<strong>#{msg['confirmarcion.borrar']}</strong>
+			
+				<br /><br />
+		   		<p:commandButton value="#{msg['btn.borrar']}" type="button">
+					<p:ajax event="click" listener="#{visitaBB.deletePropietario}" 
+							update="formulario"/>   		
+		   		</p:commandButton>
+	   		</div>
+		</p:dialog>	
+		   			
+   				
+</ui:composition>

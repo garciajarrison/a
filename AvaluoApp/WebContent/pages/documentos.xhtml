@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  	<div class="ui-g-12 ui-md-6 ui-lg-6" >
+		<h:outputLabel id="lDireccionInm" value="Direccion del inmueble:" for="txtDireccionInm" styleClass="aval-label"/>
+	</div>	
+   	<div class="ui-g-12 ui-md-6 ui-lg-6" >
+	<p:inputText id="txtDireccionInm"  title="Direccion del inmueble" 
+   			label="Direccion del inmueble" maxlength="50" size="50" />
+	</div>
+
+ 	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lLatitud" value="Latitud:" for="txtlatitud" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtLatitud"  title="Latitud" 
+	   			label="Latitud" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lLongitud" value="Longitud:" for="txtLongitud" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtLongitud"  title="Longitud" 
+	   			label="Longitud" maxlength="50" />
+	   	</div>		
+	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEscp" value="Escritura publica:" for="txtEscrituP" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtEscrituP"  title="Escritura publica" 
+	   			label="Escritura publica" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaE" value="Fecha:" for="txtFechaE" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaE"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lNotaria" value="Notaria:" for="txtNotaria" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtnotaria"  title="Notaria" 
+	   			label="Notaria" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lDe" value="De:" for="txtDe" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtDe"  title="De" 
+	   			label="De" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lCedulaC" value="Cedula catastral:" for="txtCedulaC" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtCedulaC"  title="Cedula catastral" 
+	   			label="Cedula catastral" maxlength="50" />
+	   	</div>		
+	   	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEntrega" value="Entrega planos:" for="chkEntrega" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="chkEntrega">
+	   	<f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+		</div>
+	   	<div class="ui-g-12 ui-md-12 ui-lg-12" >
+			<h:outputLabel id="llicenConst" value="Licencia de construcion:" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-12 ui-lg-12" >
+			<h:outputLabel id="lCertificado" value="Certificado de tradicion y libertad:" styleClass="aval-label"/>
+		</div>	
+		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lResid" value="Residencia/local:" for="txtResid" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtResid"  title="Residencia/local" 
+	   			label="Residencia/local" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaR" value="Fecha:" for="txtFechaR" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaR"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lParque" value="Parqueadero:" for="txtParque" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtParque"  title="Parqueadero" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaP" value="Fecha:" for="txtFechaP" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaP"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lCuaUtil" value="Cuarto util:" for="txtCuaUtil" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtCuaUtil"  title="Cuarto util" 
+	   			label="Cuarto util" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaC" value="Fecha:" for="txtFechaC" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaC"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lTerraza" value="Terraza:" for="txtTerraza" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtTerraza"  title="Terraza" 
+	   			label="Terraza" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaT" value="Fecha:" for="txtFechaT" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaT"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lLote" value="Lote / Casa lote:" for="txtLote" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtLote"  title="Lote" 
+	   			label="Lote" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lFechaL" value="Fecha:" for="txtFechaL" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<p:inputText id="txtFechaL"  title="Fecha" 
+	   			label="Fecha" maxlength="50" />
+	   	</div>		
+	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lOtro" value="Otro:" for="txtOtro" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-9" >
+			<p:inputText id="txtOtro"  title="Otro" 
+	   			label="Otro" maxlength="50" />
+	   	</div>		
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lEstr" value="Estrato:" for="selEstrat" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-7" >
+	   	<p:selectOneMenu id="selEstrat" >
+            <f:selectItem itemLabel="1" itemValue="EST-1" />
+            <f:selectItem itemLabel="2" itemValue="EST-2" />
+            <f:selectItem itemLabel="3" itemValue="EST-3" />
+            <f:selectItem itemLabel="4" itemValue="EST-4" />
+            <f:selectItem itemLabel="5" itemValue="EST-5" />
+            <f:selectItem itemLabel="6" itemValue="EST-6" />
+        </p:selectOneMenu>
+	   	</div>			   	
+ 
+ 
+   				
+</ui:composition>

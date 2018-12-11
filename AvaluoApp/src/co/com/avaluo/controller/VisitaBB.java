@@ -1,11 +1,8 @@
 package co.com.avaluo.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -19,11 +16,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 
+import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -33,7 +30,6 @@ import co.com.avaluo.common.CalcularCoordenadas;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacionHtml;
 import co.com.avaluo.model.entity.Avaluos;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
@@ -46,21 +42,19 @@ import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.model.entity.Propiedad;
-import co.com.avaluo.model.entity.Reporte;
+import co.com.avaluo.model.entity.Propietarios;
 import co.com.avaluo.model.entity.Rol;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.TipoPropiedad;
 import co.com.avaluo.model.entity.Usuario;
+import co.com.avaluo.model.entity.Visitas;
 import co.com.avaluo.service.ICiudadService;
 import co.com.avaluo.service.ICotizacionService;
 import co.com.avaluo.service.IDepartamentoService;
 import co.com.avaluo.service.IDireccionesService;
 import co.com.avaluo.service.IEmpresaService;
-import co.com.avaluo.service.IEstratoService;
 import co.com.avaluo.service.IPropiedadService;
-import co.com.avaluo.service.IReporteService;
-import co.com.avaluo.service.ITablasService;
-import co.com.avaluo.service.ITipoPropiedadService;
+import co.com.avaluo.service.IPropietariosService;
 import co.com.avaluo.service.IUsuarioService;
 
 
@@ -84,8 +78,11 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 	private IPropiedadService propiedadService;
 	@Autowired
 	private IDireccionesService direccionService;
+	@Autowired
+	private IPropietariosService propietariosService;
 	
 	private Avaluos avaluo = new Avaluos();
+	private Visitas visita = new Visitas();
 	private Avaluos avaluoSelected = new Avaluos();
 	private List<Avaluos> listaAvaluos;
 	private Cotizacion cotizacion = new Cotizacion();
@@ -94,7 +91,14 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 	private DetalleCotizacion selectedDetalle = new DetalleCotizacion();
 	private List<Cotizacion> listaCotizaciones;
 	private Usuario usuario;
-	private Usuario cliente = new Usuario();
+	private Usuario usuarioCliente = new Usuario();
+	private Usuario usuarioRemitente = new Usuario();
+	private Usuario usuarioPropietario = new Usuario();
+	private Propietarios propietario = new Propietarios();
+
+	private List<Usuario> listaAvaluadores = new ArrayList<Usuario>();
+	private SortedMap<String,Integer> listAvaluadores = new TreeMap<String, Integer>();
+	
 	//private Empresa empresa = new Usuario();
 	private List<SelectItem> listaTipoDocumentos;
 	private List<SelectItem> listaTipoVia;
@@ -123,6 +127,10 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 	private List<TipoPropiedad> listaTipoPropiedades;
 	private List<Propiedad> listaPropiedades = new ArrayList<Propiedad>();
 
+	private SortedMap<String,Integer> listaTipoPropietario = new TreeMap<String, Integer>();
+	private List<Propietarios> listaPropietarios = new ArrayList<Propietarios>();
+	
+	
 	private SortedMap<String,Integer> listaCiudad = new TreeMap<String, Integer>();
 
 	private List<Ciudad> listaCiudades;
@@ -136,6 +144,7 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 	
 	private List<Cotizacion> listaCotizacion;
 	private List<SelectItem> listaUnidadMedida;
+	private int tabIndex = 0;
 
 	private Usuario usuarioExiste = new Usuario();
 	private boolean skip;	
@@ -169,6 +178,11 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 		listaTipoVia=ListasGenericas.getInstance().getListaTiposVia();
 		listaPosicionVia=ListasGenericas.getInstance().getListaPosicionVia();
 		listaUrbanizacion=ListasGenericas.getInstance().getListaUrbanizacion();
+		listaAvaluadores = usuarioService.getAvaluadores();
+		visita = new Visitas();
+		Usuario usu = new Usuario();
+		visita.setUsuario(usu);
+		listaPropietarios = propietariosService.listaPropietarios(visita.getId());
 		//direc=calc.getCoordenadasDeEstaDireccion("http://maps.googleapis.com/maps/api/geocode/json?address=Calle+48+F+Sur+40+55+Envigado");
 		nuevaCotizacion();
 		if(listaCotizaciones == null)
@@ -533,9 +547,9 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 
 	
 	public void onconsultaCliente(String tipoIdentif, String identif) { 
-		cliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 3);
-		if (cliente != null) {
-			cotizacion.setUsuarioByClienteId(cliente);
+		usuarioCliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 3);
+		/*if (usuarioCliente != null) {
+			cotizacion.setUsuarioByClienteId(usuarioCliente);
 			//cotizacion.setUsuarioByRemitenteId(cliente);
 		}
 		else {
@@ -550,15 +564,15 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 			cotizacion.getUsuarioByClienteId().setCorreo("");
 			cotizacion.getUsuarioByClienteId().setId(0);
 			cotizacion.getUsuarioByClienteId().setRol(rol);
-		}
+		}*/
 		
 	}
 
 	public void onconsultaRemitente(String tipoIdentif, String identif) { 
-		cliente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 0);
-		if (cliente != null) {
+		usuarioRemitente = getUsuarioService().consultaIdentificacion(tipoIdentif, identif, usuario.getEmpresa().getId(), 0);
+		/*if (usuarioRemitente != null) {
 			
-			cotizacion.setUsuarioByRemitenteId(cliente);
+			cotizacion.setUsuarioByRemitenteId(usuarioRemitente);
 		}
 		else {
 			Rol rol = new Rol();
@@ -572,7 +586,7 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 			cotizacion.getUsuarioByRemitenteId().setCorreo("");
 			cotizacion.getUsuarioByRemitenteId().setId(0);
 			cotizacion.getUsuarioByRemitenteId().setRol(rol);
-		}
+		}*/
 		
 	}
 	public void guardar2() {
@@ -855,6 +869,26 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 		this.listaPropiedades = listaPropiedades;
 	}
 
+	public SortedMap<String, Integer> getListaTablas() {
+		return listaTablas;
+	}
+
+	public void setListaTablas(SortedMap<String, Integer> listaTablas) {
+		this.listaTablas = listaTablas;
+	}
+
+	public SortedMap<String, Integer> getListaEstrato() {
+		return listaEstrato;
+	}
+
+	public void setListaCiudad(SortedMap<String, Integer> listaCiudad) {
+		this.listaCiudad = listaCiudad;
+	}
+
+	public void setListaDepartamento(SortedMap<String, Integer> listaDepartamento) {
+		this.listaDepartamento = listaDepartamento;
+	}
+
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -919,12 +953,29 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 		this.pais = pais;
 	}
 
-	public Usuario getCliente() {
-		return cliente;
+
+	public Usuario getUsuarioCliente() {
+		return usuarioCliente;
 	}
 
-	public void setCliente(Usuario cliente) {
-		this.cliente = cliente;
+	public void setUsuarioCliente(Usuario usuarioCliente) {
+		this.usuarioCliente = usuarioCliente;
+	}
+
+	public Usuario getUsuarioPropietario() {
+		return usuarioPropietario;
+	}
+
+	public void setUsuarioPropietario(Usuario usuarioPropietario) {
+		this.usuarioPropietario = usuarioPropietario;
+	}
+
+	public Usuario getUsuarioRemitente() {
+		return usuarioRemitente;
+	}
+
+	public void setUsuarioRemitente(Usuario usuarioRemitente) {
+		this.usuarioRemitente = usuarioRemitente;
 	}
 
 	public String getIdentificacion() {
@@ -1054,12 +1105,50 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
     }
 
 
-	public void onRowSelect(SelectEvent event) {
-		cotizacion = (Cotizacion) event.getObject();
+	public void nuevoAvaluo() {
+		avaluo = new Avaluos();
+		avaluo.setUsuario(usuario);
+		avaluo.setEmpresa(usuario.getEmpresa());
+		
+		infPropiedad = new Propiedad();
+		Ciudad ciu = new Ciudad();
+		usuarioCliente = new Usuario();
+		direccion = new Direcciones();
+		DetalleCotizacion det = new DetalleCotizacion();
+		Estrato est = new Estrato();
+		Tablas tabla = new Tablas();
+		TipoPropiedad tp = new  TipoPropiedad();
+		infPropiedad.setCiudad(ciu);
+		infPropiedad.setDirecciones(direccion);
+		infPropiedad.setEstrato(est);
+		infPropiedad.setTablas(tabla);
+		infPropiedad.setTipoPropiedad(tp);
+		infPropiedad.setUsuario(usuarioCliente);
+		avaluo.setPropiedad(infPropiedad);
+		visita = new Visitas();
+		List<Visitas> lVisitas = new ArrayList<Visitas>();
+		lVisitas.add(visita);
+		visita.setAvaluos(avaluo);
+		Usuario usu = new Usuario();
+		visita.setUsuario(usu);
+		avaluo.setVisitases(lVisitas);
+		tabIndex=1;
+	}
+	
+	public void verAvaluo(SelectEvent event) {
+		avaluo = (Avaluos) event.getObject();
 		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		//listaDetCotizacion = getCotizacionService().getDetCotizacion(cotizacion.getId());
 		//cotizacion.setDetalleCotizacions(listaDetCotizacion);
-		listaPropiedades = new ArrayList<Propiedad>();
+		infPropiedad = avaluo.getPropiedad();
+		usuarioCliente = avaluo.getPropiedad().getDetalleCotizacions().get(0).getCotizacion().getUsuarioByClienteId();
+		direccion = avaluo.getPropiedad().getDetalleCotizacions().get(0).getPropiedad().getDirecciones();
+		onPaisChange(avaluo.getPropiedad().getDetalleCotizacions().get(0).getPropiedad().getCiudad().getDepartamento().getPais().getId());
+		onDepartamentoChange(avaluo.getPropiedad().getDetalleCotizacions().get(0).getPropiedad().getCiudad().getDepartamento().getId());
+		pais = Integer.toString(avaluo.getPropiedad().getDetalleCotizacions().get(0).getPropiedad().getCiudad().getDepartamento().getPais().getId());
+		departamento = Integer.toString(avaluo.getPropiedad().getDetalleCotizacions().get(0).getPropiedad().getCiudad().getDepartamento().getId());
+		tabIndex=1;
+		/*listaPropiedades = new ArrayList<Propiedad>();
 		listaDetCotizacion = new ArrayList<DetalleCotizacion>();
 		//listaDetCotizacion = cotizacion.getDetalleCotizacions();
 		for (DetalleCotizacion detalle: cotizacion.getDetalleCotizacions()) {
@@ -1073,7 +1162,7 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 		paisC = getCiudadService().getPais(depart.getPais().getId());
 		paisCot =String.valueOf(paisC.getId());
 		onPaisChange(paisC.getId());
-		onDepartamentoChange(cotizacion.getCiudad().getDepartamento().getId());
+		onDepartamentoChange(cotizacion.getCiudad().getDepartamento().getId());*/
     }
 
 	public void onCellEdit(CellEditEvent event) {
@@ -1134,6 +1223,76 @@ public class VisitaBB extends SpringBeanAutowiringSupport implements Serializabl
 	public void verDetalle(SelectEvent event) {
 		avaluoSelected = (Avaluos) event.getObject();
 		//mostrarDetalle = true;
+	}
+
+	public int getTabIndex() {
+		return tabIndex;
+	}
+
+	public void setTabIndex(int tabIndex) {
+		this.tabIndex = tabIndex;
+	}
+
+	public Visitas getVisita() {
+		return visita;
+	}
+
+	public void setVisita(Visitas visita) {
+		this.visita = visita;
+	}
+
+	public List<Usuario> getListaAvaluadores() {
+		return listaAvaluadores;
+	}
+
+	public void setListaAvaluadores(List<Usuario> listAvaluadores) {
+		this.listaAvaluadores = listaAvaluadores;
+	}
+
+	public SortedMap<String, Integer> getListAvaluadores() {
+		
+		listaAvaluadores = new ArrayList<Usuario>();
+		listaAvaluadores.addAll(getUsuarioService().getAvaluadores());
+			for (Usuario usu : listaAvaluadores) {
+				listAvaluadores.put(usu.getNombreCompleto(), usu.getId() );
+			}
+		return listAvaluadores;
+	}
+
+	public void setListAvaluadores(SortedMap<String, Integer> listaAvaluadores) {
+		this.listAvaluadores = listAvaluadores;
+	}
+
+	public IPropietariosService getPropietariosService() {
+		return propietariosService;
+	}
+
+	public void setPropietariosService(IPropietariosService propietariosService) {
+		this.propietariosService = propietariosService;
+	}
+
+	public SortedMap<String, Integer> getListaTipoPropietario() {
+		return listaTipoPropietario;
+	}
+
+	public void setListaTipoPropietario(SortedMap<String, Integer> listaTipoPropietario) {
+		this.listaTipoPropietario = listaTipoPropietario;
+	}
+
+	public List<Propietarios> getListaPropietarios() {
+		return listaPropietarios;
+	}
+
+	public void setListaPropietarios(List<Propietarios> listaPropietarios) {
+		this.listaPropietarios = listaPropietarios;
+	}
+
+	public Propietarios getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Propietarios propietario) {
+		this.propietario = propietario;
 	}
 	
  }

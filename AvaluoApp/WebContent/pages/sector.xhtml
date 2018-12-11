@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<ui:composition 
+   xmlns="http://www.w3c.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lComuna" value="Comuna/Localidad:" for="selComuna" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selComuna"  label="Comuna/Localidad"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+			<h:outputLabel id="lSector" value="Sector:" for="selSector" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selSector"  label="Sector"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Centro" itemValue="CENTRO" />
+            <f:selectItem itemLabel="Occidente" itemValue="OCCIDENTE" />
+            <f:selectItem itemLabel="Norte" itemValue="NORTE" />
+            <f:selectItem itemLabel="Sur" itemValue="SUR" />
+        </p:selectOneMenu>
+	   	</div>		
+ 
+	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lPolig" value="Poligono de tratamiento:" for="selPolig" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputText id="txtPolig"  />
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+			<h:outputLabel id="lNomBarrio" value="Barrio:" for="selNomBarrio" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:selectOneMenu id="selNomBarrio"  label="Barrio"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Centro" itemValue="CENTRO" />
+            <f:selectItem itemLabel="Occidente" itemValue="OCCIDENTE" />
+            <f:selectItem itemLabel="Norte" itemValue="NORTE" />
+            <f:selectItem itemLabel="Sur" itemValue="SUR" />
+        </p:selectOneMenu>
+	   	</div>		
+
+	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lCorregimiento" value="Corregimiento o vereda:" for="selCorreg" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selCorreg"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Centro" itemValue="CENTRO" />
+            <f:selectItem itemLabel="Occidente" itemValue="OCCIDENTE" />
+            <f:selectItem itemLabel="Norte" itemValue="NORTE" />
+            <f:selectItem itemLabel="Sur" itemValue="SUR" />
+        </p:selectOneMenu>
+	   	</div>		
+
+ 	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lDestInm" value="Destinacion acual inmueble:" for="selDestInm" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selDestInm"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Residencial" itemValue="RESIDENIAL" />
+            <f:selectItem itemLabel="Comercial" itemValue="COMERCIAL" />
+            <f:selectItem itemLabel="Industrial" itemValue="INDUSTRIAL" />
+            <f:selectItem itemLabel="Servicios" itemValue="SERVICIOS" />
+            <f:selectItem itemLabel="Mixto" itemValue="MIXTO" />
+        </p:selectOneMenu>
+	   	</div>		
+ 
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lClase" value="Clase actual del inmueble:" for="selClase" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selClase"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Urbano" itemValue="URBANO" />
+            <f:selectItem itemLabel="Rural" itemValue="RURAL" />
+            <f:selectItem itemLabel="Expansion urbana" itemValue="EXPURB" />
+            <f:selectItem itemLabel="Proteccion urbana" itemValue="PROURB" />
+            <f:selectItem itemLabel="Sub urbano" itemValue="SUBURB" />
+            <f:selectItem itemLabel="Proteccion rural" itemValue="PRORUR" />
+        </p:selectOneMenu>
+	   	</div>		
+
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-12" >
+			<h:outputLabel id="lCercaDe" value="Cerca de:"  styleClass="aval-label"/>
+		</div>	
+		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lActiv" value="Actividad:" for="selActiv" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selActiv"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Residencial" itemValue="RESIDENIAL" />
+            <f:selectItem itemLabel="Comercial" itemValue="COMERCIAL" />
+            <f:selectItem itemLabel="Industrial" itemValue="INDUSTRIAL" />
+            <f:selectItem itemLabel="Servicios" itemValue="SERVICIOS" />
+            <f:selectItem itemLabel="Mixto" itemValue="MIXTO" />
+        </p:selectOneMenu>
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lTopo" value="Topografia:" for="selTopo" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selTopo"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="PLana" itemValue="PLANA" />
+            <f:selectItem itemLabel="Pendiente" itemValue="PENDIE" />
+            <f:selectItem itemLabel="Moderada" itemValue="MODERA" />
+        </p:selectOneMenu>
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lValora" value="Valoracion:" for="selValora" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selValora"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Buena" itemValue="BUENA" />
+            <f:selectItem itemLabel="Regular" itemValue="REGULAR" />
+            <f:selectItem itemLabel="Lenta" itemValue="LENTA" />
+        </p:selectOneMenu>
+	   	</div>		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lTransp" value="Transporte:" for="selTransp" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selTransp"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Suficiente" itemValue="URBANO" />
+            <f:selectItem itemLabel="Insuficiente" itemValue="RURAL" />
+            <f:selectItem itemLabel="Regular" itemValue="EXPURB" />
+        </p:selectOneMenu>
+	   	</div>	
+	   	
+	   	
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lObserv" value="Observaciones:" for="txtObserv" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputTextarea id="txtObserv"  />
+	   	</div>		
+	   	
+	   	
+	   		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lServ" value="Servicios publicos:" for="selServicios" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-2" >
+	   	<p:selectOneMenu id="selServicios"  
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemLabel="Si" itemValue="SI" />
+            <f:selectItem itemLabel="No" itemValue="NO" />
+        </p:selectOneMenu>
+	   	</div>		
+		
+  	   	<div class="ui-g-12 ui-md-6 ui-lg-4" >
+			<h:outputLabel id="lObservS" value="Observaciones:" for="txtObservS" styleClass="aval-label"/>
+		</div>	
+	   	<div class="ui-g-12 ui-md-6 ui-lg-3" >
+	   	<p:inputTextarea id="txtObservS"  />
+	   	</div>		
+ 
+   				
+</ui:composition>

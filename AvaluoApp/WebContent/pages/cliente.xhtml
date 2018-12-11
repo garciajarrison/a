@@ -6,14 +6,14 @@
    xmlns:p="http://primefaces.org/ui"
    xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<p:panel id="infCLie" style="background:none;" >
+
 
 	          		<div class="ui-g">
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
 	          				<p:outputLabel id="tipoPersona" value="#{msg['cotizacion.tipo.persona']}" for="selTipoPers" styleClass="aval-label"/>
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-	          				<p:selectOneMenu id="selTipoPers" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona}" required="true" style="width:180px">
+	          				<p:selectOneMenu id="selTipoPers" value="#{visitaBB.usuarioCliente.tipoPersona}" required="true" style="width:180px">
 								<p:ajax event="change" update="infCLie" process="infCLie"/>
 								<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
 					            <f:selectItem itemLabel="Natural" itemValue="PNATUR" />
@@ -24,27 +24,27 @@
 	          				<p:outputLabel id="tipoIden" value="#{msg['cotizacion.tipo.identificacion']}" for="selTipoIdent" styleClass="aval-label"/>
 	          			</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-	          				<p:selectOneMenu id="selTipoIdent" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento}" style="width:180px"  >
+	          				<p:selectOneMenu id="selTipoIdent" value="#{visitaBB.usuarioCliente.tipoDocumento}" style="width:180px"  >
 					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
-					            <f:selectItems value="#{cotizacionAdmBB.listaTipoDocumentos}" />			
+					            <f:selectItems value="#{visitaBB.listaTipoDocumentos}" />			
 				        	</p:selectOneMenu>
 	          			</div>
 				   		
 			        	<div class="ui-g-12 ui-md-6 ui-lg-3" >
-				 			<p:outputLabel id="lIdentificacion" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
+				 			<p:outputLabel id="lIdentificacion" value="#{(visitaBB.usuarioCliente.tipoPersona eq 'PJURID')?  msg['cotizacion.rut'] : msg['cotizacion.identificacion']}" for="txtIdentificacion" styleClass="aval-label" /><font/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtIdentificacion" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion}" 
+					   		<p:inputText id="txtIdentificacion" value="#{visitaBB.usuarioCliente.identificacion}" 
 					   				styleClass="form-control col-md-7 col-xs-12">
-					   			<p:ajax event="change" listener="#{cotizacionAdmBB.onconsultaCliente(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoDocumento, cotizacionAdmBB.cotizacion.usuarioByClienteId.identificacion)}" update="infCLie" process="infCLie"  ></p:ajax>
+					   			<p:ajax event="change" listener="#{visitaBB.onconsultaCliente(visitaBB.usuarioCliente.tipoDocumento, visitaBB.usuarioCliente.identificacion)}" update="infCLie" process="infCLie"  ></p:ajax>
 					   		</p:inputText>
 				   		</div>
 				   		
 				   		<div class="ui-g-12 ui-md-6 ui-lg-3">
-				   			<p:outputLabel id="lName" value="#{(cotizacionAdmBB.cotizacion.usuarioByClienteId.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
+				   			<p:outputLabel id="lName" value="#{(visitaBB.usuarioCliente.tipoPersona eq 'PJURID')?  msg['cotizacion.razon'] : msg['cotizacion.nombre']}" for="txtName" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtName" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.nombre}" 
+					   		<p:inputText id="txtName" value="#{visitaBB.usuarioCliente.nombre}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
@@ -52,7 +52,7 @@
 				   			<p:outputLabel id="lApellido1" value="#{msg['cotizacion.apellido1']}" for="txtApell1" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell1" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido1}" 
+					   		<p:inputText id="txtApell1" value="#{visitaBB.usuarioCliente.apellido1}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 				   						   		
@@ -60,7 +60,7 @@
 				   			<p:outputLabel id="lApellido2" value="#{msg['cotizacion.apellido2']}" for="txtApell2" styleClass="aval-label"/>
 					   	</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtApell2" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.apellido2}" 
+					   		<p:inputText id="txtApell2" value="#{visitaBB.usuarioCliente.apellido2}" 
 					   				styleClass="form-control col-md-7 col-xs-12"/>  		
 				   		</div>
 
@@ -68,7 +68,7 @@
 			 	   			<p:outputLabel id="lPhone" value="#{msg['cotizacion.telefono']}" for="txtPhone" styleClass="aval-label" />
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtPhone" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.telefono}" 
+					   		<p:inputText id="txtPhone" value="#{visitaBB.usuarioCliente.telefono}" 
 					   				styleClass="form-control col-md-7 col-xs-12" />  	
 				   		</div>
 				   		
@@ -76,7 +76,7 @@
 			 	   			<p:outputLabel id="lCelular" value="#{msg['cotizacion.celular']}" for="txtCelular" styleClass="aval-label"/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtCelular" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.celular}"
+					   		<p:inputText id="txtCelular" value="#{visitaBB.usuarioCliente.celular}"
 					   				styleClass="form-control col-md-7 col-xs-12"/>  
 				   		</div>
 				   		
@@ -84,7 +84,7 @@
 			 	   			<p:outputLabel id="lAddress" value="#{msg['cotizacion.direccion']}" for="txtAddress" styleClass="aval-label"/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtAddress" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.direccion}"  
+					   		<p:inputText id="txtAddress" value="#{visitaBB.usuarioCliente.direccion}"  
 					   				styleClass="form-control col-md-7 col-xs-12"/> 
 				   		</div>
 				   		
@@ -92,19 +92,177 @@
 			 	   			<p:outputLabel id="lEmail" value="#{msg['cotizacion.correo']}" for="txtEmail" styleClass="aval-label"/>
 				   		</div>
 	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
-					   		<p:inputText id="txtEmail" value="#{cotizacionAdmBB.cotizacion.usuarioByClienteId.correo}"
+					   		<p:inputText id="txtEmail" value="#{visitaBB.usuarioCliente.correo}"
 					   			validatorMessage="Correo electronico incorrecto ..." styleClass="form-control col-md-7 col-xs-12">
 					   			<f:validateRegex 
 										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					   		</p:inputText>  
 				   		</div>
 				   		
-				   		<div class="ui-g-12" align="center">
-					   		<p:commandButton value="#{msg['cotizacion.btn.agrcliente']}" type="button">
-					   		   <p:ajax event="click" listener="#{cotizacionAdmBB.addCliente('infCLie')}" process="infCLie" update="infCLie"/>
-					   		</p:commandButton>
-				   		</div>
+
 				   	</div>
+
+					<div class="ui-g">
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:outputLabel id="lMatricula" value="#{msg['ant.registro']}:" for="txtMatricula" styleClass="aval-label"></p:outputLabel>
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:inputText id="txtMatricula" value="#{visitaBB.infPropiedad.registro}"
+					   						 title="#{msg['ant.registro']}" 
+					   						label="#{msg['ant.registro']}"></p:inputText>	 
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:outputLabel id="lEstrato" value="#{msg['ant.estrato']}:" for="selEstrato" styleClass="aval-label"></p:outputLabel>			   		
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					   		<p:selectOneMenu id="selEstrato" value="#{visitaBB.infPropiedad.estrato.id}" style="width:180px"
+					   						 title="#{msg['ant.estrato']}"  filter="true"
+					   						label="#{msg['ant.estrato']}">			   			
+					            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+					            <f:selectItems value="#{visitaBB.listaEstrato}" />
+					        </p:selectOneMenu>  				        						
+							
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-12">
+							<p:commandButton value="#{msg['ant.direccion']}"  type="button" onclick="PF('dlgDireccion').show();" icon="ui-icon-home">	          				          		
+									 
+							</p:commandButton>
+							
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:outputLabel id="lDireccion" value="#{msg['ant.direccion']}:" for="txtDireccion" styleClass="aval-label"></p:outputLabel>
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-9">
+							<p:inputText id="txtDireccion" value="#{visitaBB.infPropiedad.direccion}" style="width:90%"></p:inputText>
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					        <p:outputLabel id="lValorMedida" value="#{msg['ant.area']}:" for="txtValorMedida" styleClass="aval-label"></p:outputLabel>	
+					 	</div>		
+	          			<div class="ui-g-12 ui-md-6 ui-lg-3">
+					 		<p:inputText id="txtValorMedida" value="#{visitaBB.infPropiedad.valorMedida}"
+					   						 title="#{msg['ant.area']}"  filter="true"
+					   						label="#{msg['ant.area']}"></p:inputText>	
+					 	</div>		
+				   	</div>					
+	
+	
+			<p:dialog header="#{msg['tipo.propiedad.actualizar']}" id="dlgDireccion" widgetVar="dlgDireccion" minHeight="40" >
+			    
+			 <p:panel header="Informacion via">
+			 	<h:panelGrid columns="14"  > 
+			 		<p:outputLabel id="lTipoVia" value="#{msg['ant.tipo.via']}:" for="selTipoVia" ></p:outputLabel>	                  
+                   <h:selectOneMenu id="selTipoVia" value="#{visitaBB.direccion.tipoVia}" >
+                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+                       <f:selectItems value="#{visitaBB.listaTipoVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+                   </h:selectOneMenu>
+      				
+      			   <p:outputLabel id="lNombreVia" value="#{msg['ant.nombre.via']}:" for="txtNombreVia" ></p:outputLabel>
+                   <p:inputText id="txtNombreVia" value="#{visitaBB.direccion.nombreVia}" style="width:96%"/>
+      				
+      				<p:outputLabel id="lNumeroVia" value="#{msg['ant.numero.via']}:" for="txtNumeroVia" ></p:outputLabel>
+               	   <p:inputText id="txtNumeroVia" value="#{visitaBB.direccion.numeroVia}" style="width:46%"/>	
+                   
+     				<p:outputLabel id="lLetraVia" value="#{msg['ant.letra.via']}:" for="txtLetraVia" ></p:outputLabel>
+                   <p:inputText id="txtLetraVia" value="#{visitaBB.direccion.letraVia}" style="width:46%"/>
+         
+                   <p:outputLabel id="lPrefijoVia" value="#{msg['ant.prefijo.via']}:" for="txtPrefijoVia" ></p:outputLabel>
+                   <p:inputText id="txtPrefijoVia" value="#{visitaBB.direccion.letraVia}" style="width:46%"/>
+  
+     				<p:outputLabel id="lLetraVia2" value="#{msg['ant.letra.via']}:" for="txtLetraVia2" ></p:outputLabel>
+                   <p:inputText id="txtLetraVia2" value="#{visitaBB.direccion.letraVia}" style="width:96%"/>
+                  
+                  <p:outputLabel id="lPosicionVia" value="#{msg['ant.posicion.via']}:" for="selPosicionVia" ></p:outputLabel>
+                   <h:selectOneMenu id="selPosicionVia" value="#{visitaBB.direccion.posicionVia}" style="width:100%">
+                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+                       <f:selectItems value="#{visitaBB.listaPosicionVia}" var="via" itemLabel="#{via}" itemValue="#{via}" />
+                   </h:selectOneMenu>
+              </h:panelGrid>
+ 
+    		</p:panel>
+    		<p:panel header="Informacion interseccion" >
+             	<h:panelGrid columns="14"  > 
+             		<p:outputLabel id="lNumInter3" value="#{msg['ant.numero.via']}:" for="txtNumeroInter3" ></p:outputLabel>
+                   <p:inputText id="txtNumeroInter3" value="#{visitaBB.direccion.numeroInterseccion}" style="width:96%"/>
+           
+                   <p:outputLabel id="lLetraInter3" value="#{msg['ant.letra.via']}:" for="txtLetraInter3" ></p:outputLabel>
+                   <p:inputText id="txtLetraInter3" value="#{visitaBB.direccion.letraInterseccion}" style="width:96%"/>
+                             
+                   <p:outputLabel id="lPosInter3" value="#{msg['ant.sufijo.via']}:" for="selPosicionInter3" ></p:outputLabel>
+                   <h:selectOneMenu id="selPosicionInter3" value="#{visitaBB.direccion.posicionInterseccion}" style="width:100%">
+                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+                       <f:selectItems value="#{visitaBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+                   </h:selectOneMenu>
+              
+              		<p:outputLabel id="lLetraInter4" value="#{msg['ant.letra.via']}:" for="iLetraInter4" ></p:outputLabel>
+                   <p:inputText id="iLetraInter4" value="#{visitaBB.direccion.letraInterseccion}" style="width:96%"/>
+                               
+                   <p:outputLabel id="lPosInte4" value="#{msg['ant.posicion.via']}:" for="selPosicionInter4" ></p:outputLabel>            
+                   <h:selectOneMenu id="selPosicionInter4" value="#{visitaBB.direccion.posicionInterseccion}" style="width:100%">
+                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+                       <f:selectItems value="#{visitaBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+                   </h:selectOneMenu>
+            
+            		<p:outputLabel id="lNumInter4" value="#{msg['ant.numero.via']}:" for="txtNumInter4" ></p:outputLabel>
+                   <p:inputText id="txtNumInter4" value="#{visitaBB.direccion.numeroUbicacion}" style="width:96%"/>
+                      
+                   <p:outputLabel id="lPosInter5" value="#{msg['ant.posicion.via']}:" for="selPosicionInter5" ></p:outputLabel>         
+                   <h:selectOneMenu id="selPosicionInter5" value="#{visitaBB.direccion.posicionInterseccion}" style="width:100%">
+                   		<f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+                       <f:selectItems value="#{visitaBB.listaPosicionVia}" var="pos" itemLabel="#{pos}" itemValue="#{pos}" />
+                   </h:selectOneMenu>
+               	</h:panelGrid>
+			</p:panel>         
+			<p:panel header="Complemento">
+			 	<h:panelGrid columns="4"  >
+			 		<p:outputLabel id="lUrba" value="Urbanizacin:" for="selUrba" ></p:outputLabel>			
+			   		<p:selectOneMenu id="selUrba" value="#{visitaBB.direccion.tipoUrbanizacion}" style="width:180px"
+			   						 title="Urbanizacin"  filter="true"
+			   						label="Urbanizacin">
+			           <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{visitaBB.listaUrbanizacion}" />
+			        </p:selectOneMenu> 
+			 		<p:outputLabel id="lDUrba" value="Descripcin urbanizacin:" for="txtDUrba" ></p:outputLabel>
+			 		<p:inputTextarea id="txtDUrba" value="#{visitaBB.direccion.tipoUrbanizacion}">
+			 		</p:inputTextarea>			
+			 	</h:panelGrid>
+			</p:panel>      	
+			<p:panel header="Ubicacion">
+			 	<h:panelGrid columns="6"  >
+			        <p:outputLabel id="lPais" value="#{msg['ant.pais']}:" for="selPais" ></p:outputLabel>			
+			   		<p:selectOneMenu id="selPais" value="#{visitaBB.pais}" style="width:180px"
+			   						 title="#{msg['ant.ciudad']}"  filter="true"
+			   						label="#{msg['ant.ciudad']}">
+			   			<p:ajax listener="#{visitaBB.onPaisChange(visitaBB.pais)}" process="selDepartamento, selPais" update="selDepartamento" />
+			           <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{visitaBB.listaPais}" />
+			        </p:selectOneMenu> 
+			        <p:outputLabel id="lDepartamento" value="#{msg['ant.departamento']}:" for="selDepartamento" ></p:outputLabel>	    				
+			   		<p:selectOneMenu id="selDepartamento" value="#{visitaBB.departamento}" style="width:180px"
+			   						 title="#{msg['ant.departamento']}"  filter="true"
+			   						label="#{msg['ant.departamento']}">			   		
+			   			<p:ajax listener="#{visitaBB.onDepartamentoChange(visitaBB.departamento)}" process="selCiudad,selDepartamento" update="selCiudad" />				
+			            <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{visitaBB.listaDepartamento}" />
+			        </p:selectOneMenu>
+			        <p:outputLabel id="lCiudad" value="#{msg['ant.ciudad']}:" for="selCiudad" ></p:outputLabel>			
+			   		<p:selectOneMenu id="selCiudad" value="#{visitaBB.infPropiedad.ciudad.id}" style="width:180px"
+			   						 title="#{msg['ant.ciudad']}"  filter="true"
+			   						label="#{msg['ant.ciudad']}">
+			   			
+			           <f:selectItem itemLabel="#{msg['seleccione']}" itemValue="" />
+			            <f:selectItems value="#{visitaBB.listaCiudad}" />
+			        </p:selectOneMenu> 
+			 	
+			 	</h:panelGrid>
+			</p:panel>	 
+				
+			<div align="center">  
+				
+				<p:commandButton value="Aceptar" type="button"  >
+				<p:ajax event="click"  process="dlgDireccion" update="dlgDireccion" listener="#{visitaBB.almacenarDireccion}"/>
+				</p:commandButton>
+			</div>
+		</p:dialog>
 		   			
-   				</p:panel>
+   				
 </ui:composition>
