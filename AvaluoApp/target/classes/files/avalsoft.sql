@@ -183,25 +183,25 @@ ALTER SEQUENCE avalsoft.usuario_seq
 -- DROP TABLE avalsoft.usuario ;
 CREATE TABLE avalsoft.usuario
 (
-   id                  INTEGER NOT NULL DEFAULT nextval ('avalsoft.usuario_seq'::regclass),
-   tipo_documento      CHARACTER VARYING (10) NULL,
-   identificacion      CHARACTER VARYING NULL,
-   nombre              CHARACTER VARYING (50) NULL,
-   correo              CHARACTER VARYING (80) NULL,
-   fecha_nacimiento    DATE NULL,
-   direccion           CHARACTER VARYING (150) NULL,
-   telefono            CHARACTER VARYING (20) NULL,
-   celular             CHARACTER VARYING (30) NULL,
-   contrasena          CHARACTER VARYING (150) NULL,
-   estado              BOOLEAN NOT NULL,
-   lenguaje            CHARACTER VARYING (2) NULL,
-   profesion           CHARACTER VARYING (150) NULL,
-   rol_id              INTEGER NOT NULL,
-   empresa_id          INTEGER NOT NULL,
-   tipo_persona        CHARACTER VARYING (20) NULL,
-   apellido1           CHARACTER VARYING (50) NULL,
-   apellido2           CHARACTER VARYING (50) NULL,
-    "RAA" character varying(40) COLLATE pg_catalog."default",
+    id integer NOT NULL DEFAULT nextval('avalsoft.usuario_seq'::regclass),
+    tipo_documento character varying(10) COLLATE pg_catalog."default",
+    identificacion character varying COLLATE pg_catalog."default",
+    nombre character varying(50) COLLATE pg_catalog."default",
+    correo character varying(80) COLLATE pg_catalog."default",
+    fecha_nacimiento date,
+    direccion character varying(150) COLLATE pg_catalog."default",
+    telefono character varying(20) COLLATE pg_catalog."default",
+    celular character varying(30) COLLATE pg_catalog."default",
+    contrasena character varying(150) COLLATE pg_catalog."default",
+    estado boolean NOT NULL,
+    lenguaje character varying(2) COLLATE pg_catalog."default",
+    profesion character varying(150) COLLATE pg_catalog."default",
+    rol_id integer NOT NULL,
+    empresa_id integer NOT NULL,
+    tipo_persona character varying(20) COLLATE pg_catalog."default",
+    apellido1 character varying(50) COLLATE pg_catalog."default",
+    apellido2 character varying(50) COLLATE pg_catalog."default",
+    raa character varying COLLATE pg_catalog."default",
     categoria_id integer,
     CONSTRAINT pk_usuario PRIMARY KEY (id),
     CONSTRAINT fk_usuario_categorias_avaluo FOREIGN KEY (categoria_id)
@@ -217,10 +217,13 @@ CREATE TABLE avalsoft.usuario
         ON UPDATE CASCADE
         ON DELETE CASCADE
 )
-WITH (OIDS = FALSE);
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
 ALTER TABLE avalsoft.usuario
-    OWNER to postgres;	
+    OWNER to postgres;
 	
 -- -----------------------------------------------------
 -- Table avalsoft.estrato
