@@ -1414,11 +1414,11 @@ INSERT INTO avalsoft.usuario(
 	tipo_documento, identificacion, nombre, correo, direccion, telefono, 
 	celular, contrasena, estado, lenguaje, profesion, rol_id, empresa_id)
 VALUES ('CC', '77777777', 'Empleado 1', 'empleado1@gmail.com', 'direccion 1', 
-		'5555555', '3114445555', '123', true, 'ES', 'Ingenebrio', 2, 1),
+		'5555555', '3114445555', '$2a$10$4ve60qpmDjYygoOpT5RoO.aSa9okecUo4jcAp5V.mMYvYGa0JUPXC', true, 'ES', 'Ingenebrio', 2, 1),
 		('CC', '1026147293', 'Jarrison Garcia Particular', 'jarrison@gmail.com', 'direccion 2', 
-		'1111111', '3117775555', '123', true,  'ES', 'Ingenebrio', 2, 2),
+		'1111111', '3117775555', '$2a$10$4ve60qpmDjYygoOpT5RoO.aSa9okecUo4jcAp5V.mMYvYGa0JUPXC', true,  'ES', 'Ingenebrio', 2, 2),
 		('CC', '131313', 'avalsoft1', 'avalsoft1@gmail.com', 'direccion 1', 
-		'4444444', '3125456677', '123', true, 'ES', 'Ingenebrio', 1, 4);
+		'4444444', '3125456677', '$2a$10$4ve60qpmDjYygoOpT5RoO.aSa9okecUo4jcAp5V.mMYvYGa0JUPXC', true, 'ES', 'Ingenebrio', 1, 4);
 
 
 INSERT INTO avalsoft.licencia(
