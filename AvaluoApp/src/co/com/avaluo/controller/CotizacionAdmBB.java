@@ -1,11 +1,9 @@
 package co.com.avaluo.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -33,7 +31,6 @@ import co.com.avaluo.common.CalcularCoordenadas;
 import co.com.avaluo.common.EnumSessionAttributes;
 import co.com.avaluo.common.ListasGenericas;
 import co.com.avaluo.common.Util;
-import co.com.avaluo.controller.reporte.RCotizacionHtml;
 import co.com.avaluo.model.entity.Avaluos;
 import co.com.avaluo.model.entity.Ciudad;
 import co.com.avaluo.model.entity.Cotizacion;
@@ -46,7 +43,6 @@ import co.com.avaluo.model.entity.Empresa;
 import co.com.avaluo.model.entity.Estrato;
 import co.com.avaluo.model.entity.Pais;
 import co.com.avaluo.model.entity.Propiedad;
-import co.com.avaluo.model.entity.Reporte;
 import co.com.avaluo.model.entity.Rol;
 import co.com.avaluo.model.entity.Tablas;
 import co.com.avaluo.model.entity.TipoPropiedad;
@@ -511,11 +507,17 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			}
 		cotizacion.setDetalleCotizacions(listaDetCotizacion);
 		cotizacion.setValor(totalCotizacion);
+	
 		}
     }
 
 	public void generarReporteCotizacion() {
-		RCotizacionHtml reporteHtml = new RCotizacionHtml();
+		
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/files/FormatoVisitaAvaluo.pdf");
+        file = new DefaultStreamedContent(stream, "application/pdf", "FormatoVisitaAvaluo.pdf");
+		
+		/*TODO: Hernan No se q hace esto 
+		 * RCotizacionHtml reporteHtml = new RCotizacionHtml();
 		try {
 			HashMap<String, Boolean> permisos = new HashMap<>();
 			List<Reporte> listaPermisosReporte = reporteService.getReportes(util.getMessage("reporte.cotizacion"), usuario.getEmpresa());
@@ -529,7 +531,7 @@ public class CotizacionAdmBB extends SpringBeanAutowiringSupport implements Seri
 			file = new DefaultStreamedContent(new FileInputStream(fil), "application/pdf", "cotización.pdf");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	} 
 
 
